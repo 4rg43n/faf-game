@@ -23,6 +23,9 @@ static var instance : LobbyManager
 @export var join_button : Button
 @export var exit_button : Button
 
+@export var spinning_fish_player : AnimatedImagePlayer
+@export var spinning_fish_gif : AnimatedImageTexture
+
 var peer : SteamMultiplayerPeer
 
 #we can set player specific lobby values using setLobbyMemberData instead of setLobbyData
@@ -56,6 +59,9 @@ func _ready() -> void:
 		printerr("User does not own this game")
 		_close_game()
 		return
+	
+	spinning_fish_player.animated_image = spinning_fish_gif
+	spinning_fish_player.play()
 	
 	Steam.lobby_joined.connect(LobbyManager.instance._on_lobby_joined)
 	Steam.join_requested.connect(_on_join_though_friend)
