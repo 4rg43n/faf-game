@@ -36,22 +36,22 @@ func _init() -> void:
 func _ready() -> void:
 	var initialize_response: Dictionary = Steam.get_steam_init_result()
 	print("Did Steam initialize?: %s " % initialize_response)
-	
+
 	Steam.initRelayNetworkAccess()
 	peer = SteamMultiplayerPeer.new()
-	
+
 	var status : Steam.SteamAPIInitResult = initialize_response['status']
 	if status != Steam.STEAM_API_INIT_RESULT_OK:
 		printerr("Failed to initialize Steam, shutting down: %s" % initialize_response)
 		_close_game()
 		return
-	
+
 	LobbyManager.app_id = Steam.getAppID()
 	LobbyManager.is_online = Steam.loggedOn()
 	LobbyManager.current_user_id = Steam.getSteamID()
 	LobbyManager.current_user_username = Steam.getPersonaName()
 	LobbyManager.owns_game = Steam.isSubscribed()
-	
+
 	#ignore while in development
 	if Engine.is_editor_hint():
 		owns_game = true
@@ -59,11 +59,11 @@ func _ready() -> void:
 		printerr("User does not own this game")
 		_close_game()
 		return
-	
+
 	spinning_fish_player.animated_image = spinning_fish_gif
 	if not Engine.is_editor_hint():
 		spinning_fish_player.play()
-	
+
 	Steam.lobby_joined.connect(LobbyManager.instance._on_lobby_joined)
 	Steam.join_requested.connect(_on_join_though_friend)
 	Steam.lobby_chat_update.connect(_on_lobby_chat_update)
@@ -71,7 +71,7 @@ func _ready() -> void:
 	host_button.pressed.connect(_open_lobby_host)
 	join_button.pressed.connect(_open_lobby_search)
 	exit_button.pressed.connect(_close_game)
-	
+
 	_check_command_line_args()
 
 func _open_lobby_host() -> void:
@@ -89,19 +89,19 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 		return
 	print("Successfully created lobby %s " % in_lobby_id)
 	LobbyManager.instance.lobby_id = in_lobby_id
-	
+
 	Steam.setLobbyJoinable(in_lobby_id, true)
-	
+
 	# Create the host peer (virtual port 0) and assign to Godot's MultiplayerAPI
 	var error := peer.create_host(0)
 	if error == OK:
 		multiplayer.multiplayer_peer = peer
 		print("Hosting Steam P2P lobby: ", lobby_id)
-	
+
 	#for display / searching for lobbies
 	if not Steam.setLobbyData(in_lobby_id, "lobby_name", LobbyHostScreen.instance.lobby_name.text):
 		printerr("Failed to set lobby name")
-	
+
 	#specific lobby data / tags the user wants to set.
 	var data_sets : PackedStringArray = LobbyHostScreen.instance.lobby_data_line_edit.text.split(",", false)
 	for key_value_pair : String in data_sets:
@@ -124,7 +124,7 @@ func _check_command_line_args() -> void:
 	print("Command line args %s " % command_line_args)
 	if command_line_args[0] != "+Connect_lobbyy":
 		return
-	
+
 	var in_lobby_id : int = int(command_line_args[1])
 	if in_lobby_id <= 0:
 		printerr("Bad command line arg lobby_id must be greater than zero")
@@ -137,11 +137,11 @@ func _join_lobby_through_ui(in_lobby_id : int) -> void:
 	LobbyManager.instance.invite_lobby_id = in_lobby_id
 
 func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
-	
+
 	#hide UI for host/join
 	LobbySearchScreen.instance.hide()
 	LobbyHostScreen.instance.hide()
-	
+
 	var host_steam_id: int = Steam.getLobbyOwner(in_lobby_id)
 	# Only create a client peer if we are not the host
 	if host_steam_id != Steam.getSteamID():
@@ -149,13 +149,13 @@ func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, respon
 		if error == OK:
 			multiplayer.multiplayer_peer = peer
 			print("Joined Steam P2P lobby as client.")
-	
+
 	if response == Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
 		print("Lobby %s joined successfully" % lobby_id)
 		LobbyManager.instance.lobby_id = in_lobby_id
 		##TODO Swap to the lobby scene here
 		return
-	
+
 	match response:
 		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_DOESNT_EXIST:
 			printerr("Failed joining lobby %s, this lobby no longer exists.", in_lobby_id)
