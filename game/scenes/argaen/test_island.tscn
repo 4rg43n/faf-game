@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dqobyhrfswxa3"]
 
+[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scenes/argaen/main.gd" id="1_3qp2a"]
 [ext_resource type="PackedScene" uid="uid://l1u1nyjy8u0h" path="res://scenes/argaen/components/tps_cam.tscn" id="1_4cbl3"]
 [ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/argaen/components/player_capsule.tscn" id="1_1778k"]
 
@@ -25,6 +26,7 @@ size = Vector3(200, 0.1, 200)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3qp2a"]
 
 [node name="Main" type="Node3D" unique_id=1203609923]
+script = ExtResource("1_3qp2a")
 metadata/_edit_lock_ = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1191783434]
@@ -50,9 +52,8 @@ shape = SubResource("BoxShape3D_4cbl3")
 metadata/_edit_lock_ = true
 
 [node name="ThirdPersonCam3D" parent="." unique_id=1524126172 node_paths=PackedStringArray("player") instance=ExtResource("1_4cbl3")]
-transform = Transform3D(1, 0, 0, 0, 0.95881975, 0.28401536, 0, -0.28401536, 0.95881975, 0, 2.5, 3.6010027)
+transform = Transform3D(1, 0, 0, 0, 0.95881975, 0.28401536, 0, -0.28401536, 0.95881975, 0, 4.5017505, 8.516806)
 player = NodePath("../CharacterBody3D")
-follow_offset = Vector3(0, 2.5, 5)
 
 [node name="Boxes" type="Node3D" parent="." unique_id=1009813409]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3316536, 0.5, 33.75618)
