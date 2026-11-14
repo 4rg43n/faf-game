@@ -25,19 +25,19 @@ func _init() -> void:
 func _ready() -> void:
 	var initialize_response: Dictionary = Steam.get_steam_init_result()
 	print("Did Steam initialize?: %s " % initialize_response)
-	
+
 	var status : Steam.SteamAPIInitResult = initialize_response['status']
 	if status != Steam.STEAM_API_INIT_RESULT_OK:
 		printerr("Failed to initialize Steam, shutting down: %s" % initialize_response)
 		_close_game()
 		return
-	
+
 	SteamLobbyManager.app_id = Steam.getAppID()
 	SteamLobbyManager.is_online = Steam.loggedOn()
 	SteamLobbyManager.current_user_id = Steam.getSteamID()
 	SteamLobbyManager.current_user_username = Steam.getPersonaName()
 	SteamLobbyManager.owns_game = Steam.isSubscribed()
-	
+
 	#ignore while in development
 	if Engine.is_editor_hint():
 		owns_game = true
@@ -45,7 +45,7 @@ func _ready() -> void:
 		printerr("User does not own this game")
 		_close_game()
 		return
-	
+
 	Steam.lobby_joined.connect(SteamLobbyManager.instance._on_lobby_joined)
 
 func _close_game() -> void:
@@ -57,11 +57,11 @@ func _on_lobby_created(connection_status: Steam.Result, lobby_id: int) -> void:
 		return
 	print("Successfully created lobby %s " % lobby_id)
 	SteamLobbyManager.instance.lobby_id = lobby_id
-	
+
 	#for display / searching for lobbies
 	if not Steam.setLobbyData(lobby_id, "lobby_name", LobbyHostGenerator.instance.lobby_name.text):
 		printerr("Failed to set lobby name")
-	
+
 	#specific lobby data / tags the user wants to set.
 	var data_sets : PackedStringArray = LobbyHostGenerator.instance.lobby_data_line_edit.text.split(",", false)
 	for key_value_pair : String in data_sets:
