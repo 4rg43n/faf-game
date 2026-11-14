@@ -23,6 +23,8 @@ static var instance : LobbyManager
 @export var join_button : Button
 @export var exit_button : Button
 
+var peer : SteamMultiplayerPeer
+
 #we can set player specific lobby values using setLobbyMemberData instead of setLobbyData
 
 func _init() -> void:
@@ -31,6 +33,9 @@ func _init() -> void:
 func _ready() -> void:
 	var initialize_response: Dictionary = Steam.get_steam_init_result()
 	print("Did Steam initialize?: %s " % initialize_response)
+	
+	Steam.initRelayNetworkAccess()
+	peer = SteamMultiplayerPeer.new()
 	
 	var status : Steam.SteamAPIInitResult = initialize_response['status']
 	if status != Steam.STEAM_API_INIT_RESULT_OK:
@@ -78,6 +83,14 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 	print("Successfully created lobby %s " % in_lobby_id)
 	LobbyManager.instance.lobby_id = in_lobby_id
 	
+	Steam.setLobbyJoinable(in_lobby_id, true)
+	
+	# Create the host peer (virtual port 0) and assign to Godot's MultiplayerAPI
+	var error := peer.create_host(0)
+	if error == OK:
+		multiplayer.multiplayer_peer = peer
+		print("Hosting Steam P2P lobby: ", lobby_id)
+	
 	#for display / searching for lobbies
 	if not Steam.setLobbyData(in_lobby_id, "lobby_name", LobbyHostScreen.instance.lobby_name.text):
 		printerr("Failed to set lobby name")
@@ -121,6 +134,14 @@ func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, respon
 	#hide UI for host/join
 	LobbySearchScreen.instance.hide()
 	LobbyHostScreen.instance.hide()
+	
+	var host_steam_id: int = Steam.getLobbyOwner(in_lobby_id)
+	# Only create a client peer if we are not the host
+	if host_steam_id != Steam.getSteamID():
+		var error := peer.create_client(host_steam_id, 0)
+		if error == OK:
+			multiplayer.multiplayer_peer = peer
+			print("Joined Steam P2P lobby as client.")
 	
 	if response == Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
 		print("Lobby %s joined successfully" % lobby_id)
@@ -174,16 +195,19 @@ func _on_lobby_chat_update(in_lobby_id: int, user_changed_id: int, _making_chang
 		print("%s joined the lobby\n" % changed_user)
 	else:
 		print("%s left the lobby\n" % changed_user)
-	
-	##TODO update player list here if we want an in game UI for it
+	update_player_list()
 
 ## when a loby's metadata updates
 func _on_lobby_data_update(_success: int, in_lobby_id: int, _member_id: int) -> void:
 	if LobbyManager.instance.lobby_id != in_lobby_id:
 		return
-	##TODO update player list here if we want an in game UI for it
+	update_player_list()
+
+##TODO update player list here if we want an in game UI for it
+func update_player_list() -> void:
+	pass
 
 func _process(_delta: float) -> void:
 	Steam.run_callbacks()
 
-##TODO add chatroom, kick, ban, and leave capabilities
+##TODO add chat, kick, leave, and ban capabilities

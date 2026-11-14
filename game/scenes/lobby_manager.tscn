@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cwom6nwiahcy0" path="res://scripts/dynamic_resize_margin_to_viewport.gd" id="2_vh4ir"]
 
 [sub_resource type="AnimatedImageTexture" id="AnimatedImageTexture_vh4ir"]
-frame = 13
+frame = 29
 storage/size = Vector2i(360, 247)
 storage/format = 1
 
