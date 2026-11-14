@@ -67,6 +67,7 @@ layout_mode = 2
 
 [node name="SillySpinningFish" type="AnimatedImagePlayer" parent="MarginContainer/AllowAnchorsBcGodotSucks/VBox" unique_id=1436745150]
 animated_image = SubResource("AnimatedImageTexture_idy7s")
+autoplay = false
 playing = false
 layout_mode = 2
 size_flags_horizontal = 4
