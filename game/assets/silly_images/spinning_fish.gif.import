@@ -1,0 +1,16 @@
+[remap]
+
+importer="texture_gif"
+importer_version=3
+type="GIFTexture"
+uid="uid://4ijp1jat65qb"
+path="res://.godot/imported/spinning_fish.gif-d7fa2a45eca4b1998f898cc9ebb1b658.res"
+
+[deps]
+
+source_file="res://assets/silly_images/spinning_fish.gif"
+dest_files=["res://.godot/imported/spinning_fish.gif-d7fa2a45eca4b1998f898cc9ebb1b658.res"]
+
+[params]
+
+storage/compress=true
