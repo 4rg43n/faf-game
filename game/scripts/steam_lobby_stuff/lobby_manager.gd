@@ -73,7 +73,8 @@ func _ready() -> void:
 	Steam.lobby_chat_update.connect(_on_lobby_chat_update)
 	Steam.lobby_data_update.connect(_on_lobby_data_update)
 
-	multiplayer.connected_to_server.connect(_on_player_joined)
+	multiplayer.peer_connected.connect(_on_player_joined)
+	multiplayer.peer_disconnected.connect(_on_player_leave)
 
 	host_button.pressed.connect(_open_lobby_host)
 	join_button.pressed.connect(_open_lobby_search)
@@ -96,6 +97,19 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 	LobbyManager.instance.lobby_id = in_lobby_id
 
 	Steam.setLobbyJoinable(in_lobby_id, true)
+
+	#for display / searching for lobbies
+	if not Steam.setLobbyData(in_lobby_id, "lobby_name", LobbyHostScreen.instance.lobby_name.text):
+		printerr("Failed to set lobby name")
+
+	#specific lobby data / tags the user wants to set.
+	var data_sets : PackedStringArray = LobbyHostScreen.instance.lobby_data_line_edit.text.split(",", false)
+	for key_value_pair : String in data_sets:
+		var pair : PackedStringArray = key_value_pair.split(":", false, 1)
+		if pair.size() != 2:
+			continue
+		if not Steam.setLobbyData(in_lobby_id, pair[0], pair[1]):
+			printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, pair[0], pair[1]])
 
 	# Engine flags go before "--", custom game flags go after "--"
 	var args: PackedStringArray = [
@@ -173,12 +187,13 @@ func leave_lobby() -> void:
 	LobbyManager.instance.lobby_id = 0
 	LobbyManager.instance.invite_lobby_id = 0
 
-	#TODO update this so if we the host leave the lobby the server closes, or when we exit the game
+	#we are the designated host client we need to end the server running in the background
+	if server_pid != -1:
+		OS.kill(server_pid)
+
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
-		OS.kill(server_pid)
-		server_pid = -1
 		_close_game()
 #endregion
 
@@ -246,23 +261,18 @@ func spinup_server(in_lobby_id : int) -> void:
 	if error == OK:
 		multiplayer.multiplayer_peer = peer
 		print("Hosting Steam P2P lobby: ", lobby_id)
+	set_multiplayer_authority(peer.get_unique_id())
 
-	#for display / searching for lobbies
-	if not Steam.setLobbyData(in_lobby_id, "lobby_name", LobbyHostScreen.instance.lobby_name.text):
-		printerr("Failed to set lobby name")
-
-	#specific lobby data / tags the user wants to set.
-	var data_sets : PackedStringArray = LobbyHostScreen.instance.lobby_data_line_edit.text.split(",", false)
-	for key_value_pair : String in data_sets:
-		var pair : PackedStringArray = key_value_pair.split(":", false, 1)
-		if pair.size() != 2:
-			continue
-		if not Steam.setLobbyData(in_lobby_id, pair[0], pair[1]):
-			printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, pair[0], pair[1]])
-
+#TODO spawn player character (on server) - this does get pinged on clients as well
 func _on_player_joined(client_peer_id : int) -> void:
-	pass
+	if not is_multiplayer_authority():
+		return
 
+#TODO despawn player character (on server)
+#TODO if no players left connected or the host leaves kill the server
 func _on_player_leave(client_peer_id : int) -> void:
-	pass
+	var has_no_players_left : bool = false
+	if has_no_players_left:
+		print("kys the server kills itself :3c NO MORE CLIENTS CONNECTED")
+		OS.kill(server_pid)
 #endregion
