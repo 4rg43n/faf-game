@@ -61,7 +61,8 @@ func _ready() -> void:
 		return
 	
 	spinning_fish_player.animated_image = spinning_fish_gif
-	spinning_fish_player.play()
+	if not Engine.is_editor_hint():
+		spinning_fish_player.play()
 	
 	Steam.lobby_joined.connect(LobbyManager.instance._on_lobby_joined)
 	Steam.join_requested.connect(_on_join_though_friend)
