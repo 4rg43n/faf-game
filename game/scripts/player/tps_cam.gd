@@ -17,16 +17,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	position=player.get_global_transform_interpolated()*follow_offset
 	rotation.y=player.rotation.y
-	
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		# event.relative = how far the mouse moved this event, in pixels
-		
+
 		# yaw affects the player
 		var deltax:float= -event.relative.x * cam_sensitivity
 		var yaw:float=rotation_degrees.y + deltax
 		player.rotation_degrees.y = yaw
-		
+
 		# camera pitch
 		var deltay:float= event.relative.y * cam_sensitivity
 		var pitch:float=clamp(rotation_degrees.x + invert_look*deltay, -80,80)
