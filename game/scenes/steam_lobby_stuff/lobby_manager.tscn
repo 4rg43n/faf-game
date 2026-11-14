@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dijfr0d4tmgks" path="res://scenes/steam_lobby_stuff/lobby_search_screen.tscn" id="3_ttq8y"]
 
 [sub_resource type="AnimatedImageTexture" id="AnimatedImageTexture_idy7s"]
-frame = 9
 storage/size = Vector2i(360, 247)
 storage/format = 1
 
@@ -68,6 +67,7 @@ layout_mode = 2
 
 [node name="SillySpinningFish" type="AnimatedImagePlayer" parent="MarginContainer/AllowAnchorsBcGodotSucks/VBox" unique_id=1436745150]
 animated_image = SubResource("AnimatedImageTexture_idy7s")
+playing = false
 layout_mode = 2
 size_flags_horizontal = 4
 
