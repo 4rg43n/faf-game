@@ -46,14 +46,30 @@ func _ready() -> void:
 		_close_game()
 		return
 	
-	Steam.lobby_created.connect(_on_lobby_created)
-	Steam.lobby_joined.connect(_on_lobby_joined)
+	Steam.lobby_joined.connect(SteamLobbyManager.instance._on_lobby_joined)
 
 func _close_game() -> void:
 	get_tree().quit()
 
-func _on_lobby_created(connect: int, lobby_id: int) -> void:
-	pass
+func _on_lobby_created(connection_status: Steam.Result, lobby_id: int) -> void:
+	if connection_status != Steam.Result.RESULT_OK:
+		printerr("Failed to create a lobby: %s" % connection_status)
+		return
+	print("Successfully created lobby %s " % lobby_id)
+	SteamLobbyManager.instance.lobby_id = lobby_id
+	
+	#for display / searching for lobbies
+	if not Steam.setLobbyData(lobby_id, "lobby_name", LobbyHostGenerator.instance.lobby_name.text):
+		printerr("Failed to set lobby name")
+	
+	#specific lobby data / tags the user wants to set.
+	var data_sets : PackedStringArray = LobbyHostGenerator.instance.lobby_data_line_edit.text.split(",", false)
+	for key_value_pair : String in data_sets:
+		var pair : PackedStringArray = key_value_pair.split(":", false, 1)
+		if pair.size() != 2:
+			continue
+		if not Steam.setLobbyData(lobby_id, pair[0], pair[1]):
+			printerr("Failed to set lobby %s data [%s : %s]" % [lobby_id, pair[0], pair[1]])
 
 func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int) -> void:
 	pass

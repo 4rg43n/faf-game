@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://cwk7awyll3irq"]
+
+[ext_resource type="Script" uid="uid://c0wx1ih3kr801" path="res://scripts/lobby_host_generation.gd" id="1_75dj5"]
+
+[node name="LobbyHostGeneration" type="PopupPanel" unique_id=1530206536]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(464, 337)
+visible = true
+script = ExtResource("1_75dj5")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1060925802]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.95, 0.95)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+offset_transform_enabled = true
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer" unique_id=1210977475]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Host Lobby" type="Label" parent="MarginContainer/VBox" unique_id=1836308688]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Host Lobby"
+horizontal_alignment = 1
+
+[node name="LobbyOptions" type="VBoxContainer" parent="MarginContainer/VBox" unique_id=708601620]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="LobbyMaxPlayers" type="HBoxContainer" parent="MarginContainer/VBox/LobbyOptions" unique_id=109950944]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers" unique_id=103566502]
+layout_mode = 2
+text = "Max Players"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers" unique_id=1571879209]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MaxPlayers" type="SpinBox" parent="MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers" unique_id=1319090940]
+layout_mode = 2
+min_value = 1.0
+max_value = 4.0
+value = 4.0
+
+[node name="LobbyVisibility" type="HBoxContainer" parent="MarginContainer/VBox/LobbyOptions" unique_id=208681840]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBox/LobbyOptions/LobbyVisibility" unique_id=232719100]
+layout_mode = 2
+text = "Lobby Visibility"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBox/LobbyOptions/LobbyVisibility" unique_id=75993434]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VisOptions" type="OptionButton" parent="MarginContainer/VBox/LobbyOptions/LobbyVisibility" unique_id=1028226565]
+editor_description = "Based on the enums provided by steam: https://godotsteam.com/classes/matchmaking/#lobbytype"
+layout_mode = 2
+selected = 2
+item_count = 4
+popup/item_0/text = "Private"
+popup/item_0/id = 0
+popup/item_1/text = "Friends Only"
+popup/item_1/id = 1
+popup/item_2/text = "Public"
+popup/item_2/id = 2
+popup/item_3/text = "Invisible"
+popup/item_3/id = 3
+
+[node name="LobbyData" type="HBoxContainer" parent="MarginContainer/VBox/LobbyOptions" unique_id=1978706925]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBox/LobbyOptions/LobbyData" unique_id=832862079]
+layout_mode = 2
+text = "Lobby Tags"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBox/LobbyOptions/LobbyData" unique_id=518942199]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Data" type="LineEdit" parent="MarginContainer/VBox/LobbyOptions/LobbyData" unique_id=2139179129]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+placeholder_text = "Lobby data - key:pair, key2:pair2, etc..."
+
+[node name="LobbyName" type="HBoxContainer" parent="MarginContainer/VBox/LobbyOptions" unique_id=747843998]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBox/LobbyOptions/LobbyName" unique_id=173228711]
+layout_mode = 2
+text = "Lobby Name"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBox/LobbyOptions/LobbyName" unique_id=469335856]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="LineEdit" parent="MarginContainer/VBox/LobbyOptions/LobbyName" unique_id=1752031684]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+text = "Gawn ta Thortons fur fising lur"
+placeholder_text = "lobby name here"
+
+[node name="Controls" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=1118092315]
+layout_mode = 2
+
+[node name="Create" type="Button" parent="MarginContainer/VBox/Controls" unique_id=950059458]
+layout_mode = 2
+text = "Create"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBox/Controls" unique_id=1883564648]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="MarginContainer/VBox/Controls" unique_id=1677148574]
+layout_mode = 2
+text = "Close"
