@@ -42,10 +42,10 @@ func add_lobby_filters() -> void:
 	Steam.addRequestLobbyListDistanceFilter(LobbySearchFilters.instance.search_distance_options.selected as Steam.LobbyDistanceFilter)
 	Steam.addRequestLobbyListFilterSlotsAvailable(int(LobbySearchFilters.instance.open_player_slots_spin_box.value))
 	Steam.addRequestLobbyListResultCountFilter(int(LobbySearchFilters.instance.max_query_size_spin_box.value))
-	
+
 	if not LobbySearchFilters.instance.lobby_name_line_edit.text.is_empty():
 		Steam.addRequestLobbyListStringFilter("lobby_name", LobbySearchFilters.instance.lobby_name_line_edit.text, Steam.LobbyComparison.LOBBY_COMPARISON_EQUAL)
-	
+
 	#specific lobby data / tags the user wants to match with
 	var data_sets : PackedStringArray = LobbySearchFilters.instance.lobby_data_line_edit.text.split(",", false)
 	for key_value_pair : String in data_sets:
@@ -62,7 +62,7 @@ func _on_lobby_match_list(lobbies: Array) -> void:
 	for child : LobbySearchEntry in lobby_container:
 		lobby_container.remove_child(child)
 		child.queue_free()
-	
+
 	if lobbies.is_empty():
 		return
 

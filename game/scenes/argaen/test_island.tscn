@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://dqobyhrfswxa3"]
 
-[ext_resource type="PackedScene" uid="uid://l1u1nyjy8u0h" path="res://scenes/argaen/components/tps_cam.tscn" id="1_4cbl3"]
-[ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/argaen/components/player_capsule.tscn" id="1_1778k"]
+[ext_resource type="PackedScene" uid="uid://bjbwywy424ihg" path="res://scenes/player_scene.tscn" id="1_1778k"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4cbl3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 
@@ -26,6 +27,12 @@ size = Vector3(200, 0.1, 200)
 
 [node name="Main" type="Node3D" unique_id=1203609923]
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=833170490]
+_spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1771328459]
+replication_config = SubResource("SceneReplicationConfig_4cbl3")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1191783434]
 environment = SubResource("env")
 
@@ -43,11 +50,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_hjw58")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 shape = SubResource("BoxShape3D_4cbl3")
 
-[node name="CharacterBody3D" parent="." unique_id=422766350 instance=ExtResource("1_1778k")]
-
-[node name="ThirdPersonCam3D" parent="." unique_id=1524126172 node_paths=PackedStringArray("player") instance=ExtResource("1_4cbl3")]
-transform = Transform3D(1, 0, 0, 0, 0.9588193, 0.28401524, 0, -0.28401524, 0.9588193, 0, 2.5, 1)
-player = NodePath("../CharacterBody3D")
+[node name="TheWholePackage" parent="." unique_id=1542336818 instance=ExtResource("1_1778k")]
 
 [node name="Box" type="Node3D" parent="." unique_id=781793232]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.49613, 0.5, 0)

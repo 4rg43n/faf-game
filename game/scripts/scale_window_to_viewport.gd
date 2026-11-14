@@ -6,6 +6,6 @@ func _ready() -> void:
 
 func _fit_to_viewport() -> void:
 	var root_viewport : Viewport = get_tree().root
-	
+
 	position = root_viewport.position
 	size = root_viewport.size
