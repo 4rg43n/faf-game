@@ -14,6 +14,14 @@ config/name="faf-game"
 run/main_scene="uid://dqobyhrfswxa3"
 config/features=PackedStringArray("4.8", "Forward Plus")
 
+[debug]
+
+file_logging/enable_file_logging=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg")
+
 [input]
 
 move_left={
@@ -125,3 +133,9 @@ jump={
 [physics]
 
 common/physics_interpolation=true
+
+[steam]
+
+initialization/app_data/app_id=480
+initialization/processes/initialize_on_startup=true
+initialization/processes/embed_callbacks=true
