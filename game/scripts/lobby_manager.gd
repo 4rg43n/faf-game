@@ -1,5 +1,5 @@
 ## we are using GodotSteam plugin docs located here : https://godotsteam.com
-class_name SteamLobbyManager extends Node2D
+class_name LobbyManager extends Node2D
 
 ## 480 is the default for local testing
 ## to publish we need a developer account on steamworks ($100 per registered application)
@@ -17,10 +17,16 @@ static var lobby_id : int = 0
 # steam invites / join via friend on steam.
 static var invite_lobby_id : int = 0
 
-static var instance : SteamLobbyManager
+static var instance : LobbyManager
+
+@export var host_button : Button
+@export var join_button : Button
+@export var exit_button : Button
+
+#we can set player specific lobby values using setLobbyMemberData instead of setLobbyData
 
 func _init() -> void:
-	SteamLobbyManager.instance = self
+	LobbyManager.instance = self
 
 func _ready() -> void:
 	var initialize_response: Dictionary = Steam.get_steam_init_result()
@@ -32,11 +38,11 @@ func _ready() -> void:
 		_close_game()
 		return
 	
-	SteamLobbyManager.app_id = Steam.getAppID()
-	SteamLobbyManager.is_online = Steam.loggedOn()
-	SteamLobbyManager.current_user_id = Steam.getSteamID()
-	SteamLobbyManager.current_user_username = Steam.getPersonaName()
-	SteamLobbyManager.owns_game = Steam.isSubscribed()
+	LobbyManager.app_id = Steam.getAppID()
+	LobbyManager.is_online = Steam.loggedOn()
+	LobbyManager.current_user_id = Steam.getSteamID()
+	LobbyManager.current_user_username = Steam.getPersonaName()
+	LobbyManager.owns_game = Steam.isSubscribed()
 	
 	#ignore while in development
 	if Engine.is_editor_hint():
@@ -46,33 +52,138 @@ func _ready() -> void:
 		_close_game()
 		return
 	
-	Steam.lobby_joined.connect(SteamLobbyManager.instance._on_lobby_joined)
+	Steam.lobby_joined.connect(LobbyManager.instance._on_lobby_joined)
+	Steam.join_requested.connect(_on_join_though_friend)
+	Steam.lobby_chat_update.connect(_on_lobby_chat_update)
+	Steam.lobby_data_update.connect(_on_lobby_data_update)
+	host_button.pressed.connect(_open_lobby_host)
+	join_button.pressed.connect(_open_lobby_search)
+	exit_button.pressed.connect(_close_game)
+	
+	_check_command_line_args()
+
+func _open_lobby_host() -> void:
+	LobbyHostScreen.instance.popup()
+
+func _open_lobby_search() -> void:
+	LobbySearchScreen.instance.popup()
 
 func _close_game() -> void:
 	get_tree().quit()
 
-func _on_lobby_created(connection_status: Steam.Result, lobby_id: int) -> void:
+func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> void:
 	if connection_status != Steam.Result.RESULT_OK:
 		printerr("Failed to create a lobby: %s" % connection_status)
 		return
-	print("Successfully created lobby %s " % lobby_id)
-	SteamLobbyManager.instance.lobby_id = lobby_id
+	print("Successfully created lobby %s " % in_lobby_id)
+	LobbyManager.instance.lobby_id = in_lobby_id
 	
 	#for display / searching for lobbies
-	if not Steam.setLobbyData(lobby_id, "lobby_name", LobbyHostGenerator.instance.lobby_name.text):
+	if not Steam.setLobbyData(in_lobby_id, "lobby_name", LobbyHostScreen.instance.lobby_name.text):
 		printerr("Failed to set lobby name")
 	
 	#specific lobby data / tags the user wants to set.
-	var data_sets : PackedStringArray = LobbyHostGenerator.instance.lobby_data_line_edit.text.split(",", false)
+	var data_sets : PackedStringArray = LobbyHostScreen.instance.lobby_data_line_edit.text.split(",", false)
 	for key_value_pair : String in data_sets:
 		var pair : PackedStringArray = key_value_pair.split(":", false, 1)
 		if pair.size() != 2:
 			continue
-		if not Steam.setLobbyData(lobby_id, pair[0], pair[1]):
-			printerr("Failed to set lobby %s data [%s : %s]" % [lobby_id, pair[0], pair[1]])
+		if not Steam.setLobbyData(in_lobby_id, pair[0], pair[1]):
+			printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, pair[0], pair[1]])
 
-func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int) -> void:
-	pass
+func _on_join_though_friend(in_lobby_id : int, friend_id : int) -> void:
+	var friend_name : String = Steam.getFriendPersonaName(friend_id)
+	print("Joining lobby with... %s" % friend_name)
+	Steam.joinLobby(in_lobby_id)
+
+## if you join a friends game without having the game open yet it will pass the lobby_id via command args
+func _check_command_line_args() -> void:
+	var command_line_args : Array = OS.get_cmdline_args()
+	if command_line_args.is_empty():
+		return
+	print("Command line args %s " % command_line_args)
+	if command_line_args[0] != "+Connect_lobbyy":
+		return
+	
+	var in_lobby_id : int = int(command_line_args[1])
+	if in_lobby_id <= 0:
+		printerr("Bad command line arg lobby_id must be greater than zero")
+		return
+	_join_lobby_through_ui(in_lobby_id)
+
+func _join_lobby_through_ui(in_lobby_id : int) -> void:
+	print("Attempting to join lobby %s from the lobby list" % in_lobby_id)
+	Steam.joinLobby(in_lobby_id)
+	LobbyManager.instance.invite_lobby_id = in_lobby_id
+
+func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
+	
+	#hide UI for host/join
+	LobbySearchScreen.instance.hide()
+	LobbyHostScreen.instance.hide()
+	
+	if response == Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
+		print("Lobby %s joined successfully" % lobby_id)
+		LobbyManager.instance.lobby_id = in_lobby_id
+		##TODO Swap to the lobby scene here
+		return
+	
+	match response:
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_DOESNT_EXIST:
+			printerr("Failed joining lobby %s, this lobby no longer exists.", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_NOT_ALLOWED:
+			printerr("Failed joining lobby %s, you don't have permission to join this Lobbies.", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_FULL:
+			printerr("Failed joining lobby %s, the lobby is now full.", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_ERROR:
+			printerr("Failed joining lobby %s, something unexpected happened!", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_BANNED:
+			printerr("Failed joining lobby %s, you are banned from this lobby.", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_LIMITED:
+			printerr("Failed joining lobby %s, you cannot join due to having a limited account.", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_CLAN_DISABLED:
+			printerr("Failed joining lobby %s, this lobby is locked or disabled.", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_COMMUNITY_BAN:
+			printerr("Failed joining lobby %s, this lobby is community locked.", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_MEMBER_BLOCKED_YOU:
+			printerr("Failed joining lobby %s, a user in the lobby has blocked you from joining.", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_YOU_BLOCKED_MEMBER:
+			printerr("Failed joining lobby %s, a user you have blocked is in the lobby.", in_lobby_id)
+		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_RATE_LIMIT_EXCEEDED:
+			printerr("Failed joining lobby %s, you have exceeded the rate limit.", in_lobby_id)
+		_:
+			printerr("Failed joining lobby %s", in_lobby_id)
+
+func toggle_lobby_joinable(can_new_players_join : bool) -> void:
+	Steam.setLobbyJoinable(LobbyManager.instance.lobby_id, can_new_players_join)
+
+func open_steam_invite() -> void:
+	Steam.activateGameOverlayInviteDialog(LobbyManager.instance.lobby_id)
+
+func leave_lobby() -> void:
+	Steam.leaveLobby(LobbyManager.instance.lobby_id)
+	LobbyManager.instance.lobby_id = 0
+	LobbyManager.instance.invite_lobby_id = 0
+
+## when a player joins / leaves and when they send a message in chat?
+func _on_lobby_chat_update(in_lobby_id: int, user_changed_id: int, _making_change_id: int, chat_state: Steam.ChatMemberStateChange) -> void:
+	if LobbyManager.instance.lobby_id != in_lobby_id:
+		return
+	var changed_user: String = Steam.getFriendPersonaName(user_changed_id)
+	if chat_state == Steam.ChatMemberStateChange.CHAT_MEMBER_STATE_CHANGE_ENTERED:
+		print("%s joined the lobby\n" % changed_user)
+	else:
+		print("%s left the lobby\n" % changed_user)
+	
+	##TODO update player list here if we want an in game UI for it
+
+## when a loby's metadata updates
+func _on_lobby_data_update(_success: int, in_lobby_id: int, _member_id: int) -> void:
+	if LobbyManager.instance.lobby_id != in_lobby_id:
+		return
+	##TODO update player list here if we want an in game UI for it
 
 func _process(_delta: float) -> void:
 	Steam.run_callbacks()
+
+##TODO add chatroom, kick, ban, and leave capabilities

@@ -1,4 +1,4 @@
-extends MarginContainer
+class_name DynamicResizeToMatchViewport extends MarginContainer
 
 
 func _ready() -> void:

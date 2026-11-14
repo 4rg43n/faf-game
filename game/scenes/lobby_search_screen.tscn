@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://dijfr0d4tmgks"]
+
+[ext_resource type="Script" uid="uid://cfq3vur2q2rdw" path="res://scripts/lobby_search_screen.gd" id="1_06il2"]
+[ext_resource type="PackedScene" uid="uid://bgum1lba7esba" path="res://scenes/lobby_search_filters.tscn" id="1_kertm"]
+[ext_resource type="PackedScene" uid="uid://yx3og2tvh3w2" path="res://scenes/lobby_search_entry.tscn" id="2_jqedo"]
+[ext_resource type="Script" uid="uid://wvicpcf3v3ef" path="res://scripts/lobby_search_filters.gd" id="3_d2neg"]
+
+[node name="LobbySearchScreen" type="Window" unique_id=1045965735]
+oversampling_override = 1.0
+mode = 2
+title = "Lobby List"
+initial_position = 1
+size = Vector2i(1130, 600)
+theme_override_font_sizes/title_font_size = 25
+script = ExtResource("1_06il2")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1060925802]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.95, 0.95)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+offset_transform_enabled = true
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer" unique_id=1210977475]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ScrollyWolly" type="ScrollContainer" parent="MarginContainer/VBox" unique_id=652906283]
+custom_minimum_size = Vector2(0, 540)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBox/ScrollyWolly" unique_id=811957697]
+custom_minimum_size = Vector2(0, 540)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBox/ScrollyWolly/Panel" unique_id=1508965046]
+layout_mode = 0
+offset_right = 1130.0
+offset_bottom = 75.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+
+[node name="LobbyVBox" type="VBoxContainer" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer" unique_id=647979591]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LobbySearchEntry" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=289028217 instance=ExtResource("2_jqedo")]
+layout_mode = 2
+
+[node name="LobbySearchEntry2" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=344971631 instance=ExtResource("2_jqedo")]
+layout_mode = 2
+
+[node name="LobbySearchEntry3" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1751171598 instance=ExtResource("2_jqedo")]
+layout_mode = 2
+
+[node name="LobbySearchEntry4" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1191097780 instance=ExtResource("2_jqedo")]
+layout_mode = 2
+
+[node name="LobbySearchEntry5" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=201642942 instance=ExtResource("2_jqedo")]
+layout_mode = 2
+
+[node name="LobbySearchEntry6" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1249624251 instance=ExtResource("2_jqedo")]
+layout_mode = 2
+
+[node name="LobbySearchEntry7" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1989541411 instance=ExtResource("2_jqedo")]
+layout_mode = 2
+
+[node name="LobbySearchEntry8" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1347286670 instance=ExtResource("2_jqedo")]
+layout_mode = 2
+
+[node name="Controls" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=1118092315]
+layout_mode = 2
+
+[node name="Filters" type="Button" parent="MarginContainer/VBox/Controls" unique_id=1452338482]
+layout_mode = 2
+text = "Filters"
+
+[node name="SpacerTiny" type="Control" parent="MarginContainer/VBox/Controls" unique_id=1001055252]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="Refresh" type="Button" parent="MarginContainer/VBox/Controls" unique_id=960524634]
+layout_mode = 2
+text = "Refresh"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBox/Controls" unique_id=1883564648]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="MarginContainer/VBox/Controls" unique_id=1677148574]
+layout_mode = 2
+text = "Close"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=826875090]
+layout_mode = 2
+
+[node name="LobbyFilters" parent="." unique_id=1530206536 instance=ExtResource("1_kertm")]
+visible = false
+script = ExtResource("3_d2neg")

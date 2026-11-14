@@ -1,6 +1,6 @@
-class_name LobbyHostGenerator extends PopupPanel
+class_name LobbyHostScreen extends PopupPanel
 
-static var instance : LobbyHostGenerator
+static var instance : LobbyHostScreen
 
 @export var create_button : Button
 @export var cancel_button : Button
@@ -11,8 +11,8 @@ static var instance : LobbyHostGenerator
 
 func _ready() -> void:
 	create_button.pressed.connect(_on_create_pressed)
-	create_button.pressed.connect(_on_cancel_pressed)
-	Steam.lobby_created.connect(SteamLobbyManager.instance._on_lobby_created)
+	cancel_button.pressed.connect(_on_cancel_pressed)
+	Steam.lobby_created.connect(LobbyManager.instance._on_lobby_created)
 
 func _on_create_pressed() -> void:
 	var lobby_type: Steam.LobbyType = lobby_visibility_options.selected as Steam.LobbyType

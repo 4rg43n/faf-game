@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://yx3og2tvh3w2"]
+
+[ext_resource type="Script" uid="uid://cig428rfq4d85" path="res://scripts/lobby_search_entry.gd" id="1_kurix"]
+
+[node name="LobbySearchEntry" type="Panel" unique_id=289028217]
+custom_minimum_size = Vector2(500, 65)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_kurix")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1634049225]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.95, 0.95)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1920536683]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1611815304]
+layout_mode = 2
+
+[node name="LobbyName" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=10468318]
+layout_mode = 2
+text = "Name of Lobby"
+
+[node name="spacer" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=470391930]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1928156447]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CurrentPlayerCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1207880728]
+layout_mode = 2
+text = "0"
+
+[node name="Division Symbol" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1132536505]
+layout_mode = 2
+text = "/"
+
+[node name="MaxPlayerCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=691718610]
+layout_mode = 2
+text = "10"
+
+[node name="Join Match" type="Button" parent="MarginContainer/VBoxContainer" unique_id=899444226]
+layout_mode = 2
+text = "Join Match"
