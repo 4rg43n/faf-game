@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://cs27qyaii4qhc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 
@@ -13,17 +13,17 @@ tonemap_mode = 2
 [sub_resource type="PlaneMesh" id="ground"]
 size = Vector2(20, 20)
 
-[node name="Main" type="Node3D"]
+[node name="Main2" type="Node3D" unique_id=1342308704]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1242351923]
 environment = SubResource("env")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=2024302543]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 0)
 shadow_enabled = true
 
-[node name="Ground" type="MeshInstance3D" parent="."]
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=816013915]
 mesh = SubResource("ground")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=908392261]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 5, 8)
