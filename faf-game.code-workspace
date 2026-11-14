@@ -1,0 +1,8 @@
+{
+    "folders": [
+        { "name": "engine", "path": "engine" },
+        { "name": "game", "path": "game" },
+        { "name": "docs", "path": "docs" }
+    ],
+    "settings": {}
+}

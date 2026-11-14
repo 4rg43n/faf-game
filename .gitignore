@@ -1,0 +1,22 @@
+# Claude Code context files — kept local, never committed
+CLAUDE.md
+**/CLAUDE.md
+CLAUDE.local.md
+**/CLAUDE.local.md
+.claude/
+
+# Engine is a separate repo (fork of godotengine/godot), cloned locally into engine/
+/engine/
+
+# Godot 4+
+.godot/
+*.translation
+*.pck
+/game/android/
+/build/
+/export/
+
+# Editors / OS
+.vscode/
+.DS_Store
+Thumbs.db
