@@ -8,70 +8,73 @@ initial_position = 1
 size = Vector2i(464, 337)
 visible = true
 script = ExtResource("1_4noj8")
-create_button = NodePath("MarginContainer/VBox/Controls/Create")
-cancel_button = NodePath("MarginContainer/VBox/Controls/Close")
-max_players_spin_box = NodePath("MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers/MaxPlayers")
-lobby_visibility_options = NodePath("MarginContainer/VBox/LobbyOptions/LobbyVisibility/VisOptions")
-lobby_data_line_edit = NodePath("MarginContainer/VBox/LobbyOptions/LobbyData/Data")
-lobby_name = NodePath("MarginContainer/VBox/LobbyOptions/LobbyName/Name")
+create_button = NodePath("Panel/MarginContainer/VBox/Controls/Create")
+cancel_button = NodePath("Panel/MarginContainer/VBox/Controls/Close")
+max_players_spin_box = NodePath("Panel/MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers/MaxPlayers")
+lobby_visibility_options = NodePath("Panel/MarginContainer/VBox/LobbyOptions/LobbyVisibility/VisOptions")
+lobby_data_line_edit = NodePath("Panel/MarginContainer/VBox/LobbyOptions/LobbyData/Data")
+lobby_name = NodePath("Panel/MarginContainer/VBox/LobbyOptions/LobbyName/Name")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1060925802]
+[node name="Panel" type="Panel" parent="." unique_id=1847200987]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 460.0
+offset_bottom = 333.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1060925802]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.95, 0.95)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 offset_transform_enabled = true
 
-[node name="VBox" type="VBoxContainer" parent="MarginContainer" unique_id=1210977475]
+[node name="VBox" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1210977475]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="Host Lobby" type="Label" parent="MarginContainer/VBox" unique_id=1836308688]
+[node name="Host Lobby" type="Label" parent="Panel/MarginContainer/VBox" unique_id=1836308688]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Host Lobby"
 horizontal_alignment = 1
 
-[node name="LobbyOptions" type="VBoxContainer" parent="MarginContainer/VBox" unique_id=708601620]
+[node name="LobbyOptions" type="VBoxContainer" parent="Panel/MarginContainer/VBox" unique_id=708601620]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="LobbyMaxPlayers" type="HBoxContainer" parent="MarginContainer/VBox/LobbyOptions" unique_id=109950944]
+[node name="LobbyMaxPlayers" type="HBoxContainer" parent="Panel/MarginContainer/VBox/LobbyOptions" unique_id=109950944]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers" unique_id=103566502]
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers" unique_id=103566502]
 layout_mode = 2
 text = "Max Players"
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers" unique_id=1571879209]
+[node name="Spacer" type="Control" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers" unique_id=1571879209]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MaxPlayers" type="SpinBox" parent="MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers" unique_id=1319090940]
+[node name="MaxPlayers" type="SpinBox" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers" unique_id=1319090940]
 layout_mode = 2
 min_value = 1.0
 max_value = 4.0
 value = 4.0
 
-[node name="LobbyVisibility" type="HBoxContainer" parent="MarginContainer/VBox/LobbyOptions" unique_id=208681840]
+[node name="LobbyVisibility" type="HBoxContainer" parent="Panel/MarginContainer/VBox/LobbyOptions" unique_id=208681840]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBox/LobbyOptions/LobbyVisibility" unique_id=232719100]
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyVisibility" unique_id=232719100]
 layout_mode = 2
 text = "Lobby Visibility"
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBox/LobbyOptions/LobbyVisibility" unique_id=75993434]
+[node name="Spacer" type="Control" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyVisibility" unique_id=75993434]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VisOptions" type="OptionButton" parent="MarginContainer/VBox/LobbyOptions/LobbyVisibility" unique_id=1028226565]
+[node name="VisOptions" type="OptionButton" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyVisibility" unique_id=1028226565]
 editor_description = "Based on the enums provided by steam: https://godotsteam.com/classes/matchmaking/#lobbytype"
 layout_mode = 2
 selected = 2
@@ -85,50 +88,50 @@ popup/item_2/id = 2
 popup/item_3/text = "Invisible"
 popup/item_3/id = 3
 
-[node name="LobbyData" type="HBoxContainer" parent="MarginContainer/VBox/LobbyOptions" unique_id=1978706925]
+[node name="LobbyData" type="HBoxContainer" parent="Panel/MarginContainer/VBox/LobbyOptions" unique_id=1978706925]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBox/LobbyOptions/LobbyData" unique_id=832862079]
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyData" unique_id=832862079]
 layout_mode = 2
 text = "Lobby Tags"
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBox/LobbyOptions/LobbyData" unique_id=518942199]
+[node name="Spacer" type="Control" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyData" unique_id=518942199]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Data" type="LineEdit" parent="MarginContainer/VBox/LobbyOptions/LobbyData" unique_id=2139179129]
+[node name="Data" type="LineEdit" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyData" unique_id=2139179129]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 placeholder_text = "Lobby data - key:pair, key2:pair2, etc..."
 
-[node name="LobbyName" type="HBoxContainer" parent="MarginContainer/VBox/LobbyOptions" unique_id=747843998]
+[node name="LobbyName" type="HBoxContainer" parent="Panel/MarginContainer/VBox/LobbyOptions" unique_id=747843998]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBox/LobbyOptions/LobbyName" unique_id=173228711]
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyName" unique_id=173228711]
 layout_mode = 2
 text = "Lobby Name"
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBox/LobbyOptions/LobbyName" unique_id=469335856]
+[node name="Spacer" type="Control" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyName" unique_id=469335856]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Name" type="LineEdit" parent="MarginContainer/VBox/LobbyOptions/LobbyName" unique_id=1752031684]
+[node name="Name" type="LineEdit" parent="Panel/MarginContainer/VBox/LobbyOptions/LobbyName" unique_id=1752031684]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 text = "Gawn ta Thortons fur fising lur"
 placeholder_text = "lobby name here"
 
-[node name="Controls" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=1118092315]
+[node name="Controls" type="HBoxContainer" parent="Panel/MarginContainer/VBox" unique_id=1118092315]
 layout_mode = 2
 
-[node name="Create" type="Button" parent="MarginContainer/VBox/Controls" unique_id=950059458]
+[node name="Create" type="Button" parent="Panel/MarginContainer/VBox/Controls" unique_id=950059458]
 layout_mode = 2
 text = "Create"
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBox/Controls" unique_id=1883564648]
+[node name="Spacer" type="Control" parent="Panel/MarginContainer/VBox/Controls" unique_id=1883564648]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Close" type="Button" parent="MarginContainer/VBox/Controls" unique_id=1677148574]
+[node name="Close" type="Button" parent="Panel/MarginContainer/VBox/Controls" unique_id=1677148574]
 layout_mode = 2
 text = "Close"
