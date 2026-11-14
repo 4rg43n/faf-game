@@ -1,10 +1,19 @@
 [gd_scene format=3 uid="uid://bgum1lba7esba"]
 
-[node name="LobbyFilters" type="PopupPanel" unique_id=1530206536]
+[ext_resource type="Script" uid="uid://wvicpcf3v3ef" path="res://scripts/steam_lobby_stuff/lobby_search_filters.gd" id="1_6sf43"]
+
+[node name="LobbyFilters" type="PopupPanel" unique_id=1530206536 node_paths=PackedStringArray("cancel_button", "search_distance_options", "open_player_slots_spin_box", "max_query_size_spin_box", "lobby_data_search_line_edit", "lobby_name_line_edit")]
 oversampling_override = 1.0
 initial_position = 1
 size = Vector2i(542, 400)
 visible = true
+script = ExtResource("1_6sf43")
+cancel_button = NodePath("LobbyFilters/VBox/Controls/Close")
+search_distance_options = NodePath("LobbyFilters/VBox/LobbySearchOptions/Search Distance/SearchDistance")
+open_player_slots_spin_box = NodePath("LobbyFilters/VBox/LobbySearchOptions/OpenPlayerSlots/SlotsLeft")
+max_query_size_spin_box = NodePath("LobbyFilters/VBox/LobbySearchOptions/Max Query Size/QuerySize")
+lobby_data_search_line_edit = NodePath("LobbyFilters/VBox/LobbySearchOptions/LobbySearchTerms/Terms")
+lobby_name_line_edit = NodePath("LobbyFilters/VBox/LobbySearchOptions/LobbyName/Name")
 
 [node name="LobbyFilters" type="MarginContainer" parent="." unique_id=1060925802]
 anchors_preset = 15

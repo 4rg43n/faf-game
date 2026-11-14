@@ -1,15 +1,19 @@
 [gd_scene format=3 uid="uid://yx3og2tvh3w2"]
 
-[ext_resource type="Script" uid="uid://cig428rfq4d85" path="res://scripts/lobby_search_entry.gd" id="1_kurix"]
+[ext_resource type="Script" uid="uid://cig428rfq4d85" path="res://scripts/steam_lobby_stuff/lobby_search_entry.gd" id="1_713s0"]
 
-[node name="LobbySearchEntry" type="Panel" unique_id=289028217]
+[node name="LobbySearchEntry" type="Panel" unique_id=289028217 node_paths=PackedStringArray("join_button", "lobby_name_label", "current_num_players_label", "max_players_label")]
 custom_minimum_size = Vector2(500, 65)
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 grow_vertical = 2
 size_flags_horizontal = 3
-script = ExtResource("1_kurix")
+script = ExtResource("1_713s0")
+join_button = NodePath("MarginContainer/VBoxContainer/Join Match")
+lobby_name_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/LobbyName")
+current_num_players_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/CurrentPlayerCount")
+max_players_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MaxPlayerCount")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1634049225]
 layout_mode = 1

@@ -1,16 +1,27 @@
 [gd_scene format=3 uid="uid://byujyoyd72yde"]
 
-[ext_resource type="Script" uid="uid://dd1g6qwig8j0" path="res://scripts/lobby_manager.gd" id="1_dcgu7"]
+[ext_resource type="Script" uid="uid://dd1g6qwig8j0" path="res://scripts/steam_lobby_stuff/lobby_manager.gd" id="1_dcgu7"]
+[ext_resource type="PackedScene" uid="uid://cwk7awyll3irq" path="res://scenes/steam_lobby_stuff/lobby_host_generation.tscn" id="2_tmobm"]
 [ext_resource type="Script" uid="uid://cwom6nwiahcy0" path="res://scripts/dynamic_resize_margin_to_viewport.gd" id="2_vh4ir"]
+[ext_resource type="PackedScene" uid="uid://dijfr0d4tmgks" path="res://scenes/steam_lobby_stuff/lobby_search_screen.tscn" id="3_ttq8y"]
 
 [sub_resource type="AnimatedImageTexture" id="AnimatedImageTexture_vh4ir"]
 frame = 29
 storage/size = Vector2i(360, 247)
 storage/format = 1
 
-[node name="LobbyManager" type="Node2D" unique_id=655320755]
+[node name="LobbyManager" type="Node2D" unique_id=655320755 node_paths=PackedStringArray("host_button", "join_button", "exit_button")]
 script = ExtResource("1_dcgu7")
+host_button = NodePath("MarginContainer/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/HostLobbyButton")
+join_button = NodePath("MarginContainer/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/JoinLobbyButton")
+exit_button = NodePath("MarginContainer/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitButton")
 metadata/_custom_type_script = "uid://dd1g6qwig8j0"
+
+[node name="LobbyHostGeneration" parent="." unique_id=1530206536 instance=ExtResource("2_tmobm")]
+visible = false
+
+[node name="LobbySearchScreen" parent="." unique_id=1045965735 instance=ExtResource("3_ttq8y")]
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1473824843]
 anchors_preset = 15

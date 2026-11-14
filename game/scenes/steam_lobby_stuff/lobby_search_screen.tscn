@@ -1,18 +1,23 @@
 [gd_scene format=3 uid="uid://dijfr0d4tmgks"]
 
-[ext_resource type="Script" uid="uid://cfq3vur2q2rdw" path="res://scripts/lobby_search_screen.gd" id="1_06il2"]
-[ext_resource type="PackedScene" uid="uid://bgum1lba7esba" path="res://scenes/lobby_search_filters.tscn" id="1_kertm"]
-[ext_resource type="PackedScene" uid="uid://yx3og2tvh3w2" path="res://scenes/lobby_search_entry.tscn" id="2_jqedo"]
-[ext_resource type="Script" uid="uid://wvicpcf3v3ef" path="res://scripts/lobby_search_filters.gd" id="3_d2neg"]
+[ext_resource type="Script" uid="uid://cfq3vur2q2rdw" path="res://scripts/steam_lobby_stuff/lobby_search_screen.gd" id="1_kni26"]
+[ext_resource type="PackedScene" uid="uid://yx3og2tvh3w2" path="res://scenes/steam_lobby_stuff/lobby_search_entry.tscn" id="2_kic7s"]
+[ext_resource type="PackedScene" uid="uid://bgum1lba7esba" path="res://scenes/steam_lobby_stuff/lobby_search_filters.tscn" id="3_kobrh"]
 
-[node name="LobbySearchScreen" type="Window" unique_id=1045965735]
+[node name="LobbySearchScreen" type="Window" unique_id=1045965735 node_paths=PackedStringArray("show_filters_button", "refresh_query_search", "close_button", "lobby_filter_popup", "lobby_container")]
 oversampling_override = 1.0
 mode = 2
 title = "Lobby List"
 initial_position = 1
 size = Vector2i(1130, 600)
 theme_override_font_sizes/title_font_size = 25
-script = ExtResource("1_06il2")
+script = ExtResource("1_kni26")
+show_filters_button = NodePath("MarginContainer/VBox/Controls/Filters")
+refresh_query_search = NodePath("MarginContainer/VBox/Controls/Refresh")
+close_button = NodePath("MarginContainer/VBox/Controls/Close")
+lobby_filter_popup = NodePath("LobbyFilters")
+lobby_container = NodePath("MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox")
+LOBBY_ENTRY_SCENE = ExtResource("2_kic7s")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1060925802]
 anchors_preset = 15
@@ -52,30 +57,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LobbySearchEntry" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=289028217 instance=ExtResource("2_jqedo")]
-layout_mode = 2
-
-[node name="LobbySearchEntry2" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=344971631 instance=ExtResource("2_jqedo")]
-layout_mode = 2
-
-[node name="LobbySearchEntry3" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1751171598 instance=ExtResource("2_jqedo")]
-layout_mode = 2
-
-[node name="LobbySearchEntry4" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1191097780 instance=ExtResource("2_jqedo")]
-layout_mode = 2
-
-[node name="LobbySearchEntry5" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=201642942 instance=ExtResource("2_jqedo")]
-layout_mode = 2
-
-[node name="LobbySearchEntry6" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1249624251 instance=ExtResource("2_jqedo")]
-layout_mode = 2
-
-[node name="LobbySearchEntry7" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1989541411 instance=ExtResource("2_jqedo")]
-layout_mode = 2
-
-[node name="LobbySearchEntry8" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1347286670 instance=ExtResource("2_jqedo")]
-layout_mode = 2
-
 [node name="Controls" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=1118092315]
 layout_mode = 2
 
@@ -102,6 +83,5 @@ text = "Close"
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=826875090]
 layout_mode = 2
 
-[node name="LobbyFilters" parent="." unique_id=1530206536 instance=ExtResource("1_kertm")]
+[node name="LobbyFilters" parent="." unique_id=1530206536 instance=ExtResource("3_kobrh")]
 visible = false
-script = ExtResource("3_d2neg")

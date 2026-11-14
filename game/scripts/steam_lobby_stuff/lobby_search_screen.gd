@@ -9,7 +9,7 @@ static var instance : LobbySearchScreen
 @export var lobby_filter_popup : LobbySearchFilters
 
 @export var lobby_container : VBoxContainer
-@onready var LOBBY_ENTRY_SCENE : PackedScene
+@export var LOBBY_ENTRY_SCENE : PackedScene
 
 func _init() -> void:
 	LobbySearchScreen.instance = self
