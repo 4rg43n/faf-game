@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c0wx1ih3kr801" path="res://scripts/steam_lobby_stuff/lobby_host_generation.gd" id="1_4noj8"]
 
-[node name="LobbyHostGeneration" type="Window" unique_id=1237330394 node_paths=PackedStringArray("create_button", "cancel_button", "max_players_spin_box", "lobby_visibility_options", "lobby_data_line_edit", "lobby_name")]
+[node name="LobbyHostGeneration" type="Window" unique_id=1237330394 node_paths=PackedStringArray("create_button", "cancel_button", "max_players_spin_box", "lobby_visibility_options", "lobby_data_search_line_edit", "lobby_name")]
 oversampling_override = 1.0
 initial_position = 1
 size = Vector2i(464, 337)
@@ -11,7 +11,7 @@ create_button = NodePath("MarginContainer/VBox/Controls/Create")
 cancel_button = NodePath("MarginContainer/VBox/Controls/Close")
 max_players_spin_box = NodePath("MarginContainer/VBox/LobbyOptions/LobbyMaxPlayers/MaxPlayers")
 lobby_visibility_options = NodePath("MarginContainer/VBox/LobbyOptions/LobbyVisibility/VisOptions")
-lobby_data_line_edit = NodePath("MarginContainer/VBox/LobbyOptions/LobbyData/Data")
+lobby_data_search_line_edit = NodePath("MarginContainer/VBox/LobbyOptions/LobbyData/Data")
 lobby_name = NodePath("MarginContainer/VBox/LobbyOptions/LobbyName/Name")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1060925802]

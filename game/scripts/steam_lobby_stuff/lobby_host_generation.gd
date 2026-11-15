@@ -6,7 +6,7 @@ static var instance : LobbyHostScreen
 @export var cancel_button : Button
 @export var max_players_spin_box : SpinBox
 @export var lobby_visibility_options : OptionButton
-@export var lobby_data_line_edit : LineEdit
+@export var lobby_data_search_line_edit : LineEdit
 @export var lobby_name : LineEdit
 
 func _init() -> void:

@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func on_visibility_changed() -> void:
 	#clear existing lobbies
-	for child : LobbySearchEntry in lobby_container:
+	for child : LobbySearchEntry in lobby_container.get_children():
 		lobby_container.remove_child(child)
 		child.queue_free()
 	lobby_filter_popup.hide()
@@ -47,7 +47,7 @@ func add_lobby_filters() -> void:
 		Steam.addRequestLobbyListStringFilter("lobby_name", LobbySearchFilters.instance.lobby_name_line_edit.text, Steam.LobbyComparison.LOBBY_COMPARISON_EQUAL)
 
 	#specific lobby data / tags the user wants to match with
-	var data_sets : PackedStringArray = LobbySearchFilters.instance.lobby_data_line_edit.text.split(",", false)
+	var data_sets : PackedStringArray = LobbySearchFilters.instance.lobby_data_search_line_edit.text.split(",", false)
 	for key_value_pair : String in data_sets:
 		var pair : PackedStringArray = key_value_pair.split(":", false, 1)
 		if pair.size() != 2:
@@ -59,7 +59,7 @@ func add_lobby_filters() -> void:
 
 func _on_lobby_match_list(lobbies: Array) -> void:
 	#clear existing lobbies
-	for child : LobbySearchEntry in lobby_container:
+	for child : LobbySearchEntry in lobby_container.get_children():
 		lobby_container.remove_child(child)
 		child.queue_free()
 

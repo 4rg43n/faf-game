@@ -132,6 +132,7 @@ size_flags_horizontal = 3
 [node name="Name" type="LineEdit" parent="LobbyFilters/VBox/LobbySearchOptions/LobbyName" unique_id=1752031684]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+text = "Gawn ta Thortons fur fising lur"
 placeholder_text = "lobby name here"
 
 [node name="Controls" type="HBoxContainer" parent="LobbyFilters/VBox" unique_id=1118092315]

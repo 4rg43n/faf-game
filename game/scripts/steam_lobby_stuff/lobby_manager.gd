@@ -115,7 +115,7 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 		printerr("Failed to set lobby name")
 
 	#specific lobby data / tags the user wants to set.
-	var data_sets : PackedStringArray = LobbyHostScreen.instance.lobby_data_line_edit.text.split(",", false)
+	var data_sets : PackedStringArray = LobbyHostScreen.instance.lobby_data_search_line_edit.text.split(",", false)
 	for key_value_pair : String in data_sets:
 		var pair : PackedStringArray = key_value_pair.split(":", false, 1)
 		if pair.size() != 2:
