@@ -34,8 +34,9 @@ offset_bottom = 40.0
 layout_mode = 1
 offset_right = 179.0
 
-[node name="GameManager" type="Node" parent="." unique_id=217552877]
+[node name="GameManager" type="Node" parent="." unique_id=217552877 node_paths=PackedStringArray("sky_3d")]
 script = ExtResource("2_yyfjg")
+sky_3d = NodePath("../World/Sky3D")
 metadata/_custom_type_script = "uid://dd0g2xdhbs54h"
 
 [node name="WeatherManager" type="Node" parent="." unique_id=234665414 node_paths=PackedStringArray("rain_particles", "sky_3d", "time_of_day", "sky_dome")]
