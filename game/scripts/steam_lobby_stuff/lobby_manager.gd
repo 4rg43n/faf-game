@@ -148,7 +148,6 @@ func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, respon
 	hide()
 	LobbySearchScreen.instance.hide()
 	LobbyHostScreen.instance.hide()
-	starting_screen_ui.hide()
 
 	var host_steam_id: int = Steam.getLobbyOwner(in_lobby_id)
 	# Only create a client peer if we are not the host
@@ -296,6 +295,9 @@ func spawn_player(for_peer_id : int) -> PlayerMetadata:
 	var new_player : PlayerMetadata = player_scene.instantiate()
 	var steam_id : int = Steam.getSteamID()
 	new_player.init(for_peer_id, steam_id, starting_world.spawn_location)
+
+	GameManager.instance.setup(new_player)
+
 	return new_player
 
 #TODO despawn player character (on server)

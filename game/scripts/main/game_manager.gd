@@ -14,3 +14,10 @@ func _init() -> void:
 func _process(_delta: float) -> void:
 	if not active_camera:
 		active_camera = third_person_cam
+
+
+func setup(player_data: PlayerMetadata):
+	var new_player = player_data.player_controller
+	player = new_player
+	third_person_cam = new_player.third_person_cam
+	active_camera = new_player.third_person_cam
