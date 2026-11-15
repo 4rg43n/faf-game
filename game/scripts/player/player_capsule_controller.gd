@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-	_update_player.rpc(1, self.position, self.rotation)
+	_update_player.rpc_id(1, self.position, self.rotation)
 
 #we need the server to know where we made our location changes cheap client auth
 @rpc("any_peer")
