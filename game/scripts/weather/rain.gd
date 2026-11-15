@@ -98,11 +98,11 @@ func calculate_amount_indoors() -> void:
 
 func recalculate_audio() -> void:
 	var low_pass: AudioEffectLowPassFilter = AudioServer.get_bus_effect(1, 0)
-	var new_tween: Tween = get_tree().create_tween()
 
 	var target_cutoff: float = 20500.0
 
 	if amount_indoors > 0.3:
+		var new_tween: Tween = get_tree().create_tween()
 		target_cutoff = (18500.0 * (1.0 - amount_indoors)) + 2000.0
 
 		new_tween.tween_property(low_pass, "cutoff_hz", target_cutoff, 0.1)

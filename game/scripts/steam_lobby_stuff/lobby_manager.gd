@@ -167,7 +167,7 @@ func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, respon
 		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_DOESNT_EXIST:
 			printerr("Failed joining lobby %s, this lobby no longer exists.", in_lobby_id)
 		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_NOT_ALLOWED:
-			printerr("Failed joining lobby %s, you don't have permission to join this Lobbies.", in_lobby_id)
+			printerr("Failed joining lobby %s, you don't have permission to join this lobby.", in_lobby_id)
 		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_FULL:
 			printerr("Failed joining lobby %s, the lobby is now full.", in_lobby_id)
 		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_ERROR:
