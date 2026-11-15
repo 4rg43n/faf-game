@@ -101,6 +101,7 @@ weather_conditions = Dictionary[String, Resource]({
 environment = ExtResource("6_c5ll1")
 
 [node name="Rain" parent="WeatherManager" unique_id=1079689614 instance=ExtResource("2_c5qrq")]
+visible = false
 metadata/_edit_lock_ = true
 
 [node name="FpsTracker" parent="." unique_id=1956701810 instance=ExtResource("6_qij6u")]
@@ -140,11 +141,6 @@ dome_path = NodePath("../SkyDome")
 current_time = 6.65
 day = 2
 
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=2024302543]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 0)
-shadow_enabled = true
-metadata/_edit_lock_ = true
-
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1693563496]
 mesh = SubResource("PlaneMesh_vfip2")
 
@@ -155,7 +151,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 shape = SubResource("BoxShape3D_7kt02")
 
 [node name="Player" parent="." unique_id=422766350 instance=ExtResource("1_vfip2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.049855, 0, 9.378431)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.049855, 0, 54.450836)
 
 [node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="Player" unique_id=1312757806]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45851994, 4.690796, -0.5055084)
@@ -178,7 +174,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.650877, 1.8079108, 97.9804
 transform = Transform3D(8.483259, 0, -2.6473722, 0, 5, 0, 5.2947445, 0, 4.2416296, 45.367714, 2.5714679, 50.00721)
 
 [node name="Box6" parent="." unique_id=377721160 instance=ExtResource("2_4gf4p")]
-transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0.18668818, 8.669642, 12.765796)
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0.18668818, 6.178111, 12.765796)
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="." unique_id=1501747599]
 material_override = SubResource("ShaderMaterial_h0jaw")

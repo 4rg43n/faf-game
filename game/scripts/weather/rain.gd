@@ -1,8 +1,13 @@
 class_name RainSystem extends GPUParticles3D
 
+@export_group("Scenes")
 @export var rain_sound: AudioStreamPlayer
 @export var mist_particles: GPUParticles3D
 @export var lightning: Node3D
+@export var debug_label: Label
+@export var recalculate_audio_timer: Timer
+@export var indoor_raycasts_array: Array[RayCast3D]
+@export_group("Flags")
 @export var rain_sound_mute: bool = false
 @export var rain_enabled: bool = false:
 	set(value):
@@ -17,6 +22,8 @@ class_name RainSystem extends GPUParticles3D
 var mist_process_material: ParticleProcessMaterial
 var rain_sync: AudioStreamSynchronized
 
+var amount_indoors: float = 0.0
+
 enum RainSounds{
 		Rain,
 		HeavyRain,
@@ -26,9 +33,12 @@ enum RainSounds{
 func _ready() -> void:
 	mist_process_material = mist_particles.process_material
 	rain_sync = rain_sound.get_stream()
+	recalculate_audio_timer.timeout.connect(recalculate_audio)
+	visible = true
 
 
 func _physics_process(_delta: float) -> void:
+	calculate_amount_indoors()
 	global_position = GameManager.instance.player.global_position
 
 
@@ -75,3 +85,24 @@ func change_rain() -> void:
 		rain_sound.playing = false
 	else:
 		rain_sound.playing = rain_enabled
+
+
+func calculate_amount_indoors() -> void:
+	amount_indoors = 0.0
+	var add_amount: float = 1.0 / indoor_raycasts_array.size()
+	for raycast: RayCast3D in indoor_raycasts_array:
+		if raycast.is_colliding():
+			amount_indoors += add_amount
+	debug_label.text = "Indoor Amount: " + str(amount_indoors * 100) + "%"
+
+
+func recalculate_audio() -> void:
+	var low_pass: AudioEffectLowPassFilter = AudioServer.get_bus_effect(1, 0)
+	var new_tween: Tween = get_tree().create_tween()
+
+	var target_cutoff: float = 20500.0
+
+	if amount_indoors > 0.3:
+		target_cutoff = (18500.0 * (1.0 - amount_indoors)) + 2000.0
+
+		new_tween.tween_property(low_pass, "cutoff_hz", target_cutoff, 0.1)

@@ -104,6 +104,8 @@ metallic_specular = 0.0
 emission_enabled = true
 emission_energy_multiplier = 1.94
 emission_texture = ExtResource("7_irvec")
+billboard_mode = 1
+billboard_keep_scale = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_irvec"]
 size = Vector2(150, 150)
@@ -114,7 +116,7 @@ random_volume_offset_db = 2.0
 streams_count = 1
 stream_0/stream = ExtResource("8_o38sm")
 
-[node name="Rain" type="GPUParticles3D" unique_id=1079689614 node_paths=PackedStringArray("rain_sound", "mist_particles", "lightning")]
+[node name="Rain" type="GPUParticles3D" unique_id=1079689614 node_paths=PackedStringArray("rain_sound", "mist_particles", "lightning", "debug_label", "recalculate_audio_timer", "indoor_raycasts_array")]
 material_override = SubResource("StandardMaterial3D_m72jr")
 transparency = 0.75
 amount = 20000
@@ -125,9 +127,13 @@ script = ExtResource("1_61r3b")
 rain_sound = NodePath("RainSound")
 mist_particles = NodePath("MistParticles")
 lightning = NodePath("LightningController")
+debug_label = NodePath("DebugLabel")
+recalculate_audio_timer = NodePath("RecalculateAudioTimer")
+indoor_raycasts_array = [NodePath("IndoorRayCast3D"), NodePath("IndoorRayCast3D2"), NodePath("IndoorRayCast3D3"), NodePath("IndoorRayCast3D4"), NodePath("IndoorRayCast3D5"), NodePath("IndoorRayCast3D6"), NodePath("IndoorRayCast3D7"), NodePath("IndoorRayCast3D8"), NodePath("IndoorRayCast3D9")]
 
 [node name="RainSound" type="AudioStreamPlayer" parent="." unique_id=1121645608]
 stream = SubResource("AudioStreamSynchronized_b20p2")
+bus = &"Weather"
 
 [node name="MistParticles" type="GPUParticles3D" parent="." unique_id=113193734]
 cast_shadow = 0
@@ -137,10 +143,11 @@ collision_base_size = 0.25
 process_material = SubResource("ParticleProcessMaterial_61r3b")
 draw_pass_1 = SubResource("PlaneMesh_c5qrq")
 
-[node name="LightningController" type="Node3D" parent="." unique_id=1653788094 node_paths=PackedStringArray("lightning", "thunder_audio")]
+[node name="LightningController" type="Node3D" parent="." unique_id=1653788094 node_paths=PackedStringArray("lightning", "thunder_audio", "lightning_directional_light")]
 script = ExtResource("6_3rjan")
 lightning = NodePath("Lightning")
 thunder_audio = NodePath("Lightning/ThunderAudio")
+lightning_directional_light = NodePath("Lightning/LightningDirectionalLight")
 
 [node name="Lightning" type="Node3D" parent="LightningController" unique_id=2062078757]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 80, 0)
@@ -157,3 +164,52 @@ max_distance = 3000.0
 bus = &"Weather"
 
 [node name="LightningDirectionalLight" type="DirectionalLight3D" parent="LightningController/Lightning" unique_id=230046159]
+
+[node name="IndoorRayCast3D" type="RayCast3D" parent="." unique_id=1162973998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+target_position = Vector3(0, 30, 0)
+
+[node name="IndoorRayCast3D2" type="RayCast3D" parent="." unique_id=1454666908]
+transform = Transform3D(0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0, 0, 1, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D3" type="RayCast3D" parent="." unique_id=1742419399]
+transform = Transform3D(-3.3484863e-08, 2.8097135e-08, 1, 0.6427875, 0.7660444, 0, -0.7660444, 0.6427875, -4.371139e-08, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D4" type="RayCast3D" parent="." unique_id=1711698159]
+transform = Transform3D(-0.7660443, 0.6427875, -8.742278e-08, 0.6427875, 0.7660443, 0, 6.6969726e-08, -5.6194267e-08, -1, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D5" type="RayCast3D" parent="." unique_id=15392373]
+transform = Transform3D(9.134987e-09, -7.665164e-09, -1, 0.64278746, 0.7660443, 0, 0.7660443, -0.64278746, 1.1924881e-08, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D6" type="RayCast3D" parent="." unique_id=788818484]
+transform = Transform3D(0.35355327, -0.61237234, 0.70710677, 0.86602527, 0.49999985, 0, -0.35355327, 0.61237234, 0.70710677, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D7" type="RayCast3D" parent="." unique_id=43325561]
+transform = Transform3D(-0.35355327, 0.61237234, 0.7071067, 0.86602527, 0.49999988, 0, -0.35355327, 0.61237234, -0.7071067, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D8" type="RayCast3D" parent="." unique_id=2145380446]
+transform = Transform3D(-0.3535533, 0.6123724, -0.70710665, 0.86602527, 0.49999988, 0, 0.35355324, -0.6123723, -0.70710677, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D9" type="RayCast3D" parent="." unique_id=1547721968]
+transform = Transform3D(0.3535532, -0.6123722, -0.7071068, 0.86602527, 0.49999988, 0, 0.35355332, -0.61237246, 0.7071066, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="DebugLabel" type="Label" parent="." unique_id=1959449717]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="RecalculateAudioTimer" type="Timer" parent="." unique_id=1032768996]
+wait_time = 0.1
+autostart = true

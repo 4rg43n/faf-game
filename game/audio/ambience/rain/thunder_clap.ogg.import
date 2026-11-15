@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/thunder_clap.ogg-5517de8d312a1f8789c34c953225
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0.0
 bpm=0.0
 beat_count=0

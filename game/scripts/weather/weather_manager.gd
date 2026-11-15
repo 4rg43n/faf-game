@@ -28,10 +28,6 @@ func _ready() -> void:
 	environment.fog_density = 0.0
 
 
-func _process(_delta: float) -> void:
-	pass
-
-
 func randomize_weather() -> void:
 	set_wind(Vector3(randf_range(-5.0, 5.0),0.0,randf_range(-5.0, 5.0)), randf())
 	load_weather_condition(weather_conditions.keys().pick_random())

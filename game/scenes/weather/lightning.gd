@@ -43,9 +43,9 @@ func start_lightning() -> void:
 	is_flashing = true
 	lightning_strike.emit()
 
-	await get_tree().process.frame
-	await get_tree().process.frame
-	await get_tree().process.frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 	flash(true)
 	await get_tree().create_timer(randf()/4.0, false).timeout
 	flash(false)
@@ -66,7 +66,7 @@ func play_thunder() -> void:
 
 func flash(toggled_on: bool) -> void:
 	if !toggled_on:
-		sky_3d.skydome_energy = default_skydome_energy
+		sky_3d.skydome_energy = WeatherManager.instance.current_condition.default_skydome_energy
 	else:
-		sky_3d.skydome_energy = default_skydome_energy * 4.0
+		sky_3d.skydome_energy = WeatherManager.instance.current_condition.default_skydome_energy * 4.0
 	visible = toggled_on
