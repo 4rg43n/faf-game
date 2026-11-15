@@ -14,7 +14,7 @@ func init(in_peer_id : int, in_steam_id : int, in_spawn_location : Node3D) -> vo
 
 func _enter_tree() -> void:
 	var was_authority : bool = is_multiplayer_authority()
-	set_multiplayer_authority(multiplayer.get_unique_id())
+	set_multiplayer_authority(multiplayer.get_unique_id() == peer_id)
 	print("was auth %s but now is %s" % [was_authority, is_multiplayer_authority()])
 
 	if not is_multiplayer_authority():
