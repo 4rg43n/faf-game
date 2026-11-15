@@ -299,8 +299,10 @@ func spawn_player(for_peer_id : int) -> PlayerMetadata:
 	var new_player : PlayerMetadata = player_scene.instantiate()
 	var steam_id : int = Steam.getSteamID()
 	new_player.init(for_peer_id, steam_id, starting_world.spawn_location)
+	new_player.set_multiplayer_authority(for_peer_id)
 
 	GameManager.instance.setup(new_player)
+	new_player.name = str(for_peer_id)
 
 	return new_player
 

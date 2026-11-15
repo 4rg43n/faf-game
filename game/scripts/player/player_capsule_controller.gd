@@ -54,11 +54,10 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-	if not is_multiplayer_authority():
-		_update_player.rpc_id(1, self.position, self.rotation)
+	#_update_player.rpc_id(1, self.position, self.rotation)
 
 #we need the server to know where we made our location changes cheap client auth
-@rpc("any_peer")
+@rpc("any_peer", "call_local")
 func _update_player(in_position : Vector3, in_rotation : Vector3) -> void:
 	position = in_position
 	rotation = in_rotation
