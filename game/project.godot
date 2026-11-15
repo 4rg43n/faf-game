@@ -20,7 +20,7 @@ file_logging/enable_file_logging=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_animated_image/plugin.cfg", "res://addons/godotsteam/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_animated_image/plugin.cfg", "res://addons/godotsteam/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
 
 [input]
 
