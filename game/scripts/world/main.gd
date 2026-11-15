@@ -9,7 +9,8 @@ func _ready() -> void:
 	Steam.setAchievement("ACH_WIN_100_GAMES")
 	Steam.setAchievement("NEW_ACHIEVEMENT_0_4")
 
-	weather_manager.randomize_weather.call_deferred()
+	if weather_manager:
+		weather_manager.randomize_weather.call_deferred()
 
 
 func _process(_delta: float) -> void:

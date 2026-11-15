@@ -14,11 +14,14 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	position=player.get_global_transform_interpolated()*follow_offset
 	rotation.y=player.rotation.y
 
+
 func _unhandled_input(event: InputEvent) -> void:
+	if not get_viewport().get_camera_3d() == self:
+		return
 	if event is InputEventMouseMotion:
 		# event.relative = how far the mouse moved this event, in pixels
 
