@@ -43,8 +43,10 @@ func add_lobby_filters() -> void:
 	Steam.addRequestLobbyListFilterSlotsAvailable(int(LobbySearchFilters.instance.open_player_slots_spin_box.value))
 	Steam.addRequestLobbyListResultCountFilter(int(LobbySearchFilters.instance.max_query_size_spin_box.value))
 
-	if not LobbySearchFilters.instance.lobby_name_line_edit.text.is_empty():
-		Steam.addRequestLobbyListStringFilter("lobby_name", LobbySearchFilters.instance.lobby_name_line_edit.text, Steam.LobbyComparison.LOBBY_COMPARISON_EQUAL)
+	var loby_name : String = LobbySearchFilters.instance.lobby_name_line_edit.text
+	loby_name = loby_name.strip_edges()
+	if not loby_name.is_empty():
+		Steam.addRequestLobbyListStringFilter("lobby_name", loby_name, Steam.LobbyComparison.LOBBY_COMPARISON_EQUAL)
 
 	#specific lobby data / tags the user wants to match with
 	var data_sets : PackedStringArray = LobbySearchFilters.instance.lobby_data_search_line_edit.text.split(",", false)
