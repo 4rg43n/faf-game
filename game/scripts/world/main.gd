@@ -1,4 +1,4 @@
-extends Node3D
+extends WorldBackBone
 
 @export var weather_manager: WeatherManager
 

@@ -2,6 +2,7 @@ class_name PlayerController extends CharacterBody3D
 
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D
+@export var third_person_pivot : Node3D
 
 @export var camera: Camera3D
 @export var SPEED: float = 5.0

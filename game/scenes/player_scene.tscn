@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bjbwywy424ihg"]
 
 [ext_resource type="Script" uid="uid://bpb06lrf4q7dt" path="res://scripts/player_metadata.gd" id="1_rbmgg"]
-[ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/argaen/components/player_capsule.tscn" id="1_vefth"]
+[ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/player/player.tscn" id="1_vefth"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vefth"]
 properties/0/path = NodePath("CharacterBody3D:position")
@@ -19,11 +19,11 @@ properties/3/replication_mode = 2
 
 [node name="TheWholePackage" type="Node3D" unique_id=1542336818 node_paths=PackedStringArray("player_controller")]
 script = ExtResource("1_rbmgg")
-player_controller = NodePath("CharacterBody3D")
+player_controller = NodePath("Player")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=751910215]
 replication_interval = 0.1
 delta_interval = 0.1
 replication_config = SubResource("SceneReplicationConfig_vefth")
 
-[node name="CharacterBody3D" parent="." unique_id=422766350 instance=ExtResource("1_vefth")]
+[node name="Player" parent="." unique_id=422766350 instance=ExtResource("1_vefth")]

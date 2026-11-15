@@ -5,8 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cwk7awyll3irq" path="res://scenes/steam_lobby_stuff/lobby_host_generation.tscn" id="3_75lsc"]
 [ext_resource type="PackedScene" uid="uid://bjbwywy424ihg" path="res://scenes/player_scene.tscn" id="3_dqjaf"]
 [ext_resource type="PackedScene" uid="uid://dijfr0d4tmgks" path="res://scenes/steam_lobby_stuff/lobby_search_screen.tscn" id="4_jxa7w"]
-[ext_resource type="PackedScene" uid="uid://bpg0e13cthh5m" path="res://scenes/steam_lobby_stuff/multiplayer_test.tscn" id="5_0a7sk"]
-[ext_resource type="Script" uid="uid://1k55pnxqt8hi" path="res://scripts/world/multiplayer_test_world.gd" id="6_n111s"]
+[ext_resource type="PackedScene" uid="uid://cs27qyaii4qhc" path="res://scenes/worlds/test_island.tscn" id="6_n111s"]
 
 [sub_resource type="AnimatedImageTexture" id="AnimatedImageTexture_idy7s"]
 storage/size = Vector2i(360, 247)
@@ -26,7 +25,7 @@ exit_button = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitB
 spinning_fish_player = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/SillySpinningFish")
 spinning_fish_gif = ExtResource("2_dqjaf")
 player_spawner = NodePath("PlayerSpawner")
-starting_world = NodePath("MultiPlayerTest")
+starting_world = NodePath("TestIsland")
 starting_screen_ui = NodePath("MainMenu")
 player_scene = ExtResource("3_dqjaf")
 
@@ -113,11 +112,4 @@ text = "Exit"
 _spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
 spawn_path = NodePath(".")
 
-[node name="MultiPlayerTest" parent="." unique_id=1203609923 node_paths=PackedStringArray("spawn_location") instance=ExtResource("5_0a7sk")]
-script = ExtResource("6_n111s")
-spawn_location = NodePath("SpawnLocation")
-
-[node name="SpawnLocation" type="Node3D" parent="MultiPlayerTest" unique_id=836975497]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 31.920948, 0)
-
-[editable path="MultiPlayerTest"]
+[node name="TestIsland" parent="." unique_id=231429549 instance=ExtResource("6_n111s")]

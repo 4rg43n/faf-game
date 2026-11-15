@@ -58,6 +58,8 @@ func start_lightning() -> void:
 
 
 func play_thunder() -> void:
+	if not GameManager.instance.active_camera:
+		return
 	var distance: float = GameManager.instance.active_camera.global_position.distance_to(global_position)
 	var delay_amount: float = distance / (343.0 / 5.0)
 	await get_tree().create_timer(delay_amount, false).timeout

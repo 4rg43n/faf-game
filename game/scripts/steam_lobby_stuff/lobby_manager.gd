@@ -145,6 +145,7 @@ func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, respon
 	print("player tried to join lobby")
 
 	#hide UI for host/join
+	hide()
 	LobbySearchScreen.instance.hide()
 	LobbyHostScreen.instance.hide()
 	starting_screen_ui.hide()

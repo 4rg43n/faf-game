@@ -38,6 +38,8 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	if not GameManager.instance.player:
+		return
 	calculate_amount_indoors()
 	global_position = GameManager.instance.player.global_position
 
