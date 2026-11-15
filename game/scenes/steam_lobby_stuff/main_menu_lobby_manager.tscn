@@ -23,7 +23,7 @@ join_button = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/JoinL
 exit_button = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitButton")
 spinning_fish_player = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/SillySpinningFish")
 spinning_fish_gif = ExtResource("2_dqjaf")
-player_spawner = NodePath("PlayerSpawner")
+player_spawner = NodePath("")
 starting_screen_ui = NodePath("MainMenu")
 player_scene = ExtResource("3_dqjaf")
 
@@ -98,7 +98,3 @@ text = "Join Lobby"
 [node name="ExitButton" type="Button" parent="MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions" unique_id=1172290688]
 layout_mode = 2
 text = "Exit"
-
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=227214776]
-_spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
-spawn_path = NodePath(".")
