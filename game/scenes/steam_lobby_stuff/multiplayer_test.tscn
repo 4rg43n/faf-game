@@ -21,6 +21,8 @@ albedo_color = Color(0.15686275, 0.23921569, 0.2627451, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cbl3"]
 size = Vector3(200, 0.1, 200)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_hjswh"]
+
 [node name="MultiPlayerTest" type="Node3D" unique_id=1203609923]
 script = ExtResource("1_1l3fq")
 metadata/_edit_lock_ = true
@@ -43,3 +45,45 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=1299036632]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 shape = SubResource("BoxShape3D_4cbl3")
+
+[node name="Boxes" type="Node3D" parent="." unique_id=1255224871]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3316536, 0.5, 33.75618)
+
+[node name="Box" type="Node3D" parent="Boxes" unique_id=463210701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.164476, 0, -33.75618)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Boxes/Box" unique_id=591920725]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Boxes/Box/StaticBody3D" unique_id=268884325]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boxes/Box/StaticBody3D" unique_id=1408841329]
+shape = SubResource("BoxShape3D_hjswh")
+
+[node name="Box2" type="Node3D" parent="Boxes" unique_id=2099684472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56.53761)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Boxes/Box2" unique_id=1134485301]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Boxes/Box2/StaticBody3D" unique_id=1858903264]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boxes/Box2/StaticBody3D" unique_id=960372455]
+shape = SubResource("BoxShape3D_hjswh")
+
+[node name="Box3" type="Node3D" parent="Boxes" unique_id=413194876]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Boxes/Box3" unique_id=2146129414]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Boxes/Box3/StaticBody3D" unique_id=1736138937]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boxes/Box3/StaticBody3D" unique_id=1471557959]
+shape = SubResource("BoxShape3D_hjswh")
+
+[node name="Box4" type="Node3D" parent="Boxes" unique_id=207485166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.849869, -1.9073486e-06, -33.80651)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Boxes/Box4" unique_id=504651310]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Boxes/Box4/StaticBody3D" unique_id=532518614]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boxes/Box4/StaticBody3D" unique_id=85802682]
+shape = SubResource("BoxShape3D_hjswh")
