@@ -9,79 +9,111 @@ oversampling_override = 1.0
 mode = 2
 title = "Lobby List"
 initial_position = 1
-size = Vector2i(1130, 600)
+size = Vector2i(500, 350)
 theme_override_font_sizes/title_font_size = 25
 script = ExtResource("1_kni26")
-show_filters_button = NodePath("MarginContainer/VBox/Controls/Filters")
-refresh_query_search = NodePath("MarginContainer/VBox/Controls/Refresh")
-close_button = NodePath("MarginContainer/VBox/Controls/Close")
+show_filters_button = NodePath("VBox/MarginContainer/Controls/Filters")
+refresh_query_search = NodePath("VBox/MarginContainer/Controls/Refresh")
+close_button = NodePath("VBox/MarginContainer/Controls/Close")
 lobby_filter_popup = NodePath("LobbyFilters")
-lobby_container = NodePath("MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox")
+lobby_container = NodePath("VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox")
 LOBBY_ENTRY_SCENE = ExtResource("2_kic7s")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1060925802]
+[node name="Panel" type="Panel" parent="." unique_id=180325205]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.95, 0.95)
-pivot_offset_ratio = Vector2(0.5, 0.5)
-offset_transform_enabled = true
 
-[node name="VBox" type="VBoxContainer" parent="MarginContainer" unique_id=1210977475]
-layout_mode = 2
-theme_override_constants/separation = 15
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1210977475]
+custom_maximum_size = Vector2(-1, 300)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 310.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 10
 
-[node name="ScrollyWolly" type="ScrollContainer" parent="MarginContainer/VBox" unique_id=652906283]
+[node name="ScrollyWolly" type="ScrollContainer" parent="VBox" unique_id=652906283]
 custom_minimum_size = Vector2(0, 540)
 layout_mode = 2
+size_flags_horizontal = 17
+size_flags_vertical = 0
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/VBox/ScrollyWolly" unique_id=811957697]
+[node name="Panel" type="Panel" parent="VBox/ScrollyWolly" unique_id=811957697]
 custom_minimum_size = Vector2(0, 540)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBox/ScrollyWolly/Panel" unique_id=1508965046]
-layout_mode = 0
-offset_right = 1130.0
-offset_bottom = 75.0
+[node name="MarginContainer" type="MarginContainer" parent="VBox/ScrollyWolly/Panel" unique_id=1508965046]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -265.0
+offset_right = 265.0
+offset_bottom = 420.0
+grow_horizontal = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 
-[node name="LobbyVBox" type="VBoxContainer" parent="MarginContainer/VBox/ScrollyWolly/Panel/MarginContainer" unique_id=647979591]
+[node name="LobbyVBox" type="VBoxContainer" parent="VBox/ScrollyWolly/Panel/MarginContainer" unique_id=647979591]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 19
+size_flags_vertical = 0
 
-[node name="Controls" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=1118092315]
+[node name="LobbySearchEntry" parent="VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=289028217 instance=ExtResource("2_kic7s")]
 layout_mode = 2
 
-[node name="Filters" type="Button" parent="MarginContainer/VBox/Controls" unique_id=1452338482]
+[node name="LobbySearchEntry2" parent="VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=243189697 instance=ExtResource("2_kic7s")]
+layout_mode = 2
+
+[node name="LobbySearchEntry3" parent="VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=209840156 instance=ExtResource("2_kic7s")]
+layout_mode = 2
+
+[node name="LobbySearchEntry4" parent="VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=1097724825 instance=ExtResource("2_kic7s")]
+layout_mode = 2
+
+[node name="LobbySearchEntry5" parent="VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=959264674 instance=ExtResource("2_kic7s")]
+layout_mode = 2
+
+[node name="LobbySearchEntry6" parent="VBox/ScrollyWolly/Panel/MarginContainer/LobbyVBox" unique_id=873759516 instance=ExtResource("2_kic7s")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBox" unique_id=1717752877]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="Controls" type="HBoxContainer" parent="VBox/MarginContainer" unique_id=1118092315]
+layout_mode = 2
+
+[node name="Filters" type="Button" parent="VBox/MarginContainer/Controls" unique_id=1452338482]
 layout_mode = 2
 text = "Filters"
 
-[node name="SpacerTiny" type="Control" parent="MarginContainer/VBox/Controls" unique_id=1001055252]
+[node name="SpacerTiny" type="Control" parent="VBox/MarginContainer/Controls" unique_id=1001055252]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 
-[node name="Refresh" type="Button" parent="MarginContainer/VBox/Controls" unique_id=960524634]
+[node name="Refresh" type="Button" parent="VBox/MarginContainer/Controls" unique_id=960524634]
 layout_mode = 2
 text = "Refresh"
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBox/Controls" unique_id=1883564648]
+[node name="Spacer" type="Control" parent="VBox/MarginContainer/Controls" unique_id=1883564648]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Close" type="Button" parent="MarginContainer/VBox/Controls" unique_id=1677148574]
+[node name="Close" type="Button" parent="VBox/MarginContainer/Controls" unique_id=1677148574]
 layout_mode = 2
 text = "Close"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=826875090]
-layout_mode = 2
 
 [node name="LobbyFilters" parent="." unique_id=1530206536 instance=ExtResource("3_kobrh")]
 visible = false
