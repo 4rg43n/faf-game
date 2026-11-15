@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeatherCondition" format=3 uid="uid://c8vke606olrn"]
+
+[ext_resource type="Script" uid="uid://cny2gyxe5r6jt" path="res://scripts/weather/weather_condition.gd" id="1_u2weg"]
+
+[resource]
+script = ExtResource("1_u2weg")
+condition_name = "Cloudy"
+cloud_coverage = 0.9
+default_skydome_energy = 0.5
+sun_energy = 0.5
+cloud_intensity = 0.4
+rain_particle_amount = 2000
+metadata/_custom_type_script = "uid://cny2gyxe5r6jt"
