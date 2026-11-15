@@ -56,6 +56,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_update_player.rpc(1, self.position, self.rotation)
 
+#we need the server to know where we made our location changes cheap client auth
 @rpc("any_peer")
 func _update_player(in_position : Vector3, in_rotation : Vector3) -> void:
 	position = in_position
