@@ -214,9 +214,9 @@ func _on_player_spawned(new_player : PlayerMetadata) -> void:
 			new_player.player_controller.position = new_player.spawn_location.position
 	else:
 		print("[_on_player_spawned] we dont own authority ", new_player.peer_id)
-		process_mode = Node.PROCESS_MODE_DISABLED
-		set_process(false)
-		set_physics_process(false)
+		new_player.process_mode = Node.PROCESS_MODE_DISABLED
+		new_player.set_process(false)
+		new_player.set_physics_process(false)
 #endregion
 
 
