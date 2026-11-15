@@ -84,7 +84,6 @@ func _ready() -> void:
 	Steam.lobby_data_update.connect(_on_lobby_data_update)
 
 	player_spawner.spawn_function = spawn_player
-	player_spawner.spawned.connect(_on_player_spawned)
 	#bc host and client are same process we need to cover spawning their client as a special case
 	player_spawner.child_entered_tree.connect(_on_player_spawned)
 
