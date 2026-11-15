@@ -10,7 +10,7 @@
 storage/size = Vector2i(360, 247)
 storage/format = 1
 
-[node name="LobbyManager" type="Control" unique_id=1925178178 node_paths=PackedStringArray("host_button", "join_button", "exit_button", "spinning_fish_player", "player_spawner", "starting_world", "starting_screen_ui")]
+[node name="LobbyManager" type="Control" unique_id=1925178178 node_paths=PackedStringArray("host_button", "join_button", "exit_button", "spinning_fish_player", "player_spawner", "starting_screen_ui")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,20 +24,12 @@ exit_button = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitB
 spinning_fish_player = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/SillySpinningFish")
 spinning_fish_gif = ExtResource("2_dqjaf")
 player_spawner = NodePath("PlayerSpawner")
-starting_world = NodePath("")
 starting_screen_ui = NodePath("MainMenu")
 player_scene = ExtResource("3_dqjaf")
 
 [node name="MainMenu" type="Control" parent="." unique_id=63993782]
 layout_mode = 1
 anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BackgroundPanel" type="Panel" parent="MainMenu" unique_id=1316055735]
-layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

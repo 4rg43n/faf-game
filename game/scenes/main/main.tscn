@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dnlwpjopnbn2p"]
 
 [ext_resource type="PackedScene" uid="uid://byujyoyd72yde" path="res://scenes/steam_lobby_stuff/main_menu_lobby_manager.tscn" id="1_iuonh"]
+[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scripts/main/main.gd" id="1_ou6is"]
 [ext_resource type="PackedScene" uid="uid://cs27qyaii4qhc" path="res://scenes/worlds/test_island.tscn" id="2_k2fmo"]
 [ext_resource type="Script" uid="uid://dd0g2xdhbs54h" path="res://scripts/main/game_manager.gd" id="2_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://gk6g40v2wk3y" path="res://scenes/debug/fps_tracker.tscn" id="3_b1x3f"]
@@ -19,7 +20,9 @@
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
 
-[node name="Main" type="Node" unique_id=1017812370]
+[node name="Main" type="Node" unique_id=1017812370 node_paths=PackedStringArray("weather_manager")]
+script = ExtResource("1_ou6is")
+weather_manager = NodePath("WeatherManager")
 
 [node name="LobbyManager" parent="." unique_id=1925178178 node_paths=PackedStringArray("starting_world") instance=ExtResource("1_iuonh")]
 starting_world = NodePath("../World/TestIsland")
@@ -96,5 +99,7 @@ dome_path = NodePath("../SkyDome")
 current_time = 6.65
 day = 2
 
-[node name="TestIsland" parent="World" unique_id=231429549 node_paths=PackedStringArray("weather_manager") instance=ExtResource("2_k2fmo")]
-weather_manager = NodePath("../../WeatherManager")
+[node name="TestIsland" parent="World" unique_id=231429549 instance=ExtResource("2_k2fmo")]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1345780627]
+transform = Transform3D(0.19414859, 0.0659656, -0.9787517, -0.0128350835, 0.9978219, 0.06470488, 0.9808882, 0, 0.19457237, -104.5698, 37.076996, 45.213646)

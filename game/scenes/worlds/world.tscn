@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://dqobyhrfswxa3"]
 
-[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scripts/world/main.gd" id="1_mnksr"]
+[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scripts/main/main.gd" id="1_mnksr"]
 [ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/player/player.tscn" id="2_sqeqr"]
+
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 
