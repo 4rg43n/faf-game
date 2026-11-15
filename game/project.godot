@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="faf-game"
-run/main_scene="uid://dqobyhrfswxa3"
+run/main_scene="uid://byujyoyd72yde"
 config/features=PackedStringArray("4.8", "Forward Plus")
 
 [debug]
