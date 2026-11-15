@@ -81,7 +81,7 @@ metadata/_edit_lock_ = true
 script = ExtResource("1_7kt02")
 player = NodePath("../Player")
 sky_3d = NodePath("../Sky3D")
-third_person_cam = NodePath("../Player/SpringArmPivot/Camera3D")
+third_person_cam = NodePath("../Player/SpringArmPivot/ThirdPersonCam")
 metadata/_custom_type_script = "uid://dd0g2xdhbs54h"
 
 [node name="WeatherManager" type="Node" parent="." unique_id=1353526381 node_paths=PackedStringArray("rain_particles", "sky_3d", "time_of_day", "sky_dome")]
