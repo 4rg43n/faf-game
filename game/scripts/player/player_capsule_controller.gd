@@ -54,6 +54,12 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	_update_player.rpc(1, self.position, self.rotation)
+
+@rpc("any_peer")
+func _update_player(in_position : Vector3, in_rotation : Vector3) -> void:
+	position = in_position
+	rotation = in_rotation
 
 func make_current_player() -> void:
 	owned_by_current_client = true
