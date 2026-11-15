@@ -38,7 +38,7 @@ size = Vector2(200, 200)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7kt02"]
 size = Vector3(200, 0.1, 200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_62dlx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0jaw"]
 render_priority = 0
 shader = ExtResource("19_h0jaw")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -77,10 +77,11 @@ script = ExtResource("1_b20p2")
 weather_manager = NodePath("WeatherManager")
 metadata/_edit_lock_ = true
 
-[node name="GameManager" type="Node" parent="." unique_id=1898930865 node_paths=PackedStringArray("player", "sky_3d")]
+[node name="GameManager" type="Node" parent="." unique_id=1898930865 node_paths=PackedStringArray("player", "sky_3d", "third_person_cam")]
 script = ExtResource("1_7kt02")
 player = NodePath("../Player")
 sky_3d = NodePath("../Sky3D")
+third_person_cam = NodePath("../Player/SpringArmPivot/Camera3D")
 metadata/_custom_type_script = "uid://dd0g2xdhbs54h"
 
 [node name="WeatherManager" type="Node" parent="." unique_id=1353526381 node_paths=PackedStringArray("rain_particles", "sky_3d", "time_of_day", "sky_dome")]
@@ -180,7 +181,7 @@ transform = Transform3D(8.483259, 0, -2.6473722, 0, 5, 0, 5.2947445, 0, 4.241629
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0.18668818, 8.669642, 12.765796)
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="." unique_id=1501747599]
-material_override = SubResource("ShaderMaterial_62dlx")
+material_override = SubResource("ShaderMaterial_h0jaw")
 multimesh = SubResource("MultiMesh_h0jaw")
 script = ExtResource("22_l7101")
 scale_h = 2.0

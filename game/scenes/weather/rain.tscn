@@ -114,7 +114,7 @@ random_volume_offset_db = 2.0
 streams_count = 1
 stream_0/stream = ExtResource("8_o38sm")
 
-[node name="Rain" type="GPUParticles3D" unique_id=1079689614 node_paths=PackedStringArray("rain_sound", "mist_particles")]
+[node name="Rain" type="GPUParticles3D" unique_id=1079689614 node_paths=PackedStringArray("rain_sound", "mist_particles", "lightning")]
 material_override = SubResource("StandardMaterial3D_m72jr")
 transparency = 0.75
 amount = 20000
@@ -124,6 +124,7 @@ draw_pass_1 = SubResource("RibbonTrailMesh_61r3b")
 script = ExtResource("1_61r3b")
 rain_sound = NodePath("RainSound")
 mist_particles = NodePath("MistParticles")
+lightning = NodePath("LightningController")
 
 [node name="RainSound" type="AudioStreamPlayer" parent="." unique_id=1121645608]
 stream = SubResource("AudioStreamSynchronized_b20p2")

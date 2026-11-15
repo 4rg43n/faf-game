@@ -2,6 +2,7 @@ class_name RainSystem extends GPUParticles3D
 
 @export var rain_sound: AudioStreamPlayer
 @export var mist_particles: GPUParticles3D
+@export var lightning: Node3D
 @export var rain_sound_mute: bool = false
 @export var rain_enabled: bool = false:
 	set(value):
@@ -10,7 +11,7 @@ class_name RainSystem extends GPUParticles3D
 @export var storm_enabled: bool = false:
 	set(value):
 		storm_enabled = value
-		#lighning.is_storming = value
+		lightning.is_storming = value
 		change_rain()
 
 var mist_process_material: ParticleProcessMaterial

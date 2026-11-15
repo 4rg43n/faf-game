@@ -29,8 +29,44 @@ func _physics_process(_delta: float) -> void:
 
 
 func start_lightning() -> void:
-	pass
+	if !sky_3d:
+		sky_3d = WeatherManager.instance.sky_3d
+	rotation_degrees.y = randf_range(0.0, 360.0)
+	lightning.position.z = randf_range(lightning_min_distance, lightning_max_distance)
+
+	var distance: float = abs(lightning.position.z)
+	var height: float = position.y
+
+	var angle_rad: float = atan2(distance, height)
+	lightning_directional_light.rotation_degrees.x = -90.0 - rad_to_deg(angle_rad)
+
+	is_flashing = true
+	lightning_strike.emit()
+
+	await get_tree().process.frame
+	await get_tree().process.frame
+	await get_tree().process.frame
+	flash(true)
+	await get_tree().create_timer(randf()/4.0, false).timeout
+	flash(false)
+	await get_tree().create_timer(randf()/4.0, false).timeout
+	flash(true)
+	await get_tree().create_timer(randf()/4.0, false).timeout
+	flash(false)
+	await get_tree().create_timer(3.0, false).timeout
+	is_flashing = false
 
 
 func play_thunder() -> void:
-	pass
+	var distance: float = GameManager.instance.active_camera.global_position.distance_to(global_position)
+	var delay_amount: float = distance / (343.0 / 5.0)
+	await get_tree().create_timer(delay_amount, false).timeout
+	thunder_audio.play()
+
+
+func flash(toggled_on: bool) -> void:
+	if !toggled_on:
+		sky_3d.skydome_energy = default_skydome_energy
+	else:
+		sky_3d.skydome_energy = default_skydome_energy * 4.0
+	visible = toggled_on
