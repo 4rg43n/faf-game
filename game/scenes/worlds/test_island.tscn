@@ -1,28 +1,12 @@
 [gd_scene format=3 uid="uid://cs27qyaii4qhc"]
 
-[ext_resource type="Script" uid="uid://dd0g2xdhbs54h" path="res://scripts/main/game_manager.gd" id="1_7kt02"]
 [ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scripts/world/main.gd" id="1_b20p2"]
 [ext_resource type="PackedScene" uid="uid://dvcqp2rkh2dnd" path="res://assets/models/test/box.tscn" id="2_4gf4p"]
-[ext_resource type="PackedScene" uid="uid://bk6rwduy8u5ym" path="res://scenes/weather/rain.tscn" id="2_c5qrq"]
-[ext_resource type="Script" uid="uid://cd4a6lf1xe5jp" path="res://scripts/weather/weather_manager.gd" id="3_kp4hp"]
-[ext_resource type="Resource" uid="uid://cxdu4jyq8tikp" path="res://resources/weather/clear.tres" id="4_62dlx"]
 [ext_resource type="Texture2D" uid="uid://s2dqfscfu407" path="res://assets/terrain/grass.jpg" id="5_ajolk"]
-[ext_resource type="Resource" uid="uid://bsqtk47oirn4s" path="res://resources/weather/foggy.tres" id="5_h0jaw"]
-[ext_resource type="Environment" uid="uid://0x4j6mofq72x" path="res://resources/world_environment.tres" id="6_c5ll1"]
-[ext_resource type="Resource" uid="uid://c8vke606olrn" path="res://resources/weather/cloudy.tres" id="6_c8ix1"]
-[ext_resource type="PackedScene" uid="uid://gk6g40v2wk3y" path="res://scenes/debug/fps_tracker.tscn" id="6_qij6u"]
-[ext_resource type="Resource" uid="uid://cno1bfob1d317" path="res://resources/weather/rain.tres" id="7_jy72t"]
-[ext_resource type="Resource" uid="uid://c23rdredqqqog" path="res://resources/weather/heavy_rain.tres" id="8_l7101"]
-[ext_resource type="Resource" uid="uid://182qlsti6ibm" path="res://resources/weather/storm.tres" id="9_h0jaw"]
-[ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="12_jy72t"]
-[ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="13_l7101"]
-[ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="14_rvtd5"]
 [ext_resource type="Shader" uid="uid://bi3o8elbtqoni" path="res://addons/simplegrasstextured/shaders/grass.gdshader" id="19_h0jaw"]
 [ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="20_c8ix1"]
 [ext_resource type="ArrayMesh" uid="uid://sptcpdx6wtm8" path="res://addons/simplegrasstextured/default_mesh.tres" id="21_jy72t"]
 [ext_resource type="Script" uid="uid://2juaclm8gc1n" path="res://addons/simplegrasstextured/grass.gd" id="22_l7101"]
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_hvk0m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_asfho"]
 albedo_texture = ExtResource("5_ajolk")
@@ -37,7 +21,7 @@ size = Vector2(200, 200)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7kt02"]
 size = Vector3(200, 0.1, 200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0jaw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62dlx"]
 render_priority = 0
 shader = ExtResource("19_h0jaw")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -73,74 +57,10 @@ buffer = PackedFloat32Array(-0.28491816, 0, 0.9585518, -86.83098, 0, 1, 0, 1.899
 
 [node name="TestIsland" type="Node3D" unique_id=231429549 node_paths=PackedStringArray("weather_manager", "spawn_location")]
 script = ExtResource("1_b20p2")
-weather_manager = NodePath("WeatherManager")
+weather_manager = NodePath("")
 spawn_location = NodePath("SpawnLocation")
 metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 metadata/_edit_lock_ = true
-
-[node name="GameManager" type="Node" parent="." unique_id=1898930865 node_paths=PackedStringArray("player", "sky_3d", "third_person_cam")]
-script = ExtResource("1_7kt02")
-player = NodePath("")
-sky_3d = NodePath("../Sky3D")
-third_person_cam = NodePath("")
-metadata/_custom_type_script = "uid://dd0g2xdhbs54h"
-
-[node name="WeatherManager" type="Node" parent="." unique_id=1353526381 node_paths=PackedStringArray("rain_particles", "sky_3d", "time_of_day", "sky_dome")]
-script = ExtResource("3_kp4hp")
-rain_particles = NodePath("Rain")
-sky_3d = NodePath("../Sky3D")
-time_of_day = NodePath("../Sky3D/TimeOfDay")
-sky_dome = NodePath("../Sky3D/SkyDome")
-weather_conditions = Dictionary[String, Resource]({
-"clear": ExtResource("4_62dlx"),
-"cloudy": ExtResource("6_c8ix1"),
-"foggy": ExtResource("5_h0jaw"),
-"heavy_rain": ExtResource("8_l7101"),
-"rain": ExtResource("7_jy72t"),
-"storm": ExtResource("9_h0jaw")
-})
-environment = ExtResource("6_c5ll1")
-
-[node name="Rain" parent="WeatherManager" unique_id=1079689614 instance=ExtResource("2_c5qrq")]
-visible = false
-metadata/_edit_lock_ = true
-
-[node name="FpsTracker" parent="." unique_id=1956701810 instance=ExtResource("6_qij6u")]
-
-[node name="Sky3D" type="WorldEnvironment" parent="." unique_id=146302866]
-environment = ExtResource("6_c5ll1")
-camera_attributes = SubResource("CameraAttributesPractical_hvk0m")
-script = ExtResource("12_jy72t")
-editor_time_enabled = false
-current_time = 6.65
-wind_direction = 2.35619451204804
-metadata/_custom_type_script = "uid://deo0gxkmk2ahd"
-
-[node name="SunLight" type="DirectionalLight3D" parent="Sky3D" unique_id=1160344875]
-transform = Transform3D(0.426591, -0.06600468, 0.902033, 0, 0.9973335, 0.07297813, -0.90444463, -0.031131815, 0.4254535, 0.902033, 0.07297813, 0.4254535)
-light_color = Color(0.98291916, 0.59262115, 0.39704514, 1)
-shadow_enabled = true
-
-[node name="MoonLight" type="DirectionalLight3D" parent="Sky3D" unique_id=1661639914]
-transform = Transform3D(0, -0.47161585, 0.8818041, 0.58394253, -0.7158441, -0.38285542, 0.81179494, 0.5149229, 0.2753966, 0.8818041, -0.38285542, 0.2753966)
-light_color = Color(0.572549, 0.776471, 0.956863, 1)
-light_energy = 0.0
-
-[node name="SkyDome" type="Node" parent="Sky3D" unique_id=1509976793]
-script = ExtResource("13_l7101")
-sun_azimuth = -2.0115166
-sun_altitude = -1.4977533
-moon_azimuth = -1.8735085
-moon_altitude = -1.9636816
-fog_render_priority = 1
-wind_direction = 2.35619451204804
-
-[node name="TimeOfDay" type="Node" parent="Sky3D" unique_id=386446977]
-script = ExtResource("14_rvtd5")
-editor_time_enabled = false
-dome_path = NodePath("../SkyDome")
-current_time = 6.65
-day = 2
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1693563496]
 mesh = SubResource("PlaneMesh_vfip2")
@@ -170,7 +90,7 @@ transform = Transform3D(8.483259, 0, -2.6473722, 0, 5, 0, 5.2947445, 0, 4.241629
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0.18668818, 6.178111, 12.765796)
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="." unique_id=1501747599]
-material_override = SubResource("ShaderMaterial_h0jaw")
+material_override = SubResource("ShaderMaterial_62dlx")
 multimesh = SubResource("MultiMesh_h0jaw")
 script = ExtResource("22_l7101")
 scale_h = 2.0

@@ -4,7 +4,7 @@ class_name PlayerController extends CharacterBody3D
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
 
-@export var camera: Camera3D
+@export var active_camera: Camera3D
 @export var SPEED: float = 5.0
 @export var JUMP_VELOCITY: float = 6.0
 
@@ -47,5 +47,5 @@ func _physics_process(delta: float) -> void:
 
 func make_current_player() -> void:
 	owned_by_current_client = true
-	camera.make_current()
+	active_camera.make_current()
 	print("this client is the owner!")

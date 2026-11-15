@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://dd1g6qwig8j0" path="res://scripts/steam_lobby_stuff/lobby_manager.gd" id="1_n111s"]
 [ext_resource type="Texture2D" uid="uid://du67ec8ldp2dh" path="res://assets/silly_images/spinning_fish_animated_texture.tres" id="2_dqjaf"]
 [ext_resource type="PackedScene" uid="uid://cwk7awyll3irq" path="res://scenes/steam_lobby_stuff/lobby_host_generation.tscn" id="3_75lsc"]
-[ext_resource type="PackedScene" uid="uid://bjbwywy424ihg" path="res://scenes/player_scene.tscn" id="3_dqjaf"]
+[ext_resource type="PackedScene" uid="uid://bjbwywy424ihg" path="res://scenes/player/player_sync.tscn" id="3_dqjaf"]
 [ext_resource type="PackedScene" uid="uid://dijfr0d4tmgks" path="res://scenes/steam_lobby_stuff/lobby_search_screen.tscn" id="4_jxa7w"]
-[ext_resource type="PackedScene" uid="uid://cs27qyaii4qhc" path="res://scenes/worlds/test_island.tscn" id="6_n111s"]
 
 [sub_resource type="AnimatedImageTexture" id="AnimatedImageTexture_idy7s"]
 storage/size = Vector2i(360, 247)
@@ -25,7 +24,7 @@ exit_button = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitB
 spinning_fish_player = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/SillySpinningFish")
 spinning_fish_gif = ExtResource("2_dqjaf")
 player_spawner = NodePath("PlayerSpawner")
-starting_world = NodePath("TestIsland")
+starting_world = NodePath("")
 starting_screen_ui = NodePath("MainMenu")
 player_scene = ExtResource("3_dqjaf")
 
@@ -111,5 +110,3 @@ text = "Exit"
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=227214776]
 _spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
 spawn_path = NodePath(".")
-
-[node name="TestIsland" parent="." unique_id=231429549 instance=ExtResource("6_n111s")]
