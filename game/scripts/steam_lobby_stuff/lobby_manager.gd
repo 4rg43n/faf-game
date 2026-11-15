@@ -206,6 +206,10 @@ func leave_lobby() -> void:
 		_close_game()
 
 func _on_player_spawned(new_player : PlayerMetadata) -> void:
+	#since p2p server and host client are on same process
+	if multiplayer.get_unique_id() == new_player.peer_id:
+		print("[_on_player_spawned] we own authority ", new_player.peer_id)
+		new_player.player_controller.make_current_player()
 	## client
 	if not is_multiplayer_authority():
 		if multiplayer.get_unique_id() == new_player.peer_id:
@@ -213,10 +217,10 @@ func _on_player_spawned(new_player : PlayerMetadata) -> void:
 			new_player.player_controller.make_current_player()
 		else:
 			print("[_on_player_spawned] we dont own authority ", new_player.peer_id)
-			#new_player.process_mode = Node.PROCESS_MODE_DISABLED
-			#new_player.set_process(false)
-			#new_player.set_physics_process(false)
-	## server
+			new_player.process_mode = Node.PROCESS_MODE_DISABLED
+			new_player.set_process(false)
+			new_player.set_physics_process(false)
+	## server / client host - server authoratative
 	else:
 		if new_player.spawn_location != null:
 			new_player.player_controller.position = new_player.spawn_location.position
