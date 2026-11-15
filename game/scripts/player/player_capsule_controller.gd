@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name PlayerController extends CharacterBody3D
 
 @export var camera: Camera3D
 @export var SPEED: float = 5.0

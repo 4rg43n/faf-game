@@ -26,6 +26,9 @@ static var instance : LobbyManager
 @export var spinning_fish_player : AnimatedImagePlayer
 @export var spinning_fish_gif : AnimatedImageTexture
 
+@export var player_spawner : MultiplayerSpawner
+@export var starting_world : WorldBackBone
+
 var peer : SteamMultiplayerPeer
 
 const already_started_loby_id : String = "already_started_loby_id"
@@ -72,6 +75,8 @@ func _ready() -> void:
 	Steam.join_requested.connect(_on_join_though_friend)
 	Steam.lobby_chat_update.connect(_on_lobby_chat_update)
 	Steam.lobby_data_update.connect(_on_lobby_data_update)
+
+	player_spawner.spawn_function = spawn_player
 
 	multiplayer.peer_connected.connect(_on_player_joined)
 	multiplayer.peer_disconnected.connect(_on_player_leave)
@@ -263,10 +268,23 @@ func spinup_server(in_lobby_id : int) -> void:
 		print("Hosting Steam P2P lobby: ", lobby_id)
 	set_multiplayer_authority(peer.get_unique_id())
 
+## we join the lobby first and then we join via multiplayer peer
 #TODO spawn player character (on server) - this does get pinged on clients as well
 func _on_player_joined(client_peer_id : int) -> void:
 	if not is_multiplayer_authority():
 		return
+	player_spawner.spawn(client_peer_id)
+
+
+func spawn_player(peer_id : int) -> PlayerMetadata:
+	var new_player = PlayerMetadata.new()
+	var steam_id : int = Steam.getSteamID()
+	new_player.init(peer_id, steam_id)
+
+	new_player.player_controller.position = starting_world.spawn_location.position
+
+	return new_player
+
 
 #TODO despawn player character (on server)
 #TODO if no players left connected or the host leaves kill the server

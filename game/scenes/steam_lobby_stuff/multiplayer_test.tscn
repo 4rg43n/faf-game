@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bpg0e13cthh5m"]
+
+[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scenes/argaen/main.gd" id="1_1l3fq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 2
+sky = SubResource("sky")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="ground"]
+size = Vector2(200, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hjw58"]
+albedo_color = Color(0.15686275, 0.23921569, 0.2627451, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4cbl3"]
+size = Vector3(200, 0.1, 200)
+
+[node name="MultiPlayerTest" type="Node3D" unique_id=1203609923]
+script = ExtResource("1_1l3fq")
+metadata/_edit_lock_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1191783434]
+environment = SubResource("env")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=282412886]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 0)
+shadow_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=195022916]
+mesh = SubResource("ground")
+surface_material_override/0 = SubResource("StandardMaterial3D_hjw58")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=2022261876]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=1299036632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+shape = SubResource("BoxShape3D_4cbl3")
