@@ -22,6 +22,8 @@ var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
 func _physics_process(delta: float) -> void:
+	if not owned_by_current_client:
+		return
 	# DEV TOOLS
 	if OS.is_debug_build():
 		if Input.is_action_pressed("shift"):
