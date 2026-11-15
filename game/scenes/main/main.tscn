@@ -102,9 +102,10 @@ day = 2
 
 [node name="TestIsland" parent="World" unique_id=231429549 instance=ExtResource("2_k2fmo")]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1345780627]
+[node name="LobbyCamera" type="Camera3D" parent="." unique_id=1345780627]
 transform = Transform3D(0.19414859, 0.0659656, -0.9787517, -0.0128350835, 0.9978219, 0.06470488, 0.9808882, 0, 0.19457237, -104.5698, 37.076996, 45.213646)
 current = true
+metadata/_edit_lock_ = true
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1692186644]
 _spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
