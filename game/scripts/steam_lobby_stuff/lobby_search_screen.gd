@@ -38,15 +38,17 @@ func refresh_filters() -> void:
 	add_lobby_filters()
 	Steam.requestLobbyList()
 
+#default to worldwide filter for dev testing
 func add_lobby_filters() -> void:
 	Steam.addRequestLobbyListDistanceFilter(LobbySearchFilters.instance.search_distance_options.selected as Steam.LobbyDistanceFilter)
 	Steam.addRequestLobbyListFilterSlotsAvailable(int(LobbySearchFilters.instance.open_player_slots_spin_box.value))
 	Steam.addRequestLobbyListResultCountFilter(int(LobbySearchFilters.instance.max_query_size_spin_box.value))
+	Steam.addRequestLobbyListStringFilter(LobbyManager.magic_tag, LobbyManager.MAGIC_KEY, Steam.LobbyComparison.LOBBY_COMPARISON_EQUAL)
 
 	var loby_name : String = LobbySearchFilters.instance.lobby_name_line_edit.text
 	loby_name = loby_name.strip_edges()
 	if not loby_name.is_empty():
-		Steam.addRequestLobbyListStringFilter("lobby_name", loby_name, Steam.LobbyComparison.LOBBY_COMPARISON_EQUAL)
+		Steam.addRequestLobbyListStringFilter("name", loby_name, Steam.LobbyComparison.LOBBY_COMPARISON_EQUAL)
 
 	#specific lobby data / tags the user wants to match with
 	var data_sets : PackedStringArray = LobbySearchFilters.instance.lobby_data_search_line_edit.text.split(",", false)
@@ -68,7 +70,14 @@ func _on_lobby_match_list(lobbies: Array) -> void:
 	if lobbies.is_empty():
 		return
 
+	var loby_name : String = LobbySearchFilters.instance.lobby_name_line_edit.text
+	loby_name = loby_name.strip_edges()
 	for current_lobby_id : int in lobbies:
+		var actual_name : String = Steam.getLobbyData(current_lobby_id, "name")
+		print("lobby %s has name %s" % [current_lobby_id, actual_name])
+		if not actual_name.contains(loby_name):
+			continue
+
 		var new_lobby_obj : LobbySearchEntry = LOBBY_ENTRY_SCENE.instantiate()
 		new_lobby_obj.initalize_from_loby_object(current_lobby_id)
 		new_lobby_obj.joining_lobby.connect(LobbyManager.instance._join_lobby_through_ui)

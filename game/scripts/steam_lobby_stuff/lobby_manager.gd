@@ -37,6 +37,9 @@ var peer : SteamMultiplayerPeer
 
 const already_started_loby_id : String = "already_started_loby_id"
 const connect_to_lobby_search_term : String = "+connect_lobby"
+#necessary since we are using debug steam game
+const magic_tag : String = "my super awesome unique tag name that no one else is using"
+const MAGIC_KEY : String = "asdasda23w2ivn17800as9u77v6982nnmv;;aoi8y77ayubhl;"
 
 #we can set player specific lobby values using setLobbyMemberData instead of setLobbyData
 
@@ -111,7 +114,9 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 	spinup_server(in_lobby_id)
 
 	#for display / searching for lobbies
-	if not Steam.setLobbyData(in_lobby_id, "lobby_name", LobbyHostScreen.instance.lobby_name.text):
+	var requested_lobby_name : String = LobbyHostScreen.instance.lobby_name.text
+	requested_lobby_name = requested_lobby_name.strip_edges()
+	if not Steam.setLobbyData(in_lobby_id, "name", requested_lobby_name):
 		printerr("Failed to set lobby name")
 
 	#specific lobby data / tags the user wants to set.
@@ -122,6 +127,9 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 			continue
 		if not Steam.setLobbyData(in_lobby_id, pair[0], pair[1]):
 			printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, pair[0], pair[1]])
+
+	if not Steam.setLobbyData(in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY):
+		printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY])
 
 func _on_join_though_friend(in_lobby_id : int, friend_id : int) -> void:
 	var friend_name : String = Steam.getFriendPersonaName(friend_id)

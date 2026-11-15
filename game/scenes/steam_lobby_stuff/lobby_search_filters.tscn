@@ -71,7 +71,7 @@ size_flags_horizontal = 3
 [node name="SearchDistance" type="OptionButton" parent="LobbyFilters/VBox/LobbySearchOptions/Search Distance" unique_id=999899316]
 editor_description = "Based on the enums provided by https://godotsteam.com/classes/matchmaking/#lobbydistancefilter"
 layout_mode = 2
-selected = 1
+selected = 3
 item_count = 4
 popup/item_0/text = "Close"
 popup/item_0/id = 0
