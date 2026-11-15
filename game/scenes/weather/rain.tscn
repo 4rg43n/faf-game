@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dkgvsgj3xbpa8" path="res://scripts/weather/rain.gd" id="1_61r3b"]
 [ext_resource type="Texture2D" uid="uid://bo0rd0ge2xgj2" path="res://assets/weather/smoke.png" id="2_nkg2j"]
+[ext_resource type="AudioStream" uid="uid://0a2wt4y3pxih" path="res://audio/ambience/rain/rain_loop.ogg" id="2_ua0to"]
+[ext_resource type="AudioStream" uid="uid://i175qyeyi7p5" path="res://audio/ambience/rain/rain_sfx.ogg" id="3_3rjan"]
+[ext_resource type="AudioStream" uid="uid://dfyqdfynmlqri" path="res://audio/ambience/rain/storm_loop.ogg" id="4_f5g7b"]
+[ext_resource type="Script" uid="uid://djgbahli4ao4m" path="res://scenes/weather/lightning.gd" id="6_3rjan"]
+[ext_resource type="Texture2D" uid="uid://c3b7adyipfnvt" path="res://assets/weather/lightning.png" id="7_irvec"]
+[ext_resource type="AudioStream" uid="uid://bbticcnwbenot" path="res://audio/ambience/rain/thunder_clap.ogg" id="8_o38sm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m72jr"]
 render_priority = 1
@@ -41,6 +47,13 @@ size = 0.19
 curve = SubResource("Curve_f8bl5")
 
 [sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_b20p2"]
+stream_count = 3
+stream_0/stream = ExtResource("2_ua0to")
+stream_0/volume = -60.0
+stream_1/stream = ExtResource("3_3rjan")
+stream_1/volume = -60.0
+stream_2/stream = ExtResource("4_f5g7b")
+stream_2/volume = -60.0
 
 [sub_resource type="Curve" id="Curve_m72jr"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5080214, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -83,7 +96,25 @@ distance_fade_max_distance = 5.0
 material = SubResource("StandardMaterial3D_qij6u")
 orientation = 2
 
-[node name="Rain" type="GPUParticles3D" unique_id=1079689614]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5g7b"]
+transparency = 1
+disable_fog = true
+albedo_texture = ExtResource("7_irvec")
+metallic_specular = 0.0
+emission_enabled = true
+emission_energy_multiplier = 1.94
+emission_texture = ExtResource("7_irvec")
+
+[sub_resource type="QuadMesh" id="QuadMesh_irvec"]
+size = Vector2(150, 150)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_o38sm"]
+random_pitch = 1.4142135
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("8_o38sm")
+
+[node name="Rain" type="GPUParticles3D" unique_id=1079689614 node_paths=PackedStringArray("rain_sound", "mist_particles")]
 material_override = SubResource("StandardMaterial3D_m72jr")
 transparency = 0.75
 amount = 20000
@@ -91,6 +122,8 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_xtlud")
 draw_pass_1 = SubResource("RibbonTrailMesh_61r3b")
 script = ExtResource("1_61r3b")
+rain_sound = NodePath("RainSound")
+mist_particles = NodePath("MistParticles")
 
 [node name="RainSound" type="AudioStreamPlayer" parent="." unique_id=1121645608]
 stream = SubResource("AudioStreamSynchronized_b20p2")
@@ -102,3 +135,24 @@ preprocess = 10.0
 collision_base_size = 0.25
 process_material = SubResource("ParticleProcessMaterial_61r3b")
 draw_pass_1 = SubResource("PlaneMesh_c5qrq")
+
+[node name="LightningController" type="Node3D" parent="." unique_id=1653788094 node_paths=PackedStringArray("lightning", "thunder_audio")]
+script = ExtResource("6_3rjan")
+lightning = NodePath("Lightning")
+thunder_audio = NodePath("Lightning/ThunderAudio")
+
+[node name="Lightning" type="Node3D" parent="LightningController" unique_id=2062078757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 80, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LightningController/Lightning" unique_id=1788261825]
+material_override = SubResource("StandardMaterial3D_f5g7b")
+mesh = SubResource("QuadMesh_irvec")
+
+[node name="ThunderAudio" type="AudioStreamPlayer3D" parent="LightningController/Lightning" unique_id=528192331]
+stream = SubResource("AudioStreamRandomizer_o38sm")
+unit_size = 80.0
+max_db = -8.0
+max_distance = 3000.0
+bus = &"Weather"
+
+[node name="LightningDirectionalLight" type="DirectionalLight3D" parent="LightningController/Lightning" unique_id=230046159]
