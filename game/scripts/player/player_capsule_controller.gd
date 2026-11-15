@@ -1,10 +1,18 @@
 class_name PlayerController extends CharacterBody3D
 
+signal active_camera_changed(camera: Camera3D)
+
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
 
-@export var active_camera: Camera3D
+@export var active_camera: Camera3D:
+	set(camera):
+		if camera == active_camera:
+			return
+		active_camera = camera
+		active_camera.make_current()
+		active_camera_changed.emit(active_camera)
 @export var SPEED: float = 5.0
 @export var JUMP_VELOCITY: float = 6.0
 
