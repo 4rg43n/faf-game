@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bk6rwduy8u5ym"]
 
 [ext_resource type="Script" uid="uid://dkgvsgj3xbpa8" path="res://scripts/weather/rain.gd" id="1_61r3b"]
+[ext_resource type="Texture2D" uid="uid://bo0rd0ge2xgj2" path="res://assets/weather/smoke.png" id="2_nkg2j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m72jr"]
 render_priority = 1
@@ -41,9 +42,46 @@ curve = SubResource("Curve_f8bl5")
 
 [sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_b20p2"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_61r3b"]
+[sub_resource type="Curve" id="Curve_m72jr"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5080214, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="QuadMesh" id="QuadMesh_nkg2j"]
+[sub_resource type="CurveTexture" id="CurveTexture_n6b7w"]
+curve = SubResource("Curve_m72jr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_61r3b"]
+lifetime_randomness = 0.26
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 2, 10)
+angle_min = -360.0
+angle_max = 360.00003
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, -3, 0)
+scale_min = 2.0
+scale_max = 4.0
+alpha_curve = SubResource("CurveTexture_n6b7w")
+collision_mode = 1
+collision_friction = 0.08
+collision_bounce = 0.0
+collision_use_scale = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qij6u"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.08627451)
+albedo_texture = ExtResource("2_nkg2j")
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+distance_fade_mode = 1
+distance_fade_min_distance = 2.0
+distance_fade_max_distance = 5.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c5qrq"]
+material = SubResource("StandardMaterial3D_qij6u")
+orientation = 2
 
 [node name="Rain" type="GPUParticles3D" unique_id=1079689614]
 material_override = SubResource("StandardMaterial3D_m72jr")
@@ -58,6 +96,9 @@ script = ExtResource("1_61r3b")
 stream = SubResource("AudioStreamSynchronized_b20p2")
 
 [node name="MistParticles" type="GPUParticles3D" parent="." unique_id=113193734]
-visible = false
+cast_shadow = 0
+lifetime = 2.0
+preprocess = 10.0
+collision_base_size = 0.25
 process_material = SubResource("ParticleProcessMaterial_61r3b")
-draw_pass_1 = SubResource("QuadMesh_nkg2j")
+draw_pass_1 = SubResource("PlaneMesh_c5qrq")

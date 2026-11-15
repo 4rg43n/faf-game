@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WeatherCondition" format=3 uid="uid://cno1bfob1d317"]
+
+[ext_resource type="Script" uid="uid://cny2gyxe5r6jt" path="res://scripts/weather/weather_condition.gd" id="1_c4mmd"]
+
+[resource]
+script = ExtResource("1_c4mmd")
+condition_name = "Rain"
+fog_density = 0.5
+is_raining = true
+cloud_coverage = 0.9
+default_skydome_energy = 0.5
+sun_energy = 0.5
+rain_particle_amount = 25000
+enable_mist = true
+metadata/_custom_type_script = "uid://cny2gyxe5r6jt"
