@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqobyhrfswxa3"]
 
-[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scenes/argaen/main.gd" id="1_3qp2a"]
-[ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/argaen/components/player_capsule.tscn" id="1_1778k"]
+[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scripts/world/main.gd" id="1_mnksr"]
+[ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/player/player.tscn" id="2_sqeqr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 
@@ -25,7 +25,7 @@ size = Vector3(200, 0.1, 200)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3qp2a"]
 
 [node name="Main" type="Node3D" unique_id=1203609923]
-script = ExtResource("1_3qp2a")
+script = ExtResource("1_mnksr")
 metadata/_edit_lock_ = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1191783434]
@@ -47,7 +47,7 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 shape = SubResource("BoxShape3D_4cbl3")
 
-[node name="Player" parent="." unique_id=422766350 instance=ExtResource("1_1778k")]
+[node name="Player" parent="." unique_id=422766350 instance=ExtResource("2_sqeqr")]
 metadata/_edit_lock_ = true
 
 [node name="Boxes" type="Node3D" parent="." unique_id=1009813409]

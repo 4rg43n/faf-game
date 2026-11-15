@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bk6rwduy8u5ym"]
+
+[ext_resource type="Script" uid="uid://dkgvsgj3xbpa8" path="res://scripts/weather/rain.gd" id="1_61r3b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m72jr"]
+render_priority = 1
+cull_mode = 2
+shading_mode = 2
+diffuse_mode = 2
+specular_mode = 2
+disable_fog = true
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(0.5529556, 0.55295557, 0.55295557, 1)
+emission_energy_multiplier = 0.2
+distance_fade_mode = 1
+distance_fade_min_distance = 1.0
+distance_fade_max_distance = 5.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xtlud"]
+particle_flag_align_y = true
+emission_shape_offset = Vector3(0, 8, 0)
+emission_shape = 3
+emission_box_extents = Vector3(30, 10, 30)
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 1.5
+initial_velocity_max = 35.0
+scale_min = 0.099999994
+scale_max = 0.29999998
+collision_mode = 2
+collision_use_scale = true
+
+[sub_resource type="Curve" id="Curve_f8bl5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.04494381), -2.8496814, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_61r3b"]
+size = 0.19
+curve = SubResource("Curve_f8bl5")
+
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_b20p2"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_61r3b"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_nkg2j"]
+
+[node name="Rain" type="GPUParticles3D" unique_id=1079689614]
+material_override = SubResource("StandardMaterial3D_m72jr")
+transparency = 0.75
+amount = 20000
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_xtlud")
+draw_pass_1 = SubResource("RibbonTrailMesh_61r3b")
+script = ExtResource("1_61r3b")
+
+[node name="RainSound" type="AudioStreamPlayer" parent="." unique_id=1121645608]
+stream = SubResource("AudioStreamSynchronized_b20p2")
+
+[node name="MistParticles" type="GPUParticles3D" parent="." unique_id=113193734]
+visible = false
+process_material = SubResource("ParticleProcessMaterial_61r3b")
+draw_pass_1 = SubResource("QuadMesh_nkg2j")

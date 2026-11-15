@@ -4,8 +4,17 @@ extends CharacterBody3D
 @export var SPEED: float = 5.0
 @export var JUMP_VELOCITY: float = 6.0
 
+var regular_speed: float = SPEED
+var dev_speed: float = 50.0
 
 func _physics_process(delta: float) -> void:
+	# DEV TOOLS
+	if OS.is_debug_build():
+		if Input.is_action_pressed("shift"):
+			SPEED = dev_speed
+		else:
+			SPEED = regular_speed
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

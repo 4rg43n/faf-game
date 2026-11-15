@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bq6ggwl6w77co"]
+
+[ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/player/player.tscn" id="1_wwxa4"]
+[ext_resource type="PackedScene" uid="uid://dvcqp2rkh2dnd" path="res://assets/models/test/box.tscn" id="2_1xgld"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uyxgf"]
+
+[sub_resource type="Sky" id="Sky_jn1tk"]
+sky_material = SubResource("ProceduralSkyMaterial_uyxgf")
+
+[sub_resource type="Environment" id="Environment_yraw6"]
+background_mode = 2
+sky = SubResource("Sky_jn1tk")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ltopg"]
+size = Vector2(200, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xkxt4"]
+albedo_color = Color(0.15686275, 0.23921569, 0.2627451, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wfbtv"]
+size = Vector3(200, 0.1, 200)
+
+[node name="JungleIsland" type="Node3D" unique_id=2091886827]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1595512181]
+environment = SubResource("Environment_yraw6")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=616508425]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 0)
+shadow_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1577367482]
+mesh = SubResource("PlaneMesh_ltopg")
+surface_material_override/0 = SubResource("StandardMaterial3D_xkxt4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=1906725724]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=1654405257]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+shape = SubResource("BoxShape3D_wfbtv")
+
+[node name="Player" parent="." unique_id=422766350 instance=ExtResource("1_wwxa4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.049855, 0, 9.378431)
+
+[node name="Box3" parent="." unique_id=861555639 instance=ExtResource("2_1xgld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.809309, 0.5000002, 96.38783)
+
+[node name="Box4" parent="." unique_id=1671146475 instance=ExtResource("2_1xgld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.650877, 1.8079108, 97.98045)
