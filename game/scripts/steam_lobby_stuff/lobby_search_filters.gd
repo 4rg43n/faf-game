@@ -1,4 +1,4 @@
-class_name LobbySearchFilters extends PopupPanel
+class_name LobbySearchFilters extends Window
 
 static var instance : LobbySearchFilters
 

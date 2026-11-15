@@ -80,5 +80,4 @@ func _on_lobby_match_list(lobbies: Array) -> void:
 
 		var new_lobby_obj : LobbySearchEntry = LOBBY_ENTRY_SCENE.instantiate()
 		new_lobby_obj.initalize_from_loby_object(current_lobby_id)
-		new_lobby_obj.joining_lobby.connect(LobbyManager.instance._join_lobby_through_ui)
 		lobby_container.call_deferred("add_child", new_lobby_obj)
