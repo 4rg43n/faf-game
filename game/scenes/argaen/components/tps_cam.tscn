@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bwntnlx0dg3ph"]
+
+[ext_resource type="Script" uid="uid://b8guqksvr5f4r" path="res://scripts/player/tps_cam.gd" id="1_6wknd"]
+
+[node name="ThirdPersonCam3D" type="Camera3D" unique_id=1524126172]
+transform = Transform3D(1, 0, 0, 0, 0.9999996, 0, 0, 0, 0.9999996, 0, 0, 0)
+script = ExtResource("1_6wknd")

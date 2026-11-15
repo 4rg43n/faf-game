@@ -4,14 +4,17 @@
 [ext_resource type="Script" uid="uid://cv1hr7tk44pc6" path="res://scripts/player/player_capsule_controller.gd" id="1_vi406"]
 [ext_resource type="Script" uid="uid://cus3wck7hvkpm" path="res://scripts/player/camera_spring_arm.gd" id="3_akrbj"]
 [ext_resource type="Script" uid="uid://chvy1uj628dtu" path="res://scripts/player/camera_follow.gd" id="4_ynch3"]
+[ext_resource type="Script" uid="uid://b8guqksvr5f4r" path="res://scripts/player/tps_cam.gd" id="5_xgtan"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vptg"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vi406"]
 
-[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("camera")]
+[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "camera")]
 script = ExtResource("1_vi406")
-camera = NodePath("SpringArmPivot/Camera3D")
+first_person_cam = NodePath("FirstPersonCam")
+third_person_cam = NodePath("SpringArmPivot/ThirdPersonCam")
+camera = NodePath("SpringArmPivot/ThirdPersonCam")
 
 [node name="player-capsule" parent="." unique_id=962360466 instance=ExtResource("1_nmtom")]
 
@@ -30,7 +33,12 @@ spring_length = 6.0
 
 [node name="SpringArmPosition" type="Node3D" parent="SpringArmPivot/SpringArm3D" unique_id=1242543575]
 
-[node name="Camera3D" type="Camera3D" parent="SpringArmPivot" unique_id=1107150221 node_paths=PackedStringArray("spring_arm_pos")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07694888, 0.22649443)
+[node name="ThirdPersonCam" type="Camera3D" parent="SpringArmPivot" unique_id=1107150221 node_paths=PackedStringArray("spring_arm_pos")]
+transform = Transform3D(1, 0, 0, 0, 0.9482943, 0.3173924, 0, -0.3173924, 0.9482943, 0, 0.4881668, 0.94636345)
 script = ExtResource("4_ynch3")
 spring_arm_pos = NodePath("../SpringArm3D/SpringArmPosition")
+
+[node name="FirstPersonCam" type="Camera3D" parent="." unique_id=1918115160 node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7354426, -0.41858983)
+script = ExtResource("5_xgtan")
+player = NodePath("..")
