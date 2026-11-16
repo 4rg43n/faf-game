@@ -217,10 +217,6 @@ func _on_player_spawned(new_player : PlayerMetadata) -> void:
 			new_player.process_mode = Node.PROCESS_MODE_DISABLED
 			new_player.set_process(false)
 			new_player.set_physics_process(false)
-	## server / client host - server authoratative
-	else:
-		if new_player.spawn_location != null:
-			new_player.player_controller.position = new_player.spawn_location.position
 #endregion
 
 
