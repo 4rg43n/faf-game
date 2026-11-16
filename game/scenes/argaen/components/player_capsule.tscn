@@ -9,9 +9,10 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vi406"]
 
-[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("camera")]
+[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("camera", "shapeColl")]
 script = ExtResource("1_vi406")
 camera = NodePath("SpringArmPivot/Camera3D")
+shapeColl = NodePath("CollisionShape3D")
 
 [node name="player-capsule" parent="." unique_id=962360466 instance=ExtResource("1_nmtom")]
 

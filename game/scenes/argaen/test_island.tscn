@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scenes/argaen/main.gd" id="1_3qp2a"]
 [ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/argaen/components/player_capsule.tscn" id="1_1778k"]
+[ext_resource type="Script" uid="uid://ctqyt4l0fwa3l" path="res://scripts/env/water_system.gd" id="3_3qp2a"]
+[ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="4_oq5f5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 
@@ -24,6 +26,9 @@ size = Vector3(200, 0.1, 200)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3qp2a"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_oq5f5"]
+size = Vector3(130.47244, 53.710663, 67.58423)
+
 [node name="Main" type="Node3D" unique_id=1203609923]
 script = ExtResource("1_3qp2a")
 metadata/_edit_lock_ = true
@@ -37,9 +42,9 @@ shadow_enabled = true
 metadata/_edit_lock_ = true
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=195022916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 92.682655)
 mesh = SubResource("ground")
 surface_material_override/0 = SubResource("StandardMaterial3D_hjw58")
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=2022261876]
 
@@ -91,3 +96,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.849869, -1.9073486e-06, -
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boxes/Box4/StaticBody3D" unique_id=1454979074]
 shape = SubResource("BoxShape3D_3qp2a")
+
+[node name="WaterSystem" type="Node" parent="." unique_id=952157853 node_paths=PackedStringArray("oceanArea")]
+script = ExtResource("3_3qp2a")
+gravityFactor = 9.81
+waterDensity = 1.0
+drag = 2.0
+oceanArea = NodePath("../Area3D")
+oceanResolution = 5
+oceanShader = ExtResource("4_oq5f5")
+metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
+
+[node name="Area3D" type="Area3D" parent="." unique_id=314151563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.934702, 0.98738813, -25.268467)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1162408060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.214125, -27.387121, -15.621071)
+shape = SubResource("BoxShape3D_oq5f5")
+debug_color = Color(0.69803923, 0, 0.59962016, 1)
