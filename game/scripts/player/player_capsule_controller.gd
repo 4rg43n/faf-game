@@ -22,8 +22,6 @@ var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
 func _physics_process(delta: float) -> void:
-	if not owned_by_current_client:
-		return
 	# DEV TOOLS
 	if OS.is_debug_build():
 		if Input.is_action_pressed("shift"):
@@ -57,10 +55,10 @@ func _physics_process(delta: float) -> void:
 	#_update_player.rpc_id(1, self.position, self.rotation)
 
 #we need the server to know where we made our location changes cheap client auth
-@rpc("any_peer", "call_local")
-func _update_player(in_position : Vector3, in_rotation : Vector3) -> void:
-	position = in_position
-	rotation = in_rotation
+#@rpc("any_peer", "call_local")
+#func _update_player(in_position : Vector3, in_rotation : Vector3) -> void:
+#	position = in_position
+#	rotation = in_rotation
 
 func make_current_player() -> void:
 	owned_by_current_client = true

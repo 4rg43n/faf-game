@@ -214,9 +214,9 @@ func _on_player_spawned(new_player : PlayerMetadata) -> void:
 	if not is_multiplayer_authority():
 		if multiplayer.get_unique_id() != new_player.peer_id:
 			print("[_on_player_spawned] we dont own authority ", new_player.peer_id)
-			#new_player.process_mode = Node.PROCESS_MODE_DISABLED
-			#new_player.set_process(false)
-			#new_player.set_physics_process(false)
+			new_player.process_mode = Node.PROCESS_MODE_DISABLED
+			new_player.set_process(false)
+			new_player.set_physics_process(false)
 	## server / client host - server authoratative
 	else:
 		if new_player.spawn_location != null:
@@ -295,7 +295,7 @@ func _on_player_joined(client_peer_id : int) -> void:
 	player_spawner.spawn(client_peer_id)
 
 func spawn_player(for_peer_id : int) -> PlayerMetadata:
-	print("spawn player")
+	print("spawn player ", for_peer_id)
 	var new_player : PlayerMetadata = player_scene.instantiate()
 	var steam_id : int = Steam.getSteamID()
 	new_player.init(for_peer_id, steam_id, starting_world.spawn_location)
