@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://byaempgdkbaf3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l7b5b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gxb3x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jxl8f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fkwhf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsm51"]
+
+[node name="Button" type="Button" unique_id=1529887536]
+theme_override_styles/normal = SubResource("StyleBoxEmpty_l7b5b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gxb3x")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jxl8f")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_fkwhf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dsm51")
+text = "Debug Text"
