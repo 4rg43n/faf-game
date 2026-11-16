@@ -84,7 +84,6 @@ func _ready() -> void:
 	Steam.lobby_data_update.connect(_on_lobby_data_update)
 
 	player_spawner.spawn_function = spawn_player
-	player_spawner.spawned.connect(_on_player_spawned)
 	#bc host and client are same process we need to cover spawning their client as a special case
 	player_spawner.child_entered_tree.connect(_on_player_spawned)
 
@@ -207,16 +206,17 @@ func leave_lobby() -> void:
 		_close_game()
 
 func _on_player_spawned(new_player : PlayerMetadata) -> void:
+	#since p2p server and host client are on same process
 	if multiplayer.get_unique_id() == new_player.peer_id:
 		print("[_on_player_spawned] we own authority ", new_player.peer_id)
 		new_player.player_controller.make_current_player()
-		if new_player.spawn_location != null:
-			new_player.player_controller.position = new_player.spawn_location.position
-	else:
-		print("[_on_player_spawned] we dont own authority ", new_player.peer_id)
-		process_mode = Node.PROCESS_MODE_DISABLED
-		set_process(false)
-		set_physics_process(false)
+	## client
+	if not is_multiplayer_authority():
+		if multiplayer.get_unique_id() != new_player.peer_id:
+			print("[_on_player_spawned] we dont own authority ", new_player.peer_id)
+			new_player.process_mode = Node.PROCESS_MODE_DISABLED
+			new_player.set_process(false)
+			new_player.set_physics_process(false)
 #endregion
 
 
@@ -291,12 +291,14 @@ func _on_player_joined(client_peer_id : int) -> void:
 	player_spawner.spawn(client_peer_id)
 
 func spawn_player(for_peer_id : int) -> PlayerMetadata:
-	print("spawn player")
+	print("spawn player ", for_peer_id)
 	var new_player : PlayerMetadata = player_scene.instantiate()
 	var steam_id : int = Steam.getSteamID()
 	new_player.init(for_peer_id, steam_id, starting_world.spawn_location)
+	new_player.set_multiplayer_authority(for_peer_id)
 
 	GameManager.instance.setup(new_player)
+	new_player.name = str(for_peer_id)
 
 	return new_player
 

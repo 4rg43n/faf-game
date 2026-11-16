@@ -1,6 +1,6 @@
 extends Camera3D
 
-@export var player:Node3D=null
+@export var player:PlayerController
 
 @export var follow_offset:=Vector3(0,2.5,1.5)
 @export var follow_rot:=Vector3(-16.5,0,0)
@@ -20,7 +20,9 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not get_viewport().get_camera_3d() == self:
+	if is_multiplayer_authority():
+		return
+	if not player.active_camera == self:
 		return
 	if event is InputEventMouseMotion:
 		# event.relative = how far the mouse moved this event, in pixels

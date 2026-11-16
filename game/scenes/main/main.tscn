@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://dnlwpjopnbn2p"]
+
+[ext_resource type="PackedScene" uid="uid://byujyoyd72yde" path="res://scenes/steam_lobby_stuff/main_menu_lobby_manager.tscn" id="1_iuonh"]
+[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scripts/main/main.gd" id="1_ou6is"]
+[ext_resource type="PackedScene" uid="uid://cs27qyaii4qhc" path="res://scenes/worlds/test_island.tscn" id="2_k2fmo"]
+[ext_resource type="Script" uid="uid://dd0g2xdhbs54h" path="res://scripts/main/game_manager.gd" id="2_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://gk6g40v2wk3y" path="res://scenes/debug/fps_tracker.tscn" id="3_b1x3f"]
+[ext_resource type="Script" uid="uid://cd4a6lf1xe5jp" path="res://scripts/weather/weather_manager.gd" id="3_hxu8e"]
+[ext_resource type="Environment" uid="uid://0x4j6mofq72x" path="res://resources/world_environment.tres" id="4_a8run"]
+[ext_resource type="Resource" uid="uid://cxdu4jyq8tikp" path="res://resources/weather/clear.tres" id="4_nvumn"]
+[ext_resource type="Resource" uid="uid://c8vke606olrn" path="res://resources/weather/cloudy.tres" id="5_ou6is"]
+[ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="5_ouso4"]
+[ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="6_blune"]
+[ext_resource type="Resource" uid="uid://bsqtk47oirn4s" path="res://resources/weather/foggy.tres" id="6_necax"]
+[ext_resource type="Resource" uid="uid://c23rdredqqqog" path="res://resources/weather/heavy_rain.tres" id="7_r4lks"]
+[ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="7_th5th"]
+[ext_resource type="Resource" uid="uid://cno1bfob1d317" path="res://resources/weather/rain.tres" id="8_pg34l"]
+[ext_resource type="Resource" uid="uid://182qlsti6ibm" path="res://resources/weather/storm.tres" id="9_m4h2d"]
+[ext_resource type="PackedScene" uid="uid://bk6rwduy8u5ym" path="res://scenes/weather/rain.tscn" id="11_p8abn"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
+
+[node name="Main" type="Node" unique_id=1017812370 node_paths=PackedStringArray("weather_manager")]
+script = ExtResource("1_ou6is")
+weather_manager = NodePath("WeatherManager")
+
+[node name="LobbyManager" parent="." unique_id=1925178178 node_paths=PackedStringArray("player_spawner", "starting_world") instance=ExtResource("1_iuonh")]
+player_spawner = NodePath("../PlayerSpawner")
+starting_world = NodePath("../World/TestIsland")
+
+[node name="UI" type="Control" parent="." unique_id=772645201]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FpsTracker" parent="UI" unique_id=1956701810 instance=ExtResource("3_b1x3f")]
+layout_mode = 1
+offset_right = 179.0
+
+[node name="GameManager" type="Node" parent="." unique_id=217552877 node_paths=PackedStringArray("sky_3d")]
+script = ExtResource("2_yyfjg")
+sky_3d = NodePath("../World/Sky3D")
+metadata/_custom_type_script = "uid://dd0g2xdhbs54h"
+
+[node name="WeatherManager" type="Node" parent="." unique_id=234665414 node_paths=PackedStringArray("rain_particles", "sky_3d", "time_of_day", "sky_dome")]
+script = ExtResource("3_hxu8e")
+rain_particles = NodePath("Rain")
+sky_3d = NodePath("../World/Sky3D")
+time_of_day = NodePath("../World/Sky3D/TimeOfDay")
+sky_dome = NodePath("../World/Sky3D/SkyDome")
+weather_conditions = Dictionary[String, Resource]({
+"clear": ExtResource("4_nvumn"),
+"cloudy": ExtResource("5_ou6is"),
+"foggy": ExtResource("6_necax"),
+"heavy_rain": ExtResource("7_r4lks"),
+"rain": ExtResource("8_pg34l"),
+"storm": ExtResource("9_m4h2d")
+})
+environment = ExtResource("4_a8run")
+
+[node name="Rain" parent="WeatherManager" unique_id=1079689614 instance=ExtResource("11_p8abn")]
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="World" type="Node3D" parent="." unique_id=1925109163]
+
+[node name="Sky3D" type="WorldEnvironment" parent="World" unique_id=253437363]
+environment = ExtResource("4_a8run")
+camera_attributes = SubResource("CameraAttributesPractical_7smn1")
+script = ExtResource("5_ouso4")
+editor_time_enabled = false
+current_time = 6.65
+wind_direction = 2.35619451204804
+metadata/_custom_type_script = "uid://deo0gxkmk2ahd"
+
+[node name="SunLight" type="DirectionalLight3D" parent="World/Sky3D" unique_id=200503882]
+transform = Transform3D(0.426591, -0.06600468, 0.902033, 0, 0.9973335, 0.07297813, -0.90444463, -0.031131815, 0.4254535, 0.902033, 0.07297813, 0.4254535)
+light_color = Color(0.98291916, 0.59262115, 0.39704514, 1)
+shadow_enabled = true
+
+[node name="MoonLight" type="DirectionalLight3D" parent="World/Sky3D" unique_id=761120370]
+transform = Transform3D(0, -0.47161585, 0.8818041, 0.58394253, -0.7158441, -0.38285542, 0.81179494, 0.5149229, 0.2753966, 0.8818041, -0.38285542, 0.2753966)
+light_color = Color(0.572549, 0.776471, 0.956863, 1)
+light_energy = 0.0
+
+[node name="SkyDome" type="Node" parent="World/Sky3D" unique_id=781389807]
+script = ExtResource("6_blune")
+sun_azimuth = -2.0115166
+sun_altitude = -1.4977533
+moon_azimuth = -1.8735085
+moon_altitude = -1.9636816
+fog_render_priority = 1
+wind_direction = 2.35619451204804
+
+[node name="TimeOfDay" type="Node" parent="World/Sky3D" unique_id=1643496508]
+script = ExtResource("7_th5th")
+editor_time_enabled = false
+dome_path = NodePath("../SkyDome")
+current_time = 6.65
+day = 2
+
+[node name="TestIsland" parent="World" unique_id=231429549 instance=ExtResource("2_k2fmo")]
+
+[node name="LobbyCamera" type="Camera3D" parent="." unique_id=1345780627]
+transform = Transform3D(0.19414859, 0.0659656, -0.9787517, -0.0128350835, 0.9978219, 0.06470488, 0.9808882, 0, 0.19457237, -104.5698, 37.076996, 45.213646)
+current = true
+metadata/_edit_lock_ = true
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1692186644]
+_spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
+spawn_path = NodePath(".")

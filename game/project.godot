@@ -175,7 +175,7 @@ Shortcuts/density_decrement=Object(Shortcut,
 [application]
 
 config/name="faf-game"
-run/main_scene="uid://byujyoyd72yde"
+run/main_scene="uid://dnlwpjopnbn2p"
 config/features=PackedStringArray("4.8", "Forward Plus")
 
 [autoload]

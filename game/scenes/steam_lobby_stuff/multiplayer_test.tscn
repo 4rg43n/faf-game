@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bpg0e13cthh5m"]
 
-[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scenes/argaen/main.gd" id="1_1l3fq"]
+[ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scripts/main/main.gd" id="1_1l3fq"]
+
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 

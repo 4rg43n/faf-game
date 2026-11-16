@@ -1,4 +1,4 @@
-extends WorldBackBone
+extends Node
 
 @export var weather_manager: WeatherManager
 
@@ -10,7 +10,7 @@ func _ready() -> void:
 	Steam.setAchievement("NEW_ACHIEVEMENT_0_4")
 
 	if weather_manager:
-		weather_manager.randomize_weather.call_deferred()
+		weather_manager.load_weather_condition.call_deferred("clear")
 
 
 func _process(_delta: float) -> void:

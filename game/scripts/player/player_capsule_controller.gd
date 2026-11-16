@@ -1,13 +1,20 @@
 class_name PlayerController extends CharacterBody3D
 
-@export var player_visuals:Node3D
-@export var turn_speed:float=10.0
+signal active_camera_changed(camera: Camera3D)
 
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
 
-@export var camera: Camera3D
+@export var active_camera: Camera3D:
+	set(camera):
+		if camera == active_camera:
+			return
+		if is_multiplayer_authority():
+			return
+		active_camera = camera
+		active_camera.make_current()
+		active_camera_changed.emit(active_camera)
 @export var SPEED: float = 5.0
 @export var JUMP_VELOCITY: float = 6.0
 
@@ -17,6 +24,8 @@ var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
 	# DEV TOOLS
 	if OS.is_debug_build():
 		if Input.is_action_pressed("shift"):
@@ -33,7 +42,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	# As good practice, you should replace UI actions with custom gameplay actions.WWWWWWWWWWWWWWWWWW
 	var input_dir : Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
@@ -42,17 +51,20 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
-		
-		# face the movement direction (godots forward is -z)
-		var target_yaw:=atan2(direction.x, direction.z)
-		player_visuals.rotation.y=lerp_angle(player_visuals.rotation.y, target_yaw, turn_speed*delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	#_update_player.rpc_id(1, self.position, self.rotation)
+
+#we need the server to know where we made our location changes cheap client auth
+#@rpc("any_peer", "call_local")
+#func _update_player(in_position : Vector3, in_rotation : Vector3) -> void:
+#	position = in_position
+#	rotation = in_rotation
 
 func make_current_player() -> void:
 	owned_by_current_client = true
-	camera.make_current()
+	active_camera.make_current()
 	print("this client is the owner!")
