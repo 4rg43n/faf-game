@@ -199,3 +199,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1178536, 1.899898e-07, -28
 
 [node name="Player" parent="." unique_id=422766350 instance=ExtResource("23_ymakc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9414127, 2.3841858e-07, -28.12443)
+debug_scene_play = true
