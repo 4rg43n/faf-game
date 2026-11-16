@@ -8,6 +8,8 @@ signal active_camera_changed(camera: Camera3D)
 
 @export var active_camera: Camera3D:
 	set(camera):
+		if not multiplayer.get_unique_id() == get_parent().get("peer_id"):
+			return
 		if camera == active_camera:
 			return
 		active_camera = camera
