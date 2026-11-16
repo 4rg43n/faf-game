@@ -17,8 +17,11 @@
 [ext_resource type="Resource" uid="uid://cno1bfob1d317" path="res://resources/weather/rain.tres" id="8_pg34l"]
 [ext_resource type="Resource" uid="uid://182qlsti6ibm" path="res://resources/weather/storm.tres" id="9_m4h2d"]
 [ext_resource type="PackedScene" uid="uid://bk6rwduy8u5ym" path="res://scenes/weather/rain.tscn" id="11_p8abn"]
+[ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0kwd2"]
 
 [node name="Main" type="Node" unique_id=1017812370 node_paths=PackedStringArray("weather_manager")]
 script = ExtResource("1_ou6is")
@@ -101,6 +104,14 @@ current_time = 6.65
 day = 2
 
 [node name="TestIsland" parent="World" unique_id=231429549 instance=ExtResource("2_k2fmo")]
+
+[node name="Killzone" type="Area3D" parent="World" unique_id=1159628725 node_paths=PackedStringArray("starting_world")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+script = ExtResource("18_ou6is")
+starting_world = NodePath("../TestIsland")
+
+[node name="WorldBoundary" type="CollisionShape3D" parent="World/Killzone" unique_id=273165614]
+shape = SubResource("WorldBoundaryShape3D_0kwd2")
 
 [node name="LobbyCamera" type="Camera3D" parent="." unique_id=1345780627]
 transform = Transform3D(0.19414859, 0.0659656, -0.9787517, -0.0128350835, 0.9978219, 0.06470488, 0.9808882, 0, 0.19457237, -104.5698, 37.076996, 45.213646)

@@ -60,4 +60,4 @@ player = NodePath("..")
 
 [node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="." unique_id=844021361]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
-size = Vector3(30, 30, 30)
+size = Vector3(50, 50, 50)
