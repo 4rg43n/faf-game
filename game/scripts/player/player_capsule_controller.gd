@@ -2,6 +2,9 @@ class_name PlayerController extends CharacterBody3D
 
 signal active_camera_changed(camera: Camera3D)
 
+@onready var visuals: Node3D = $Visuals
+@export var turn_speed: float = 10.0
+
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
@@ -49,6 +52,10 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
+		
+		# Face the movement direction (Godot's forward is -Z)
+		var target_yaw := atan2(direction.x, direction.z)
+		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
