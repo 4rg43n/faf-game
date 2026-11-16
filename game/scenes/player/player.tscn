@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dn4x0l4niy8s4" path="res://assets/models/basic/player-capsule.glb" id="1_nmtom"]
 [ext_resource type="Script" uid="uid://cv1hr7tk44pc6" path="res://scripts/player/player_capsule_controller.gd" id="1_vi406"]
+[ext_resource type="PackedScene" uid="uid://rsogi588vu28" path="res://assets/models/catgirl/catgirl-godot.glb" id="3_75vfm"]
 [ext_resource type="Script" uid="uid://cus3wck7hvkpm" path="res://scripts/player/camera_spring_arm.gd" id="3_akrbj"]
 [ext_resource type="Script" uid="uid://chvy1uj628dtu" path="res://scripts/player/camera_follow.gd" id="4_ynch3"]
 [ext_resource type="Script" uid="uid://b8guqksvr5f4r" path="res://scripts/player/tps_cam.gd" id="5_xgtan"]
@@ -10,8 +11,9 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vi406"]
 
-[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "third_person_pivot", "camera")]
+[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("player_visuals", "first_person_cam", "third_person_cam", "third_person_pivot", "camera")]
 script = ExtResource("1_vi406")
+player_visuals = NodePath("Visuals")
 first_person_cam = NodePath("FirstPersonCam")
 third_person_cam = NodePath("SpringArmPivot/ThirdPersonCam")
 third_person_pivot = NodePath("SpringArmPivot")
@@ -19,10 +21,17 @@ camera = NodePath("SpringArmPivot/ThirdPersonCam")
 SPEED = 10.0
 
 [node name="player-capsule" parent="." unique_id=962360466 instance=ExtResource("1_nmtom")]
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1678709262]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_5vptg")
+
+[node name="Visuals" type="Node3D" parent="." unique_id=162962235]
+
+[node name="catgirl-godot" parent="Visuals" unique_id=1503808377 instance=ExtResource("3_75vfm")]
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1247045826]
 
 [node name="SpringArmPivot" type="Node3D" parent="." unique_id=31687973 node_paths=PackedStringArray("spring_arm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5553305, 0)
