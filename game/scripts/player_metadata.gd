@@ -3,6 +3,7 @@ class_name PlayerMetadata extends Node3D
 @export var peer_id : int
 @export var steam_id : int
 @export var player_controller : PlayerController
+@export var current_equipment : CustomEnums.Equipment_Type = CustomEnums.Equipment_Type.EMPTY_HAND
 
 func init(in_peer_id : int, in_steam_id : int, in_spawn_location : Node3D) -> void:
 	print("spawning in a new client for peer ", String.num_int64(in_peer_id))
