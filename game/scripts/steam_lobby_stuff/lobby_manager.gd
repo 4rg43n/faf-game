@@ -302,8 +302,12 @@ func spawn_player(for_peer_id : int) -> PlayerMetadata:
 #TODO if no players left connected or the host leaves kill the server
 func _on_player_leave(client_peer_id : int) -> void:
 	var current_children := player_spawner.get_children()
-	for player : PlayerMetadata in current_children:
-		if player.peer_id == client_peer_id:
+	if client_peer_id == 1:
+		for player : PlayerMetadata in current_children:
 			player_spawner.remove_child(player)
-			break
-	show()
+		show()
+	else:
+		for player : PlayerMetadata in current_children:
+			if player.peer_id == client_peer_id:
+				player_spawner.remove_child(player)
+				break
