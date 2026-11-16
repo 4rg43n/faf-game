@@ -8,13 +8,11 @@ signal active_camera_changed(camera: Camera3D)
 
 @export var active_camera: Camera3D:
 	set(camera):
-		if not multiplayer.get_unique_id() == get_parent().get("peer_id"):
-			return
 		if camera == active_camera:
 			return
 		active_camera = camera
-		active_camera.make_current()
-		active_camera_changed.emit(active_camera)
+		make_current_player()
+
 @export var SPEED: float = 5.0
 @export var JUMP_VELOCITY: float = 6.0
 
@@ -65,6 +63,10 @@ func _physics_process(delta: float) -> void:
 #	rotation = in_rotation
 
 func make_current_player() -> void:
+	if not is_node_ready():
+		return
 	owned_by_current_client = true
+	active_camera.make_current()
+	active_camera_changed.emit(active_camera)
 	active_camera.make_current()
 	print("this client is the owner!")
