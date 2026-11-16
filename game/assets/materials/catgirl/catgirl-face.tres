@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://tj7n1rtum8me"]
+
+[ext_resource type="Texture2D" uid="uid://iuu2mjmjhyfw" path="res://assets/models/catgirl/catgirl-godot_Female-Face.png" id="1_c6qv2"]
+
+[resource]
+albedo_texture = ExtResource("1_c6qv2")
+roughness = 0.8
