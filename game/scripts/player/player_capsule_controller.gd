@@ -10,6 +10,8 @@ signal active_camera_changed(camera: Camera3D)
 	set(camera):
 		if camera == active_camera:
 			return
+		if is_multiplayer_authority():
+			return
 		active_camera = camera
 		active_camera.make_current()
 		active_camera_changed.emit(active_camera)
