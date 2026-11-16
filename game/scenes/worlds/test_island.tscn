@@ -112,4 +112,4 @@ metadata/SimpleGrassTextured = "2.0.5"
 metadata/_edit_lock_ = true
 
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=345718863]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.195686, 4.087881, 46.175247)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.195686, 18.298203, 46.175247)
