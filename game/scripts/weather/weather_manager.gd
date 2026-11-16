@@ -10,7 +10,6 @@ class_name WeatherManager extends Node
 @export var weather_conditions: Dictionary[String, Resource]
 @export var environment: Environment
 
-
 var wind_direction: Vector3 = Vector3(1.0, 0.0, 0.0)
 var wind_intensity: float = 1.0
 
