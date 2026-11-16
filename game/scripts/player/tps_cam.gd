@@ -20,6 +20,8 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_multiplayer_authority():
+		return
 	if not player.active_camera == self:
 		return
 	if event is InputEventMouseMotion:
