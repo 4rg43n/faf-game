@@ -130,6 +130,38 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 	if not Steam.setLobbyData(in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY):
 		printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY])
 
+func spinup_server(in_lobby_id : int) -> void:
+	print("trying to start server")
+	Steam.setLobbyJoinable(in_lobby_id, true)
+	# Create the host peer (virtual port 0) and assign to Godot's MultiplayerAPI
+	var error := peer.create_host(0)
+	if error == OK:
+		multiplayer.multiplayer_peer = peer
+		print("Hosting Steam P2P lobby: ", LobbyManager.instance.lobby_id)
+		LobbyManager.instance.lobby_id = in_lobby_id
+		var server_peer_id : int = peer.get_unique_id()
+		set_multiplayer_authority(server_peer_id)
+		_on_player_joined(server_peer_id)
+
+## if you join a friends game without having the game open yet it will pass the lobby_id via command args
+func _check_command_line_args() -> void:
+	var command_line_args : Array = OS.get_cmdline_args()
+	if command_line_args.is_empty():
+		return
+	print("Command line args %s " % str(command_line_args))
+
+	var in_lobby_id : int = -1
+	var num_args : int = command_line_args.size()
+	for i in num_args:
+		var arg : String = command_line_args[i]
+		if connect_to_lobby_search_term in arg or already_started_loby_id in arg:
+			in_lobby_id = int(command_line_args[i+1])
+
+	if in_lobby_id <= 0:
+		return
+
+	_join_lobby_through_ui(in_lobby_id)
+
 func _on_join_though_friend(in_lobby_id : int, friend_id : int) -> void:
 	var friend_name : String = Steam.getFriendPersonaName(friend_id)
 	print("Joining lobby with... %s" % friend_name)
@@ -217,28 +249,6 @@ func _on_player_spawned(new_player : PlayerMetadata) -> void:
 			new_player.process_mode = Node.PROCESS_MODE_DISABLED
 			new_player.set_process(false)
 			new_player.set_physics_process(false)
-#endregion
-
-
-#region runs on both
-## if you join a friends game without having the game open yet it will pass the lobby_id via command args
-func _check_command_line_args() -> void:
-	var command_line_args : Array = OS.get_cmdline_args()
-	if command_line_args.is_empty():
-		return
-	print("Command line args %s " % str(command_line_args))
-
-	var in_lobby_id : int = -1
-	var num_args : int = command_line_args.size()
-	for i in num_args:
-		var arg : String = command_line_args[i]
-		if connect_to_lobby_search_term in arg or already_started_loby_id in arg:
-			in_lobby_id = int(command_line_args[i+1])
-
-	if in_lobby_id <= 0:
-		return
-
-	_join_lobby_through_ui(in_lobby_id)
 
 func _close_game() -> void:
 	get_tree().quit()
@@ -266,21 +276,7 @@ func update_player_list() -> void:
 
 func _process(_delta: float) -> void:
 	Steam.run_callbacks()
-#endregion
 
-#region runs on server
-func spinup_server(in_lobby_id : int) -> void:
-	print("trying to start server")
-	Steam.setLobbyJoinable(in_lobby_id, true)
-	# Create the host peer (virtual port 0) and assign to Godot's MultiplayerAPI
-	var error := peer.create_host(0)
-	if error == OK:
-		multiplayer.multiplayer_peer = peer
-		print("Hosting Steam P2P lobby: ", LobbyManager.instance.lobby_id)
-		LobbyManager.instance.lobby_id = in_lobby_id
-		var server_peer_id : int = peer.get_unique_id()
-		set_multiplayer_authority(server_peer_id)
-		_on_player_joined(server_peer_id)
 
 ## we join the lobby first and then we join via multiplayer peer
 #TODO spawn player character (on server) - this does get pinged on clients as well
@@ -304,9 +300,14 @@ func spawn_player(for_peer_id : int) -> PlayerMetadata:
 
 #TODO despawn player character (on server)
 #TODO if no players left connected or the host leaves kill the server
-func _on_player_leave(_client_peer_id : int) -> void:
-	print("player left")
-	var has_no_players_left : bool = false
-	if has_no_players_left:
-		print("kys the server kills itself :3c NO MORE CLIENTS CONNECTED")
-#endregion
+func _on_player_leave(client_peer_id : int) -> void:
+	var current_children := player_spawner.get_children()
+	if client_peer_id == 1:
+		for player : PlayerMetadata in current_children:
+			player_spawner.remove_child(player)
+		show()
+	else:
+		for player : PlayerMetadata in current_children:
+			if player.peer_id == client_peer_id:
+				player_spawner.remove_child(player)
+				break

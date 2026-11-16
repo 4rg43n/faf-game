@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dn4x0l4niy8s4" path="res://assets/models/basic/player-capsule.glb" id="1_nmtom"]
 [ext_resource type="Script" uid="uid://cv1hr7tk44pc6" path="res://scripts/player/player_capsule_controller.gd" id="1_vi406"]
 [ext_resource type="Script" uid="uid://cus3wck7hvkpm" path="res://scripts/player/camera_manager.gd" id="3_akrbj"]
-[ext_resource type="PackedScene" uid="uid://rsogi588vu28" path="res://assets/models/catgirl/catgirl-godot.glb" id="4_75vfm"]
+[ext_resource type="PackedScene" uid="uid://dn4hri7edehr3" path="res://assets/models/catgirl/catgirl_godot.tscn" id="4_75vfm"]
 [ext_resource type="Script" uid="uid://chvy1uj628dtu" path="res://scripts/player/camera_follow.gd" id="4_ynch3"]
 [ext_resource type="AnimationLibrary" uid="uid://dspl032r0g4ig" path="res://assets/animations/quaternius/humanoid_animations.tres" id="5_0owmy"]
 [ext_resource type="Script" uid="uid://b8guqksvr5f4r" path="res://scripts/player/tps_cam.gd" id="5_xgtan"]
@@ -36,7 +36,7 @@ spring_arm = NodePath("../SpringArmPivot/SpringArm3D")
 
 [node name="Visuals" type="Node3D" parent="." unique_id=1869257247]
 
-[node name="catgirl-godot" parent="Visuals" unique_id=1128046633 instance=ExtResource("4_75vfm")]
+[node name="catgirl-godot" parent="Visuals" unique_id=148263498 instance=ExtResource("4_75vfm")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1470599140]
 root_node = NodePath("../Visuals/catgirl-godot")
@@ -64,4 +64,4 @@ player = NodePath("..")
 
 [node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="." unique_id=844021361]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
-size = Vector3(30, 30, 30)
+size = Vector3(50, 50, 50)
