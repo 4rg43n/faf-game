@@ -52,7 +52,7 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
-		
+
 		# Face the movement direction (Godot's forward is -Z)
 		var target_yaw := atan2(direction.x, direction.z)
 		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
