@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://buiodjiede67t"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ups32"]
+size = Vector3(1, 0.8149414, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ups32"]
+size = Vector3(1.5181274, 0.8310547, 1.8643799)
+
+[node name="Beetle" type="Node3D" unique_id=186735252]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1638221330]
+transform = Transform3D(0.5967947, 0, 0, 0, 0.42848974, 0, 0, 0, 0.3523467, 0, 0.039647855, 0.8401029)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1900284305]
+transform = Transform3D(-0.0026098609, 0, -0.15091415, 0, 0.20806588, 0, 0.2168337, 0, -0.0018164378, -0.16907868, 0.039647855, 1.0801694)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=1483178824]
+transform = Transform3D(-0.0026098609, 0, -0.15091415, 0, 0.20806588, 0, 0.2168337, 0, -0.0018164378, 0.1367918, 0.039647855, 1.0801694)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=1575902627]
+transform = Transform3D(0.1291374, 0, -0.1212446, 0, 0.20806591, 0, 0.17420445, 0, 0.08987838, -0.13544318, 0.039647855, 1.2271999)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="." unique_id=908454579]
+transform = Transform3D(-0.091439694, 0, -0.13685094, 0, 0.20806591, 0, 0.19662768, 0, -0.063641146, 0.10315637, 0.039647855, 1.2271999)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2090393727]
+transform = Transform3D(0.35269386, 0, 0, 0, 0.22295325, 0, 0, 0, 0.46281648, 0, 0.050897166, 0.55749726)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="." unique_id=1937931862]
+transform = Transform3D(0.32635468, 0, -0.31807673, 0, 0.22295327, 0, 0.13373694, 0, 0.7761943, 0.31050885, 0.30002934, 0.081920445)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="." unique_id=1712077377]
+transform = Transform3D(0.33788034, 0, 0.24055499, 0, 0.22295327, 0, -0.10114251, 0, 0.8036066, -0.2770573, 0.30002934, 0.081920445)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="." unique_id=1682394034]
+transform = Transform3D(0.19594625, 0.18537883, 0, -0.29325423, 0.12386623, 0, 0, 0, 0.19697587, 0.47347295, 0.050897166, 0.3457554)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="." unique_id=1982973256]
+transform = Transform3D(0.19594625, 0.18537883, 0, -0.29325423, 0.12386623, 0, 0, 0, 0.19697587, 0.47347295, 0.050897166, 0.05347866)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="." unique_id=564311048]
+transform = Transform3D(0.19594625, 0.18537883, 0, -0.29325423, 0.12386623, 0, 0, 0, 0.19697587, 0.47347295, 0.050897166, -0.20671037)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="." unique_id=1409885047]
+transform = Transform3D(0.23684672, -0.16520208, 0, 0.26133618, 0.14972115, 0, 0, 0, 0.19697586, -0.52947557, 0.050897166, 0.3457554)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="." unique_id=656688130]
+transform = Transform3D(0.23684672, -0.16520208, 0, 0.26133618, 0.14972115, 0, 0, 0, 0.19697586, -0.52947557, 0.050897166, 0.05347866)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="." unique_id=2021796310]
+transform = Transform3D(0.23684672, -0.16520208, 0, 0.26133618, 0.14972115, 0, 0, 0, 0.19697586, -0.52947557, 0.050897166, -0.20671037)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=489803246]
+transform = Transform3D(0.84135306, 0, 0, 0, 0.5619016, 0, 0, 0, 0.85707814, 0, 0.039647855, 0.089950055)
+mesh = SubResource("BoxMesh_ups32")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=293976685]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1939620536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.069488525, 0.084472656, 0.43218994)
+shape = SubResource("BoxShape3D_ups32")
