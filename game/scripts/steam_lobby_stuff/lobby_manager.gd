@@ -286,6 +286,7 @@ func _on_player_joined(client_peer_id : int) -> void:
 		return
 	player_spawner.spawn(client_peer_id)
 
+
 func spawn_player(for_peer_id : int) -> PlayerMetadata:
 	print("spawn player ", for_peer_id)
 	var new_player : PlayerMetadata = player_scene.instantiate()

@@ -57,7 +57,3 @@ spring_arm_pos = NodePath("../SpringArm3D/SpringArmPosition")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7354426, -0.41858983)
 script = ExtResource("5_xgtan")
 player = NodePath("..")
-
-[node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="." unique_id=844021361]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
-size = Vector3(50, 50, 50)
