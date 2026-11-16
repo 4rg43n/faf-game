@@ -54,13 +54,6 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-	#_update_player.rpc_id(1, self.position, self.rotation)
-
-#we need the server to know where we made our location changes cheap client auth
-#@rpc("any_peer", "call_local")
-#func _update_player(in_position : Vector3, in_rotation : Vector3) -> void:
-#	position = in_position
-#	rotation = in_rotation
 
 func make_current_player() -> void:
 	if not is_node_ready():
@@ -73,4 +66,3 @@ func make_current_player() -> void:
 	active_camera.make_current()
 	active_camera_changed.emit(active_camera)
 	active_camera.make_current()
-	print("this client is the owner!")

@@ -18,16 +18,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n111s")
-host_button = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/HostLobbyButton")
-join_button = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/JoinLobbyButton")
-exit_button = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitButton")
-spinning_fish_player = NodePath("MainMenu/AllowAnchorsBcGodotSucks/VBox/SillySpinningFish")
+host_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/HostLobbyButton")
+join_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/JoinLobbyButton")
+exit_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitButton")
+spinning_fish_player = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/SillySpinningFish")
 spinning_fish_gif = ExtResource("2_dqjaf")
 player_spawner = NodePath("")
-starting_screen_ui = NodePath("MainMenu")
+starting_screen_ui = NodePath("Control")
 player_scene = ExtResource("3_dqjaf")
 
-[node name="MainMenu" type="Control" parent="." unique_id=63993782]
+[node name="Control" type="Control" parent="." unique_id=63993782]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,18 +35,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LobbySearchScreen" parent="MainMenu" unique_id=1045965735 instance=ExtResource("4_jxa7w")]
+[node name="LobbySearchScreen" parent="Control" unique_id=1045965735 instance=ExtResource("4_jxa7w")]
 visible = false
 
-[node name="LobbyHostGeneration" parent="MainMenu" unique_id=1530206536 instance=ExtResource("3_75lsc")]
+[node name="LobbyHostGeneration" parent="Control" unique_id=1530206536 instance=ExtResource("3_75lsc")]
 visible = false
 
-[node name="AllowAnchorsBcGodotSucks" type="Control" parent="MainMenu" unique_id=2131081682]
+[node name="AllowAnchorsBcGodotSucks" type="Control" parent="Control" unique_id=2131081682]
 anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="VBox" type="VBoxContainer" parent="MainMenu/AllowAnchorsBcGodotSucks" unique_id=941088258]
+[node name="VBox" type="VBoxContainer" parent="Control/AllowAnchorsBcGodotSucks" unique_id=941088258]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -60,41 +60,41 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="GameNameGoesHere" type="Label" parent="MainMenu/AllowAnchorsBcGodotSucks/VBox" unique_id=1695087323]
+[node name="GameNameGoesHere" type="Label" parent="Control/AllowAnchorsBcGodotSucks/VBox" unique_id=1695087323]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55536216, 0.9971718, 0.84694344, 1)
 theme_override_font_sizes/font_size = 50
 text = "Fuck Ass Fish ™"
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="MainMenu/AllowAnchorsBcGodotSucks/VBox" unique_id=1515227367]
+[node name="Spacer" type="Control" parent="Control/AllowAnchorsBcGodotSucks/VBox" unique_id=1515227367]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="SillySpinningFish" type="AnimatedImagePlayer" parent="MainMenu/AllowAnchorsBcGodotSucks/VBox" unique_id=1436745150]
+[node name="SillySpinningFish" type="AnimatedImagePlayer" parent="Control/AllowAnchorsBcGodotSucks/VBox" unique_id=1436745150]
 animated_image = SubResource("AnimatedImageTexture_idy7s")
 autoplay = false
 playing = false
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="SpacerButBigger!" type="Control" parent="MainMenu/AllowAnchorsBcGodotSucks/VBox" unique_id=1316189979]
+[node name="SpacerButBigger!" type="Control" parent="Control/AllowAnchorsBcGodotSucks/VBox" unique_id=1316189979]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
-[node name="HBoxOptions" type="HBoxContainer" parent="MainMenu/AllowAnchorsBcGodotSucks/VBox" unique_id=179152145]
+[node name="HBoxOptions" type="HBoxContainer" parent="Control/AllowAnchorsBcGodotSucks/VBox" unique_id=179152145]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="HostLobbyButton" type="Button" parent="MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions" unique_id=300629117]
+[node name="HostLobbyButton" type="Button" parent="Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions" unique_id=300629117]
 layout_mode = 2
 text = "Host Lobby"
 
-[node name="JoinLobbyButton" type="Button" parent="MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions" unique_id=1094474101]
+[node name="JoinLobbyButton" type="Button" parent="Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions" unique_id=1094474101]
 layout_mode = 2
 text = "Join Lobby"
 
-[node name="ExitButton" type="Button" parent="MainMenu/AllowAnchorsBcGodotSucks/VBox/HBoxOptions" unique_id=1172290688]
+[node name="ExitButton" type="Button" parent="Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions" unique_id=1172290688]
 layout_mode = 2
 text = "Exit"
