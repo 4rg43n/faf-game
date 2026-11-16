@@ -32,13 +32,11 @@ func randomize_weather() -> void:
 	var condition : String = weather_conditions.keys().pick_random()
 	var rand_wind_direction : Vector3 = Vector3(randf_range(-5.0, 5.0),0.0,randf_range(-5.0, 5.0))
 	var rand_wind_intensity : float = randf()
-	set_wind(rand_wind_direction, rand_wind_intensity)
-	load_weather_condition(condition)
 	rpc("load_weather_condition", condition)
 	rpc("set_wind", [rand_wind_direction, rand_wind_intensity])
 
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local")
 func load_weather_condition(condition: String) -> void:
 	if !weather_conditions.has(condition):
 		return
@@ -62,7 +60,7 @@ func load_weather_condition(condition: String) -> void:
 	rain_particles.lightning.default_skydome_energy = current_condition.default_skydome_energy
 
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local")
 func set_wind(direction: Vector3, intensity: float) -> void:
 	wind_direction = direction.normalized()
 	wind_intensity = clampf(intensity, 0.0, 1.0)
