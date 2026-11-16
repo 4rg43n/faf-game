@@ -65,6 +65,8 @@ func _physics_process(delta: float) -> void:
 func make_current_player() -> void:
 	if not is_node_ready():
 		await ready
+	if multiplayer.get_unique_id() == get_parent().get("peer_id"):
+		return
 	owned_by_current_client = true
 	active_camera.make_current()
 	active_camera_changed.emit(active_camera)
