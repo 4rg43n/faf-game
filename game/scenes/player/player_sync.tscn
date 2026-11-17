@@ -23,7 +23,6 @@ properties/4/replication_mode = 2
 [node name="TheWholePackage" type="Node3D" unique_id=1542336818 node_paths=PackedStringArray("player_controller") groups=["Player"]]
 script = ExtResource("1_rbmgg")
 player_controller = NodePath("Player")
-current_equipment = 1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=751910215]
 replication_config = SubResource("SceneReplicationConfig_vefth")
