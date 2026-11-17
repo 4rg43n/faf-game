@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/argaen/components/player_capsule.tscn" id="1_1778k"]
 [ext_resource type="Script" uid="uid://ctqyt4l0fwa3l" path="res://scripts/env/water_system.gd" id="3_3qp2a"]
 [ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="4_oq5f5"]
+[ext_resource type="Script" uid="uid://c3evciwch0kid" path="res://scripts/common/buoyant_body.gd" id="5_wypuv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 
@@ -28,6 +29,11 @@ size = Vector3(200, 0.1, 200)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oq5f5"]
 size = Vector3(130.47244, 53.710663, 67.58423)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1cci6"]
+size = Vector3(1, 2.88, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oq5f5"]
 
 [node name="Main" type="Node3D" unique_id=1203609923]
 script = ExtResource("1_3qp2a")
@@ -108,9 +114,23 @@ oceanShader = ExtResource("4_oq5f5")
 metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
 
 [node name="Area3D" type="Area3D" parent="." unique_id=314151563]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.934702, 0.98738813, -25.268467)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.935, 0, -25.268)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1162408060]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.214125, -27.387121, -15.621071)
 shape = SubResource("BoxShape3D_oq5f5")
 debug_color = Color(0.69803923, 0, 0.59962016, 1)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=480663262 node_paths=PackedStringArray("rig", "mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.569898, 1.3254439, -12.784714)
+mass = 0.1
+script = ExtResource("5_wypuv")
+rig = NodePath(".")
+mesh = NodePath("MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=548561019]
+shape = SubResource("BoxShape3D_1cci6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1149525908]
+transform = Transform3D(1, 0, 0, 0, 2.9741569, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_oq5f5")

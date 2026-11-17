@@ -21,7 +21,7 @@ var oceanResolution: int
 @export
 var oceanShader: Shader
 
-var objectsInWater: Array[Node]
+var objectsInWater: Array[Node3D]
 
 
 # We probably need to find all bodies that enter the water and then apply an upwards force to them
@@ -42,21 +42,44 @@ func _on_body_exits_ocean(area: Node3D):
 	print("Exited")
 	self.objectsInWater.erase(area)
 
+
 func _physics_process(delta: float) -> void:
 	for obj in self.objectsInWater:
+		var aabb : AABB
+		var velocity : Vector3
+		var mass : float = 1
 		if obj is PlayerCapsuleController:
 			var character := obj as PlayerCapsuleController
 			# Curse you Godot
-			var aabb := character.shapeColl.shape.get_debug_mesh().get_aabb()
-			var vol := aabb.get_volume()
-			var submerged := get_submerged(character.global_transform.origin.y, aabb.size.y)
-			var forceToApply := _get_bouyancy_force(vol, submerged) * delta
-			print("Applying a force of ", forceToApply)
-			character.velocity += Vector3(0, forceToApply, 0)
-			if character.velocity.y > 0:
-				character.velocity.y -= self.drag * submerged * delta
-			else:
-				character.velocity.y += self.drag * submerged * delta
+			aabb = character.shapeColl.shape.get_debug_mesh().get_aabb()
+			velocity = character.velocity
+		elif obj is BuoyantBody:
+			var body := obj as BuoyantBody
+			aabb = body.mesh.get_aabb()
+			velocity = body.rig.linear_velocity
+			mass = body.rig.mass
+
+		var vol := aabb.get_volume()
+		var submerged := get_submerged(obj.global_transform.origin.y, aabb.size.y)
+		var forceToApply := _get_bouyancy_force(vol, submerged) * delta
+		print("Applying a force of ", forceToApply)
+		var totalForceToAdd = Vector3(0, forceToApply, 0)
+		if velocity.y > 0:
+			totalForceToAdd.y -= self.drag * submerged * delta * mass
+		else:
+			totalForceToAdd.y += self.drag * submerged * delta * mass
+
+		# This is dumb, but we could probably either do a fat struct or a common base class to avoid this
+		if obj is PlayerCapsuleController:
+			var character := obj as PlayerCapsuleController
+			# Curse you Godot
+			character.velocity += totalForceToAdd
+		elif obj is BuoyantBody:
+			var body := obj as BuoyantBody
+			body.rig.linear_velocity += totalForceToAdd
+			# body.rig.apply_force(velocity)
+			
+			
 				
 
 
