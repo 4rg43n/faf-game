@@ -11,12 +11,12 @@ var drag: float
 
 # We need a way to setup our boundaries, we can take the AABB of a given 3D node
 @export
-var oceanArea: Area3D
+var oceanAreas: Array[Area3D]
 
 @export
 var oceanColor: Color
 @export
-var oceanResolution: int
+var oceanResolution: float
 
 @export
 var oceanShader: Shader
@@ -29,10 +29,13 @@ var objectsInWater: Array[Node3D]
 # F = (p)Vg
 
 func _ready() -> void:
-	self.oceanArea.monitoring = true
-	self.oceanArea.body_entered.connect(_on_body_enters_ocean)
-	self.oceanArea.body_exited.connect(_on_body_exits_ocean)
-	_create_water_plane()
+	var cntr := 0
+	for area in self.oceanAreas:
+		area.monitoring = true
+		area.body_entered.connect(_on_body_enters_ocean)
+		area.body_exited.connect(_on_body_exits_ocean)
+		_create_water_plane(cntr)
+		cntr += 1
 
 func _on_body_enters_ocean(area: Node3D):
 	print("Entered ", area.name)
@@ -43,7 +46,7 @@ func _on_body_exits_ocean(area: Node3D):
 	self.objectsInWater.erase(area)
 
 
-func _physics_process(delta: float) -> void:
+func ocean_process(oceanIdx: int, delta: float) -> void:
 	for obj in self.objectsInWater:
 		var aabb : AABB
 		var velocity : Vector3
@@ -58,11 +61,13 @@ func _physics_process(delta: float) -> void:
 			aabb = body.mesh.get_aabb()
 			velocity = body.rig.linear_velocity
 			mass = body.rig.mass
+		else:
+			# Skip to next iter
+			continue
 
 		var vol := aabb.get_volume()
-		var submerged := get_submerged(obj.global_transform.origin.y, aabb.size.y)
+		var submerged := get_submerged(oceanIdx, obj.global_transform.origin.y, aabb.size.y)
 		var forceToApply := _get_bouyancy_force(vol, submerged) * delta
-		print("Applying a force of ", forceToApply)
 		var totalForceToAdd = Vector3(0, forceToApply, 0)
 		if velocity.y > 0:
 			totalForceToAdd.y -= self.drag * submerged * delta * mass
@@ -75,21 +80,23 @@ func _physics_process(delta: float) -> void:
 			# Curse you Godot
 			character.velocity += totalForceToAdd
 		elif obj is BuoyantBody:
+			# Bouyant bodies need some more work
 			var body := obj as BuoyantBody
 			body.rig.linear_velocity += totalForceToAdd
-			# body.rig.apply_force(velocity)
-			
-			
-				
 
 
-func _get_ocean_shape() -> CollisionShape3D:
-	assert(oceanArea.get_child_count() > 0, "The ocean area must have children")
-	return oceanArea.get_child(0) as CollisionShape3D
+func _physics_process(delta: float) -> void:
+	for i in range(len(self.oceanAreas)):
+		ocean_process(i, delta)
 
 
-func _create_water_plane() -> void:
-	var shapeNode := _get_ocean_shape()
+func _get_ocean_shape(oceanIdx: int) -> CollisionShape3D:
+	assert(self.oceanAreas[oceanIdx].get_child_count() > 0, "The ocean area must have children")
+	return self.oceanAreas[oceanIdx].get_child(0) as CollisionShape3D
+
+
+func _create_water_plane(oceanIdx: int) -> void:
+	var shapeNode := _get_ocean_shape(oceanIdx)
 	var box := shapeNode.shape as BoxShape3D
 	var size := box.size
 
@@ -130,15 +137,15 @@ func _create_water_plane() -> void:
 
 	plane.transform = shapeNode.transform * Transform3D(Basis(), Vector3(0, size.y * 0.5, 0))
 	plane.rotate_z(deg_to_rad(180))
-	oceanArea.add_child(plane)
+	oceanAreas[oceanIdx].add_child(plane)
 	assert(self.oceanShader != null, "Ocean shader needs to be set to continue!")
 	var mat := ShaderMaterial.new()
 	mat.shader = self.oceanShader
 	plane.material_override = mat
 
-func get_submerged(posY: float, sizeY: float) -> float:
+func get_submerged(oceanIdx: int, posY: float, sizeY: float) -> float:
 	var charBottom: float = posY
-	var oceanTop : float = self.oceanArea.global_position.y
+	var oceanTop : float = self.oceanAreas[oceanIdx].global_position.y
 	# Diff them to see if we're in or out of it and by how much
 	return clampf((oceanTop - charBottom) / sizeY, 0.0, 1.0)
 
