@@ -2,7 +2,7 @@ class_name FlyAwaiyBait extends FleeingBait
 
 func generate_flee_direction() -> void:
 	flee_direction.x = randf_range(-1, 1)
-	flee_direction.y = randf()
+	flee_direction.y = randf() * 10 # heavily scew it to fly up
 	flee_direction.z = randf_range(-1, 1)
 	flee_direction = flee_direction.normalized()
 	var rand_sample_index : int = randi_range(0, speed_curve.point_count)
