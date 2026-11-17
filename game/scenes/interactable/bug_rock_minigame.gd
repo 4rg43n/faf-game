@@ -66,7 +66,7 @@ func on_open_animation_finish() -> void:
 			randf_range(-half_size.z, half_size.z)
 		)
 		newest_bug.position = to_global(local_point)
-		newest_bug.set_multiplayer_authority(active_player.peer_id)
+		newest_bug.set_multiplayer_authority(1)
 		bug_spawner.add_child(newest_bug)
 
 func _on_bug_leave_area(body : Node3D) -> void:
