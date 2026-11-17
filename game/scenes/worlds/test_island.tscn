@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cub0o4re6n8kq" path="res://scripts/world/base_world_class.gd" id="1_ajolk"]
 [ext_resource type="PackedScene" uid="uid://dvcqp2rkh2dnd" path="res://assets/models/test/box.tscn" id="2_4gf4p"]
 [ext_resource type="Texture2D" uid="uid://s2dqfscfu407" path="res://assets/terrain/grass.jpg" id="5_ajolk"]
+[ext_resource type="PackedScene" uid="uid://crisams4xiht3" path="res://scenes/interactable/bug_collector_mini_game.tscn" id="8_n6b7w"]
 [ext_resource type="Shader" uid="uid://bi3o8elbtqoni" path="res://addons/simplegrasstextured/shaders/grass.gdshader" id="19_h0jaw"]
 [ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="20_c8ix1"]
 [ext_resource type="ArrayMesh" uid="uid://sptcpdx6wtm8" path="res://addons/simplegrasstextured/default_mesh.tres" id="21_jy72t"]
@@ -21,7 +22,7 @@ size = Vector2(200, 200)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7kt02"]
 size = Vector3(200, 0.1, 200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajolk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_epgx5"]
 render_priority = 0
 shader = ExtResource("19_h0jaw")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -89,7 +90,7 @@ transform = Transform3D(8.483259, 0, -2.6473722, 0, 5, 0, 5.2947445, 0, 4.241629
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0.18668818, 6.178111, 12.765796)
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="." unique_id=1501747599]
-material_override = SubResource("ShaderMaterial_ajolk")
+material_override = SubResource("ShaderMaterial_epgx5")
 multimesh = SubResource("MultiMesh_h0jaw")
 script = ExtResource("22_l7101")
 scale_h = 2.0
@@ -113,3 +114,6 @@ metadata/_edit_lock_ = true
 
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=345718863]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.195686, 18.298203, 46.175247)
+
+[node name="BugCollectorMiniGame" parent="." unique_id=1100659128 instance=ExtResource("8_n6b7w")]
+transform = Transform3D(-4.725288, 0, -1.6345205, 0, 4.9999995, 0, 1.6345205, 0, -4.725288, 50.598087, 0.31929594, 9.558899)
