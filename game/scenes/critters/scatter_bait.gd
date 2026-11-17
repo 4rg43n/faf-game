@@ -70,5 +70,5 @@ func on_pickup(peer_id : int) -> void:
 	if player.current_equipment != CustomEnums.Equipment_Type.EMPTY_HAND:
 		return
 	player.current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
-	position = player.player_controller.left_hand_socket.position
 	reparent(player.player_controller.left_hand_socket)
+	position = Vector3(0,0,0)

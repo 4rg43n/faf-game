@@ -14,7 +14,22 @@ size = Vector3(1, 0.8149414, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ups32"]
 size = Vector3(0.29261017, 0.16151428, 0.37936783)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4rkqc"]
+properties/0/path = NodePath(".:speed")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:flee_direction")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
 [node name="Beetle" type="RigidBody3D" unique_id=310955514]
+collision_layer = 3
 mass = 3.0
 script = ExtResource("1_621sy")
 speed_curve = ExtResource("2_4rkqc")
@@ -86,3 +101,6 @@ mesh = SubResource("BoxMesh_ups32")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1939620536]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005344391, 0.02040863, -0.0038516521)
 shape = SubResource("BoxShape3D_ups32")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=184216996]
+replication_config = SubResource("SceneReplicationConfig_4rkqc")
