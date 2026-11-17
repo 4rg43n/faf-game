@@ -105,11 +105,13 @@ graph_offset = Vector2(-130, -156)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vi406"]
 
-[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "third_person_pivot", "active_camera", "shapeColl", "left_hand_socket", "right_hand_socket")]
+[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "third_person_pivot", "interact_label", "active_camera", "shapeColl", "left_hand_socket", "right_hand_socket") groups=["Player"]]
 script = ExtResource("1_vi406")
 first_person_cam = NodePath("SpringArmPivot/FirstPersonCam")
 third_person_cam = NodePath("SpringArmPivot/ThirdPersonCam")
 third_person_pivot = NodePath("SpringArmPivot")
+interact_label = NodePath("InteractionLabel")
+INTERACT_RAYCAST_LENGTH = 100.0
 active_camera = NodePath("SpringArmPivot/ThirdPersonCam")
 SPEED = 10.0
 JUMP_VELOCITY = 9.0
@@ -187,6 +189,13 @@ bones/106/rotation = Quaternion(4.2923723e-08, 1, 5.9604645e-08, 2.568838e-08)
 bones/107/rotation = Quaternion(0.00082787697, -0.10400313, 0.9875088, 0.11836106)
 bones/108/rotation = Quaternion(-0.03180538, 0.9284385, -0.08880129, -0.3593114)
 bones/110/rotation = Quaternion(0.17144753, 0.6438581, -0.7456861, -0.0022171154)
+bones/102/rotation = Quaternion(-0.00078665465, 0.12421622, 0.9858607, -0.11246588)
+bones/103/rotation = Quaternion(0.017189663, 0.98106134, -0.15692958, 0.11223408)
+bones/105/rotation = Quaternion(-0.094954014, 0.72659355, -0.68044823, 0.005981058)
+bones/106/rotation = Quaternion(4.2923723e-08, 1, 5.9604645e-08, 2.568838e-08)
+bones/107/rotation = Quaternion(0.0008351047, -0.107804984, 0.9869766, 0.11939263)
+bones/108/rotation = Quaternion(-0.032850817, 0.9283426, -0.09163075, -0.35875425)
+bones/110/rotation = Quaternion(0.17176987, 0.64247805, -0.7468024, -0.0018220847)
 bones/111/rotation = Quaternion(-8.1927055e-08, 1, 2.9802322e-08, -8.602239e-09)
 
 [node name="geo_body_head" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="1" unique_id=515576870]
@@ -480,6 +489,17 @@ spring_arm_pos = NodePath("../SpringArm3D/SpringArmPosition")
 
 [node name="FirstPersonCam" type="Camera3D" parent="SpringArmPivot" unique_id=1918115160]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09334421, -0.49586374)
+
+[node name="InteractionLabel" type="Label" parent="." unique_id=405880130]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.5
+offset_top = 500.0
+offset_right = 44.500244
+offset_bottom = 523.0
+grow_horizontal = 2
+text = "GOOD GIRL"
 
 [editable path="Visuals/catgirl-godot"]
 [editable path="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium"]

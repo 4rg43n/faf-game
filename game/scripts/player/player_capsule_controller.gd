@@ -26,7 +26,9 @@ var landing_requested:bool=false
 
 @onready var landing_duration: float = landing_animation.length / maxf(jump_end_time_scale, 0.001)
 var landing_timer:float = 0.0
-###
+@export var interact_label: Label
+@export var INTERACT_RAYCAST_LENGTH: float
+
 
 @export var active_camera: Camera3D:
 	set(camera):
@@ -67,6 +69,24 @@ func _physics_process(delta: float) -> void:
 
 	handle_input(delta)
 
+	# INTERACT WITH ITEMS
+	var space_state = get_world_3d().direct_space_state
+	# use global coordinates, not local to node
+	var interact_look_direction = -third_person_cam.global_transform.basis.z
+	var query = PhysicsRayQueryParameters3D.create( third_person_cam.global_position,
+	third_person_cam.global_position + interact_look_direction * INTERACT_RAYCAST_LENGTH)
+	query.collision_mask = 2;
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		interact_label.text = "She could interact but she has no method..."
+		var hit = result.collider
+		if hit.has_method("on_interact"):
+			interact_label.text = "press E to interact"
+			hit.interact()
+	else:
+		interact_label.text = "She's not interacting...";
+		
 	move_and_slide()
 
 	##########################################################################################
