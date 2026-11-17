@@ -66,6 +66,7 @@ func on_open_animation_finish() -> void:
 			randf_range(-half_size.z, half_size.z)
 		)
 		newest_bug.position = to_global(local_point)
+		newest_bug.set_multiplayer_authority(active_player.peer_id)
 		bug_spawner.add_child(newest_bug)
 
 func _on_bug_leave_area(body : Node3D) -> void:
@@ -74,7 +75,8 @@ func _on_bug_leave_area(body : Node3D) -> void:
 	bug_spawner.remove_child(body)
 	body.queue_free()
 
-func mini_game_over(_node) -> void:
+func mini_game_over(node) -> void:
+	print("losing a bug ", node.name)
 	if bug_spawner.get_child_count() > 1:
 		return
 	print("game over!")
