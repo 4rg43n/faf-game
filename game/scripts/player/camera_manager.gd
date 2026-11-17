@@ -3,6 +3,8 @@ class_name CameraManager extends Node3D
 @export var player: PlayerController
 @export var spring_arm_pivot: Node3D
 @export var spring_arm: SpringArm3D
+@export var third_person_cam: Camera3D
+@export var first_person_cam: Camera3D
 @export var mouse_sensitivity: float = 0.005
 @export var min_zoom_distance: float = 2.0
 @export var max_zoom_distance: float = 25.0
