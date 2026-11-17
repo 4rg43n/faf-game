@@ -11,22 +11,53 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vptg"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0owmy"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qek5x"]
 animation = &"humanoid_animations/Idle"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qek5x"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5gtgg"]
+animation = &"humanoid_animations/Walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h17s1"]
+animation = &"humanoid_animations/Jog_Fwd"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_je7p5"]
+animation = &"humanoid_animations/Walk"
+play_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fm80t"]
+animation = &"humanoid_animations/Jog_Fwd"
+play_mode = 1
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_gx1jg"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_qek5x")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"humanoid_animations_Idle"
+blend_point_1/node = SubResource("AnimationNodeAnimation_5gtgg")
+blend_point_1/pos = 0.5
+blend_point_1/name = &"humanoid_animations_Walk"
+blend_point_2/node = SubResource("AnimationNodeAnimation_h17s1")
+blend_point_2/pos = 1.0
+blend_point_2/name = &"humanoid_animations_Jog_Fwd"
+blend_point_3/node = SubResource("AnimationNodeAnimation_je7p5")
+blend_point_3/pos = -0.5
+blend_point_3/name = &"humanoid_animations_Walk 2"
+blend_point_4/node = SubResource("AnimationNodeAnimation_fm80t")
+blend_point_4/pos = -1.0
+blend_point_4/name = &"humanoid_animations_Jog_Fwd 2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ugbui"]
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_i1s8l"]
-states/Idle/node = SubResource("AnimationNodeAnimation_0owmy")
-states/Idle/position = Vector2(449, 98)
+states/Locomotion/node = SubResource("AnimationNodeBlendSpace1D_gx1jg")
+states/Locomotion/position = Vector2(423, 82)
 states/Start/position = Vector2(154, 63)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_qek5x")]
-graph_offset = Vector2(-59, -207)
+transitions = ["Start", "Locomotion", SubResource("AnimationNodeStateMachineTransition_ugbui")]
+graph_offset = Vector2(-134, -37)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vi406"]
 
-[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "third_person_pivot", "active_camera")]
+[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "third_person_pivot", "active_camera") groups=["Player"]]
 script = ExtResource("1_vi406")
 first_person_cam = NodePath("FirstPersonCam")
 third_person_cam = NodePath("SpringArmPivot/ThirdPersonCam")
@@ -34,10 +65,10 @@ third_person_pivot = NodePath("SpringArmPivot")
 active_camera = NodePath("SpringArmPivot/ThirdPersonCam")
 SPEED = 10.0
 
-[node name="player-capsule" parent="." unique_id=962360466 instance=ExtResource("1_nmtom")]
+[node name="player-capsule" parent="." unique_id=962360466 groups=["Player"] instance=ExtResource("1_nmtom")]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1678709262]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1678709262 groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_5vptg")
 
@@ -52,16 +83,16 @@ spring_arm = NodePath("../SpringArmPivot/SpringArm3D")
 
 [node name="catgirl-godot" parent="Visuals" unique_id=148263498 instance=ExtResource("4_75vfm")]
 
-[node name="GeneralSkeleton" parent="Visuals/catgirl-godot/Armature" parent_id_path=PackedInt32Array(148263498, 1799348870) index="0" unique_id=1742597339]
-bones/0/position = Vector3(0.0043089343, 0.7247957, -0.07142686)
-bones/0/rotation = Quaternion(-0.04711844, -0.11588384, -0.0055035925, 0.9921293)
-bones/8/rotation = Quaternion(0.045346234, 0.00010803278, 0.0001306319, 0.99897134)
-bones/13/rotation = Quaternion(0.13564901, 0.00032333643, 0.00039090222, 0.99075687)
-bones/14/rotation = Quaternion(-0.09058806, -0.00021590319, -0.0002610279, 0.9958885)
-bones/15/rotation = Quaternion(0.07585497, 0.09567601, 0.008486118, 0.9924818)
-bones/53/rotation = Quaternion(0.4879822, 0.5264464, 0.5265382, -0.4555053)
-bones/54/rotation = Quaternion(-0.061359834, 0.8178128, -0.5721199, 0.009799383)
-bones/56/rotation = Quaternion(0.18743366, -0.6522213, 0.18102993, 0.7118315)
+[node name="GeneralSkeleton" parent="Visuals/catgirl-godot/Armature" parent_id_path=PackedInt32Array(148263498, 1597049376) index="0" unique_id=1198479058]
+bones/0/position = Vector3(-0.00031082015, 0.72048277, -0.072672665)
+bones/0/rotation = Quaternion(-0.035609715, -0.11593987, -0.004159342, 0.992609)
+bones/8/rotation = Quaternion(0.050349563, 0.00011079096, 0.00012860786, 0.99873173)
+bones/13/rotation = Quaternion(0.15106142, 0.00033152226, 0.00038429664, 0.9885243)
+bones/14/rotation = Quaternion(-0.10072285, -0.00022138338, -0.00025680236, 0.9949145)
+bones/15/rotation = Quaternion(0.059028734, 0.09570649, 0.008109614, 0.9936248)
+bones/53/rotation = Quaternion(0.49810904, 0.52294546, 0.52965724, -0.44483575)
+bones/54/rotation = Quaternion(-0.028724037, 0.82302666, -0.56719303, 0.009714986)
+bones/56/rotation = Quaternion(0.17711788, -0.6743889, 0.18259272, 0.69317293)
 bones/57/rotation = Quaternion(0.09913024, 0.70686626, 0.0629003, 0.69753635)
 bones/58/rotation = Quaternion(0.6295969, -4.0978193e-08, -4.61936e-06, 0.77692205)
 bones/59/rotation = Quaternion(0.62334186, 2.9802322e-08, -4.261732e-06, 0.78194946)
@@ -78,9 +109,9 @@ bones/69/rotation = Quaternion(0.6228982, -0.023505477, -4.5001498e-06, 0.781949
 bones/70/rotation = Quaternion(-0.123819165, 0.7195233, 0.2018354, 0.65285325)
 bones/71/rotation = Quaternion(0.18180694, 0.11012423, 0.060063303, 0.9753006)
 bones/72/rotation = Quaternion(0.5994299, 0.27396563, 0.19463211, 0.7264606)
-bones/73/rotation = Quaternion(0.54021287, -0.47437978, -0.4747994, -0.5076412)
-bones/74/rotation = Quaternion(0.09138071, 0.8250488, -0.55754185, -0.009549623)
-bones/76/rotation = Quaternion(0.29253367, 0.5414926, -0.20438363, 0.7612078)
+bones/73/rotation = Quaternion(0.5501568, -0.472092, -0.4767342, -0.49717325)
+bones/74/rotation = Quaternion(0.062251195, 0.82019085, -0.5686098, -0.009739238)
+bones/76/rotation = Quaternion(0.28750905, 0.5585991, -0.21120052, 0.7487991)
 bones/77/rotation = Quaternion(0.12024976, -0.69903094, -0.056890074, 0.702609)
 bones/78/rotation = Quaternion(0.6295971, 3.7252903e-08, 4.172325e-06, 0.7769218)
 bones/79/rotation = Quaternion(0.62334144, 1.825392e-07, 4.470348e-06, 0.7819497)
@@ -97,13 +128,13 @@ bones/89/rotation = Quaternion(0.6228987, 0.02350526, 4.1723247e-06, 0.7819493)
 bones/90/rotation = Quaternion(-0.12381923, -0.7195234, -0.2018356, 0.6528533)
 bones/91/rotation = Quaternion(0.18180703, -0.11012423, -0.060063303, 0.97530067)
 bones/92/rotation = Quaternion(0.5994302, -0.2739653, -0.19463223, 0.7264605)
-bones/102/rotation = Quaternion(-0.00077943894, 0.12204617, 0.98624885, -0.1114338)
-bones/103/rotation = Quaternion(0.016400171, 0.9821677, -0.14955992, 0.1127363)
-bones/105/rotation = Quaternion(-0.09464763, 0.72877735, -0.67814976, 0.00618326)
+bones/102/rotation = Quaternion(-0.00083178567, 0.14941052, 0.98159766, -0.11891986)
+bones/103/rotation = Quaternion(0.019734526, 0.9770433, -0.18103048, 0.11056669)
+bones/105/rotation = Quaternion(-0.09721494, 0.7190352, -0.6880912, 0.008254058)
 bones/106/rotation = Quaternion(4.2923723e-08, 1, 5.9604645e-08, 2.568838e-08)
-bones/107/rotation = Quaternion(0.00080912, -0.11058031, 0.9871118, 0.11567919)
-bones/108/rotation = Quaternion(-0.028940298, 0.92894584, -0.081279464, -0.360022)
-bones/110/rotation = Quaternion(0.17163394, 0.6465336, -0.74332285, -0.002691053)
+bones/107/rotation = Quaternion(0.00092382263, -0.07861518, 0.9881163, 0.13207941)
+bones/108/rotation = Quaternion(-0.048682176, 0.9242338, -0.13367923, -0.35433295)
+bones/110/rotation = Quaternion(0.16978087, 0.62428147, -0.7625228, 0.0024830934)
 bones/111/rotation = Quaternion(-8.1927055e-08, 1, 2.9802322e-08, -8.602239e-09)
 
 [node name="HeadAttachment" type="BoneAttachment3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="4" unique_id=1911839400]
@@ -113,7 +144,7 @@ bone_idx = 15
 [node name="catgirl_hair_medium" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment" unique_id=304994841 instance=ExtResource("5_qek5x")]
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
 
-[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 1928886233) index="1" unique_id=1347265175]
+[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 395324526) index="1" unique_id=1347265175]
 setting_count = 8
 settings/0/root_bone_name = "hair.head.001"
 settings/0/root_bone = 7
@@ -311,7 +342,7 @@ settings/7/enable_all_child_collisions = true
 settings/7/exclude_collision_count = 0
 
 [node name="SpringBoneCollisionCapsule3D" type="SpringBoneCollisionCapsule3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D/SpringBoneSimulator3D" unique_id=1649828265]
-transform = Transform3D(0.99999994, 4.656613e-09, 2.3841858e-07, 0, 0.9999998, 5.9604645e-08, -2.3841858e-07, -5.9604645e-08, 0.9999999, 0, 0.18000007, -5.9604645e-08)
+transform = Transform3D(1, 9.313226e-10, 2.3841858e-07, -2.7939677e-09, 0.9999999, 5.9604645e-08, -2.3841858e-07, -8.940697e-08, 0.99999994, 3.7252903e-09, 0.17999995, 0)
 bone_name = "hair.head"
 bone = 0
 position_offset = Vector3(0, 0.18, 0)
@@ -370,6 +401,8 @@ autoplay = &"humanoid_animations/Idle"
 root_node = NodePath("../Visuals/catgirl-godot")
 tree_root = SubResource("AnimationNodeStateMachine_i1s8l")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Locomotion/blend_position = 0.0
+parameters/Locomotion/observer = null
 
 [node name="SpringArmPivot" type="Node3D" parent="." unique_id=31687973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5553305, 0)

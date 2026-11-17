@@ -12,10 +12,33 @@ class_name BugRockMiniGame extends InteractableObject
 var active_player : PlayerMetadata = null
 var original_camera : Camera3D = null
 
+#TODO remove when simone implements interactions proppper
+@export var interaction_area : Area3D
+var player_in_area : bool = false
+
 func _ready() -> void:
 	var area : Area3D = bug_spawn_area.get_parent()
 	area.body_exited.connect(_on_bug_leave_area)
 	bug_spawner.child_exiting_tree.connect(mini_game_over)
+
+	interaction_area.body_entered.connect(_on_player_interact)
+	interaction_area.body_exited.connect(_on_player_leave)
+
+func _on_player_interact(body : Node3D) -> void:
+	if not body.is_in_group("Player"):
+		return
+	player_in_area = true
+
+func _on_player_leave(body : Node3D) -> void:
+	if not body.is_in_group("Player"):
+		return
+	player_in_area = false
+
+#TODO remove when simone implements interactions proppper
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_released() and event.keycode == KEY_E and player_in_area:
+		var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
+		on_interact(player_metadata)
 
 func on_interact(player_metadata : PlayerMetadata) -> void:
 	if active_player != null:
@@ -40,7 +63,7 @@ func on_open_animation_finish() -> void:
 			randf_range(-half_size.y, half_size.y),
 			randf_range(-half_size.z, half_size.z)
 		)
-		newest_bug.position = shape.to_global(local_point)
+		newest_bug.position = to_global(local_point)
 		bug_spawner.add_child(newest_bug)
 
 func _on_bug_leave_area(body : Node3D) -> void:
