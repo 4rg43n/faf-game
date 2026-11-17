@@ -84,9 +84,10 @@ func _physics_process(delta: float) -> void:
 		var hit = result.collider
 		if hit.has_method("on_interact"):
 			interact_label.text = "press E to interact"
-			hit.interact()
+			if Input.is_key_pressed(KEY_E):
+				hit.interact()
 	else:
-		interact_label.text = "She's not interacting...";
+		interact_label.text = "";
 		
 	move_and_slide()
 
