@@ -157,4 +157,3 @@ func _get_bouyancy_force(solidVolume: float, submerged: float) -> float :
 	# TODO: This should be read from the current spike of the ocean's surface
 	var displacedVolume : float = solidVolume * submerged
 	return self.waterDensity * displacedVolume * self.gravityFactor
-	
