@@ -235,7 +235,6 @@ func leave_lobby() -> void:
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
-		_close_game()
 
 func _on_player_spawned(new_player : PlayerMetadata) -> void:
 	#since p2p server and host client are on same process
@@ -312,3 +311,12 @@ func _on_player_leave(client_peer_id : int) -> void:
 			if player.peer_id == client_peer_id:
 				player_spawner.remove_child(player)
 				break
+
+func get_current_player(client_peer_id : int) -> PlayerMetadata:
+	var current_player : PlayerMetadata = null
+	var current_children := player_spawner.get_children()
+	for player : PlayerMetadata in current_children:
+		if player.peer_id == client_peer_id:
+			current_player = player
+			break
+	return current_player

@@ -20,7 +20,7 @@ properties/4/path = NodePath(".:current_equipment")
 properties/4/spawn = true
 properties/4/replication_mode = 2
 
-[node name="TheWholePackage" type="Node3D" unique_id=1542336818 node_paths=PackedStringArray("player_controller")]
+[node name="TheWholePackage" type="Node3D" unique_id=1542336818 node_paths=PackedStringArray("player_controller") groups=["Player"]]
 script = ExtResource("1_rbmgg")
 player_controller = NodePath("Player")
 
@@ -28,4 +28,4 @@ player_controller = NodePath("Player")
 replication_config = SubResource("SceneReplicationConfig_vefth")
 visibility_update_mode = 1
 
-[node name="Player" parent="." unique_id=422766350 instance=ExtResource("1_vefth")]
+[node name="Player" parent="." unique_id=422766350 groups=["Player"] instance=ExtResource("1_vefth")]

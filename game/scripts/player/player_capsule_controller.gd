@@ -37,6 +37,9 @@ var landing_timer:float = 0.0
 
 @export var SPEED: float = 5.0
 @export var JUMP_VELOCITY: float = 6.0
+# TODO(Nef): I really hate how we have to do this, ask me for my pseudo-comp lookup idea later
+@export var shapeColl: CollisionShape3D
+const ASSUMED_MASS = 60.0
 
 var owned_by_current_client : bool = false
 
@@ -64,7 +67,7 @@ func _physics_process(delta: float) -> void:
 		animation_state.travel("Jump_Start")
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.WWWWWWWWWWWWWWWWWW
+	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir : Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
@@ -133,7 +136,7 @@ func update_locomotion()->void:
 	var blend:=clampf(horizontal_speed/SPEED,
 		0.0,
 		1.0)
-	
+
 	# set the blend
 	animation_tree.set("parameters/Locomotion/blend_position",
 		blend);
