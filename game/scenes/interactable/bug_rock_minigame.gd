@@ -33,6 +33,8 @@ func _on_player_leave(body : Node3D) -> void:
 	if not body.is_in_group("Player"):
 		return
 	player_in_area = false
+	if player_in_area and active_player != null:
+		active_player.player_controller.active_camera = original_camera
 
 #TODO remove when simone implements interactions proppper
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -76,6 +78,7 @@ func mini_game_over(_node) -> void:
 		return
 	print("game over!")
 	pivot.rotation_degrees.z = 0
-	active_player.player_controller.active_camera = original_camera
+	if active_player != null:
+		active_player.player_controller.active_camera = original_camera
 	original_camera = null
 	active_player = null
