@@ -4,6 +4,7 @@ class_name BugRockMiniGame extends InteractableObject
 @export var minigame_camera : Camera3D
 @export var bug_spawner : MultiplayerSpawner
 @export var bug_spawn_area : CollisionShape3D
+@export var bug_spawn_area_area : Area3D
 
 ## LUT table
 @export_range(5, 35) var num_bug_range : int
@@ -17,8 +18,7 @@ var original_camera : Camera3D = null
 var player_in_area : bool = false
 
 func _ready() -> void:
-	var area : Area3D = bug_spawn_area.get_parent()
-	area.body_exited.connect(_on_bug_leave_area)
+	bug_spawn_area_area.body_exited.connect(_on_bug_leave_area)
 	bug_spawner.child_exiting_tree.connect(mini_game_over)
 
 	interaction_area.body_entered.connect(_on_player_interact)

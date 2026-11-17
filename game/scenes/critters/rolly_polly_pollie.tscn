@@ -11,15 +11,15 @@ material = SubResource("StandardMaterial3D_bsqsq")
 size = Vector3(1, 1, 0.43273926)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pmgh3"]
-size = Vector3(0.2775879, 0.32019043, 0.58138275)
+size = Vector3(0.2775879, 0.32019043, 0.54524803)
 
 [node name="RollyPollyPollie" type="RigidBody3D" unique_id=1345065799]
 script = ExtResource("1_uclde")
 speed_curve = ExtResource("2_xo38u")
-max_speed = 15.0
+max_speed = 2.0
 
 [node name="Scale" type="Node3D" parent="." unique_id=1262690544]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+transform = Transform3D(-0.2, 0, -1.7484556e-08, 0, 0.2, 0, 1.7484556e-08, 0, -0.2, 0, 0, 0.04321207)
 
 [node name="MeshInstance3D9" type="MeshInstance3D" parent="Scale" unique_id=58257244]
 transform = Transform3D(0.5785548, 0, 0, 0, 0.3627516, 0, 0, 0, 1.1066122, 0, -0.061203424, 0.9391117)
@@ -66,5 +66,5 @@ transform = Transform3D(0.5208066, 0, 0, 0, 0.54397047, 0, 0, 0, 0.56704265, 0, 
 mesh = SubResource("BoxMesh_pmgh3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1654240881]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0032958984, 0.02154541, 0.054286957)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0032958984, 0.02154541, -0.013666019)
 shape = SubResource("BoxShape3D_pmgh3")
