@@ -1,38 +1,49 @@
 [gd_scene format=3 uid="uid://3mkg6nfyac2f"]
 
+[ext_resource type="Script" uid="uid://bhsuwvh4580ec" path="res://scenes/critters/dig_bait.gd" id="1_mmd53"]
+[ext_resource type="Curve" uid="uid://5tfftvshkd7y" path="res://scenes/critters/worm_speed_distribution.tres" id="2_icdyk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0pmb"]
+albedo_color = Color(0.87607515, 0.5743772, 0.65807366, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_0ft7f"]
+material = SubResource("StandardMaterial3D_v0pmb")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mmd53"]
-size = Vector3(1, 1, 5.5649414)
+size = Vector3(0.31773376, 0.4050293, 1.1419678)
 
-[node name="Worm" type="Node3D" unique_id=1566799322]
+[node name="Worm" type="RigidBody3D" unique_id=791724085]
+script = ExtResource("1_mmd53")
+speed_curve = ExtResource("2_icdyk")
+max_speed = 5.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1396723928]
+[node name="Scale" type="Node3D" parent="." unique_id=666079760]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Scale" unique_id=1396723928]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1694024)
 mesh = SubResource("BoxMesh_0ft7f")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=1618157142]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Scale" unique_id=1618157142]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2996123)
 mesh = SubResource("BoxMesh_0ft7f")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1669264775]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.04889953)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Scale" unique_id=1669264775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.048899535)
 mesh = SubResource("BoxMesh_0ft7f")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=632412061]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Scale" unique_id=632412061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0873388)
 mesh = SubResource("BoxMesh_0ft7f")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=1403347709]
-transform = Transform3D(0.67392397, 0, 0, 0, 0.67392397, 0, 0, 0, 5.0592613, 0.018131495, 0, -0.012652397)
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Scale" unique_id=1403347709]
+transform = Transform3D(0.673924, 0, 0, 0, 0.673924, 0, 0, 0, 5.0592613, 0.018131495, 0, -0.012652398)
 mesh = SubResource("BoxMesh_0ft7f")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=871918417]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Scale" unique_id=871918417]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2115054)
 mesh = SubResource("BoxMesh_0ft7f")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=144545568]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1425063305 groups=["Bait"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.053955078)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1425063305 groups=["Bait"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0037460327, 0.02746582, 0.018493652)
 shape = SubResource("BoxShape3D_mmd53")
