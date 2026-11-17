@@ -3,6 +3,8 @@ class_name PlayerController extends CharacterBody3D
 signal active_camera_changed(camera: Camera3D)
 
 @onready var visuals: Node3D = $Visuals
+@onready var animation_tree:AnimationTree = $AnimationTree
+
 @export var turn_speed: float = 10.0
 
 @export var debug_scene_play:bool=false
@@ -63,6 +65,22 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	update_locomotion()
+
+func update_locomotion()->void:
+	# get our speed
+	var horizontal_speed:=Vector2(
+		velocity.x,
+		velocity.z).length()
+
+	# set the blend	value
+	var blend:=clampf(horizontal_speed/SPEED,
+		0.0,
+		1.0)
+
+	# set the blend
+	animation_tree.set("parameters/Locomotion/blend_position",
+		blend);
 
 func make_current_player() -> void:
 	if not is_node_ready():
