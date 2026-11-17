@@ -41,6 +41,9 @@ var landing_timer:float = 0.0
 @export var shapeColl: CollisionShape3D
 const ASSUMED_MASS = 60.0
 
+@export var left_hand_socket : BoneAttachment3D
+@export var right_hand_socket : BoneAttachment3D
+
 var owned_by_current_client : bool = false
 
 var regular_speed: float = SPEED
