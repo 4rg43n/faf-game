@@ -77,7 +77,8 @@ func _on_bug_leave_area(body : Node3D) -> void:
 	#body.queue_free()
 	pass
 
-@rpc("any_peer", "reliable")
+#server
+@rpc("any_peer", "reliable", "call_local")
 func mini_game_start() -> void:
 	var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
 	original_camera = player_metadata.player_controller.active_camera
@@ -93,7 +94,8 @@ func on_bug_die(node) -> void:
 	mini_game_over.rpc_id(active_player.peer_id)
 	active_player = null
 
-@rpc("any_peer", "reliable")
+#client
+@rpc("any_peer", "reliable", "call_local")
 func mini_game_over() -> void:
 	pivot.rotation_degrees.z = 0
 	var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
