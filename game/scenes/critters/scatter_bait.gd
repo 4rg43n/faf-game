@@ -21,8 +21,9 @@ func generate_flee_direction() -> void:
 	speed = speed_curve.sample_baked(rand_sample_index) * max_speed
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	state.linear_velocity.x = flee_direction.x * speed
-	state.linear_velocity.z = flee_direction.z * speed
+	#state.linear_velocity.x = flee_direction.x * speed
+	#state.linear_velocity.y = flee_direction.y * speed
+	#state.linear_velocity.z = flee_direction.z * speed
 
 	var up_dir: Vector3 = Vector3.UP
 	var target_dir = state.linear_velocity
@@ -46,5 +47,4 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.angular_velocity = Vector3.ZERO
 
 func _physics_process(delta: float) -> void:
-	#apply_force(flee_direction * speed * delta)
-	pass
+	apply_force(flee_direction * speed * delta)

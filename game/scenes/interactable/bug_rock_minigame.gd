@@ -70,10 +70,11 @@ func on_open_animation_finish() -> void:
 		bug_spawner.add_child(newest_bug)
 
 func _on_bug_leave_area(body : Node3D) -> void:
-	if not body.is_in_group("Bait"):
-		return
-	bug_spawner.remove_child(body)
-	body.queue_free()
+	#if not body.is_in_group("Bait"):
+	#	return
+	#bug_spawner.remove_child(body)
+	#body.queue_free()
+	pass
 
 func mini_game_over(node) -> void:
 	print("losing a bug ", node.name)

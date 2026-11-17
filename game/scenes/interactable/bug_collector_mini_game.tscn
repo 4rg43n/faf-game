@@ -30,7 +30,7 @@ minigame_camera = NodePath("Camera3D")
 bug_spawner = NodePath("BugSpawner")
 bug_spawn_area = NodePath("SoilFullOfBugs/BugArea/BugSpawnArea")
 bug_spawn_area_area = NodePath("SoilFullOfBugs/BugArea")
-num_bug_range = 10
+num_bug_range = 35
 LUT_bugs = ExtResource("2_y6pv2")
 interaction_area = NodePath("InteractArea")
 
