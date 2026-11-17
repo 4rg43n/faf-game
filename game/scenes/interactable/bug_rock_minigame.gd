@@ -32,9 +32,9 @@ func _on_player_interact(body : Node3D) -> void:
 func _on_player_leave(body : Node3D) -> void:
 	if not body.is_in_group("Player"):
 		return
-	player_in_area = false
 	if player_in_area and active_player != null:
 		active_player.player_controller.active_camera = original_camera
+	player_in_area = false
 
 #TODO remove when simone implements interactions proppper
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -72,6 +72,7 @@ func _on_bug_leave_area(body : Node3D) -> void:
 	if not body.is_in_group("Bait"):
 		return
 	bug_spawner.remove_child(body)
+	body.queue_free()
 
 func mini_game_over(_node) -> void:
 	if bug_spawner.get_child_count() > 1:
