@@ -19,7 +19,7 @@ mass = 5.0
 gravity_scale = 0.1
 script = ExtResource("1_621sy")
 speed_curve = ExtResource("2_4rkqc")
-max_speed = 2.0
+max_speed = 5.0
 
 [node name="Scale" type="Node3D" parent="." unique_id=123520705]
 transform = Transform3D(-0.2, 0, -1.7484556e-08, 0, 0.2, 0, 1.7484556e-08, 0, -0.2, 0, 0, 0.08540273)
