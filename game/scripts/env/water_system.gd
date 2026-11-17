@@ -48,8 +48,8 @@ func _physics_process(delta: float) -> void:
 		var aabb : AABB
 		var velocity : Vector3
 		var mass : float = 1
-		if obj is PlayerCapsuleController:
-			var character := obj as PlayerCapsuleController
+		if obj is PlayerController:
+			var character := obj as PlayerController
 			# Curse you Godot
 			aabb = character.shapeColl.shape.get_debug_mesh().get_aabb()
 			velocity = character.velocity
@@ -70,8 +70,8 @@ func _physics_process(delta: float) -> void:
 			totalForceToAdd.y += self.drag * submerged * delta * mass
 
 		# This is dumb, but we could probably either do a fat struct or a common base class to avoid this
-		if obj is PlayerCapsuleController:
-			var character := obj as PlayerCapsuleController
+		if obj is PlayerController:
+			var character := obj as PlayerController
 			# Curse you Godot
 			character.velocity += totalForceToAdd
 		elif obj is BuoyantBody:

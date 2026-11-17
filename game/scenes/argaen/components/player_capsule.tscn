@@ -2,16 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://dn4x0l4niy8s4" path="res://assets/models/basic/player-capsule.glb" id="1_nmtom"]
 [ext_resource type="Script" uid="uid://cv1hr7tk44pc6" path="res://scripts/player/player_capsule_controller.gd" id="1_vi406"]
-[ext_resource type="Script" uid="uid://cus3wck7hvkpm" path="res://scripts/player/camera_spring_arm.gd" id="3_akrbj"]
+[ext_resource type="Script" uid="uid://cus3wck7hvkpm" path="res://scripts/player/camera_manager.gd" id="3_akrbj"]
 [ext_resource type="Script" uid="uid://chvy1uj628dtu" path="res://scripts/player/camera_follow.gd" id="4_ynch3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vptg"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vi406"]
 
-[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("camera", "shapeColl")]
+[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("shapeColl")]
 script = ExtResource("1_vi406")
-camera = NodePath("SpringArmPivot/Camera3D")
 shapeColl = NodePath("CollisionShape3D")
 
 [node name="player-capsule" parent="." unique_id=962360466 instance=ExtResource("1_nmtom")]
