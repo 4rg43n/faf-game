@@ -21,10 +21,10 @@ func _ready() -> void:
 	bug_spawn_area_area.body_exited.connect(_on_bug_leave_area)
 	bug_spawner.child_exiting_tree.connect(on_bug_die)
 
-	interaction_area.body_entered.connect(_on_player_interact)
+	interaction_area.body_entered.connect(_on_player_enter_range)
 	interaction_area.body_exited.connect(_on_player_leave)
 
-func _on_player_interact(body : Node3D) -> void:
+func _on_player_enter_range(body : Node3D) -> void:
 	if not body.is_in_group("Player"):
 		return
 	player_in_area = true
@@ -33,16 +33,15 @@ func _on_player_leave(body : Node3D) -> void:
 	if not body.is_in_group("Player"):
 		return
 	if player_in_area and active_player != null:
-		active_player.player_controller.active_camera = original_camera
+		on_animation_end.rpc_id(active_player.peer_id)
 	player_in_area = false
 
 #TODO remove when simone implements interactions proppper
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_released() and event.keycode == KEY_E and player_in_area:
-		var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
-		active_player = player_metadata
 		on_interact.rpc_id(1, multiplayer.get_unique_id())
 
+@rpc("any_peer", "reliable", "call_local")
 func on_interact(activating_peer_id : int) -> void:
 	if active_player != null:
 		return
@@ -81,6 +80,7 @@ func _on_bug_leave_area(body : Node3D) -> void:
 @rpc("any_peer", "reliable", "call_local")
 func mini_game_start() -> void:
 	var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
+	active_player = player_metadata
 	original_camera = player_metadata.player_controller.active_camera
 	player_metadata.player_controller.active_camera = minigame_camera
 
@@ -91,14 +91,20 @@ func on_bug_die(node) -> void:
 	if bug_spawner.get_child_count() > 1:
 		return
 	print("game over!")
+	pivot.rotation_degrees.z = 0
 	mini_game_over.rpc_id(active_player.peer_id)
 	active_player = null
 
 #client
 @rpc("any_peer", "reliable", "call_local")
 func mini_game_over() -> void:
-	pivot.rotation_degrees.z = 0
-	var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
-	player_metadata.player_controller.active_camera = original_camera
+	if original_camera != null:
+		var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
+		player_metadata.player_controller.active_camera = original_camera
 	original_camera = null
 	active_player = null
+
+@rpc("any_peer", "reliable", "call_local")
+func on_animation_end() -> void:
+	if original_camera != null:
+		active_player.player_controller.active_camera = original_camera
