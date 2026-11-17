@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cub0o4re6n8kq" path="res://scripts/world/base_world_class.gd" id="1_ajolk"]
 [ext_resource type="PackedScene" uid="uid://dvcqp2rkh2dnd" path="res://assets/models/test/box.tscn" id="2_4gf4p"]
+[ext_resource type="Script" uid="uid://bjfrkdbqn0bib" path="res://scenes/interactable/interactable_object.gd" id="4_nw7yp"]
 [ext_resource type="Texture2D" uid="uid://s2dqfscfu407" path="res://assets/terrain/grass.jpg" id="5_ajolk"]
 [ext_resource type="PackedScene" uid="uid://crisams4xiht3" path="res://scenes/interactable/bug_collector_mini_game.tscn" id="8_n6b7w"]
 [ext_resource type="Script" uid="uid://ctqyt4l0fwa3l" path="res://scripts/env/water_system.gd" id="9_epgx5"]
@@ -24,7 +25,7 @@ size = Vector2(200, 200)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7kt02"]
 size = Vector3(200, 0.1, 200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jnc4p"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nw7yp"]
 render_priority = 0
 shader = ExtResource("19_h0jaw")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -83,7 +84,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 shape = SubResource("BoxShape3D_7kt02")
 
 [node name="Box" parent="." unique_id=408511495 instance=ExtResource("2_4gf4p")]
-transform = Transform3D(5, 0, 0, 0, 20, 0, 0, 0, 5, 0.09675503, 9.930502, 0.13446426)
+transform = Transform3D(4.9999804, 0.054672867, -0.0033398068, -0.01366919, 19.999926, -0.00145672, 0.0033358207, 0.0058632996, 4.999999, 0.09675503, 9.930502, 0.13446426)
+script = ExtResource("4_nw7yp")
 
 [node name="Box2" parent="." unique_id=1670850131 instance=ExtResource("2_4gf4p")]
 transform = Transform3D(15, 0, 0, 0, -4.7933993, -4.963969, 0, 39.711754, -0.5991749, 35.676796, 0.9479704, 100.04553)
@@ -99,9 +101,10 @@ transform = Transform3D(8.483259, 0, -2.6473722, 0, 5, 0, 5.2947445, 0, 4.241629
 
 [node name="Box6" parent="." unique_id=377721160 instance=ExtResource("2_4gf4p")]
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0.18668818, 6.178111, 12.765796)
+script = ExtResource("4_nw7yp")
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="." unique_id=1501747599]
-material_override = SubResource("ShaderMaterial_jnc4p")
+material_override = SubResource("ShaderMaterial_nw7yp")
 multimesh = SubResource("MultiMesh_h0jaw")
 script = ExtResource("22_l7101")
 scale_h = 2.0
