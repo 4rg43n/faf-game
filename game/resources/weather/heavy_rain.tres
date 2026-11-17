@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeatherCondition" format=3 uid="uid://c23rdredqqqog"]
+
+[ext_resource type="Script" uid="uid://cny2gyxe5r6jt" path="res://scripts/weather/weather_condition.gd" id="1_lfjrf"]
+
+[resource]
+script = ExtResource("1_lfjrf")
+condition_name = "Heavy Rain"
+fog_density = 1.0
+is_raining = true
+cloud_coverage = 1.0
+default_skydome_energy = 0.25
+sun_energy = 0.2
+enable_mist = true
+metadata/_custom_type_script = "uid://cny2gyxe5r6jt"

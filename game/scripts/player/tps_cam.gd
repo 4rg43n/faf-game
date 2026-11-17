@@ -1,6 +1,6 @@
 extends Camera3D
 
-@export var player:Node3D=null
+@export var player:PlayerController
 
 @export var follow_offset:=Vector3(0,2.5,1.5)
 @export var follow_rot:=Vector3(-16.5,0,0)
@@ -14,11 +14,14 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	position=player.get_global_transform_interpolated()*follow_offset
 	rotation.y=player.rotation.y
 
+
 func _unhandled_input(event: InputEvent) -> void:
+	if not player.active_camera == self:
+		return
 	if event is InputEventMouseMotion:
 		# event.relative = how far the mouse moved this event, in pixels
 

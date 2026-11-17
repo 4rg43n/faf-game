@@ -1,5 +1,5 @@
 ## we are using GodotSteam plugin docs located here : https://godotsteam.com
-class_name LobbyManager extends Node2D
+class_name LobbyManager extends Control
 
 ## 480 is the default for local testing
 ## to publish we need a developer account on steamworks ($100 per registered application)
@@ -26,11 +26,20 @@ static var instance : LobbyManager
 @export var spinning_fish_player : AnimatedImagePlayer
 @export var spinning_fish_gif : AnimatedImageTexture
 
+@export var player_spawner : MultiplayerSpawner
+@export var starting_world : WorldBackBone
+
+@export var starting_screen_ui : Control
+
+@export var player_scene : PackedScene
+
 var peer : SteamMultiplayerPeer
 
 const already_started_loby_id : String = "already_started_loby_id"
 const connect_to_lobby_search_term : String = "+connect_lobby"
-var server_pid : int = -1
+#necessary since we are using debug steam game
+const magic_tag : String = "my super awesome unique tag name that no one else is using"
+const MAGIC_KEY : String = "asdasda23w2ivn17800as9u77v6982nnmv;;aoi8y77ayubhl;"
 
 #we can set player specific lobby values using setLobbyMemberData instead of setLobbyData
 
@@ -43,6 +52,7 @@ func _ready() -> void:
 
 	Steam.initRelayNetworkAccess()
 	peer = SteamMultiplayerPeer.new()
+	peer.server_relay = true
 
 	var status : Steam.SteamAPIInitResult = initialize_response['status']
 	if status != Steam.STEAM_API_INIT_RESULT_OK:
@@ -64,7 +74,7 @@ func _ready() -> void:
 		_close_game()
 		return
 
-	spinning_fish_player.animated_image = spinning_fish_gif
+	#spinning_fish_player.load_from_file(spinning_fish_gif.resource_path)
 	if not Engine.is_editor_hint():
 		spinning_fish_player.play()
 
@@ -72,6 +82,10 @@ func _ready() -> void:
 	Steam.join_requested.connect(_on_join_though_friend)
 	Steam.lobby_chat_update.connect(_on_lobby_chat_update)
 	Steam.lobby_data_update.connect(_on_lobby_data_update)
+
+	player_spawner.spawn_function = spawn_player
+	#bc host and client are same process we need to cover spawning their client as a special case
+	player_spawner.child_entered_tree.connect(_on_player_spawned)
 
 	multiplayer.peer_connected.connect(_on_player_joined)
 	multiplayer.peer_disconnected.connect(_on_player_leave)
@@ -93,17 +107,19 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 	if connection_status != Steam.Result.RESULT_OK:
 		printerr("Failed to create a lobby: %s" % connection_status)
 		return
-	print("Successfully created lobby %s " % in_lobby_id)
+	print("Successfully created lobby %s " % String.num_int64(in_lobby_id))
 	LobbyManager.instance.lobby_id = in_lobby_id
 
-	Steam.setLobbyJoinable(in_lobby_id, true)
+	spinup_server(in_lobby_id)
 
 	#for display / searching for lobbies
-	if not Steam.setLobbyData(in_lobby_id, "lobby_name", LobbyHostScreen.instance.lobby_name.text):
+	var requested_lobby_name : String = LobbyHostScreen.instance.lobby_name.text
+	requested_lobby_name = requested_lobby_name.strip_edges()
+	if not Steam.setLobbyData(in_lobby_id, "name", requested_lobby_name):
 		printerr("Failed to set lobby name")
 
 	#specific lobby data / tags the user wants to set.
-	var data_sets : PackedStringArray = LobbyHostScreen.instance.lobby_data_line_edit.text.split(",", false)
+	var data_sets : PackedStringArray = LobbyHostScreen.instance.lobby_data_search_line_edit.text.split(",", false)
 	for key_value_pair : String in data_sets:
 		var pair : PackedStringArray = key_value_pair.split(":", false, 1)
 		if pair.size() != 2:
@@ -111,14 +127,40 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 		if not Steam.setLobbyData(in_lobby_id, pair[0], pair[1]):
 			printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, pair[0], pair[1]])
 
-	# Engine flags go before "--", custom game flags go after "--"
-	var args: PackedStringArray = [
-		"--headless",
-		"--",
-		already_started_loby_id + str(in_lobby_id),
-		"--server",
-	]
-	server_pid = OS.create_process(OS.get_executable_path(), args, true)
+	if not Steam.setLobbyData(in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY):
+		printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY])
+
+func spinup_server(in_lobby_id : int) -> void:
+	print("trying to start server")
+	Steam.setLobbyJoinable(in_lobby_id, true)
+	# Create the host peer (virtual port 0) and assign to Godot's MultiplayerAPI
+	var error := peer.create_host(0)
+	if error == OK:
+		multiplayer.multiplayer_peer = peer
+		print("Hosting Steam P2P lobby: ", LobbyManager.instance.lobby_id)
+		LobbyManager.instance.lobby_id = in_lobby_id
+		var server_peer_id : int = peer.get_unique_id()
+		set_multiplayer_authority(server_peer_id)
+		_on_player_joined(server_peer_id)
+
+## if you join a friends game without having the game open yet it will pass the lobby_id via command args
+func _check_command_line_args() -> void:
+	var command_line_args : Array = OS.get_cmdline_args()
+	if command_line_args.is_empty():
+		return
+	print("Command line args %s " % str(command_line_args))
+
+	var in_lobby_id : int = -1
+	var num_args : int = command_line_args.size()
+	for i in num_args:
+		var arg : String = command_line_args[i]
+		if connect_to_lobby_search_term in arg or already_started_loby_id in arg:
+			in_lobby_id = int(command_line_args[i+1])
+
+	if in_lobby_id <= 0:
+		return
+
+	_join_lobby_through_ui(in_lobby_id)
 
 func _on_join_though_friend(in_lobby_id : int, friend_id : int) -> void:
 	var friend_name : String = Steam.getFriendPersonaName(friend_id)
@@ -131,21 +173,23 @@ func _join_lobby_through_ui(in_lobby_id : int) -> void:
 	LobbyManager.instance.invite_lobby_id = in_lobby_id
 
 func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
+	print("player tried to join lobby")
 
 	#hide UI for host/join
+	hide()
 	LobbySearchScreen.instance.hide()
 	LobbyHostScreen.instance.hide()
 
 	var host_steam_id: int = Steam.getLobbyOwner(in_lobby_id)
 	# Only create a client peer if we are not the host
-	#if host_steam_id != Steam.getSteamID():
-	var error := peer.create_client(host_steam_id, 0)
-	if error == OK:
-		multiplayer.multiplayer_peer = peer
-		print("Joined Steam P2P lobby as client.")
+	if host_steam_id != Steam.getSteamID():
+		var error := peer.create_client(host_steam_id, 0)
+		if error == OK:
+			multiplayer.multiplayer_peer = peer
+			print("Joined Steam P2P lobby as client.")
 
 	if response == Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
-		print("Lobby %s joined successfully" % lobby_id)
+		print("Lobby %s joined successfully" % String.num_int64(in_lobby_id))
 		LobbyManager.instance.lobby_id = in_lobby_id
 		##TODO Swap to the lobby scene here
 		return
@@ -154,7 +198,7 @@ func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, respon
 		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_DOESNT_EXIST:
 			printerr("Failed joining lobby %s, this lobby no longer exists.", in_lobby_id)
 		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_NOT_ALLOWED:
-			printerr("Failed joining lobby %s, you don't have permission to join this Lobbies.", in_lobby_id)
+			printerr("Failed joining lobby %s, you don't have permission to join this lobby.", in_lobby_id)
 		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_FULL:
 			printerr("Failed joining lobby %s, the lobby is now full.", in_lobby_id)
 		Steam.ChatRoomEnterResponse.CHAT_ROOM_ENTER_RESPONSE_ERROR:
@@ -183,48 +227,28 @@ func open_steam_invite() -> void:
 	Steam.activateGameOverlayInviteDialog(LobbyManager.instance.lobby_id)
 
 func leave_lobby() -> void:
+	print("player leaving lobby")
 	Steam.leaveLobby(LobbyManager.instance.lobby_id)
 	LobbyManager.instance.lobby_id = 0
 	LobbyManager.instance.invite_lobby_id = 0
-
-	#we are the designated host client we need to end the server running in the background
-	if server_pid != -1:
-		OS.kill(server_pid)
 
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
 		_close_game()
-#endregion
 
-
-#region runs on both
-## if you join a friends game without having the game open yet it will pass the lobby_id via command args
-func _check_command_line_args() -> void:
-	var command_line_args : Array = OS.get_cmdline_args()
-	if command_line_args.is_empty():
-		return
-	print("Command line args %s " % command_line_args)
-
-	var in_lobby_id : int = 0
-	var wants_to_start_server : bool = false
-	var num_args : int = command_line_args.size()
-	for i in num_args:
-		var arg : String = command_line_args[i]
-		if connect_to_lobby_search_term in arg or already_started_loby_id in arg:
-			in_lobby_id = int(command_line_args[i+1])
-		if "server" in arg:
-			wants_to_start_server = true
-
-	if in_lobby_id <= 0:
-		printerr("Bad command line arg lobby_id must be greater than zero")
-		return
-
-	#check if we are the headless server we requested to run!
-	if wants_to_start_server:
-		spinup_server(in_lobby_id)
-	else:
-		_join_lobby_through_ui(in_lobby_id)
+func _on_player_spawned(new_player : PlayerMetadata) -> void:
+	#since p2p server and host client are on same process
+	if multiplayer.get_unique_id() == new_player.peer_id:
+		print("[_on_player_spawned] we own authority ", new_player.peer_id)
+		new_player.player_controller.make_current_player()
+	## client
+	if not is_multiplayer_authority():
+		if multiplayer.get_unique_id() != new_player.peer_id:
+			print("[_on_player_spawned] we dont own authority ", new_player.peer_id)
+			new_player.process_mode = Node.PROCESS_MODE_DISABLED
+			new_player.set_process(false)
+			new_player.set_physics_process(false)
 
 func _close_game() -> void:
 	get_tree().quit()
@@ -252,27 +276,48 @@ func update_player_list() -> void:
 
 func _process(_delta: float) -> void:
 	Steam.run_callbacks()
-#endregion
 
-#region runs on server
-func spinup_server(in_lobby_id : int) -> void:
-	# Create the host peer (virtual port 0) and assign to Godot's MultiplayerAPI
-	var error := peer.create_host(0)
-	if error == OK:
-		multiplayer.multiplayer_peer = peer
-		print("Hosting Steam P2P lobby: ", lobby_id)
-	set_multiplayer_authority(peer.get_unique_id())
 
+## we join the lobby first and then we join via multiplayer peer
 #TODO spawn player character (on server) - this does get pinged on clients as well
 func _on_player_joined(client_peer_id : int) -> void:
+	print("player joined")
 	if not is_multiplayer_authority():
 		return
+	player_spawner.spawn(client_peer_id)
+
+
+func spawn_player(for_peer_id : int) -> PlayerMetadata:
+	print("spawn player ", for_peer_id)
+	var new_player : PlayerMetadata = player_scene.instantiate()
+	var steam_id : int = Steam.getSteamID()
+	new_player.init(for_peer_id, steam_id, starting_world.spawn_location)
+	new_player.set_multiplayer_authority(for_peer_id)
+
+	GameManager.instance.setup(new_player)
+	new_player.name = str(for_peer_id)
+
+	return new_player
 
 #TODO despawn player character (on server)
 #TODO if no players left connected or the host leaves kill the server
 func _on_player_leave(client_peer_id : int) -> void:
-	var has_no_players_left : bool = false
-	if has_no_players_left:
-		print("kys the server kills itself :3c NO MORE CLIENTS CONNECTED")
-		OS.kill(server_pid)
-#endregion
+	var current_children := player_spawner.get_children()
+	if client_peer_id == 1:
+		for player : PlayerMetadata in current_children:
+			player_spawner.remove_child(player)
+		show()
+	else:
+		for player : PlayerMetadata in current_children:
+			if player.peer_id == client_peer_id:
+				player_spawner.remove_child(player)
+				break
+
+func get_current_player(client_peer_id : int) -> PlayerMetadata:
+	var current_player : PlayerMetadata = null
+	var current_children := player_spawner.get_children()
+	for player : PlayerMetadata in current_children:
+		if player.peer_id == client_peer_id:
+			current_player = player
+			break
+	return current_player

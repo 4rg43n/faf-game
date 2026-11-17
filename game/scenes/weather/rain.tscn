@@ -1,0 +1,219 @@
+[gd_scene format=3 uid="uid://bk6rwduy8u5ym"]
+
+[ext_resource type="Script" uid="uid://dkgvsgj3xbpa8" path="res://scripts/weather/rain.gd" id="1_61r3b"]
+[ext_resource type="Texture2D" uid="uid://bo0rd0ge2xgj2" path="res://assets/weather/smoke.png" id="2_nkg2j"]
+[ext_resource type="AudioStream" uid="uid://0a2wt4y3pxih" path="res://audio/ambience/rain/rain_loop.ogg" id="2_ua0to"]
+[ext_resource type="AudioStream" uid="uid://i175qyeyi7p5" path="res://audio/ambience/rain/rain_sfx.ogg" id="3_3rjan"]
+[ext_resource type="AudioStream" uid="uid://dfyqdfynmlqri" path="res://audio/ambience/rain/storm_loop.ogg" id="4_f5g7b"]
+[ext_resource type="Script" uid="uid://djgbahli4ao4m" path="res://scenes/weather/lightning.gd" id="6_3rjan"]
+[ext_resource type="Texture2D" uid="uid://c3b7adyipfnvt" path="res://assets/weather/lightning.png" id="7_irvec"]
+[ext_resource type="AudioStream" uid="uid://bbticcnwbenot" path="res://audio/ambience/rain/thunder_clap.ogg" id="8_o38sm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m72jr"]
+render_priority = 1
+cull_mode = 2
+shading_mode = 2
+diffuse_mode = 2
+specular_mode = 2
+disable_fog = true
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(0.5529556, 0.55295557, 0.55295557, 1)
+emission_energy_multiplier = 0.2
+distance_fade_mode = 1
+distance_fade_min_distance = 1.0
+distance_fade_max_distance = 5.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xtlud"]
+particle_flag_align_y = true
+emission_shape_offset = Vector3(0, 8, 0)
+emission_shape = 3
+emission_box_extents = Vector3(30, 10, 30)
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 1.5
+initial_velocity_max = 35.0
+scale_min = 0.099999994
+scale_max = 0.29999998
+collision_mode = 2
+collision_use_scale = true
+
+[sub_resource type="Curve" id="Curve_f8bl5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.04494381), -2.8496814, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_61r3b"]
+size = 0.19
+curve = SubResource("Curve_f8bl5")
+
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_b20p2"]
+stream_count = 3
+stream_0/stream = ExtResource("2_ua0to")
+stream_0/volume = -60.0
+stream_1/stream = ExtResource("3_3rjan")
+stream_1/volume = -60.0
+stream_2/stream = ExtResource("4_f5g7b")
+stream_2/volume = -60.0
+
+[sub_resource type="Curve" id="Curve_m72jr"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5080214, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_n6b7w"]
+curve = SubResource("Curve_m72jr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_61r3b"]
+lifetime_randomness = 0.26
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 2, 10)
+angle_min = -360.0
+angle_max = 360.00003
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, -3, 0)
+scale_min = 2.0
+scale_max = 4.0
+alpha_curve = SubResource("CurveTexture_n6b7w")
+collision_mode = 1
+collision_friction = 0.08
+collision_bounce = 0.0
+collision_use_scale = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qij6u"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.08627451)
+albedo_texture = ExtResource("2_nkg2j")
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+distance_fade_mode = 1
+distance_fade_min_distance = 2.0
+distance_fade_max_distance = 5.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c5qrq"]
+material = SubResource("StandardMaterial3D_qij6u")
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5g7b"]
+transparency = 1
+disable_fog = true
+albedo_texture = ExtResource("7_irvec")
+metallic_specular = 0.0
+emission_enabled = true
+emission_energy_multiplier = 1.94
+emission_texture = ExtResource("7_irvec")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_irvec"]
+size = Vector2(150, 150)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_o38sm"]
+random_pitch = 1.4142135
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("8_o38sm")
+
+[node name="Rain" type="GPUParticles3D" unique_id=1079689614 node_paths=PackedStringArray("rain_sound", "mist_particles", "lightning", "debug_label", "recalculate_audio_timer", "indoor_raycasts_array")]
+material_override = SubResource("StandardMaterial3D_m72jr")
+transparency = 0.75
+amount = 20000
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_xtlud")
+draw_pass_1 = SubResource("RibbonTrailMesh_61r3b")
+script = ExtResource("1_61r3b")
+rain_sound = NodePath("RainSound")
+mist_particles = NodePath("MistParticles")
+lightning = NodePath("LightningController")
+debug_label = NodePath("DebugLabel")
+recalculate_audio_timer = NodePath("RecalculateAudioTimer")
+indoor_raycasts_array = [NodePath("IndoorRayCast3D"), NodePath("IndoorRayCast3D2"), NodePath("IndoorRayCast3D3"), NodePath("IndoorRayCast3D4"), NodePath("IndoorRayCast3D5"), NodePath("IndoorRayCast3D6"), NodePath("IndoorRayCast3D7"), NodePath("IndoorRayCast3D8"), NodePath("IndoorRayCast3D9")]
+
+[node name="RainSound" type="AudioStreamPlayer" parent="." unique_id=1121645608]
+stream = SubResource("AudioStreamSynchronized_b20p2")
+bus = &"Weather"
+
+[node name="MistParticles" type="GPUParticles3D" parent="." unique_id=113193734]
+cast_shadow = 0
+lifetime = 2.0
+preprocess = 10.0
+collision_base_size = 0.25
+process_material = SubResource("ParticleProcessMaterial_61r3b")
+draw_pass_1 = SubResource("PlaneMesh_c5qrq")
+
+[node name="LightningController" type="Node3D" parent="." unique_id=1653788094 node_paths=PackedStringArray("lightning", "thunder_audio", "lightning_directional_light")]
+script = ExtResource("6_3rjan")
+lightning = NodePath("Lightning")
+thunder_audio = NodePath("Lightning/ThunderAudio")
+lightning_directional_light = NodePath("Lightning/LightningDirectionalLight")
+
+[node name="Lightning" type="Node3D" parent="LightningController" unique_id=2062078757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 80, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LightningController/Lightning" unique_id=1788261825]
+material_override = SubResource("StandardMaterial3D_f5g7b")
+mesh = SubResource("QuadMesh_irvec")
+
+[node name="ThunderAudio" type="AudioStreamPlayer3D" parent="LightningController/Lightning" unique_id=528192331]
+stream = SubResource("AudioStreamRandomizer_o38sm")
+unit_size = 80.0
+max_db = -8.0
+max_distance = 3000.0
+bus = &"Weather"
+
+[node name="LightningDirectionalLight" type="DirectionalLight3D" parent="LightningController/Lightning" unique_id=230046159]
+
+[node name="IndoorRayCast3D" type="RayCast3D" parent="." unique_id=1162973998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+target_position = Vector3(0, 30, 0)
+
+[node name="IndoorRayCast3D2" type="RayCast3D" parent="." unique_id=1454666908]
+transform = Transform3D(0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0, 0, 1, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D3" type="RayCast3D" parent="." unique_id=1742419399]
+transform = Transform3D(-3.3484863e-08, 2.8097135e-08, 1, 0.6427875, 0.7660444, 0, -0.7660444, 0.6427875, -4.371139e-08, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D4" type="RayCast3D" parent="." unique_id=1711698159]
+transform = Transform3D(-0.7660443, 0.6427875, -8.742278e-08, 0.6427875, 0.7660443, 0, 6.6969726e-08, -5.6194267e-08, -1, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D5" type="RayCast3D" parent="." unique_id=15392373]
+transform = Transform3D(9.134987e-09, -7.665164e-09, -1, 0.64278746, 0.7660443, 0, 0.7660443, -0.64278746, 1.1924881e-08, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D6" type="RayCast3D" parent="." unique_id=788818484]
+transform = Transform3D(0.35355327, -0.61237234, 0.70710677, 0.86602527, 0.49999985, 0, -0.35355327, 0.61237234, 0.70710677, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D7" type="RayCast3D" parent="." unique_id=43325561]
+transform = Transform3D(-0.35355327, 0.61237234, 0.7071067, 0.86602527, 0.49999988, 0, -0.35355327, 0.61237234, -0.7071067, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D8" type="RayCast3D" parent="." unique_id=2145380446]
+transform = Transform3D(-0.3535533, 0.6123724, -0.70710665, 0.86602527, 0.49999988, 0, 0.35355324, -0.6123723, -0.70710677, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="IndoorRayCast3D9" type="RayCast3D" parent="." unique_id=1547721968]
+transform = Transform3D(0.3535532, -0.6123722, -0.7071068, 0.86602527, 0.49999988, 0, 0.35355332, -0.61237246, 0.7071066, 0, 0.25, 0)
+target_position = Vector3(0, 35, 0)
+
+[node name="DebugLabel" type="Label" parent="." unique_id=1959449717]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="RecalculateAudioTimer" type="Timer" parent="." unique_id=1032768996]
+wait_time = 0.1
+autostart = true
+
+[node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="." unique_id=1791024563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+size = Vector3(60, 30, 60)

@@ -1,4 +1,4 @@
-class_name LobbyHostScreen extends PopupPanel
+class_name LobbyHostScreen extends Window
 
 static var instance : LobbyHostScreen
 
@@ -6,8 +6,11 @@ static var instance : LobbyHostScreen
 @export var cancel_button : Button
 @export var max_players_spin_box : SpinBox
 @export var lobby_visibility_options : OptionButton
-@export var lobby_data_line_edit : LineEdit
+@export var lobby_data_search_line_edit : LineEdit
 @export var lobby_name : LineEdit
+
+func _init() -> void:
+	LobbyHostScreen.instance = self
 
 func _ready() -> void:
 	create_button.pressed.connect(_on_create_pressed)
