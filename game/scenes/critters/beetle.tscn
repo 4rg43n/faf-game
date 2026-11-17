@@ -15,9 +15,10 @@ size = Vector3(1, 0.8149414, 1)
 size = Vector3(0.29261017, 0.16151428, 0.43885803)
 
 [node name="Beetle" type="RigidBody3D" unique_id=310955514]
+gravity_scale = 0.2
 script = ExtResource("1_621sy")
 speed_curve = ExtResource("2_4rkqc")
-max_speed = 0.5
+max_speed = 15.0
 
 [node name="Scale" type="Node3D" parent="." unique_id=123520705]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
