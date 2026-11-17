@@ -29,6 +29,7 @@ var landing_timer:float = 0.0
 @export var interact_label: Label
 @export var INTERACT_RAYCAST_LENGTH: float
 
+@export var player_metadata : PlayerMetadata
 
 @export var active_camera: Camera3D:
 	set(camera):
@@ -77,7 +78,6 @@ func _physics_process(delta: float) -> void:
 	third_person_cam.global_position + interact_look_direction * INTERACT_RAYCAST_LENGTH)
 	query.collision_mask = 2;
 	query.collide_with_bodies = true
-	query.collide_with_areas = true
 	var result = space_state.intersect_ray(query)
 	if result:
 		interact_label.text = "She could interact but she has no method..." + result.collider.name
@@ -85,10 +85,10 @@ func _physics_process(delta: float) -> void:
 		if hit.has_method("on_interact"):
 			interact_label.text = "press E to interact"
 			if Input.is_key_pressed(KEY_E):
-				hit.interact()
+				hit.on_interact(player_metadata.peer_id)
 	else:
 		interact_label.text = "";
-		
+
 	move_and_slide()
 
 	##########################################################################################
