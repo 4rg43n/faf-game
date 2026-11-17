@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://dcqlu335e1h5l" path="res://scripts/player/blink.gd" id="4_qek5x"]
 [ext_resource type="Script" uid="uid://chvy1uj628dtu" path="res://scripts/player/camera_follow.gd" id="4_ynch3"]
 [ext_resource type="AnimationLibrary" uid="uid://dspl032r0g4ig" path="res://assets/animations/quaternius/humanoid_animations.tres" id="5_0owmy"]
-[ext_resource type="PackedScene" uid="uid://3mkg6nfyac2f" path="res://scenes/critters/worm.tscn" id="5_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://dwcmj1rmgiudu" path="res://assets/models/catgirl/catgirl_hair_medium.tscn" id="5_qek5x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vptg"]
@@ -137,16 +136,16 @@ min_vertical_angle = -1.3089969389957472
 
 [node name="catgirl-godot" parent="Visuals" unique_id=148263498 instance=ExtResource("4_75vfm")]
 
-[node name="GeneralSkeleton" parent="Visuals/catgirl-godot/Armature" parent_id_path=PackedInt32Array(148263498, 189508774) index="0" unique_id=87091633]
-bones/0/position = Vector3(0.004319999, 0.72483444, -0.07143611)
-bones/0/rotation = Quaternion(-0.047010884, -0.11588445, -0.0054910285, 0.99213445)
-bones/8/rotation = Quaternion(0.045475196, 0.00010810603, 0.00013058605, 0.9989655)
-bones/13/rotation = Quaternion(0.1360279, 0.00032353838, 0.00039073997, 0.9907049)
-bones/14/rotation = Quaternion(-0.09084199, -0.0002160402, -0.00026092102, 0.9958653)
-bones/15/rotation = Quaternion(0.07608094, 0.09568222, 0.008415603, 0.99246454)
-bones/53/rotation = Quaternion(0.4879179, 0.52646804, 0.5265181, -0.45557237)
-bones/54/rotation = Quaternion(-0.06156712, 0.8177809, -0.5721433, 0.009799799)
-bones/56/rotation = Quaternion(0.18780777, -0.6519991, 0.18130049, 0.71186763)
+[node name="GeneralSkeleton" parent="Visuals/catgirl-godot/Armature" parent_id_path=PackedInt32Array(148263498, 1597049376) index="0" unique_id=1198479058]
+bones/0/position = Vector3(0.0015832479, 0.7181091, -0.072820716)
+bones/0/rotation = Quaternion(-0.034268863, -0.115945384, -0.0040027187, 0.99265623)
+bones/8/rotation = Quaternion(0.046451114, 0.00010867934, 0.00013020946, 0.99892056)
+bones/13/rotation = Quaternion(0.13896374, 0.00032512294, 0.00038944418, 0.9902974)
+bones/14/rotation = Quaternion(-0.092806995, -0.00021711017, -0.00026008324, 0.99568415)
+bones/15/rotation = Quaternion(0.04453905, 0.09541079, 0.01107206, 0.9943795)
+bones/53/rotation = Quaternion(0.5031964, 0.5211235, 0.5311898, -0.43938732)
+bones/54/rotation = Quaternion(-0.012205845, 0.82580495, -0.5637411, 0.00965594)
+bones/56/rotation = Quaternion(0.1587756, -0.6888436, 0.17006913, 0.6865576)
 bones/57/rotation = Quaternion(0.09913024, 0.70686626, 0.0629003, 0.69753635)
 bones/58/rotation = Quaternion(0.6295969, -4.0978193e-08, -4.61936e-06, 0.77692205)
 bones/59/rotation = Quaternion(0.62334186, 2.9802322e-08, -4.261732e-06, 0.78194946)
@@ -163,9 +162,9 @@ bones/69/rotation = Quaternion(0.6228982, -0.023505477, -4.5001498e-06, 0.781949
 bones/70/rotation = Quaternion(-0.123819165, 0.7195233, 0.2018354, 0.65285325)
 bones/71/rotation = Quaternion(0.18180694, 0.11012423, 0.060063303, 0.9753006)
 bones/72/rotation = Quaternion(0.5994299, 0.27396563, 0.19463211, 0.7264606)
-bones/73/rotation = Quaternion(0.5401497, -0.47439396, -0.47478688, -0.5077069)
-bones/74/rotation = Quaternion(0.09113925, 0.82500803, -0.55764157, -0.009551345)
-bones/76/rotation = Quaternion(0.2924926, 0.5416358, -0.20444065, 0.7611063)
+bones/73/rotation = Quaternion(0.55513906, -0.47089612, -0.47767305, -0.49183953)
+bones/74/rotation = Quaternion(0.06363121, 0.8204188, -0.56812817, -0.009730926)
+bones/76/rotation = Quaternion(0.28774995, 0.5577964, -0.21088041, 0.7493948)
 bones/77/rotation = Quaternion(0.12024976, -0.69903094, -0.056890074, 0.702609)
 bones/78/rotation = Quaternion(0.6295971, 3.7252903e-08, 4.172325e-06, 0.7769218)
 bones/79/rotation = Quaternion(0.62334144, 1.825392e-07, 4.470348e-06, 0.7819497)
@@ -182,16 +181,16 @@ bones/89/rotation = Quaternion(0.6228987, 0.02350526, 4.1723247e-06, 0.7819493)
 bones/90/rotation = Quaternion(-0.12381923, -0.7195234, -0.2018356, 0.6528533)
 bones/91/rotation = Quaternion(0.18180703, -0.11012423, -0.060063303, 0.97530067)
 bones/92/rotation = Quaternion(0.5994302, -0.2739653, -0.19463223, 0.7264605)
-bones/102/rotation = Quaternion(-0.0007792495, 0.1220583, 0.9862504, -0.11140659)
-bones/103/rotation = Quaternion(0.016381526, 0.9821933, -0.14938426, 0.11274987)
-bones/105/rotation = Quaternion(-0.09463539, 0.72883624, -0.67808825, 0.006192407)
+bones/102/rotation = Quaternion(-0.00083779136, 0.1599348, 0.9798335, -0.11977716)
+bones/103/rotation = Quaternion(0.021533063, 0.9738436, -0.19783188, 0.10967083)
+bones/105/rotation = Quaternion(-0.09636621, 0.7142157, -0.69322616, 0.0068433443)
 bones/106/rotation = Quaternion(4.2923723e-08, 1, 5.9604645e-08, 2.568838e-08)
-bones/107/rotation = Quaternion(0.00080879754, -0.11051564, 0.98712456, 0.11563286)
-bones/108/rotation = Quaternion(-0.028851386, 0.9289569, -0.08104394, -0.3600535)
-bones/110/rotation = Quaternion(0.17162552, 0.6465872, -0.7432782, -0.0027043524)
+bones/107/rotation = Quaternion(0.0009784075, -0.0701922, 0.987677, 0.1398801)
+bones/108/rotation = Quaternion(-0.054704424, 0.9222483, -0.15002649, -0.35207638)
+bones/110/rotation = Quaternion(0.17065457, 0.61865115, -0.7669022, 0.0029778108)
 bones/111/rotation = Quaternion(-8.1927055e-08, 1, 2.9802322e-08, -8.602239e-09)
 
-[node name="geo_body_head" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="1" unique_id=1413379468]
+[node name="geo_body_head" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="1" unique_id=571332624]
 script = ExtResource("4_qek5x")
 
 [node name="HeadAttachment" type="BoneAttachment3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="4" unique_id=1911839400]
@@ -201,7 +200,7 @@ bone_idx = 15
 [node name="catgirl_hair_medium" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment" unique_id=304994841 instance=ExtResource("5_qek5x")]
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
 
-[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 227049130) index="1" unique_id=1347265175]
+[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 395324526) index="1" unique_id=1347265175]
 setting_count = 8
 settings/0/root_bone_name = "hair.head.001"
 settings/0/root_bone = 7
@@ -399,7 +398,7 @@ settings/7/enable_all_child_collisions = true
 settings/7/exclude_collision_count = 0
 
 [node name="SpringBoneCollisionCapsule3D" type="SpringBoneCollisionCapsule3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D/SpringBoneSimulator3D" unique_id=1649828265]
-transform = Transform3D(1, 1.8626451e-09, 2.3841858e-07, 9.313226e-10, 0.9999999, 4.4703484e-08, -2.3841858e-07, -7.4505806e-08, 0.99999994, -7.450581e-09, 0.18000019, -2.9802322e-08)
+transform = Transform3D(1, -9.313226e-10, 2.4586916e-07, -9.313226e-10, 1, 5.9604645e-08, -2.4214387e-07, -7.4505806e-08, 0.99999994, 0, 0.17999995, 0)
 bone_name = "hair.head"
 bone = 0
 position_offset = Vector3(0, 0.18, 0)
@@ -448,8 +447,6 @@ settings/0/joints/8/bone_name = "tail.008"
 settings/0/joints/8/bone = 101
 settings/0/enable_all_child_collisions = true
 settings/0/exclude_collision_count = 0
-
-[node name="Worm" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/Armature_Skeleton3D#LeftHandSocket" parent_id_path=PackedInt32Array(148263498, 1173134785) index="0" unique_id=791724085 instance=ExtResource("5_5gtgg")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1470599140]
 root_node = NodePath("../Visuals/catgirl-godot")
