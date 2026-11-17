@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 	var input_dir : Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	direction = direction.rotated(Vector3.UP, third_person_cam.global_rotation.y)
+	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
 
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -85,12 +85,12 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-	
+
 	##########################################################################################
 	var grounded := is_on_floor()
 	animation_tree.set("parameters/Jump_Start/TimeScale/scale", jump_start_time_scale)
 	animation_tree.set("parameters/Jump_Land/TimeScale/scale", jump_end_time_scale)
-	
+
 	# Detect landing after being airborne
 	if grounded and not was_on_floor:
 		if not landing_requested:
@@ -104,26 +104,26 @@ func _physics_process(delta: float) -> void:
 	# Note: This has to be done because AnimationTree does not support multiple transitions
 	if grounded and animation_state.get_current_node()=="Jump_Land":
 		landing_timer+=delta
-		
+
 		var moving:=input_dir.length()>0.1
 		var finished:=landing_timer>=landing_duration-0.05 # account for xfade
-		
+
 		animation_tree.set("parameters/conditions/landing_done",
 		moving or finished)
-		
-		
+
+
 	# Reset for next jump
 	if grounded and animation_state.get_current_node()=="Locomotion":
 		landing_requested=false
-	
+
 	was_on_floor=grounded
-	
+
 	#var playback: AnimationNodeStateMachinePlayback = \
 		#$AnimationTree.get("parameters/playback")
 
-	#print(playback.get_current_node())	
+	#print(playback.get_current_node())
 	##########################################################################################
-	
+
 	update_locomotion()
 
 func update_locomotion()->void:
