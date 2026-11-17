@@ -78,6 +78,7 @@ shape = SubResource("BoxShape3D_v0pmb")
 
 [node name="BugSpawner" type="MultiplayerSpawner" parent="." unique_id=1257417960]
 _spawnable_scenes = PackedStringArray("uid://3mkg6nfyac2f", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
+spawn_path = NodePath(".")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=191890539]
 replication_config = SubResource("SceneReplicationConfig_y6pv2")

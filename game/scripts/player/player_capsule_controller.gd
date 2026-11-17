@@ -78,7 +78,6 @@ func _physics_process(delta: float) -> void:
 	third_person_cam.global_position + interact_look_direction * INTERACT_RAYCAST_LENGTH)
 	query.collision_mask = 2;
 	query.collide_with_bodies = true
-	query.collide_with_areas = true
 	var result = space_state.intersect_ray(query)
 	if result:
 		interact_label.text = "She could interact but she has no method..." + result.collider.name
