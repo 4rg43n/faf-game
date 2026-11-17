@@ -4,7 +4,7 @@
 
 [node name="beetle" unique_id=955156704 instance=ExtResource("1_msndw")]
 
-[node name="Skeleton3D" parent="armature_beetle" parent_id_path=PackedInt32Array(51314468) index="0" unique_id=733292966]
+[node name="Skeleton3D" parent="armature_beetle" parent_id_path=PackedInt32Array(128409943) index="0" unique_id=683606190]
 bones/1/rotation = Quaternion(-0.14991488, 0.20531285, -0.7992235, 0.5446229)
 bones/4/rotation = Quaternion(-0.14991435, -0.20531256, 0.7992235, 0.544623)
 bones/7/rotation = Quaternion(-0.19945508, 0.112811066, -0.38202196, 0.8952936)

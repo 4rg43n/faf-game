@@ -3,12 +3,14 @@ class_name FleeingBait extends RigidBody3D
 ## basically the timer - they spawn randomly inside a bug pickup minigame and once they leave the area they despawn.
 @export var speed_curve : Curve
 @export var max_speed : float
-var speed : float = 1
+@export var speed : float = 1
 
 ## ground direction (no flying) - we can allow flying in the flying class that extends this one.
-var flee_direction : Vector3
+@export var flee_direction : Vector3
 
 func _ready() -> void:
+	if not is_multiplayer_authority():
+		return
 	generate_flee_direction()
 
 func generate_flee_direction() -> void:
@@ -21,6 +23,8 @@ func generate_flee_direction() -> void:
 	speed = speed_curve.sample_baked(rand_sample_index) * max_speed
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	if not is_multiplayer_authority():
+		return
 	#state.linear_velocity.x = flee_direction.x * speed
 	#state.linear_velocity.y = flee_direction.y * speed
 	#state.linear_velocity.z = flee_direction.z * speed
@@ -47,8 +51,24 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.angular_velocity = Vector3.ZERO
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
 	apply_force(flee_direction * speed * delta)
 
 func _enter_tree() -> void:
+	if not is_multiplayer_authority():
+		return
 	if get_parent() is BoneAttachment3D:
 		process_mode = ProcessMode.PROCESS_MODE_DISABLED
+
+func on_interact(peer_id : int) -> void:
+	on_pickup.rpc_id(1, peer_id)
+
+@rpc("any_peer", "call_local", "reliable")
+func on_pickup(peer_id : int) -> void:
+	var player : PlayerMetadata = LobbyManager.instance.get_player_from_peer_id(peer_id)
+	if player.current_equipment != CustomEnums.Equipment_Type.EMPTY_HAND:
+		return
+	player.current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
+	position = player.player_controller.left_hand_socket.position
+	reparent(player.player_controller.left_hand_socket)

@@ -1,6 +1,8 @@
 class_name DigBait extends FleeingBait
 
 func generate_flee_direction() -> void:
+	if not is_multiplayer_authority():
+		return
 	flee_direction.x = randf_range(-1, 1)
 	flee_direction.z = randf_range(-1, 1)
 	flee_direction = flee_direction.normalized()

@@ -4,7 +4,7 @@
 
 [node name="worm" unique_id=1165533231 instance=ExtResource("1_7nl2o")]
 
-[node name="Skeleton3D" parent="armature_worm" parent_id_path=PackedInt32Array(2078899250) index="0" unique_id=832200537]
+[node name="Skeleton3D" parent="armature_worm" parent_id_path=PackedInt32Array(2043049767) index="0" unique_id=2016241304]
 bones/1/rotation = Quaternion(-0.03506602, -1.1913597e-07, -4.1801953e-09, 0.999385)
 bones/2/rotation = Quaternion(-0.3020252, 1.13642315e-07, 3.6004202e-08, 0.9533)
 bones/3/rotation = Quaternion(-0.48195872, 3.1335128e-07, 1.7236185e-07, 0.87619394)

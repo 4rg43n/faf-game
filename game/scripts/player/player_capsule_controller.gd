@@ -76,10 +76,11 @@ func _physics_process(delta: float) -> void:
 	var query = PhysicsRayQueryParameters3D.create( third_person_cam.global_position,
 	third_person_cam.global_position + interact_look_direction * INTERACT_RAYCAST_LENGTH)
 	query.collision_mask = 2;
+	query.collide_with_bodies = true
+	query.collide_with_areas = true
 	var result = space_state.intersect_ray(query)
-	
 	if result:
-		interact_label.text = "She could interact but she has no method..."
+		interact_label.text = "She could interact but she has no method..." + result.collider.name
 		var hit = result.collider
 		if hit.has_method("on_interact"):
 			interact_label.text = "press E to interact"

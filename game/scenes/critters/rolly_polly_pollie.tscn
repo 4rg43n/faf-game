@@ -13,7 +13,22 @@ size = Vector3(1, 1, 0.43273926)
 [sub_resource type="BoxShape3D" id="BoxShape3D_pmgh3"]
 size = Vector3(0.2775879, 0.32019043, 0.54524803)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xo38u"]
+properties/0/path = NodePath(".:max_speed")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:flee_direction")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
 [node name="RollyPollyPollie" type="RigidBody3D" unique_id=1345065799]
+collision_layer = 3
 script = ExtResource("1_uclde")
 speed_curve = ExtResource("2_xo38u")
 max_speed = 2.0
@@ -68,3 +83,6 @@ mesh = SubResource("BoxMesh_pmgh3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1654240881]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0032958984, 0.02154541, -0.013666019)
 shape = SubResource("BoxShape3D_pmgh3")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2115130317]
+replication_config = SubResource("SceneReplicationConfig_xo38u")

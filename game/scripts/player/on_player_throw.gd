@@ -8,7 +8,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func _on_player_attempt_throw(peer_id : int) -> void:
-	var player := LobbyManager.instance.get_current_player(peer_id)
+	var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
 	if player.current_equipment == CustomEnums.Equipment_Type.EMPTY_HAND:
 		return
 	player.current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND

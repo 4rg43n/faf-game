@@ -29,5 +29,5 @@ current_equipment = 1
 replication_config = SubResource("SceneReplicationConfig_vefth")
 visibility_update_mode = 1
 
-[node name="Player" parent="." unique_id=422766350 groups=["Player"] instance=ExtResource("1_vefth")]
+[node name="Player" parent="." unique_id=422766350 instance=ExtResource("1_vefth")]
 JUMP_VELOCITY = 6.0

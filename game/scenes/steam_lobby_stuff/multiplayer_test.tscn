@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scripts/main/main.gd" id="1_1l3fq"]
 
-
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 
 [sub_resource type="Sky" id="sky"]

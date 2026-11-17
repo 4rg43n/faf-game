@@ -45,7 +45,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func on_interact(activating_peer_id : int) -> void:
 	if active_player != null:
 		return
-	var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(activating_peer_id)
+	var player_metadata : PlayerMetadata = LobbyManager.instance.get_player_from_peer_id(activating_peer_id)
 	active_player = player_metadata
 	pivot.rotation_degrees.z = 60
 	mini_game_start.rpc_id(activating_peer_id)
@@ -79,7 +79,7 @@ func _on_bug_leave_area(body : Node3D) -> void:
 #server
 @rpc("any_peer", "reliable", "call_local")
 func mini_game_start() -> void:
-	var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
+	var player_metadata : PlayerMetadata = LobbyManager.instance.get_player_from_peer_id(multiplayer.get_unique_id())
 	active_player = player_metadata
 	original_camera = player_metadata.player_controller.active_camera
 	player_metadata.player_controller.active_camera = minigame_camera
@@ -99,7 +99,7 @@ func on_bug_die(node) -> void:
 @rpc("any_peer", "reliable", "call_local")
 func mini_game_over() -> void:
 	if original_camera != null:
-		var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
+		var player_metadata : PlayerMetadata = LobbyManager.instance.get_player_from_peer_id(multiplayer.get_unique_id())
 		player_metadata.player_controller.active_camera = original_camera
 	original_camera = null
 	active_player = null
