@@ -12,7 +12,7 @@ material = SubResource("StandardMaterial3D_1gpta")
 size = Vector3(1, 0.8149414, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ups32"]
-size = Vector3(0.29261017, 0.16151428, 0.43885803)
+size = Vector3(0.29261017, 0.16151428, 0.37936783)
 
 [node name="Beetle" type="RigidBody3D" unique_id=310955514]
 gravity_scale = 0.2
@@ -21,7 +21,7 @@ speed_curve = ExtResource("2_4rkqc")
 max_speed = 15.0
 
 [node name="Scale" type="Node3D" parent="." unique_id=123520705]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+transform = Transform3D(-0.2, 0, -1.7484556e-08, 0, 0.2, 0, 1.7484556e-08, 0, -0.2, 0, 0, 0.08540273)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Scale" unique_id=1638221330]
 transform = Transform3D(0.5967947, 0, 0, 0, 0.42848974, 0, 0, 0, 0.35234672, 0, 0.039647855, 0.840103)
@@ -84,5 +84,5 @@ transform = Transform3D(0.84135306, 0, 0, 0, 0.5619016, 0, 0, 0, 0.85707814, 0, 
 mesh = SubResource("BoxMesh_ups32")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1939620536]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005344391, 0.02040863, 0.09654999)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005344391, 0.02040863, -0.0038516521)
 shape = SubResource("BoxShape3D_ups32")
