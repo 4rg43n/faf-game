@@ -23,7 +23,7 @@ signal active_camera_changed(camera: Camera3D)
 @export var SPEED: float = 5.0
 @export var JUMP_VELOCITY: float = 6.0
 # TODO(Nef): I really hate how we have to do this, ask me for my pseudo-comp lookup idea later
-@export var shapeColl: CollisionShape3D 
+@export var shapeColl: CollisionShape3D
 const ASSUMED_MASS = 60.0
 
 var owned_by_current_client : bool = false
