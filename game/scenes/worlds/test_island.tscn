@@ -127,7 +127,7 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.195686, 18.298203, 46.175247)
 
 [node name="BugCollectorMiniGame" parent="." unique_id=1100659128 instance=ExtResource("8_n6b7w")]
-transform = Transform3D(-4.725288, 0, -1.6345205, 0, 4.9999995, 0, 1.6345205, 0, -4.725288, 50.598087, 0.31929594, 9.558899)
+transform = Transform3D(-4.725288, 0, -1.6345205, 0, 4.9999995, 0, 1.6345205, 0, -4.725288, 50.598087, -0.29667085, 9.558899)
 
 [node name="WaterSystem" type="Node" parent="." unique_id=392653723 node_paths=PackedStringArray("oceanAreas")]
 script = ExtResource("9_epgx5")
