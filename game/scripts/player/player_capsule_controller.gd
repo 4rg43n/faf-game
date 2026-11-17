@@ -5,6 +5,8 @@ signal active_camera_changed(camera: Camera3D)
 @onready var visuals: Node3D = $Visuals
 @export var turn_speed: float = 10.0
 
+@export var debug_scene_play:bool=false
+
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
@@ -65,10 +67,11 @@ func _physics_process(delta: float) -> void:
 func make_current_player() -> void:
 	if not is_node_ready():
 		await ready
-	#var parent_peer_id : int = get_parent().get("peer_id")
-	#var current_peer_id : int = multiplayer.get_unique_id()
-	#if current_peer_id != parent_peer_id:
-		#return
+	if not debug_scene_play:
+		var parent_peer_id : int = get_parent().get("peer_id")
+		var current_peer_id : int = multiplayer.get_unique_id()
+		if current_peer_id != parent_peer_id:
+			return
 	owned_by_current_client = true
 	active_camera.make_current()
 	active_camera_changed.emit(active_camera)
