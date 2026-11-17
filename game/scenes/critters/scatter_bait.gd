@@ -72,3 +72,4 @@ func on_pickup(peer_id : int) -> void:
 	player.current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
 	reparent(player.player_controller.left_hand_socket)
 	position = Vector3(0,0,0)
+	set_multiplayer_authority(peer_id)

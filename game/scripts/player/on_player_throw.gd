@@ -14,6 +14,7 @@ func _on_player_attempt_throw(peer_id : int) -> void:
 	player.current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
 	if player.player_controller.left_hand_socket.get_child_count() != 0:
 		var child_obj = player.player_controller.left_hand_socket.get_child(0)
+		child_obj.set_multiplayer_authority(1)
 		child_obj.process_mode = Node.PROCESS_MODE_ALWAYS
 		if child_obj is RigidBody3D:
 			var rigid_body := (child_obj as RigidBody3D)
