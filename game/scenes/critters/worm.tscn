@@ -12,7 +12,7 @@ material = SubResource("StandardMaterial3D_v0pmb")
 [sub_resource type="BoxShape3D" id="BoxShape3D_mmd53"]
 size = Vector3(0.31773376, 0.4050293, 1.1419678)
 
-[node name="Worm" type="RigidBody3D" unique_id=791724085]
+[node name="Worm" type="RigidBody3D" unique_id=791724085 groups=["Bait"]]
 script = ExtResource("1_mmd53")
 speed_curve = ExtResource("2_icdyk")
 max_speed = 5.0

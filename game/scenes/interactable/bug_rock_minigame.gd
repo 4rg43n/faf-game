@@ -9,12 +9,21 @@ class_name BugRockMiniGame extends InteractableObject
 @export_range(5, 35) var num_bug_range : int
 ## give % chance of each bug we can spawn and their scene
 @export var LUT_bugs : LUTPercentile
+var active_player : PlayerMetadata = null
+var original_camera : Camera3D = null
+
+func _ready() -> void:
+	var area : Area3D = bug_spawn_area.get_parent()
+	area.body_exited.connect(_on_bug_leave_area)
+	bug_spawner.child_exiting_tree.connect(mini_game_over)
 
 func on_interact(player_metadata : PlayerMetadata) -> void:
-	#TODO lerp this + play sound + character animation
+	if active_player != null:
+		return
+	active_player = player_metadata
 	pivot.rotation_degrees.z = 60
+	original_camera = player_metadata.player_controller.active_camera
 	player_metadata.player_controller.active_camera = minigame_camera
-	#TODO have this callback come from elsewhere
 	on_open_animation_finish()
 
 ## spawn all the buggies
@@ -33,3 +42,17 @@ func on_open_animation_finish() -> void:
 		)
 		newest_bug.position = shape.to_global(local_point)
 		bug_spawner.add_child(newest_bug)
+
+func _on_bug_leave_area(body : Node3D) -> void:
+	if not body.is_in_group("Bait"):
+		return
+	bug_spawner.remove_child(body)
+
+func mini_game_over(_node) -> void:
+	if bug_spawner.get_child_count() > 1:
+		return
+	print("game over!")
+	pivot.rotation_degrees.z = 0
+	active_player.player_controller.active_camera = original_camera
+	original_camera = null
+	active_player = null
