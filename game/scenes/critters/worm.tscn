@@ -16,7 +16,7 @@ size = Vector3(0.31773376, 0.4050293, 1.1419678)
 gravity_scale = 0.0
 script = ExtResource("1_mmd53")
 speed_curve = ExtResource("2_icdyk")
-max_speed = 1.0
+max_speed = 0.5
 
 [node name="Scale" type="Node3D" parent="." unique_id=666079760]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

@@ -23,3 +23,10 @@ func generate_flee_direction() -> void:
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	state.linear_velocity.x = flee_direction.x * speed
 	state.linear_velocity.z = flee_direction.z * speed
+
+func _physics_process(delta: float) -> void:
+	#apply_force(flee_direction * speed * delta)
+	look_at_movement_dir()
+
+func look_at_movement_dir() -> void:
+	look_at(position + linear_velocity)
