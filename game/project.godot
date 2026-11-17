@@ -195,6 +195,7 @@ enabled=PackedStringArray("res://addons/godot_animated_image/plugin.cfg", "res:/
 SensorArea="used for when another object enters or leaves a designated area"
 Bait="used for grubs!! :3c"
 Interactable="You can raycast to this obj and it should have an interactable func on it"
+Player=""
 
 [input]
 
