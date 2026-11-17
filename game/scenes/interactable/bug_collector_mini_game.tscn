@@ -17,7 +17,7 @@ size = Vector3(1.1484985, 1, 2.6624756)
 albedo_color = Color(0.44535476, 0.27997947, 0.120567255, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rd6ps"]
-size = Vector3(1.1923904, 1.1978455, 2.6664085)
+size = Vector3(1.1923904, 2.167614, 2.6664085)
 
 [node name="BugCollectorMiniGame" type="Node3D" unique_id=1100659128 node_paths=PackedStringArray("pivot", "minigame_camera", "bug_spawner", "bug_spawn_area", "interaction_area")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.35051012, 0)
@@ -52,7 +52,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_y6pv2")
 [node name="Area3D" type="Area3D" parent="SoilFullOfBugs" unique_id=2088869770 groups=["SensorArea"]]
 
 [node name="BugSpawnArea" type="CollisionShape3D" parent="SoilFullOfBugs/Area3D" unique_id=1237388789]
-transform = Transform3D(0.99999714, 0.0012449824, -0.0020505495, -0.001229542, 0.9999709, 0.007513984, 0.0020598448, -0.0075114407, 0.99996966, -0.0016869828, 0.73769426, 0.0026768413)
+transform = Transform3D(0.99999714, 0.0012449824, -0.0020505495, -0.001229542, 0.9999709, 0.0075139846, 0.002059845, -0.0075114407, 0.99996966, -0.0012856014, 1.0600841, 0.00025515864)
 shape = SubResource("BoxShape3D_rd6ps")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=979251143]
@@ -61,7 +61,7 @@ transform = Transform3D(0.0034863092, -0.2112215, 0.977432, -0.0065452997, 0.977
 [node name="Area3D" type="Area3D" parent="." unique_id=2075916598 groups=["Interactable"]]
 
 [node name="IneractableArea" type="CollisionShape3D" parent="Area3D" unique_id=1715197406]
-transform = Transform3D(0.99999714, 0.0012449824, -0.0020505495, -0.001229542, 0.99997103, 0.0075139846, 0.002059845, -0.0075114407, 0.99996966, -0.0012523521, 0.50805664, 5.4553526e-05)
+transform = Transform3D(0.99999714, 0.0012449824, -0.0020505495, -0.001229542, 0.99997103, 0.0075139846, 0.002059845, -0.0075114407, 0.99996966, -0.0006203554, 1.0156771, -0.0037585178)
 shape = SubResource("BoxShape3D_rd6ps")
 
 [node name="BugSpawner" type="MultiplayerSpawner" parent="." unique_id=1257417960]
