@@ -57,13 +57,14 @@ graph_offset = Vector2(-134, -37)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vi406"]
 
-[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "third_person_pivot", "active_camera") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "third_person_pivot", "active_camera", "shapeColl") groups=["Player"]]
 script = ExtResource("1_vi406")
 first_person_cam = NodePath("FirstPersonCam")
 third_person_cam = NodePath("SpringArmPivot/ThirdPersonCam")
 third_person_pivot = NodePath("SpringArmPivot")
 active_camera = NodePath("SpringArmPivot/ThirdPersonCam")
 SPEED = 10.0
+shapeColl = NodePath("CollisionShape3D")
 
 [node name="player-capsule" parent="." unique_id=962360466 groups=["Player"] instance=ExtResource("1_nmtom")]
 visible = false
@@ -144,7 +145,7 @@ bone_idx = 15
 [node name="catgirl_hair_medium" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment" unique_id=304994841 instance=ExtResource("5_qek5x")]
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
 
-[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 395324526) index="1" unique_id=1347265175]
+[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 83137004) index="1" unique_id=1347265175]
 setting_count = 8
 settings/0/root_bone_name = "hair.head.001"
 settings/0/root_bone = 7
