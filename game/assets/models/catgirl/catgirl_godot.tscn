@@ -4,10 +4,10 @@
 
 [node name="catgirl-godot" unique_id=148263498 instance=ExtResource("1_wl26u")]
 
-[node name="LeftHandSocket" type="BoneAttachment3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(169684321) index="4" unique_id=1173134785]
-bone_name = "hand.L"
+[node name="Armature_Skeleton3D#LeftHandSocket" type="BoneAttachment3D" parent="Armature/GeneralSkeleton" parent_id_path=PackedInt32Array(1198479058) index="4" unique_id=1173134785]
+bone_name = "LeftHand"
 bone_idx = 57
 
-[node name="RightHandSocket" type="BoneAttachment3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(169684321) index="5" unique_id=345038401]
-bone_name = "hand.R"
+[node name="Armature_Skeleton3D#RightHandSocket" type="BoneAttachment3D" parent="Armature/GeneralSkeleton" parent_id_path=PackedInt32Array(1198479058) index="5" unique_id=345038401]
+bone_name = "RightHand"
 bone_idx = 77

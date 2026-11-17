@@ -48,3 +48,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 
 func _physics_process(delta: float) -> void:
 	apply_force(flee_direction * speed * delta)
+
+func _enter_tree() -> void:
+	if get_parent() is BoneAttachment3D:
+		process_mode = ProcessMode.PROCESS_MODE_DISABLED

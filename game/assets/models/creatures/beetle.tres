@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://4bybb760bbhr"]
+
+[ext_resource type="Texture2D" uid="uid://dt3ve7o00tbgb" path="res://assets/models/creatures/beetle_beetle.png" id="1_8jsev"]
+
+[resource]
+resource_name = "beetle"
+cull_mode = 2
+albedo_texture = ExtResource("1_8jsev")
+roughness = 0.78723407
+metadata/_gltf_primary_texture_coord = 0

@@ -26,7 +26,9 @@ var landing_requested:bool=false
 
 @onready var landing_duration: float = landing_animation.length / maxf(jump_end_time_scale, 0.001)
 var landing_timer:float = 0.0
-###
+@export var interact_label: Label
+@export var INTERACT_RAYCAST_LENGTH: float
+
 
 @export var active_camera: Camera3D:
 	set(camera):
@@ -41,14 +43,23 @@ var landing_timer:float = 0.0
 @export var shapeColl: CollisionShape3D
 const ASSUMED_MASS = 60.0
 
+@export var left_hand_socket : BoneAttachment3D
+@export var right_hand_socket : BoneAttachment3D
+
 var owned_by_current_client : bool = false
 
+var input_dir : Vector2
 var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
+
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
 	# DEV TOOLS
 	if OS.is_debug_build():
 		if Input.is_action_pressed("shift"):
@@ -56,34 +67,26 @@ func _physics_process(delta: float) -> void:
 		else:
 			SPEED = regular_speed
 
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	handle_input(delta)
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		landing_requested=false
-		animation_state.travel("Jump_Start")
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir : Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
-
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-
-		# Face the movement direction (Godot's forward is -Z)
-		var target_yaw := atan2(direction.x, direction.z)
-		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
+	# INTERACT WITH ITEMS
+	var space_state = get_world_3d().direct_space_state
+	# use global coordinates, not local to node
+	var interact_look_direction = -third_person_cam.global_transform.basis.z
+	var query = PhysicsRayQueryParameters3D.create( third_person_cam.global_position,
+	third_person_cam.global_position + interact_look_direction * INTERACT_RAYCAST_LENGTH)
+	query.collision_mask = 2;
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		interact_label.text = "She could interact but she has no method..."
+		var hit = result.collider
+		if hit.has_method("on_interact"):
+			interact_label.text = "press E to interact"
+			hit.interact()
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+		interact_label.text = "She's not interacting...";
+		
 	move_and_slide()
 
 	##########################################################################################
@@ -153,3 +156,34 @@ func make_current_player() -> void:
 	active_camera.make_current()
 	active_camera_changed.emit(active_camera)
 	active_camera.make_current()
+
+
+func handle_input(delta: float) -> void:
+	if GameManager.instance.paused:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+		return
+
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+		landing_requested=false
+		animation_state.travel("Jump_Start")
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
+
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+
+		# Face the movement direction (Godot's forward is -Z)
+		var target_yaw := atan2(direction.x, direction.z)
+		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)

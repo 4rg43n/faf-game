@@ -21,6 +21,7 @@
 [ext_resource type="Resource" uid="uid://182qlsti6ibm" path="res://resources/weather/storm.tres" id="9_m4h2d"]
 [ext_resource type="PackedScene" uid="uid://bk6rwduy8u5ym" path="res://scenes/weather/rain.tscn" id="11_p8abn"]
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
+[ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
 
@@ -35,7 +36,7 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TestIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("options_menu", "inventory")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("options_menu", "inventory", "game_manager")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -43,6 +44,7 @@ offset_bottom = 40.0
 script = ExtResource("3_necax")
 options_menu = NodePath("OptionsMenu")
 inventory = NodePath("Inventory")
+game_manager = NodePath("../GameManager")
 metadata/_edit_lock_ = true
 
 [node name="FpsTracker" parent="UI" unique_id=1956701810 instance=ExtResource("3_b1x3f")]
@@ -143,3 +145,10 @@ metadata/_edit_lock_ = true
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1692186644]
 _spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
 spawn_path = NodePath(".")
+
+[node name="unhandled_input_handler" type="Node" parent="." unique_id=2098882594]
+
+[node name="ThrowBug" type="Node" parent="unhandled_input_handler" unique_id=1672757612 node_paths=PackedStringArray("new_parent")]
+script = ExtResource("22_m4h2d")
+new_parent = NodePath("../../World/TestIsland")
+metadata/_custom_type_script = "uid://bx1vuerbrrtmt"
