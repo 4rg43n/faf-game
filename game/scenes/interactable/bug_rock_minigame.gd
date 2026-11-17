@@ -17,6 +17,13 @@ func _ready() -> void:
 	area.body_exited.connect(_on_bug_leave_area)
 	bug_spawner.child_exiting_tree.connect(mini_game_over)
 
+
+#TODO remove when simone implements interactions proppper
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_released() and event.keycode == KEY_E:
+		var player_metadata : PlayerMetadata = LobbyManager.instance.get_current_player(multiplayer.get_unique_id())
+		on_interact(player_metadata)
+
 func on_interact(player_metadata : PlayerMetadata) -> void:
 	if active_player != null:
 		return
