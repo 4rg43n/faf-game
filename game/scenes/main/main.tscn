@@ -36,7 +36,7 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TestIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("options_menu", "inventory")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("options_menu", "inventory", "game_manager")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -44,6 +44,7 @@ offset_bottom = 40.0
 script = ExtResource("3_necax")
 options_menu = NodePath("OptionsMenu")
 inventory = NodePath("Inventory")
+game_manager = NodePath("../GameManager")
 metadata/_edit_lock_ = true
 
 [node name="FpsTracker" parent="UI" unique_id=1956701810 instance=ExtResource("3_b1x3f")]

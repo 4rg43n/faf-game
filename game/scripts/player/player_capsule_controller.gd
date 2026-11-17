@@ -46,12 +46,18 @@ const ASSUMED_MASS = 60.0
 
 var owned_by_current_client : bool = false
 
+var input_dir : Vector2
 var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
+
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
 	# DEV TOOLS
 	if OS.is_debug_build():
 		if Input.is_action_pressed("shift"):
@@ -59,33 +65,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			SPEED = regular_speed
 
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		landing_requested=false
-		animation_state.travel("Jump_Start")
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir : Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
-
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-
-		# Face the movement direction (Godot's forward is -Z)
-		var target_yaw := atan2(direction.x, direction.z)
-		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+	handle_input(delta)
 
 	move_and_slide()
 
@@ -156,3 +136,34 @@ func make_current_player() -> void:
 	active_camera.make_current()
 	active_camera_changed.emit(active_camera)
 	active_camera.make_current()
+
+
+func handle_input(delta: float) -> void:
+	if GameManager.instance.paused:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+		return
+
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+		landing_requested=false
+		animation_state.travel("Jump_Start")
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
+
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+
+		# Face the movement direction (Godot's forward is -Z)
+		var target_yaw := atan2(direction.x, direction.z)
+		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)

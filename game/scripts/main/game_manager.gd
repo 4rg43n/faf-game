@@ -5,6 +5,8 @@ class_name GameManager extends Node
 var player: PlayerController
 var player_data: PlayerMetadata
 
+var paused: bool = false
+
 static var instance: GameManager
 func _init() -> void:
 	instance = self
