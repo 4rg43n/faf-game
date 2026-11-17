@@ -235,7 +235,6 @@ func leave_lobby() -> void:
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
-		_close_game()
 
 func _on_player_spawned(new_player : PlayerMetadata) -> void:
 	#since p2p server and host client are on same process

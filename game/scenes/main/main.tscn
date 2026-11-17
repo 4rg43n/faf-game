@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dd0g2xdhbs54h" path="res://scripts/main/game_manager.gd" id="2_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://gk6g40v2wk3y" path="res://scenes/debug/fps_tracker.tscn" id="3_b1x3f"]
 [ext_resource type="Script" uid="uid://cd4a6lf1xe5jp" path="res://scripts/weather/weather_manager.gd" id="3_hxu8e"]
-[ext_resource type="Script" uid="uid://dek1mvhhnw5d4" path="res://scripts/ui/menus/ui.gd" id="3_necax"]
+[ext_resource type="Script" uid="uid://dek1mvhhnw5d4" path="res://scripts/ui/menus/ui_manager.gd" id="3_necax"]
 [ext_resource type="Environment" uid="uid://0x4j6mofq72x" path="res://resources/world_environment.tres" id="4_a8run"]
 [ext_resource type="Resource" uid="uid://cxdu4jyq8tikp" path="res://resources/weather/clear.tres" id="4_nvumn"]
 [ext_resource type="Resource" uid="uid://c8vke606olrn" path="res://resources/weather/cloudy.tres" id="5_ou6is"]
