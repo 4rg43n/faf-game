@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://b0876tlwoagks"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4h2d"]
+bg_color = Color(0.15847227, 0.15847233, 0.15847221, 1)
+
+[node name="Inventory" type="CenterContainer" unique_id=1333479588]
+offset_right = 1152.0
+offset_bottom = 647.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1852420795]
+layout_mode = 2
+theme_override_constants/separation = 210
+alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer" unique_id=298138844]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=19131589]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+columns = 5
+
+[node name="Panel" type="Panel" parent="VBoxContainer/GridContainer" unique_id=45801711]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel2" type="Panel" parent="VBoxContainer/GridContainer" unique_id=344020021]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel3" type="Panel" parent="VBoxContainer/GridContainer" unique_id=524639128]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel4" type="Panel" parent="VBoxContainer/GridContainer" unique_id=925289163]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel5" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1022982735]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel6" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1620980073]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel7" type="Panel" parent="VBoxContainer/GridContainer" unique_id=672645214]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel8" type="Panel" parent="VBoxContainer/GridContainer" unique_id=895920375]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel9" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1187649419]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel10" type="Panel" parent="VBoxContainer/GridContainer" unique_id=565791524]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel11" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1148780041]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel12" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1089441898]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel13" type="Panel" parent="VBoxContainer/GridContainer" unique_id=859209499]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel14" type="Panel" parent="VBoxContainer/GridContainer" unique_id=2088520835]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel15" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1565243406]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=853595166]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=395154122]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel2" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=1392118336]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel3" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=618342929]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel4" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=157672397]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel5" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=1290166465]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel6" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=2091638039]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel7" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=873885723]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel8" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=1655694756]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="Panel9" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=37156345]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")

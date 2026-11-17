@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dwcmj1rmgiudu"]
+
+[ext_resource type="PackedScene" uid="uid://b3h4stlfpy5i0" path="res://assets/models/catgirl/catgirl-godot-hair-medium.glb" id="1_i4kis"]
+
+[node name="catgirl_hair_medium" type="Node3D" unique_id=304994841]
+
+[node name="catgirl-godot-hair-medium" parent="." unique_id=1519812272 instance=ExtResource("1_i4kis")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1941260352]

@@ -213,3 +213,7 @@ grow_horizontal = 2
 [node name="RecalculateAudioTimer" type="Timer" parent="." unique_id=1032768996]
 wait_time = 0.1
 autostart = true
+
+[node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="." unique_id=1791024563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+size = Vector3(60, 30, 60)
