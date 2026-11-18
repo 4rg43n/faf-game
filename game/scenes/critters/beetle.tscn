@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ds416ia8s8gt3" path="res://scenes/critters/fly_bait.gd" id="1_621sy"]
 [ext_resource type="Curve" uid="uid://ctb1m2dqykw1w" path="res://scenes/critters/beetle_speed_distrbution.tres" id="2_4rkqc"]
+[ext_resource type="Resource" uid="uid://dm6gfqa4i2uwo" path="res://resources/items/beetle.tres" id="2_bsqsq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gpta"]
 albedo_color = Color(0.3647596, 0.34046692, 0.09233739, 1)
@@ -32,6 +33,7 @@ properties/3/replication_mode = 2
 collision_layer = 12
 mass = 3.0
 script = ExtResource("1_621sy")
+item_resource = ExtResource("2_bsqsq")
 speed_curve = ExtResource("2_4rkqc")
 max_speed = 3.0
 

@@ -1,5 +1,7 @@
 class_name GameManager extends Node
 
+signal player_synced()
+
 @export var sky_3d: Sky3D
 
 var player: PlayerController
@@ -19,3 +21,4 @@ func setup(new_player_data: PlayerMetadata):
 	var new_player = new_player_data.player_controller
 	player = new_player
 	player_data = new_player_data
+	player_synced.emit()

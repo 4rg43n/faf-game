@@ -1,5 +1,7 @@
 class_name FleeingBait extends RigidBody3D
 
+@export var item_resource: Item
+
 ## basically the timer - they spawn randomly inside a bug pickup minigame and once they leave the area they despawn.
 @export var speed_curve : Curve
 @export var max_speed : float
@@ -66,20 +68,24 @@ func on_interact(peer_id : int) -> void:
 @rpc("any_peer", "call_local", "reliable")
 func on_pickup(peer_id : int) -> void:
 	var player : PlayerMetadata = LobbyManager.instance.get_player_from_peer_id(peer_id)
-	if player.current_equipment != CustomEnums.Equipment_Type.EMPTY_HAND:
-		print("hand not empty")
-		return
-	player.current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
-	_pickup_held_item_from_peer.rpc(peer_id, true)
+	if not player.add_item_if_possible(item_resource):
+		print("Inventory full, cannot hold anymore items.")
+	else:
+		print("LETS FUCKING GOOOO: " + str(player.hotbar))
+		if player.current_equipment == CustomEnums.Equipment_Type.THROWABLE_OBJ:
+			queue_free()
+	if player.current_equipment == CustomEnums.Equipment_Type.EMPTY_HAND:
+		player.current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
+		_pickup_held_item_from_peer.rpc(peer_id, true)
 
 @rpc("reliable", "any_peer", "call_local")
 func _pickup_held_item_from_peer(peer_id : int, left_hand : bool = true) -> void:
 	var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
-	var child_obj : RigidBody3D
+	var _child_obj : RigidBody3D
 	if left_hand:
-		child_obj = player.player_controller.left_hand_socket.get_child(0)
+		_child_obj = player.player_controller.left_hand_socket.get_child(0)
 	else:
-		child_obj = player.player_controller.right_hand_socket.get_child(1)
+		_child_obj = player.player_controller.right_hand_socket.get_child(1)
 	reparent(player.player_controller.left_hand_socket)
 	position = Vector3(0,0,0)
 	process_mode = ProcessMode.PROCESS_MODE_DISABLED

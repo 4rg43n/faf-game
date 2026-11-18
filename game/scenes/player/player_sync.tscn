@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bpb06lrf4q7dt" path="res://scripts/player_metadata.gd" id="1_rbmgg"]
 [ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/player/player.tscn" id="1_vefth"]
+[ext_resource type="Script" uid="uid://4tlhr6pdyntd" path="res://scripts/equipment/item.gd" id="2_temku"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vefth"]
 properties/0/path = NodePath("Player:position")
@@ -23,6 +24,8 @@ properties/4/replication_mode = 2
 [node name="TheWholePackage" type="Node3D" unique_id=1542336818 node_paths=PackedStringArray("player_controller") groups=["Player"]]
 script = ExtResource("1_rbmgg")
 player_controller = NodePath("Player")
+main_inventory = Array[ExtResource("2_temku")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+hotbar = Array[ExtResource("2_temku")]([null, null, null, null, null, null, null, null, null])
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=751910215]
 replication_config = SubResource("SceneReplicationConfig_vefth")

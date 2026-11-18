@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://dm6gfqa4i2uwo"]
+
+[ext_resource type="Script" uid="uid://4tlhr6pdyntd" path="res://scripts/equipment/item.gd" id="1_lgsu3"]
+[ext_resource type="Texture2D" uid="uid://dt8okcy3ef6s7" path="res://assets/critters/worm.png" id="1_yj610"]
+[ext_resource type="PackedScene" uid="uid://buiodjiede67t" path="res://scenes/critters/beetle.tscn" id="2_14si1"]
+
+[resource]
+script = ExtResource("1_lgsu3")
+name = "Beetle"
+id = 3
+icon = ExtResource("1_yj610")
+object = ExtResource("2_14si1")
+max_count = 64
+metadata/_custom_type_script = "uid://4tlhr6pdyntd"

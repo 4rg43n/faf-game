@@ -1,4 +1,13 @@
-extends Button
+@tool
+class_name InventoryButton extends Button
+
+@export var stored_item: Item:
+	set(value):
+		stored_item = value
+		if stored_item:
+			icon = stored_item.icon
+		else:
+			icon = null
 
 @onready var inventory_system: InventorySystem = InventorySystem.instance
 

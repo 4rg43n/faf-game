@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cdd7mrpel513p"]
 
 [ext_resource type="Script" uid="uid://bsggp4b41evhh" path="res://scenes/critters/scatter_bait.gd" id="1_uclde"]
+[ext_resource type="Resource" uid="uid://c1y0r0cm7rcek" path="res://resources/items/rolly_polly.tres" id="2_7jnt6"]
 [ext_resource type="Curve" uid="uid://bd72jv7846yqo" path="res://scenes/critters/eolly_polly_ollie_speed_distribution.tres" id="2_xo38u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bsqsq"]
@@ -30,6 +31,7 @@ properties/3/replication_mode = 2
 [node name="RollyPollyPollie" type="RigidBody3D" unique_id=1345065799]
 collision_layer = 12
 script = ExtResource("1_uclde")
+item_resource = ExtResource("2_7jnt6")
 speed_curve = ExtResource("2_xo38u")
 max_speed = 2.0
 

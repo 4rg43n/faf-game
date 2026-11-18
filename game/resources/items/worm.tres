@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bvf3jra3t57yw"]
+
+[ext_resource type="Script" uid="uid://4tlhr6pdyntd" path="res://scripts/equipment/item.gd" id="1_br08o"]
+[ext_resource type="Texture2D" uid="uid://dt8okcy3ef6s7" path="res://assets/critters/worm.png" id="1_x25yc"]
+
+[resource]
+script = ExtResource("1_br08o")
+name = "Worm"
+id = 1
+icon = ExtResource("1_x25yc")
+max_count = 64
+metadata/_custom_type_script = "uid://4tlhr6pdyntd"

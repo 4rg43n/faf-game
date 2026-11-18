@@ -1,4 +1,4 @@
-class_name FlyAwaiyBait extends FleeingBait
+class_name FlyAwayBait extends FleeingBait
 
 var grounded : bool = true
 var ground_timer : float = 0

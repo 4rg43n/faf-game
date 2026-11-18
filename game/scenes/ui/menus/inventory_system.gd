@@ -4,10 +4,12 @@ class_name InventorySystem extends Control
 @export var hotbar: HBoxContainer
 
 @onready var main: Main = Main.instance
+@onready var game_manager: GameManager = GameManager.instance
 
+var player_data : PlayerMetadata = null
 var drag_icon : Sprite2D = Sprite2D.new()
-var dragging_item : Button = null
-var hovered_slot: Button = null
+var hovered_slot: InventoryButton = null
+var old_slot: InventoryButton = null
 
 static var instance: InventorySystem
 
@@ -17,7 +19,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	main_inventory.visibility_changed.connect(_on_main_inventory_visibility_changed)
-
+	game_manager.player_synced.connect(_on_player_synced)
 
 func _process(_delta: float) -> void:
 	if drag_icon.texture:
@@ -30,12 +32,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			reset()
 
 
-func button_pressed(button: Button):
-	if button.icon:
+func button_pressed(button: InventoryButton):
+	if button.stored_item and button.icon:
 		# I'm lazy fuck you this works just fine
 		if not main.get_children().has(drag_icon):
 			main.add_child(drag_icon)
-		dragging_item = button
+		old_slot = button
 		drag_icon.texture = button.icon
 		var drag_icon_size = drag_icon.texture.get_size()
 		drag_icon.scale = Vector2(50/drag_icon_size.x, 50/drag_icon_size.y)
@@ -43,12 +45,13 @@ func button_pressed(button: Button):
 
 func button_released():
 	if hovered_slot:
-		hovered_slot.icon = drag_icon.texture
-		dragging_item.icon = null
+		var old_item : Item = old_slot.stored_item.duplicate()
+		old_slot.stored_item = hovered_slot.stored_item
+		hovered_slot.stored_item = old_item
 	drag_icon.texture = null
 
 
-func button_hovered(button: Button):
+func button_hovered(button: InventoryButton):
 	hovered_slot = button
 
 
@@ -57,10 +60,32 @@ func button_unhovered():
 
 
 func reset():
+	old_slot = null
 	drag_icon.texture = null
-	dragging_item = null
 	hovered_slot = null
 
 
 func _on_main_inventory_visibility_changed():
 	reset()
+
+
+func _on_player_synced():
+	player_data = game_manager.player_data
+	game_manager.player_data.hotbar_updated.connect(_on_hotbar_updated)
+	game_manager.player_data.main_inventory_updated.connect(_on_main_inventory_updated)
+
+
+func _on_hotbar_updated():
+	var index : int = -1
+	for item: Item in player_data.hotbar:
+		index += 1
+		var inventory_slot : InventoryButton = hotbar.get_child(index)
+		inventory_slot.stored_item = item if item else null
+
+
+func _on_main_inventory_updated():
+	var index : int = -1
+	for item: Item in player_data.main_inventory:
+		index += 1
+		var inventory_slot : InventoryButton = main_inventory.get_child(index)
+		inventory_slot.stored_item = item if item else null
