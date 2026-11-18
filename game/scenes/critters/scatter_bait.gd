@@ -70,6 +70,16 @@ func on_pickup(peer_id : int) -> void:
 	if player.current_equipment != CustomEnums.Equipment_Type.EMPTY_HAND:
 		return
 	player.current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
+	_pickup_held_item_from_peer.rpc(peer_id, true)
+
+@rpc("reliable", "any_peer")
+func _pickup_held_item_from_peer(peer_id : int, left_hand : bool = true) -> void:
+	var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
+	var child_obj : RigidBody3D
+	if left_hand:
+		child_obj = player.player_controller.left_hand_socket.get_child(0)
+	else:
+		child_obj = player.player_controller.right_hand_socket.get_child(0)
 	reparent(player.player_controller.left_hand_socket)
 	position = Vector3(0,0,0)
 	set_multiplayer_authority(peer_id)
