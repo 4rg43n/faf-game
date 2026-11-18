@@ -1,8 +1,13 @@
 extends Control
 
+@export var lobby_manager: LobbyManager
 @export var options_menu: CenterContainer
-@export var inventory: CenterContainer
+@export var inventory: InventorySystem
 @export var game_manager: GameManager
+
+func _ready() -> void:
+	lobby_manager.visibility_changed.connect(_on_lobby_manager_visibility_changed)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and not LobbyManager.instance.is_visible_in_tree():
@@ -15,8 +20,12 @@ func _unhandled_input(event: InputEvent) -> void:
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 				game_manager.paused = false
 		elif Input.is_action_just_pressed("inventory"):
-			inventory.visible = !inventory.visible
-			if inventory.visible:
+			inventory.main_inventory.visible = !inventory.main_inventory.visible
+			if inventory.main_inventory.visible:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			else:
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _on_lobby_manager_visibility_changed():
+	inventory.visible = not lobby_manager.visible

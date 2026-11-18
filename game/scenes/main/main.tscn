@@ -38,12 +38,13 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TestIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("options_menu", "inventory", "game_manager")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_necax")
+lobby_manager = NodePath("../LobbyManager")
 options_menu = NodePath("OptionsMenu")
 inventory = NodePath("Inventory")
 game_manager = NodePath("../GameManager")
@@ -54,17 +55,16 @@ layout_mode = 1
 offset_right = 179.0
 metadata/_edit_lock_ = true
 
-[node name="Inventory" parent="UI" unique_id=1333479588 instance=ExtResource("6_pg34l")]
-visible = false
-layout_mode = 0
-metadata/_edit_lock_ = true
-
 [node name="OptionsMenu" parent="UI" unique_id=450231988 instance=ExtResource("5_r4lks")]
 visible = false
 layout_mode = 1
 offset_right = 1152.8015
 offset_bottom = 647.3821
 metadata/_edit_lock_ = true
+
+[node name="Inventory" parent="UI" unique_id=1333479588 instance=ExtResource("6_pg34l")]
+visible = false
+layout_mode = 0
 
 [node name="GameManager" type="Node" parent="." unique_id=217552877 node_paths=PackedStringArray("sky_3d")]
 script = ExtResource("2_yyfjg")
