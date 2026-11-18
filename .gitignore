@@ -12,6 +12,10 @@ CLAUDE.local.md
 .godot/
 *.translation
 *.pck
+*.tmp
+~*.dll
+.nomedia
+.import/
 /game/android/
 /build/
 /export/
