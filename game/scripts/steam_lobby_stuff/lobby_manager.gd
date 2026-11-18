@@ -19,6 +19,7 @@ static var invite_lobby_id : int = 0
 
 static var instance : LobbyManager
 
+@export var singleplayer_button : Button
 @export var host_button : Button
 @export var join_button : Button
 @export var exit_button : Button
@@ -90,6 +91,7 @@ func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_player_joined)
 	multiplayer.peer_disconnected.connect(_on_player_leave)
 
+	singleplayer_button.pressed.connect(_on_singleplayer_button_pressed)
 	host_button.pressed.connect(_open_lobby_host)
 	join_button.pressed.connect(_open_lobby_search)
 	exit_button.pressed.connect(_close_game)
@@ -219,6 +221,15 @@ func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, respon
 			printerr("Failed joining lobby %s, you have exceeded the rate limit.", in_lobby_id)
 		_:
 			printerr("Failed joining lobby %s", in_lobby_id)
+
+func _on_singleplayer_button_pressed() -> void:
+	#hide UI for host/join
+	hide()
+	LobbySearchScreen.instance.hide()
+	LobbyHostScreen.instance.hide()
+
+	player_spawner.spawn(1)
+
 
 func toggle_lobby_joinable(can_new_players_join : bool) -> void:
 	Steam.setLobbyJoinable(LobbyManager.instance.lobby_id, can_new_players_join)
