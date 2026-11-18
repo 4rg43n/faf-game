@@ -15,6 +15,7 @@ main_inventory = NodePath("Main Inventory")
 hotbar = NodePath("Hotbar")
 
 [node name="Main Inventory" type="GridContainer" parent="." unique_id=19131589]
+visible = false
 layout_mode = 0
 offset_left = 443.0
 offset_top = 244.0
