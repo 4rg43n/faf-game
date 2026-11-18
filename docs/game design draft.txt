@@ -1,0 +1,96 @@
+-- Fuck Ass Fish - Game Jam game loop --
+
+This is the proposed game design for the game jam.
+Note: We're not forgetting or cutting the other ideas. We just need to focus on something small and tight.
+
+
+Basic Description: We play goth catgirls stranded on a series of islands (2 definitely, 3 if possible). The island is surrounded by corrupted fish, birds, and bugs. The goal is to push back the corruption and escape the islands.
+
+Corruption: Corruption is a meter displayed at the top of the UI. A 0-100 meter with tick marks at 25%. When the corruption drops to 75%, 50%, 25%, and 0% it triggers the following:
+75% a corrupted beetle bursts from the ground in one of the islands and starts attacking the player(s)
+50% a corrupted seagul lands from the air and starts attacking the player(s). The seagul can follow the players from island to island to hiding from it is difficult.
+25% a corrupted octopus starts appearing in the shallows around the players whenever they're near water. When the players leave proximity of the water the octo goes back into the ocean and heals. So it's important to pick a spot and face it rather than kiting it around and trying to chip it.
+0% the USS Lady Killer shows up to pick up the players (the game is beaten)
+
+When the bosses are active to corruption won't drop any further until they've been dispatched.
+
+
+Player abilities:
+Parkour - movement abilities beyond the standard move run and jumping.
+wall kick: jump against a wall, jump when you kick it to launch off it in the other direction (Metroid)
+double jump: in the air a second jump when the apex is reached
+super jump: crouch until the player "blinks" for a jump that is twice as high as normal (can combine with double jump and wall kick)
+wall running: (if there's time, a wall run like Ninja Gaiden) This can be cut for time.
+
+Swimming -
+Just surface swimming right now to get from island to island. Vulnerable in the water (no combat, fishing or spells)
+
+Fishing - 
+Fishing mode: when the pole is activated, crosshairs pop up. Casting casts a ray at the target and whatever it hits gets pulled towards the player. Think the grappling hook in the 3d metroids.
+Special uses: Pull arms off the octopus. Can be used to swing across like the grappling beam enhancing player parkour abilities. Pulls fish out of the water.
+
+Combat - 
+Punch - standard punch
+Kick - standard kick (no air kick, just air punching)
+
+
+Spells Book -
+The catgirls are gothy/witchy they have a spellbook and can collect spell pages around the island to enhance their abilities. The pages are scattered around the island and can be found atop trees, under rocks, etc. 
+This encourages parkouring around the island looking for spell pages.
+
+Three spells for the game jam:
+Heal - a small heal
+Fireball - a small projectile
+Shield - a small bubble of invincibility (think the Guardian in Destiny)
+
+Spells consume mana. Mana is a bar at the top of the screen underneath the health that recharges by time. (the rate of recharge could be upgraded)
+
+Notes: The fireball gives the player a small projectile that can be used to fight threats it can't quite reach to punch.
+
+Bug Minigame
+Flipping rocks to catch worms and beetles
+Worms are ammo for the rod (bait). Also tossing them on the ground will draw seagulls and fish
+Beetles can be sold for money (scarabs). Or released as little homing missiles that chase enemies on the land around for damage.
+Occasionally a corrupted bug pops ups to fight.
+
+
+Vehicles -
+A fishing trawler the players can repair to reach the other islands safely. It starts off without an engine. The engine can be bought from the shopkeeper by selling bugs and parts of corrupted animals.
+The fishing boat is large enough for 4 player(s).
+Can fish from the boat.
+
+
+Shop -
+The shop has a shopkeeper that sells character upgrades. The character upgrades are as follows.
+1) boat engine (expensive)
+2) Mana upgrade (increases the speed mana regenerates at)
+3) Health upgrade (increases the speed health regenerates at)
+4) Mana potion
+6) Health potion
+
+The shopkeeper buys beetles and corrupted animal parts. Players can use that money to buy stuff.
+
+
+
+
+Corrupted Animals - 
+Fish: These are pulled out of the water with the rod. They'll attack the player(s) until they die. They yield parts for selling when they die.
+Bugs: These are found during the bug minigame. They attack and yield parts
+Seagulls: They'll occasionally fly in and harass the player. The birds will attack, but they'll try and fly off before dying. Yield parts.
+Killing the corrupted animals will drop the corruption gauge by a little.
+
+Bosses -
+Corrupted beetle: Charges around and breathes fire. (Similar to Dodongo from the original Zelda)
+Corrupted seagull: Harasses the player. Flies around harrassing players. Can follow to other islands. Lands on high up perches to heal slightly when damage has been taken. Use parkour or spells to stop him from this.
+Dive bombs the player then stands on the ground pecking at the ground around the player, its an AOE that damages the player. Can be prevented with parkour and shield (spell). Three hits on its beak dizzies it for big damage.
+Octopus: Harasses players when they get close to the water (think the octoroks in zelda). Sit just off shore and shoots rocks at the player. Use rod or spell to make it flop out onto the shore. 
+When its on the shore it spins to hit the players. Use the rod to pull off arms, or attacks and spells to just damage it.
+Pulling off arms slows it down and lengthens the amount of time its on the shore when it pops out.
+If the players get a certain distance from the shore it disappears under the waves and heals. Will follow to other islands. Prevents user from fishing until its dealt with. If more than one player is fishing in different locations it'll attack the player with the lowest health first.
+
+
+Notes: I think this is a good plan to work from. If we make changes it should be replacing things on the list, not adding. (ie, no feature creep, but we can switch out things or cut them)
+
+
+
+
