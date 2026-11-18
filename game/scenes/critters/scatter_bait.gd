@@ -7,7 +7,6 @@ class_name FleeingBait extends RigidBody3D
 
 ## ground direction (no flying) - we can allow flying in the flying class that extends this one.
 @export var flee_direction : Vector3
-var previous_movement_dir : Vector3
 
 func _ready() -> void:
 	if not is_multiplayer_authority():
@@ -22,20 +21,16 @@ func generate_flee_direction() -> void:
 	flee_direction = flee_direction.normalized()
 	var rand_sample_index : int = randi_range(0, speed_curve.point_count)
 	speed = speed_curve.sample_baked(rand_sample_index) * max_speed
-	previous_movement_dir = flee_direction
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if not is_multiplayer_authority():
 		return
-	#state.linear_velocity.x = flee_direction.x * speed
-	#state.linear_velocity.y = flee_direction.y * speed
-	#state.linear_velocity.z = flee_direction.z * speed
-
+	if not is_node_ready():
+		await ready
 	var up_dir: Vector3 = Vector3.UP
 	var target_dir = state.linear_velocity.normalized()
 	if target_dir.is_zero_approx():
-		target_dir = previous_movement_dir
-	previous_movement_dir = target_dir
+		return
 	if abs(target_dir.dot(up_dir)) > 0.999:
 		up_dir = Vector3.FORWARD
 	var target_basis: Basis = Basis.looking_at(target_dir, up_dir)
