@@ -28,7 +28,7 @@ properties/3/spawn = true
 properties/3/replication_mode = 2
 
 [node name="RollyPollyPollie" type="RigidBody3D" unique_id=1345065799]
-collision_layer = 3
+collision_layer = 12
 script = ExtResource("1_uclde")
 speed_curve = ExtResource("2_xo38u")
 max_speed = 2.0

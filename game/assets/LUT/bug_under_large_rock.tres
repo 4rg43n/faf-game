@@ -7,6 +7,6 @@
 
 [resource]
 script = ExtResource("1_fu4ff")
-percentage_chance = PackedInt32Array(48, 40, 12)
+percentage_chance = PackedInt32Array(44, 43, 14)
 objects = Array[Resource]([ExtResource("1_4ouuj"), ExtResource("3_pvn7s"), ExtResource("2_3gpke")])
 metadata/_custom_type_script = "uid://bo88fiw5ermfy"

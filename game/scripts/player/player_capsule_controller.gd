@@ -76,7 +76,7 @@ func _physics_process(delta: float) -> void:
 	var interact_look_direction = -third_person_cam.global_transform.basis.z
 	var query = PhysicsRayQueryParameters3D.create( third_person_cam.global_position,
 	third_person_cam.global_position + interact_look_direction * INTERACT_RAYCAST_LENGTH)
-	query.collision_mask = 2;
+	query.collision_mask = 4;
 	query.collide_with_bodies = true
 	var result = space_state.intersect_ray(query)
 	if result:

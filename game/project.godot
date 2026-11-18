@@ -524,6 +524,10 @@ Throw={
 [layer_names]
 
 3d_render/layer_17="SimpleGrassTextured interactive layer"
+3d_physics/layer_1="Ground"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Interactables"
+3d_physics/layer_4="Spawnables"
 
 [physics]
 
