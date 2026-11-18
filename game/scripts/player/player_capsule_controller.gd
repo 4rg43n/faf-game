@@ -63,13 +63,79 @@ func _physics_process(delta: float) -> void:
 
 	# DEV TOOLS
 	if OS.is_debug_build():
-		if Input.is_action_pressed("shift"):
-			SPEED = dev_speed
-		else:
-			SPEED = regular_speed
+		check_dev_inputs()
 
-	handle_input(delta)
+	handle_move_input(delta)
 
+	handle_interaction()
+
+	move_and_slide()
+
+	handle_animation(delta)
+
+	update_locomotion()
+
+func update_locomotion()->void:
+	# get our speed
+	var horizontal_speed:=Vector2(
+		velocity.x,
+		velocity.z).length()
+
+	# set the blend	value
+	var blend:=clampf(horizontal_speed/SPEED,
+		0.0,
+		1.0)
+
+	# set the blend
+	animation_tree.set("parameters/Locomotion/blend_position",
+		blend);
+
+func make_current_player() -> void:
+	if not is_node_ready():
+		await ready
+	if not debug_scene_play:
+		var parent_peer_id : int = get_parent().get("peer_id")
+		var current_peer_id : int = multiplayer.get_unique_id()
+		if current_peer_id != parent_peer_id:
+			return
+	owned_by_current_client = true
+	active_camera.make_current()
+	active_camera_changed.emit(active_camera)
+	active_camera.make_current()
+
+
+func handle_move_input(delta: float) -> void:
+	if GameManager.instance.paused:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+		return
+
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+		landing_requested=false
+		animation_state.travel("Jump_Start")
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
+
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+
+		# Face the movement direction (Godot's forward is -Z)
+		var target_yaw := atan2(direction.x, direction.z)
+		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+
+func handle_interaction():
 	# INTERACT WITH ITEMS
 	var space_state = get_world_3d().direct_space_state
 	# use global coordinates, not local to node
@@ -89,9 +155,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		interact_label.text = "";
 
-	move_and_slide()
 
-	##########################################################################################
+func check_dev_inputs():
+	if Input.is_action_pressed("shift"):
+		SPEED = dev_speed
+	else:
+		SPEED = regular_speed
+
+
+func handle_animation(delta: float):
 	var grounded := is_on_floor()
 	animation_tree.set("parameters/Jump_Start/TimeScale/scale", jump_start_time_scale)
 	animation_tree.set("parameters/Jump_Land/TimeScale/scale", jump_end_time_scale)
@@ -127,65 +199,3 @@ func _physics_process(delta: float) -> void:
 		#$AnimationTree.get("parameters/playback")
 
 	#print(playback.get_current_node())
-	##########################################################################################
-
-	update_locomotion()
-
-func update_locomotion()->void:
-	# get our speed
-	var horizontal_speed:=Vector2(
-		velocity.x,
-		velocity.z).length()
-
-	# set the blend	value
-	var blend:=clampf(horizontal_speed/SPEED,
-		0.0,
-		1.0)
-
-	# set the blend
-	animation_tree.set("parameters/Locomotion/blend_position",
-		blend);
-
-func make_current_player() -> void:
-	if not is_node_ready():
-		await ready
-	if not debug_scene_play:
-		var parent_peer_id : int = get_parent().get("peer_id")
-		var current_peer_id : int = multiplayer.get_unique_id()
-		if current_peer_id != parent_peer_id:
-			return
-	owned_by_current_client = true
-	active_camera.make_current()
-	active_camera_changed.emit(active_camera)
-	active_camera.make_current()
-
-
-func handle_input(delta: float) -> void:
-	if GameManager.instance.paused:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-		return
-
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		landing_requested=false
-		animation_state.travel("Jump_Start")
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
-
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-
-		# Face the movement direction (Godot's forward is -Z)
-		var target_yaw := atan2(direction.x, direction.z)
-		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
