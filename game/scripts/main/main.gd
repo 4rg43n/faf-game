@@ -1,6 +1,12 @@
-extends Node
+class_name Main extends Node
 
 @export var weather_manager: WeatherManager
+
+static var instance: Main = null
+
+func _init() -> void:
+	instance = self
+
 
 func _ready() -> void:
 	Steam.setAchievement("ACH_WIN_ONE_GAME")

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bu4q8qkxice5e" path="res://scenes/ui/menus/inventory_system.gd" id="1_gfm3e"]
 [ext_resource type="PackedScene" uid="uid://dxyl26q6ccf11" path="res://scenes/ui/components/inventory_button.tscn" id="2_8snxo"]
+[ext_resource type="Texture2D" uid="uid://c3b7adyipfnvt" path="res://assets/weather/lightning.png" id="3_tfg5d"]
 
 [node name="Inventory" type="Control" unique_id=1920945220 node_paths=PackedStringArray("main_inventory", "hotbar")]
 layout_mode = 3
@@ -14,6 +15,7 @@ main_inventory = NodePath("Main Inventory")
 hotbar = NodePath("Hotbar")
 
 [node name="Main Inventory" type="GridContainer" parent="." unique_id=19131589]
+visible = false
 layout_mode = 0
 offset_left = 443.0
 offset_top = 244.0
@@ -26,6 +28,8 @@ columns = 5
 
 [node name="InventoryButton" parent="Main Inventory" unique_id=1038723319 instance=ExtResource("2_8snxo")]
 layout_mode = 2
+theme_override_constants/icon_max_width = 50
+icon = ExtResource("3_tfg5d")
 
 [node name="InventoryButton2" parent="Main Inventory" unique_id=1545141048 instance=ExtResource("2_8snxo")]
 layout_mode = 2
