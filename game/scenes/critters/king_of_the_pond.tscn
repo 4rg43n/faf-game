@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://dldk7t22vxdo"]
 
-[ext_resource type="Script" uid="uid://daohjfew6dya7" path="res://scenes/critters/feesh.gd" id="1_gqc3r"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrfr6"]
 albedo_color = Color(0.7791617, 0.97013384, 0.3559212, 1)
 
@@ -28,7 +26,6 @@ radius = 0.1
 size = Vector3(1.9816895, 2.6144104, 3.6168518)
 
 [node name="KingOfThePond" type="RigidBody3D" unique_id=102966079]
-script = ExtResource("1_gqc3r")
 
 [node name="Node3D" type="Node3D" parent="." unique_id=820708342]
 
