@@ -15,7 +15,7 @@ func _on_player_attempt_throw(peer_id : int) -> void:
 		player.current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
 		_throw_held_item_from_peer.rpc(player.peer_id, true)
 
-@rpc("reliable", "any_peer")
+@rpc("reliable", "any_peer",  "call_local")
 func _throw_held_item_from_peer(peer_id : int, left_hand : bool = true) -> void:
 	var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
 	var child_obj : RigidBody3D
