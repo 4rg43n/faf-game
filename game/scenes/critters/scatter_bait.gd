@@ -79,7 +79,7 @@ func _pickup_held_item_from_peer(peer_id : int, left_hand : bool = true) -> void
 	if left_hand:
 		child_obj = player.player_controller.left_hand_socket.get_child(0)
 	else:
-		child_obj = player.player_controller.right_hand_socket.get_child(0)
+		child_obj = player.player_controller.right_hand_socket.get_child(1)
 	reparent(player.player_controller.left_hand_socket)
 	position = Vector3(0,0,0)
 	process_mode = ProcessMode.PROCESS_MODE_DISABLED
