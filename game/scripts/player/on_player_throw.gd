@@ -25,7 +25,7 @@ func _throw_held_item_from_peer(peer_id : int, left_hand : bool = true) -> void:
 		child_obj = player.player_controller.right_hand_socket.get_child(0)
 	child_obj.process_mode = Node.PROCESS_MODE_ALWAYS
 	if multiplayer.get_unique_id() == 1:
-		var force : Vector3 = 1000 * (player.player_controller.visuals.global_transform.basis.z) + 200 * Vector3.UP
+		var force : Vector3 = 2500 * (player.player_controller.visuals.global_transform.basis.z) + 200 * Vector3.UP
 		child_obj.apply_force(force)
 	child_obj.reparent(new_parent)
 	child_obj.set_multiplayer_authority(1)
