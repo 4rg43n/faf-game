@@ -82,4 +82,5 @@ func _pickup_held_item_from_peer(peer_id : int, left_hand : bool = true) -> void
 		child_obj = player.player_controller.right_hand_socket.get_child(0)
 	reparent(player.player_controller.left_hand_socket)
 	position = Vector3(0,0,0)
-	set_multiplayer_authority(peer_id)
+	process_mode = ProcessMode.PROCESS_MODE_DISABLED
+	#set_multiplayer_authority(peer_id)
