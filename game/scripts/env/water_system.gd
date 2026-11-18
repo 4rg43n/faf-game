@@ -10,8 +10,10 @@ var waterDensity: float
 var drag: float
 
 # We need a way to setup our boundaries, we can take the AABB of a given 3D node
-@export
+#@export
 var oceanAreas: Array[Area3D]
+
+@export var world: WorldBackBone
 
 @export
 var oceanColor: Color
@@ -30,6 +32,7 @@ var objectsInWater: Array[Node3D]
 
 func _ready() -> void:
 	var cntr := 0
+	oceanAreas = world.ocean_areas
 	for area in self.oceanAreas:
 		area.monitoring = true
 		area.body_entered.connect(_on_body_enters_ocean)
