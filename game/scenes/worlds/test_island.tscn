@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bjfrkdbqn0bib" path="res://scenes/interactable/interactable_object.gd" id="4_nw7yp"]
 [ext_resource type="Texture2D" uid="uid://s2dqfscfu407" path="res://assets/terrain/grass.jpg" id="5_ajolk"]
 [ext_resource type="PackedScene" uid="uid://crisams4xiht3" path="res://scenes/interactable/bug_collector_mini_game.tscn" id="8_n6b7w"]
+[ext_resource type="PackedScene" uid="uid://c727q4xqmyuom" path="res://assets/models/vehicles/corvette.tscn" id="11_nw7yp"]
 [ext_resource type="PackedScene" uid="uid://3mkg6nfyac2f" path="res://scenes/critters/worm.tscn" id="12_khup7"]
 [ext_resource type="Shader" uid="uid://bi3o8elbtqoni" path="res://addons/simplegrasstextured/shaders/grass.gdshader" id="19_h0jaw"]
 [ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="20_c8ix1"]
@@ -158,3 +159,6 @@ shape = SubResource("BoxShape3D_khup7")
 
 [node name="Worm" parent="." unique_id=791724085 instance=ExtResource("12_khup7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.960535, 0, 0)
+
+[node name="corvette" parent="." unique_id=1195830585 instance=ExtResource("11_nw7yp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141.06923, 10.218914, 9.301636)
