@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://cs0evbuhj8imr" path="res://scenes/interactable/bug_rock_minigame.gd" id="1_rd6ps"]
 [ext_resource type="Resource" uid="uid://bmye80qngc3ob" path="res://assets/LUT/bug_under_large_rock.tres" id="2_y6pv2"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_v0pmb"]
+size = Vector3(1.1730499, 1.1357117, 2.6382275)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0j6la"]
 albedo_color = Color(0.57847553, 0.70887434, 0.73281854, 1)
 
@@ -37,6 +40,10 @@ bug_spawn_area = NodePath("SoilFullOfBugs/BugArea/BugSpawnArea")
 bug_spawn_area_area = NodePath("SoilFullOfBugs/BugArea")
 num_bug_range = 35
 LUT_bugs = ExtResource("2_y6pv2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=926414751]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007286072, 0.65663147, -0.006398201)
+shape = SubResource("BoxShape3D_v0pmb")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=2053135690]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53393984, 0.07520495, -0.0051655173)
