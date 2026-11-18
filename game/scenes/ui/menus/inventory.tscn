@@ -5,24 +5,23 @@
 [ext_resource type="Texture2D" uid="uid://dt8okcy3ef6s7" path="res://assets/critters/worm.png" id="3_8vq1n"]
 [ext_resource type="Resource" uid="uid://bvf3jra3t57yw" path="res://resources/items/worm.tres" id="3_tfg5d"]
 [ext_resource type="Resource" uid="uid://dm6gfqa4i2uwo" path="res://resources/items/beetle.tres" id="5_f4i47"]
+[ext_resource type="Texture2D" uid="uid://5irkgv5h0sfm" path="res://assets/critters/beetle.png" id="5_yq8mt"]
 
-[node name="Inventory" type="Control" unique_id=1920945220 node_paths=PackedStringArray("main_inventory", "hotbar")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 647.0
+[node name="MarginContainer" type="MarginContainer" unique_id=2038005192 node_paths=PackedStringArray("main_inventory", "hotbar")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_bottom = 10
 script = ExtResource("1_gfm3e")
 main_inventory = NodePath("Main Inventory")
 hotbar = NodePath("Hotbar")
 
 [node name="Main Inventory" type="GridContainer" parent="." unique_id=19131589]
 visible = false
-layout_mode = 0
-offset_left = 443.0
-offset_top = 244.0
-offset_right = 709.0
-offset_bottom = 402.0
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 offset_transform_enabled = true
@@ -36,7 +35,7 @@ stored_item = ExtResource("3_tfg5d")
 
 [node name="InventoryButton2" parent="Main Inventory" unique_id=1545141048 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-icon = ExtResource("3_8vq1n")
+icon = ExtResource("5_yq8mt")
 stored_item = ExtResource("5_f4i47")
 
 [node name="InventoryButton3" parent="Main Inventory" unique_id=1409744724 instance=ExtResource("2_8snxo")]
@@ -79,11 +78,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Hotbar" type="HBoxContainer" parent="." unique_id=853595166]
-layout_mode = 0
-offset_left = 335.0
-offset_top = 590.0
-offset_right = 817.0
-offset_bottom = 640.0
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 
 [node name="InventoryButton" parent="Hotbar" unique_id=864363703 instance=ExtResource("2_8snxo")]
 layout_mode = 2

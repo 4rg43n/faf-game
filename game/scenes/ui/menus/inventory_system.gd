@@ -1,4 +1,4 @@
-class_name InventorySystem extends Control
+class_name InventorySystem extends MarginContainer
 
 @export var main_inventory: GridContainer
 @export var hotbar: HBoxContainer
