@@ -26,12 +26,6 @@ func _process(_delta: float) -> void:
 		drag_icon.position = get_global_mouse_position()
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
-			reset()
-
-
 func button_pressed(button: InventoryButton):
 	if button.stored_item and button.icon:
 		# I'm lazy fuck you this works just fine
