@@ -27,18 +27,22 @@ func init(in_peer_id : int, in_steam_id : int, in_spawn_location : Node3D) -> vo
 
 
 func add_item_if_possible(new_item: Item) -> bool:
+	if not new_item:
+		printerr("Tried to add null item to inventory")
+		return false
 	var free_slot : int = -1
 	var index : int = -1
 	for hotbar_item: Item in hotbar:
 		index += 1
 		if hotbar_item == null:
-			free_slot = index
+			if free_slot == -1:
+				free_slot = index
 			continue
 		if hotbar_item.id == new_item.id and hotbar_item.count + new_item.count < hotbar_item.max_count:
 			hotbar_item.count += new_item.count if new_item.count > 0 else 1
 			return true
 	if free_slot >= 0:
-		hotbar[free_slot] = new_item
+		hotbar.set(free_slot, new_item)
 		return true
 	index = -1
 	for item: Item in main_inventory:

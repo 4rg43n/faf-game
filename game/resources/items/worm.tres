@@ -8,5 +8,6 @@ script = ExtResource("1_br08o")
 name = "Worm"
 id = 1
 icon = ExtResource("1_x25yc")
+count = 1
 max_count = 64
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"

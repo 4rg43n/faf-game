@@ -38,10 +38,24 @@ func button_pressed(button: InventoryButton):
 
 
 func button_released():
-	if hovered_slot:
-		var old_item : Item = old_slot.stored_item.duplicate()
+	if hovered_slot and old_slot and old_slot.stored_item:
+		# fuck you this code works don't complain I know it's ass
+		var old_item : Item = old_slot.stored_item
+		var main_slots : Array = main_inventory.get_children()
+		var hotbar_slots : Array = hotbar.get_children()
+		if main_slots.has(old_slot):
+			player_data.main_inventory.set(main_slots.find(old_slot), hovered_slot.stored_item)
+		elif hotbar_slots.has(old_slot):
+			player_data.hotbar.set(hotbar_slots.find(old_slot), hovered_slot.stored_item)
+		if not hovered_slot or main_slots.has(hovered_slot):
+			player_data.main_inventory.set(main_slots.find(hovered_slot), old_item)
+			print(player_data.main_inventory)
+		elif not hovered_slot or hotbar_slots.has(hovered_slot):
+			player_data.hotbar.set(hotbar_slots.find(hovered_slot), old_item)
+			print(player_data.hotbar)
 		old_slot.stored_item = hovered_slot.stored_item
 		hovered_slot.stored_item = old_item
+
 	drag_icon.texture = null
 
 

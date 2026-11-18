@@ -7,9 +7,10 @@
 [ext_resource type="StyleBox" uid="uid://cpndbccl3dx22" path="res://resources/ui/disabled_stylebox.tres" id="4_yhetv"]
 [ext_resource type="StyleBox" uid="uid://dmcoj7xya4tc1" path="res://resources/ui/focus_stylebox.tres" id="5_rl37r"]
 
-[node name="InventoryButton" type="Button" unique_id=864363703]
+[node name="InventoryButton" type="Button" unique_id=864363703 node_paths=PackedStringArray("count_label")]
 custom_minimum_size = Vector2(50, 50)
 custom_maximum_size = Vector2(50, 50)
+focus_mode = 1
 theme_override_constants/icon_max_width = 50
 theme_override_styles/normal = ExtResource("1_xiyrj")
 theme_override_styles/pressed = ExtResource("2_yf3du")
@@ -18,3 +19,13 @@ theme_override_styles/disabled = ExtResource("4_yhetv")
 theme_override_styles/focus = ExtResource("5_rl37r")
 action_mode = 0
 script = ExtResource("1_1t1s4")
+count_label = NodePath("Count")
+
+[node name="Count" type="Label" parent="." unique_id=330955120]
+custom_minimum_size = Vector2(50, 50)
+custom_maximum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+horizontal_alignment = 2
+vertical_alignment = 2

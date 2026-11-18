@@ -71,7 +71,7 @@ func on_pickup(peer_id : int) -> void:
 	if not player.add_item_if_possible(item_resource):
 		print("Inventory full, cannot hold anymore items.")
 	else:
-		print("LETS FUCKING GOOOO: " + str(player.hotbar))
+		print("LETS FUCKING GOOOO: " + str(player.main_inventory) + "\n" + str(player.hotbar))
 		if player.current_equipment == CustomEnums.Equipment_Type.THROWABLE_OBJ:
 			queue_free()
 	if player.current_equipment == CustomEnums.Equipment_Type.EMPTY_HAND:

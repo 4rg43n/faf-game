@@ -1,13 +1,19 @@
 @tool
 class_name InventoryButton extends Button
 
+@export var count_label: Label
 @export var stored_item: Item:
 	set(value):
 		stored_item = value
 		if stored_item:
 			icon = stored_item.icon
+			if stored_item.count > 1:
+				count_label.text = str(stored_item.count)
+			else:
+				count_label.text = ""
 		else:
 			icon = null
+			count_label.text = ""
 
 @onready var inventory_system: InventorySystem = InventorySystem.instance
 
