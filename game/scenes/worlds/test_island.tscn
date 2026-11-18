@@ -5,8 +5,6 @@
 [ext_resource type="Script" uid="uid://bjfrkdbqn0bib" path="res://scenes/interactable/interactable_object.gd" id="4_nw7yp"]
 [ext_resource type="Texture2D" uid="uid://s2dqfscfu407" path="res://assets/terrain/grass.jpg" id="5_ajolk"]
 [ext_resource type="PackedScene" uid="uid://crisams4xiht3" path="res://scenes/interactable/bug_collector_mini_game.tscn" id="8_n6b7w"]
-[ext_resource type="Script" uid="uid://ctqyt4l0fwa3l" path="res://scripts/env/water_system.gd" id="9_epgx5"]
-[ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="10_jnc4p"]
 [ext_resource type="PackedScene" uid="uid://3mkg6nfyac2f" path="res://scenes/critters/worm.tscn" id="12_khup7"]
 [ext_resource type="Shader" uid="uid://bi3o8elbtqoni" path="res://addons/simplegrasstextured/shaders/grass.gdshader" id="19_h0jaw"]
 [ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="20_c8ix1"]
@@ -26,7 +24,7 @@ size = Vector2(200, 200)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7kt02"]
 size = Vector3(200, 0.1, 200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cenp0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_khup7"]
 render_priority = 0
 shader = ExtResource("19_h0jaw")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -69,9 +67,10 @@ size = Vector3(3282.1785, 10, 185.6206)
 [sub_resource type="BoxShape3D" id="BoxShape3D_khup7"]
 size = Vector3(3201.9922, 5, 492.854)
 
-[node name="TestIsland" type="Node3D" unique_id=231429549 node_paths=PackedStringArray("spawn_location")]
+[node name="TestIsland" type="Node3D" unique_id=231429549 node_paths=PackedStringArray("spawn_location", "ocean_areas")]
 script = ExtResource("1_ajolk")
 spawn_location = NodePath("SpawnLocation")
+ocean_areas = [NodePath("Ocean"), NodePath("Ocean2"), NodePath("Ocean3")]
 metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 metadata/_edit_lock_ = true
 
@@ -105,7 +104,7 @@ transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0.18668818, 6.178111, 12.76
 script = ExtResource("4_nw7yp")
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="." unique_id=1501747599]
-material_override = SubResource("ShaderMaterial_cenp0")
+material_override = SubResource("ShaderMaterial_khup7")
 multimesh = SubResource("MultiMesh_h0jaw")
 script = ExtResource("22_l7101")
 scale_h = 2.0
@@ -133,18 +132,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.195686, 18.298203, 46.17524
 [node name="BugCollectorMiniGame" parent="." unique_id=1100659128 instance=ExtResource("8_n6b7w")]
 transform = Transform3D(-4.725288, 0, -1.6345205, 0, 4.9999995, 0, 1.6345205, 0, -4.725288, 50.598087, -0.29667085, 9.558899)
 
-[node name="WaterSystem" type="Node" parent="." unique_id=392653723 node_paths=PackedStringArray("oceanAreas")]
-script = ExtResource("9_epgx5")
-gravityFactor = 9.81
-waterDensity = 1.0
-drag = 0.15
-oceanAreas = [NodePath("../Ocean"), NodePath("../Ocean2"), NodePath("../Ocean3")]
-oceanResolution = 0.5
-oceanShader = ExtResource("10_jnc4p")
-metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
-
 [node name="Ocean" type="Area3D" parent="." unique_id=1867858362]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 288.40143, 0, 147.59851)
+collision_mask = 11
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean" unique_id=923050041]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 466.90875, -6.248291, -159.18295)
@@ -153,12 +143,14 @@ debug_color = Color(0, 0.6, 0.7019608, 1)
 
 [node name="Ocean2" type="Area3D" parent="." unique_id=1694283537]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128.59857, 0, 147.59851)
+collision_mask = 11
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean2" unique_id=780182430]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1602.1987, 0, -140.469)
 shape = SubResource("BoxShape3D_jnc4p")
 
 [node name="Ocean3" type="Area3D" parent="." unique_id=1688830634]
+collision_mask = 11
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean3" unique_id=1043438928]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.272491, 0, 347.427)

@@ -20,6 +20,8 @@
 [ext_resource type="Resource" uid="uid://cno1bfob1d317" path="res://resources/weather/rain.tres" id="8_pg34l"]
 [ext_resource type="Resource" uid="uid://182qlsti6ibm" path="res://resources/weather/storm.tres" id="9_m4h2d"]
 [ext_resource type="PackedScene" uid="uid://bk6rwduy8u5ym" path="res://scenes/weather/rain.tscn" id="11_p8abn"]
+[ext_resource type="Script" uid="uid://ctqyt4l0fwa3l" path="res://scripts/env/water_system.gd" id="17_s17dp"]
+[ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="18_37hlw"]
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
 
@@ -89,6 +91,16 @@ environment = ExtResource("4_a8run")
 visible = false
 metadata/_edit_lock_ = true
 
+[node name="WaterSystem" type="Node" parent="." unique_id=375738724 node_paths=PackedStringArray("world")]
+script = ExtResource("17_s17dp")
+gravityFactor = 9.81
+waterDensity = 1.0
+drag = 0.15
+world = NodePath("../World/TestIsland")
+oceanResolution = 0.5
+oceanShader = ExtResource("18_37hlw")
+metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
+
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
 
@@ -131,6 +143,7 @@ day = 2
 
 [node name="Killzone" type="Area3D" parent="World" unique_id=1159628725 node_paths=PackedStringArray("starting_world")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+collision_mask = 10
 script = ExtResource("18_ou6is")
 starting_world = NodePath("../TestIsland")
 
