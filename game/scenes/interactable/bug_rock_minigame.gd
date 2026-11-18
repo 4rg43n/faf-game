@@ -42,7 +42,7 @@ func on_open_animation_finish() -> void:
 		)
 		newest_bug.position = to_global(local_point)
 		newest_bug.set_multiplayer_authority(1)
-		bug_spawner.add_child(newest_bug)
+		bug_spawner.add_child(newest_bug, true)
 
 #server
 @rpc("any_peer", "reliable", "call_local")
