@@ -45,7 +45,8 @@ var time_holding_spell:float=0.0
 	set(camera):
 		if camera == active_camera:
 			return
-		make_current_player(camera)
+		active_camera = camera
+		make_current_player()
 
 @export var walk_speed: float = 7.0
 @export var run_speed: float = 8.5
@@ -79,6 +80,9 @@ var max_available_jumps : int = 2
 
 # ----DEV SETTINGS----
 var dev_speed: float = 50.0
+
+func _ready() -> void:
+	active_camera = third_person_cam
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -117,7 +121,7 @@ func update_locomotion()->void:
 	animation_tree.set("parameters/Locomotion/blend_position",
 		blend);
 
-func make_current_player(camera : Camera3D) -> void:
+func make_current_player() -> void:
 	if not is_node_ready():
 		await ready
 	if not debug_scene_play:
@@ -125,7 +129,6 @@ func make_current_player(camera : Camera3D) -> void:
 		var current_peer_id : int = multiplayer.get_unique_id()
 		if current_peer_id != parent_peer_id:
 			return
-	active_camera = camera
 	owned_by_current_client = true
 	active_camera.make_current()
 	active_camera_changed.emit(active_camera)
