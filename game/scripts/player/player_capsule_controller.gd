@@ -75,8 +75,8 @@ var input_dir : Vector2
 var wish_dir : Vector3
 var move_speed: float = walk_speed
 
-var available_jumps : int = 2
-var max_available_jumps : int = 2
+var available_jumps : int = 1
+var max_available_jumps : int = 1
 
 # ----DEV SETTINGS----
 var dev_speed: float = 50.0
@@ -214,7 +214,8 @@ func handle_move_input(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		landing_requested=false
 		animation_state.travel("Jump_Start")
-		available_jumps -= 1
+		if not is_on_floor():
+			available_jumps -= 1
 
 	if Input.is_action_pressed("shift"):
 		move_speed = run_speed
