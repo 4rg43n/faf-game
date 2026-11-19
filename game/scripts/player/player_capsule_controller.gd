@@ -38,12 +38,14 @@ var landing_timer:float = 0.0
 @export var INTERACT_RAYCAST_LENGTH: float
 ####################################################################
 # spell junk
+@onready var animation_state_attacks:AnimationNodeStateMachinePlayback=\
+	animation_tree.get("parameters/Attacks/playback")
 var is_holding_spell:bool=false
 var time_holding_spell:float=0.0
 @export var spell_enter_time_scale:float=2.0
 ####################################################################
 # punches
-@export var punch_light_speed_scale:float = 4
+@export var punch_light_speed_scale:float = 2
 @export var punch_heavy_speed_scale:float = 2
 ####################################################################
 
@@ -173,10 +175,15 @@ func handle_spell(delta: float)->void:
 
 
 func handle_fire1()->void:
-	if is_on_floor() and Input.is_action_just_pressed("fire1"):
-		print_rich("[Color=red]Fire 1")
-		animation_tree.set("parameters/Locomotion/Punch_Light/TimeScale/scale", punch_light_speed_scale)
-		animation_state.travel("Punch_Light")
+	if Input.is_action_just_pressed("fire1"):
+		#print_rich("[Color=red]Fire 1")
+		animation_tree.set("parameters/Attacks/Punch_Light/TimeScale/scale", punch_light_speed_scale)
+		animation_state_attacks.start("Punch_Light")
+		animation_tree.set(
+			"parameters/UpperBodyAttack/request",
+			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		)
+		#animation_state_attacks.travel("Punch_Light")
 
 func handle_fire2()->void:
 	if is_on_floor() and Input.is_action_just_pressed("fire2"):
