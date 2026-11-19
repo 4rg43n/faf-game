@@ -27,6 +27,7 @@ func _ready() -> void:
 	environment.fog_density = 0.0
 
 
+
 func randomize_weather() -> void:
 	var condition : String = weather_conditions.keys().pick_random()
 	var rand_wind_direction : Vector3 = Vector3(randf_range(-5.0, 5.0),0.0,randf_range(-5.0, 5.0))

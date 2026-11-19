@@ -34,7 +34,7 @@ func add_item_if_possible(new_item: Item) -> bool:
 			if free_slot == -1:
 				free_slot = index
 			continue
-		if hotbar_item.id == new_item.id and hotbar_item.count + new_item.count < hotbar_item.max_count:
+		if hotbar_item.id == new_item.id and hotbar_item.count + new_item.count <= hotbar_item.max_count:
 			hotbar_item.count += new_item.count if new_item.count > 0 else 1
 			hotbar_updated.emit()
 			return true
@@ -50,7 +50,7 @@ func add_item_if_possible(new_item: Item) -> bool:
 		if item == null:
 			free_slot = index
 			continue
-		if item.id == new_item.id and item.count + new_item.count < item.max_count:
+		if item.id == new_item.id and item.count + new_item.count <= item.max_count:
 			item.count += new_item.count if new_item.count > 0 else 1
 			main_inventory_updated.emit()
 			return true

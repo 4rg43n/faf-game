@@ -18,7 +18,7 @@ class_name RainSystem extends GPUParticles3D
 		storm_enabled = value
 		lightning.is_storming = value
 		change_rain()
-		
+
 static var instance: RainSystem
 var mist_process_material: ParticleProcessMaterial
 var rain_sync: AudioStreamSynchronized
@@ -30,10 +30,10 @@ enum RainSounds{
 		HeavyRain,
 		Storm
 	}
-	
+
 func _init() -> void:
 	instance = self
-	
+
 func _ready() -> void:
 	mist_process_material = mist_particles.process_material
 	rain_sync = rain_sound.get_stream()

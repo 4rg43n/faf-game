@@ -114,9 +114,9 @@ func _physics_process(delta: float) -> void:
 	handle_animation(delta)
 
 	update_locomotion()
-	
+
 	#print(animation_state)
-	#print(animation_state.get_current_node())	
+	#print(animation_state.get_current_node())
 
 func update_locomotion()->void:
 	# get our speed
@@ -179,7 +179,7 @@ func handle_fire3()->void:
 			"parameters/UpperBodyAttack/request",
 			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 		)
-		
+
 func _handle_air_physics(delta: float) -> void:
 	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
 	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
