@@ -54,8 +54,12 @@ var time_holding_spell:float=0.0
 @export var shapeColl: CollisionShape3D
 const ASSUMED_MASS = 60.0
 
+@export_group("Hands")
 @export var left_hand_socket : BoneAttachment3D
 @export var right_hand_socket : BoneAttachment3D
+@export var left_hand_spawner : HandableSpawner
+@export var right_hand_spawner : HandableSpawner
+@export var LEFT_HANDED : bool = true
 
 var owned_by_current_client : bool = false
 
@@ -78,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	handle_move_input(delta)
 
 	handle_interaction()
-	
+
 	handle_spell(delta)
 
 	move_and_slide()
@@ -140,7 +144,7 @@ func handle_spell(delta: float)->void:
 			animation_state.travel("Spell_Shoot")
 		else:
 			time_holding_spell+=delta
-	
+
 
 func cancel_spell()->void:
 	if is_holding_spell:
@@ -162,12 +166,12 @@ func handle_move_input(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	
+
 	# stop move input if we can't move. Doing it here lets physics finish up
 	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if not can_move:
 		input_dir = Vector2(0.0, 0.0)
-		
+
 	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
@@ -248,3 +252,9 @@ func handle_animation(delta: float):
 		#$AnimationTree.get("parameters/playback")
 
 	#print(playback.get_current_node())
+
+func pickup_item(child_obj : Node3D) -> void:
+	if LEFT_HANDED:
+		left_hand_spawner.pickup_item(child_obj)
+	else:
+		right_hand_spawner.pickup_item(child_obj)
