@@ -47,6 +47,11 @@ const ASSUMED_MASS = 60.0
 @export var left_hand_socket : BoneAttachment3D
 @export var right_hand_socket : BoneAttachment3D
 
+@export var left_hand_spawner : HandableSpawner
+@export var right_hand_spawner : HandableSpawner
+
+@export var LEFT_HANDED : bool = true
+
 var owned_by_current_client : bool = false
 
 var input_dir : Vector2
@@ -199,3 +204,9 @@ func handle_animation(delta: float):
 		#$AnimationTree.get("parameters/playback")
 
 	#print(playback.get_current_node())
+
+func pickup_item(child_obj : Node3D) -> void:
+	if LEFT_HANDED:
+		left_hand_spawner.pickup_item(child_obj)
+	else:
+		right_hand_spawner.pickup_item(child_obj)

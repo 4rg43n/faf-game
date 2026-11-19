@@ -24,6 +24,7 @@
 [ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="18_37hlw"]
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
+[ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
 
@@ -155,6 +156,11 @@ starting_world = NodePath("../TestIsland")
 [node name="WorldBoundary" type="CollisionShape3D" parent="World/Killzone" unique_id=273165614]
 shape = SubResource("WorldBoundaryShape3D_0kwd2")
 
+[node name="InteractableItemSpawner" type="MultiplayerSpawner" parent="World" unique_id=913016617]
+_spawnable_scenes = PackedStringArray("uid://3mkg6nfyac2f", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
+spawn_path = NodePath(".")
+script = ExtResource("24_37hlw")
+
 [node name="LobbyCamera" type="Camera3D" parent="." unique_id=1345780627]
 transform = Transform3D(0.19414859, 0.0659656, -0.9787517, -0.0128350835, 0.9978219, 0.06470488, 0.9808882, 0, 0.19457237, -104.5698, 37.076996, 45.213646)
 current = true
@@ -166,7 +172,6 @@ spawn_path = NodePath(".")
 
 [node name="unhandled_input_handler" type="Node" parent="." unique_id=2098882594]
 
-[node name="ThrowBug" type="Node" parent="unhandled_input_handler" unique_id=1672757612 node_paths=PackedStringArray("new_parent")]
+[node name="ThrowBug" type="Node" parent="unhandled_input_handler" unique_id=1672757612]
 script = ExtResource("22_m4h2d")
-new_parent = NodePath("../../World/TestIsland")
 metadata/_custom_type_script = "uid://bx1vuerbrrtmt"

@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dwcmj1rmgiudu" path="res://assets/models/catgirl/catgirl_hair_medium.tscn" id="5_qek5x"]
 [ext_resource type="Material" uid="uid://o0ps8u2ypf33" path="res://assets/materials/catgirl/catgirl_underwear_toon.tres" id="7_gx1jg"]
 [ext_resource type="Material" uid="uid://co7ljam21avrb" path="res://assets/materials/catgirl/catgirl_hair_toon.tres" id="9_ugbui"]
+[ext_resource type="Script" uid="uid://b7mlija1fdql4" path="res://scenes/player/handable_spawner.gd" id="12_fm80t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vptg"]
 
@@ -108,7 +109,7 @@ graph_offset = Vector2(-130, -156)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vi406"]
 
-[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "third_person_pivot", "interact_label", "active_camera", "shapeColl", "left_hand_socket", "right_hand_socket") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" unique_id=422766350 node_paths=PackedStringArray("first_person_cam", "third_person_cam", "third_person_pivot", "interact_label", "active_camera", "shapeColl", "left_hand_socket", "right_hand_socket", "left_hand_spawner", "right_hand_spawner") groups=["Player"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_vi406")
@@ -123,6 +124,8 @@ JUMP_VELOCITY = 9.0
 shapeColl = NodePath("CollisionShape3D")
 left_hand_socket = NodePath("Visuals/catgirl-godot/Armature/GeneralSkeleton/Armature_Skeleton3D#LeftHandSocket")
 right_hand_socket = NodePath("Visuals/catgirl-godot/Armature/GeneralSkeleton/Armature_Skeleton3D#RightHandSocket")
+left_hand_spawner = NodePath("LeftHand")
+right_hand_spawner = NodePath("RightHand")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1678709262]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -142,16 +145,16 @@ min_vertical_angle = -1.3089969389957472
 
 [node name="catgirl-godot" parent="Visuals" unique_id=148263498 instance=ExtResource("4_75vfm")]
 
-[node name="GeneralSkeleton" parent="Visuals/catgirl-godot/Armature" parent_id_path=PackedInt32Array(148263498, 449362166) index="0" unique_id=1259448865]
-bones/0/position = Vector3(0.00039354817, 0.71896994, -0.07235077)
-bones/0/rotation = Quaternion(-0.038539167, -0.115927115, -0.0045015025, 0.9924996)
-bones/8/rotation = Quaternion(0.04444705, 0.00010754539, 0.00013096594, 0.9990118)
-bones/13/rotation = Quaternion(0.13292643, 0.0003218459, 0.00039193474, 0.9911258)
-bones/14/rotation = Quaternion(-0.08878814, -0.00021492265, -0.0002617347, 0.99605054)
-bones/15/rotation = Quaternion(0.04457649, 0.09531941, 0.0118424995, 0.9943777)
-bones/53/rotation = Quaternion(0.5013321, 0.52179617, 0.5306309, -0.44139075)
-bones/54/rotation = Quaternion(-0.01857271, 0.8247234, -0.5651485, 0.009680058)
-bones/56/rotation = Quaternion(0.15719526, -0.6853671, 0.16639118, 0.6912855)
+[node name="GeneralSkeleton" parent="Visuals/catgirl-godot/Armature" parent_id_path=PackedInt32Array(148263498, 1597049376) index="0" unique_id=1198479058]
+bones/0/position = Vector3(0.0026848477, 0.7193995, -0.0721922)
+bones/0/rotation = Quaternion(-0.040004365, -0.11592031, -0.0046726433, 0.99244165)
+bones/8/rotation = Quaternion(0.04380007, 0.000107220076, 0.00013126116, 0.99904037)
+bones/13/rotation = Quaternion(0.12938797, 0.00031992843, 0.00039344092, 0.99159396)
+bones/14/rotation = Quaternion(-0.08639338, -0.00021363642, -0.0002627348, 0.99626106)
+bones/15/rotation = Quaternion(0.047568217, 0.09529917, 0.012008792, 0.994239)
+bones/53/rotation = Quaternion(0.50030446, 0.52216446, 0.5303215, -0.44249174)
+bones/54/rotation = Quaternion(-0.021818276, 0.82417715, -0.56582856, 0.009691609)
+bones/56/rotation = Quaternion(0.15814914, -0.68322897, 0.16631314, 0.69320065)
 bones/57/rotation = Quaternion(0.09913024, 0.70686626, 0.0629003, 0.69753635)
 bones/58/rotation = Quaternion(0.6295969, -4.0978193e-08, -4.61936e-06, 0.77692205)
 bones/59/rotation = Quaternion(0.62334186, 2.9802322e-08, -4.261732e-06, 0.78194946)
@@ -168,9 +171,9 @@ bones/69/rotation = Quaternion(0.6228982, -0.023505477, -4.5001498e-06, 0.781949
 bones/70/rotation = Quaternion(-0.123819165, 0.7195233, 0.2018354, 0.65285325)
 bones/71/rotation = Quaternion(0.18180694, 0.11012423, 0.060063303, 0.9753006)
 bones/72/rotation = Quaternion(0.5994299, 0.27396563, 0.19463211, 0.7264606)
-bones/73/rotation = Quaternion(0.55331033, -0.47133896, -0.47733086, -0.49380422)
-bones/74/rotation = Quaternion(0.070575155, 0.821569, -0.56564105, -0.009688366)
-bones/76/rotation = Quaternion(0.28898662, 0.55365026, -0.20922776, 0.75245064)
+bones/73/rotation = Quaternion(0.5523023, -0.47158113, -0.4771411, -0.4948837)
+bones/74/rotation = Quaternion(0.07610372, 0.82249063, -0.56358165, -0.009653238)
+bones/76/rotation = Quaternion(0.2899164, 0.5505027, -0.20797333, 0.7547467)
 bones/77/rotation = Quaternion(0.12024976, -0.69903094, -0.056890074, 0.702609)
 bones/78/rotation = Quaternion(0.6295971, 3.7252903e-08, 4.172325e-06, 0.7769218)
 bones/79/rotation = Quaternion(0.62334144, 1.825392e-07, 4.470348e-06, 0.7819497)
@@ -187,26 +190,26 @@ bones/89/rotation = Quaternion(0.6228987, 0.02350526, 4.1723247e-06, 0.7819493)
 bones/90/rotation = Quaternion(-0.12381923, -0.7195234, -0.2018356, 0.6528533)
 bones/91/rotation = Quaternion(0.18180703, -0.11012423, -0.060063303, 0.97530067)
 bones/92/rotation = Quaternion(0.5994302, -0.2739653, -0.19463223, 0.7264605)
-bones/102/rotation = Quaternion(-0.00083613617, 0.15123662, 0.98124254, -0.1195411)
-bones/103/rotation = Quaternion(0.020676948, 0.97538036, -0.190035, 0.10996512)
-bones/105/rotation = Quaternion(-0.097111315, 0.716014, -0.69125926, 0.00734114)
+bones/102/rotation = Quaternion(-0.00082340714, 0.14942451, 0.9817401, -0.117720865)
+bones/103/rotation = Quaternion(0.020588906, 0.9755845, -0.18883044, 0.110245556)
+bones/105/rotation = Quaternion(-0.09583784, 0.7164777, -0.69096833, 0.0061436123)
 bones/106/rotation = Quaternion(4.2923723e-08, 1, 5.9604645e-08, 2.568838e-08)
-bones/107/rotation = Quaternion(0.00095096923, -0.07821954, 0.9876215, 0.13595866)
-bones/108/rotation = Quaternion(-0.051726576, 0.92334783, -0.14203267, -0.35295892)
-bones/110/rotation = Quaternion(0.17043297, 0.621092, -0.7649765, 0.0028905808)
+bones/107/rotation = Quaternion(0.0009477364, -0.08156282, 0.98741436, 0.13549775)
+bones/108/rotation = Quaternion(-0.049620524, 0.9240964, -0.13641278, -0.3535184)
+bones/110/rotation = Quaternion(0.17129269, 0.6242694, -0.76219636, 0.0017843781)
 bones/111/rotation = Quaternion(-8.1927055e-08, 1, 2.9802322e-08, -8.602239e-09)
 
-[node name="geo_body" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="0" unique_id=1601420979]
+[node name="geo_body" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="0" unique_id=389146611]
 surface_material_override/0 = ExtResource("4_je7p5")
 
-[node name="geo_body_head" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="1" unique_id=532209553]
+[node name="geo_body_head" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="1" unique_id=571332624]
 surface_material_override/0 = ExtResource("5_fm80t")
 script = ExtResource("4_qek5x")
 
-[node name="geo_uw_bottoms" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="2" unique_id=993739892]
+[node name="geo_uw_bottoms" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="2" unique_id=1763363171]
 surface_material_override/0 = ExtResource("7_gx1jg")
 
-[node name="geo_uw_top" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="3" unique_id=1297204665]
+[node name="geo_uw_top" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="3" unique_id=1549316028]
 surface_material_override/0 = ExtResource("7_gx1jg")
 
 [node name="HeadAttachment" type="BoneAttachment3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton" index="4" unique_id=1911839400]
@@ -216,10 +219,10 @@ bone_idx = 15
 [node name="catgirl_hair_medium" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment" unique_id=304994841 instance=ExtResource("5_qek5x")]
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
 
-[node name="geo_hair" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 1463484906) index="0" unique_id=218012099]
+[node name="geo_hair" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 395324526) index="0" unique_id=700976078]
 surface_material_override/0 = ExtResource("9_ugbui")
 
-[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 1463484906) index="1" unique_id=1347265175]
+[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D" parent_id_path=PackedInt32Array(304994841, 1519812272, 395324526) index="1" unique_id=1347265175]
 setting_count = 8
 settings/0/root_bone_name = "hair.head.001"
 settings/0/root_bone = 7
@@ -417,7 +420,7 @@ settings/7/enable_all_child_collisions = true
 settings/7/exclude_collision_count = 0
 
 [node name="SpringBoneCollisionCapsule3D" type="SpringBoneCollisionCapsule3D" parent="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D/SpringBoneSimulator3D" unique_id=1649828265]
-transform = Transform3D(1.0000001, 0, 2.4214387e-07, 9.313226e-10, 0.99999994, 8.940697e-08, -2.3841858e-07, -8.940697e-08, 1, -7.450581e-09, 0.17999983, 0)
+transform = Transform3D(0.99999994, -1.8626451e-09, 2.3841858e-07, 0, 0.9999999, 7.4505806e-08, -2.3841858e-07, -7.4505806e-08, 0.9999999, -7.450581e-09, 0.17999971, 0)
 bone_name = "hair.head"
 bone = 0
 position_offset = Vector3(0, 0.18, 0)
@@ -509,6 +512,16 @@ offset_right = 44.500244
 offset_bottom = 523.0
 grow_horizontal = 2
 text = "GOOD GIRL"
+
+[node name="LeftHand" type="MultiplayerSpawner" parent="." unique_id=1893265443]
+_spawnable_scenes = PackedStringArray("uid://buiodjiede67t", "uid://cdd7mrpel513p", "uid://3mkg6nfyac2f")
+spawn_path = NodePath("../Visuals/catgirl-godot/Armature/GeneralSkeleton/Armature_Skeleton3D#LeftHandSocket")
+script = ExtResource("12_fm80t")
+
+[node name="RightHand" type="MultiplayerSpawner" parent="." unique_id=12222716]
+_spawnable_scenes = PackedStringArray("uid://buiodjiede67t", "uid://cdd7mrpel513p", "uid://3mkg6nfyac2f")
+spawn_path = NodePath("../Visuals/catgirl-godot/Armature/GeneralSkeleton/Armature_Skeleton3D#RightHandSocket")
+script = ExtResource("12_fm80t")
 
 [editable path="Visuals/catgirl-godot"]
 [editable path="Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium"]
