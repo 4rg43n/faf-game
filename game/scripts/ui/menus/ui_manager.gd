@@ -25,6 +25,25 @@ func _unhandled_input(event: InputEvent) -> void:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			else:
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		# ----HOTBAR KEYS----
+		if Input.is_action_just_pressed("hotbar_0"):
+			inventory.active_slot = 0
+		elif Input.is_action_just_pressed("hotbar_1"):
+			inventory.active_slot = 1
+		elif Input.is_action_just_pressed("hotbar_2"):
+			inventory.active_slot = 2
+		elif Input.is_action_just_pressed("hotbar_3"):
+			inventory.active_slot = 3
+		elif Input.is_action_just_pressed("hotbar_4"):
+			inventory.active_slot = 4
+		elif Input.is_action_just_pressed("hotbar_5"):
+			inventory.active_slot = 5
+		elif Input.is_action_just_pressed("hotbar_6"):
+			inventory.active_slot = 6
+		elif Input.is_action_just_pressed("hotbar_7"):
+			inventory.active_slot = 7
+		elif Input.is_action_just_pressed("hotbar_8"):
+			inventory.active_slot = 8
 
 
 func _on_lobby_manager_visibility_changed():

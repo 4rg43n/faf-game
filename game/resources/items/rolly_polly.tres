@@ -8,5 +8,6 @@ script = ExtResource("1_mkpts")
 name = "Rolly Polly"
 id = 2
 icon = ExtResource("1_xa466")
+count = 1
 max_count = 64
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"

@@ -8,5 +8,6 @@ script = ExtResource("1_lgsu3")
 name = "Beetle"
 id = 3
 icon = ExtResource("1_yj610")
+count = 1
 max_count = 64
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"
