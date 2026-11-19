@@ -7,9 +7,14 @@
 [ext_resource type="StyleBox" uid="uid://cpndbccl3dx22" path="res://resources/ui/disabled_stylebox.tres" id="4_yhetv"]
 [ext_resource type="StyleBox" uid="uid://dmcoj7xya4tc1" path="res://resources/ui/focus_stylebox.tres" id="5_rl37r"]
 
-[node name="InventoryButton" type="Button" unique_id=864363703 node_paths=PackedStringArray("count_label")]
+[node name="InventoryButton" type="Button" unique_id=864363703 node_paths=PackedStringArray("count_label", "hotkey_label")]
 custom_minimum_size = Vector2(50, 50)
 custom_maximum_size = Vector2(50, 50)
+anchors_preset = -1
+anchor_right = 0.043
+anchor_bottom = 0.07700001
+offset_right = 0.4639969
+offset_bottom = 0.10399628
 focus_mode = 0
 theme_override_constants/icon_max_width = 46
 theme_override_styles/normal = ExtResource("1_xiyrj")
@@ -19,13 +24,32 @@ theme_override_styles/disabled = ExtResource("4_yhetv")
 theme_override_styles/focus = ExtResource("5_rl37r")
 action_mode = 0
 script = ExtResource("1_1t1s4")
-count_label = NodePath("Count")
+count_label = NodePath("MarginContainer/Count")
+hotkey_label = NodePath("MarginContainer/Hotkey")
+is_hotkey = null
 
-[node name="Count" type="Label" parent="." unique_id=330955120]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=764527851]
+custom_maximum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[node name="Count" type="Label" parent="MarginContainer" unique_id=330955120]
 custom_minimum_size = Vector2(50, 50)
 custom_maximum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="Hotkey" type="Label" parent="MarginContainer" unique_id=1230145458]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+custom_maximum_size = Vector2(50, 50)
+layout_mode = 2
+text = "0"
+maximum_font_size = 24

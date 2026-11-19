@@ -2,6 +2,15 @@
 class_name InventoryButton extends Button
 
 @export var count_label: Label
+@export var hotkey_label: Label
+@export var is_hotkey: bool = false:
+	set(value):
+		is_hotkey = value
+		hotkey_label.visible = value
+@export var hotkey_number: int:
+	set(value):
+		hotkey_number = value
+		hotkey_label.text = str(value)
 @export var stored_item: Item:
 	set(value):
 		stored_item = value
