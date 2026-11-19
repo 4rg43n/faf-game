@@ -14,6 +14,9 @@ signal active_camera_changed(camera: Camera3D)
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
 
+var can_move:bool=true
+
+#####################################################################
 # animation junk for jumping
 @onready var animation_state:AnimationNodeStateMachinePlayback=\
 	animation_tree.get("parameters/playback")
@@ -23,11 +26,18 @@ var landing_requested:bool=false
 @export var jump_end_time_scale:float = 3.0
 @onready var landing_animation:Animation=\
 	animation_player.get_animation("humanoid_animations/Jump_Land")
-
+#####################################################################
+# landing
 @onready var landing_duration: float = landing_animation.length / maxf(jump_end_time_scale, 0.001)
 var landing_timer:float = 0.0
 @export var interact_label: Label
 @export var INTERACT_RAYCAST_LENGTH: float
+####################################################################
+# spell junk
+var is_holding_spell:bool=false
+var time_holding_spell:float=0.0
+@export var spell_enter_time_scale:float=2.0
+####################################################################
 
 @export var player_metadata : PlayerMetadata
 
@@ -68,6 +78,8 @@ func _physics_process(delta: float) -> void:
 	handle_move_input(delta)
 
 	handle_interaction()
+	
+	handle_spell(delta)
 
 	move_and_slide()
 
@@ -103,6 +115,37 @@ func make_current_player() -> void:
 	active_camera_changed.emit(active_camera)
 	active_camera.make_current()
 
+func is_moving()->bool:
+	var test_input = Input.get_vector("move_left", "move_right", "move_up", "move_down") # poll again because 'can_move' interferes
+
+	if test_input.length()>0.1:
+		return true
+	else:
+		return false
+
+func handle_spell(delta: float)->void:
+	if not is_holding_spell:
+		if is_on_floor() and not is_moving() and Input.is_action_just_pressed("spell_down"): # pressed the button
+			can_move=false
+			is_holding_spell=true
+			time_holding_spell=0.0
+			animation_tree.set("parameters/Spell_Enter/TimeScale/scale", spell_enter_time_scale)
+			animation_state.travel("Spell_Enter")
+	else:
+		if not is_on_floor() or is_moving(): # we fell, or we tried to move
+			cancel_spell()
+			animation_state.travel("Locomotion")
+		elif Input.is_action_just_released("spell_down") or not is_holding_spell: # released the button. the holding spell check is in case we release control when Spell_Enter is playing
+			cancel_spell()
+			animation_state.travel("Spell_Shoot")
+		else:
+			time_holding_spell+=delta
+	
+
+func cancel_spell()->void:
+	if is_holding_spell:
+		can_move=true
+		is_holding_spell=false
 
 func handle_move_input(delta: float) -> void:
 	if GameManager.instance.paused:
@@ -112,13 +155,19 @@ func handle_move_input(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		cancel_spell() # cancels a spell if we were trying to cast
 		velocity.y = JUMP_VELOCITY
 		landing_requested=false
 		animation_state.travel("Jump_Start")
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
+	
+	# stop move input if we can't move. Doing it here lets physics finish up
 	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	if not can_move:
+		input_dir = Vector2(0.0, 0.0)
+		
 	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
