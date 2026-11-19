@@ -121,9 +121,9 @@ func set_active_item(old_slot : int) -> void:
 		if scene != null:
 			new_item_obj = scene.instantiate()
 			if player_controller.LEFT_HANDED:
-				player_controller.left_hand_spawner.add_child(new_item_obj, true)
+				player_controller.left_hand_socket.add_child(new_item_obj, true)
 			else:
-				player_controller.right_hand_spawner.add_child(new_item_obj, true)
+				player_controller.right_hand_socket.add_child(new_item_obj, true)
 			new_active_item.hotbar_item_path = new_item_obj.get_path()
 	new_item_obj.visible = true
 	current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
@@ -133,9 +133,9 @@ func item_removed_from_hotbar(item : Item, old_hotbar_index : int) -> void:
 	item.hotbar_item_path = ""
 	if old_item_obj != null:
 		if player_controller.LEFT_HANDED:
-			player_controller.left_hand_spawner.remove_child(old_item_obj)
+			player_controller.left_hand_socket.remove_child(old_item_obj)
 		else:
-			player_controller.right_hand_spawner.remove_child(old_item_obj)
+			player_controller.right_hand_socket.remove_child(old_item_obj)
 	hotbar.set(old_hotbar_index, null)
 	current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
 	hotbar_updated.emit()
