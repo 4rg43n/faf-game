@@ -40,6 +40,8 @@ func add_item_if_possible(new_item: Item) -> bool:
 			return true
 	if free_slot >= 0:
 		hotbar.set(free_slot, new_item)
+		if InventorySystem.instance.active_slot == free_slot:
+			set_active_item(-1)
 		hotbar_updated.emit()
 		return true
 	index = -1
@@ -105,7 +107,7 @@ func decrement_active_item() -> Item:
 
 ## should be called when we scroll to new slot or when we pick up a new item into the active slot.
 func set_active_item(old_slot : int) -> void:
-	if not hotbar[old_slot] == null:
+	if old_slot != -1 and not hotbar[old_slot] == null:
 		var old_active_item : Item = hotbar[old_slot]
 		var old_item_obj : Node3D = get_node_or_null(old_active_item.hotbar_item_path)
 		if not old_item_obj == null:
