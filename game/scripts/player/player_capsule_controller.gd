@@ -2,59 +2,62 @@ class_name PlayerController extends CharacterBody3D
 
 signal active_camera_changed(camera: Camera3D)
 
-@onready var visuals: Node3D = $Visuals
-@onready var animation_tree:AnimationTree = $AnimationTree
-@onready var animation_player:AnimationPlayer=$AnimationPlayer
-
-@export var turn_speed: float = 10.0
-
+@export_group("Dev Flags")
 @export var debug_scene_play:bool=false
 
+@export_group("Nodes")
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
-
-# animation junk for jumping
-@onready var animation_state:AnimationNodeStateMachinePlayback=\
-	animation_tree.get("parameters/playback")
-var was_on_floor:bool = true
-var landing_requested:bool=false
-@export var jump_start_time_scale:float = 1.5
-@export var jump_end_time_scale:float = 3.0
-@onready var landing_animation:Animation=\
-	animation_player.get_animation("humanoid_animations/Jump_Land")
-
-@onready var landing_duration: float = landing_animation.length / maxf(jump_end_time_scale, 0.001)
-var landing_timer:float = 0.0
+@export var visuals: Node3D
+@export var animation_tree:AnimationTree
+@export  var animation_player:AnimationPlayer
 @export var interact_label: Label
-@export var INTERACT_RAYCAST_LENGTH: float
-
 @export var player_metadata : PlayerMetadata
-
 @export var active_camera: Camera3D:
 	set(camera):
 		if camera == active_camera:
 			return
 		active_camera = camera
 		make_current_player()
-
-@export var SPEED: float = 5.0
-@export var JUMP_VELOCITY: float = 6.0
-# TODO(Nef): I really hate how we have to do this, ask me for my pseudo-comp lookup idea later
 @export var shapeColl: CollisionShape3D
-const ASSUMED_MASS = 60.0
 
+@export_group("Hands")
 @export var left_hand_socket : BoneAttachment3D
 @export var right_hand_socket : BoneAttachment3D
-
 @export var left_hand_spawner : HandableSpawner
 @export var right_hand_spawner : HandableSpawner
-
 @export var LEFT_HANDED : bool = true
+
+@export_group("Visual Settings")
+@export var turn_speed: float = 10.0
+@export var jump_start_time_scale:float = 1.5
+@export var jump_end_time_scale:float = 3.0
+
+# animation junk for jumping
+@onready var animation_state:AnimationNodeStateMachinePlayback=\
+	animation_tree.get("parameters/playback")
+var was_on_floor:bool = true
+var landing_requested:bool=false
+@onready var landing_animation:Animation=\
+	animation_player.get_animation("humanoid_animations/Jump_Land")
+@onready var landing_duration: float = landing_animation.length / maxf(jump_end_time_scale, 0.001)
+var landing_timer:float = 0.0
+
+@export_group("")
+@export var INTERACT_RAYCAST_LENGTH: float
+@export var SPEED: float = 5.0
+@export var JUMP_VELOCITY: float = 6.0
+
+# TODO(Nef): I really hate how we have to do this, ask me for my pseudo-comp lookup idea later
+
+const ASSUMED_MASS = 60.0
 
 var owned_by_current_client : bool = false
 
 var input_dir : Vector2
+
+# ----DEV SETTINGS----
 var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
