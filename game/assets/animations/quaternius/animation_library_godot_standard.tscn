@@ -4,7 +4,7 @@
 
 [node name="AnimationLibrary_Godot_Standard" unique_id=346994140 instance=ExtResource("1_0f1wu")]
 
-[node name="GeneralSkeleton" parent="Rig" parent_id_path=PackedInt32Array(872491028) index="0" unique_id=1611593070]
+[node name="GeneralSkeleton" parent="Rig" parent_id_path=PackedInt32Array(1707702945) index="0" unique_id=240562347]
 bones/1/position = Vector3(0, 0.9167, -0.050100047)
 bones/1/rotation = Quaternion(2.682209e-07, 0, 0, 1)
 bones/3/rotation = Quaternion(-1.4528631e-07, 0, 0, 1)

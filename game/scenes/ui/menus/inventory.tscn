@@ -1,146 +1,117 @@
 [gd_scene format=3 uid="uid://b0876tlwoagks"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4h2d"]
-bg_color = Color(0.15847227, 0.15847233, 0.15847221, 1)
+[ext_resource type="Script" uid="uid://bu4q8qkxice5e" path="res://scenes/ui/menus/inventory_system.gd" id="1_gfm3e"]
+[ext_resource type="PackedScene" uid="uid://dxyl26q6ccf11" path="res://scenes/ui/components/inventory_button.tscn" id="2_8snxo"]
+[ext_resource type="StyleBox" uid="uid://d04psfahgklfx" path="res://resources/ui/normal_stylebox.tres" id="2_26ryu"]
+[ext_resource type="Texture2D" uid="uid://dt8okcy3ef6s7" path="res://assets/critters/worm.png" id="3_8vq1n"]
+[ext_resource type="StyleBox" uid="uid://tcsq604k15sn" path="res://resources/ui/pressed_stylebox.tres" id="3_bq7gn"]
+[ext_resource type="Resource" uid="uid://bvf3jra3t57yw" path="res://resources/items/worm.tres" id="3_tfg5d"]
+[ext_resource type="StyleBox" uid="uid://b4liip3hwxn33" path="res://resources/ui/hover_stylebox.tres" id="4_j13gv"]
+[ext_resource type="Resource" uid="uid://dm6gfqa4i2uwo" path="res://resources/items/beetle.tres" id="5_f4i47"]
+[ext_resource type="Texture2D" uid="uid://5irkgv5h0sfm" path="res://assets/critters/beetle.png" id="5_yq8mt"]
 
-[node name="Inventory" type="CenterContainer" unique_id=1333479588]
-offset_right = 1152.0
-offset_bottom = 647.0
+[node name="InventorySystem" type="MarginContainer" unique_id=2038005192 node_paths=PackedStringArray("main_inventory", "hotbar")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_gfm3e")
+main_inventory = NodePath("Main Inventory")
+hotbar = NodePath("Hotbar")
+normal_stylebox = ExtResource("2_26ryu")
+pressed_stylebox = ExtResource("3_bq7gn")
+hover_stylebox = ExtResource("4_j13gv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1852420795]
-layout_mode = 2
-theme_override_constants/separation = 210
-alignment = 1
-
-[node name="Control" type="Control" parent="VBoxContainer" unique_id=298138844]
-layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=19131589]
+[node name="Main Inventory" type="GridContainer" parent="." unique_id=19131589]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 offset_transform_enabled = true
+mouse_filter = 2
 columns = 5
 
-[node name="Panel" type="Panel" parent="VBoxContainer/GridContainer" unique_id=45801711]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton" parent="Main Inventory" unique_id=1038723319 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+icon = ExtResource("3_8vq1n")
+stored_item = ExtResource("3_tfg5d")
 
-[node name="Panel2" type="Panel" parent="VBoxContainer/GridContainer" unique_id=344020021]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton2" parent="Main Inventory" unique_id=1545141048 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+icon = ExtResource("5_yq8mt")
+stored_item = ExtResource("5_f4i47")
 
-[node name="Panel3" type="Panel" parent="VBoxContainer/GridContainer" unique_id=524639128]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel4" type="Panel" parent="VBoxContainer/GridContainer" unique_id=925289163]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel5" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1022982735]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel6" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1620980073]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel7" type="Panel" parent="VBoxContainer/GridContainer" unique_id=672645214]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel8" type="Panel" parent="VBoxContainer/GridContainer" unique_id=895920375]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel9" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1187649419]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel10" type="Panel" parent="VBoxContainer/GridContainer" unique_id=565791524]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel11" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1148780041]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel12" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1089441898]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel13" type="Panel" parent="VBoxContainer/GridContainer" unique_id=859209499]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel14" type="Panel" parent="VBoxContainer/GridContainer" unique_id=2088520835]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="Panel15" type="Panel" parent="VBoxContainer/GridContainer" unique_id=1565243406]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=853595166]
+[node name="InventoryButton3" parent="Main Inventory" unique_id=1409744724 instance=ExtResource("2_8snxo")]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=395154122]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton4" parent="Main Inventory" unique_id=413459196 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
 
-[node name="Panel2" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=1392118336]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton5" parent="Main Inventory" unique_id=1387103360 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
 
-[node name="Panel3" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=618342929]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton6" parent="Main Inventory" unique_id=1135206804 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
 
-[node name="Panel4" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=157672397]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton7" parent="Main Inventory" unique_id=95747920 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
 
-[node name="Panel5" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=1290166465]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton8" parent="Main Inventory" unique_id=17654511 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
 
-[node name="Panel6" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=2091638039]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton9" parent="Main Inventory" unique_id=599820621 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
 
-[node name="Panel7" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=873885723]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton10" parent="Main Inventory" unique_id=1985861270 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
 
-[node name="Panel8" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=1655694756]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton11" parent="Main Inventory" unique_id=1794472503 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
 
-[node name="Panel9" type="Panel" parent="VBoxContainer/HBoxContainer" unique_id=37156345]
-custom_minimum_size = Vector2(50, 50)
+[node name="InventoryButton12" parent="Main Inventory" unique_id=1980350069 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="InventoryButton13" parent="Main Inventory" unique_id=1767094207 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="InventoryButton14" parent="Main Inventory" unique_id=171234773 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="InventoryButton15" parent="Main Inventory" unique_id=162903600 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="Hotbar" type="HBoxContainer" parent="." unique_id=853595166]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="InventoryButton" parent="Hotbar" unique_id=864363703 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("4_j13gv")
+
+[node name="InventoryButton2" parent="Hotbar" unique_id=2032680120 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="InventoryButton3" parent="Hotbar" unique_id=186833059 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="InventoryButton4" parent="Hotbar" unique_id=1116490878 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="InventoryButton5" parent="Hotbar" unique_id=578622446 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="InventoryButton6" parent="Hotbar" unique_id=1288871517 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="InventoryButton7" parent="Hotbar" unique_id=1061915924 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="InventoryButton8" parent="Hotbar" unique_id=716416081 instance=ExtResource("2_8snxo")]
+layout_mode = 2
+
+[node name="InventoryButton9" parent="Hotbar" unique_id=2080568607 instance=ExtResource("2_8snxo")]
+layout_mode = 2

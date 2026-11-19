@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dek1mvhhnw5d4" path="res://scripts/ui/menus/ui_manager.gd" id="3_necax"]
 [ext_resource type="Environment" uid="uid://0x4j6mofq72x" path="res://resources/world_environment.tres" id="4_a8run"]
 [ext_resource type="Resource" uid="uid://cxdu4jyq8tikp" path="res://resources/weather/clear.tres" id="4_nvumn"]
+[ext_resource type="Script" uid="uid://dq7rc5f0fftqi" path="res://scenes/main/speed_tracker.gd" id="5_6llfj"]
 [ext_resource type="Resource" uid="uid://c8vke606olrn" path="res://resources/weather/cloudy.tres" id="5_ou6is"]
 [ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="5_ouso4"]
 [ext_resource type="PackedScene" uid="uid://ged1a840ronn" path="res://scenes/ui/menus/options_menu.tscn" id="5_r4lks"]
@@ -20,8 +21,11 @@
 [ext_resource type="Resource" uid="uid://cno1bfob1d317" path="res://resources/weather/rain.tres" id="8_pg34l"]
 [ext_resource type="Resource" uid="uid://182qlsti6ibm" path="res://resources/weather/storm.tres" id="9_m4h2d"]
 [ext_resource type="PackedScene" uid="uid://bk6rwduy8u5ym" path="res://scenes/weather/rain.tscn" id="11_p8abn"]
+[ext_resource type="Script" uid="uid://ctqyt4l0fwa3l" path="res://scripts/env/water_system.gd" id="17_s17dp"]
+[ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="18_37hlw"]
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
+[ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
 
@@ -36,14 +40,20 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TestIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("options_menu", "inventory", "game_manager")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager")]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
 script = ExtResource("3_necax")
+lobby_manager = NodePath("../LobbyManager")
 options_menu = NodePath("OptionsMenu")
-inventory = NodePath("Inventory")
+inventory = NodePath("InventorySystem")
 game_manager = NodePath("../GameManager")
 metadata/_edit_lock_ = true
 
@@ -52,10 +62,16 @@ layout_mode = 1
 offset_right = 179.0
 metadata/_edit_lock_ = true
 
-[node name="Inventory" parent="UI" unique_id=1333479588 instance=ExtResource("6_pg34l")]
-visible = false
-layout_mode = 0
-metadata/_edit_lock_ = true
+[node name="SpeedTracker" type="Label" parent="UI" unique_id=519599510]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+text = "Over 9000 m/s"
+script = ExtResource("5_6llfj")
 
 [node name="OptionsMenu" parent="UI" unique_id=450231988 instance=ExtResource("5_r4lks")]
 visible = false
@@ -63,6 +79,10 @@ layout_mode = 1
 offset_right = 1152.8015
 offset_bottom = 647.3821
 metadata/_edit_lock_ = true
+
+[node name="InventorySystem" parent="UI" unique_id=1333479588 instance=ExtResource("6_pg34l")]
+visible = false
+layout_mode = 1
 
 [node name="GameManager" type="Node" parent="." unique_id=217552877 node_paths=PackedStringArray("sky_3d")]
 script = ExtResource("2_yyfjg")
@@ -88,6 +108,16 @@ environment = ExtResource("4_a8run")
 [node name="Rain" parent="WeatherManager" unique_id=1079689614 instance=ExtResource("11_p8abn")]
 visible = false
 metadata/_edit_lock_ = true
+
+[node name="WaterSystem" type="Node" parent="." unique_id=375738724 node_paths=PackedStringArray("world")]
+script = ExtResource("17_s17dp")
+gravityFactor = 9.81
+waterDensity = 1.0
+drag = 0.15
+world = NodePath("../World/TestIsland")
+oceanResolution = 0.5
+oceanShader = ExtResource("18_37hlw")
+metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
@@ -131,11 +161,17 @@ day = 2
 
 [node name="Killzone" type="Area3D" parent="World" unique_id=1159628725 node_paths=PackedStringArray("starting_world")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+collision_mask = 10
 script = ExtResource("18_ou6is")
 starting_world = NodePath("../TestIsland")
 
 [node name="WorldBoundary" type="CollisionShape3D" parent="World/Killzone" unique_id=273165614]
 shape = SubResource("WorldBoundaryShape3D_0kwd2")
+
+[node name="InteractableItemSpawner" type="MultiplayerSpawner" parent="World" unique_id=913016617]
+_spawnable_scenes = PackedStringArray("uid://3mkg6nfyac2f", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
+spawn_path = NodePath(".")
+script = ExtResource("24_37hlw")
 
 [node name="LobbyCamera" type="Camera3D" parent="." unique_id=1345780627]
 transform = Transform3D(0.19414859, 0.0659656, -0.9787517, -0.0128350835, 0.9978219, 0.06470488, 0.9808882, 0, 0.19457237, -104.5698, 37.076996, 45.213646)
@@ -148,7 +184,6 @@ spawn_path = NodePath(".")
 
 [node name="unhandled_input_handler" type="Node" parent="." unique_id=2098882594]
 
-[node name="ThrowBug" type="Node" parent="unhandled_input_handler" unique_id=1672757612 node_paths=PackedStringArray("new_parent")]
+[node name="ThrowBug" type="Node" parent="unhandled_input_handler" unique_id=1672757612]
 script = ExtResource("22_m4h2d")
-new_parent = NodePath("../../World/TestIsland")
 metadata/_custom_type_script = "uid://bx1vuerbrrtmt"

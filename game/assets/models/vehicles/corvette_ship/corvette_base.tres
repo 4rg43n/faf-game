@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c5ogdht733857"]
+
+[ext_resource type="Texture2D" uid="uid://vgr8scdstgwy" path="res://assets/models/vehicles/corvette_ship/Corvette_LowResCorvette1_initialShadingGroup_BaseColor.png" id="1_7f01h"]
+[ext_resource type="Texture2D" uid="uid://c8p3bio82rb2m" path="res://assets/models/vehicles/corvette_ship/Corvette_LowResCorvette1_initialShadingGroup_Metalness.png" id="2_gj6ac"]
+[ext_resource type="Texture2D" uid="uid://b8tnn3epmxl6v" path="res://assets/models/vehicles/corvette_ship/Corvette_LowResCorvette1_initialShadingGroup_Normal.png" id="3_tih34"]
+[ext_resource type="Texture2D" uid="uid://bu6s0rlu03o6y" path="res://assets/models/vehicles/corvette_ship/Corvette_LowResCorvette1_initialShadingGroup_Roughness.png" id="4_0rd8m"]
+
+[resource]
+albedo_texture = ExtResource("1_7f01h")
+metallic = 1.0
+metallic_texture = ExtResource("2_gj6ac")
+roughness_texture = ExtResource("4_0rd8m")
+normal_enabled = true
+normal_scale = 0.87
+normal_texture = ExtResource("3_tih34")

@@ -1,9 +1,11 @@
-class_name FlyAwaiyBait extends FleeingBait
+class_name FlyAwayBait extends FleeingBait
 
 var grounded : bool = true
 var ground_timer : float = 0
 
 func generate_flee_direction() -> void:
+	if not is_multiplayer_authority():
+		return
 	flee_direction.x = randf_range(-1, 1)
 	flee_direction.y = 1
 	flee_direction.z = randf_range(-1, 1)
@@ -12,6 +14,8 @@ func generate_flee_direction() -> void:
 	speed = speed_curve.sample_baked(rand_sample_index) * max_speed
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
 	if ground_timer > 2.5 and position.y <= 5:
 		gravity_scale = 0.01
 		apply_force(flee_direction * 1000 * speed * delta)

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://c1y0r0cm7rcek"]
+
+[ext_resource type="Script" uid="uid://4tlhr6pdyntd" path="res://scripts/equipment/item.gd" id="1_mkpts"]
+[ext_resource type="Texture2D" uid="uid://35bi3qasaqth" path="res://assets/critters/rolly_polly.png" id="1_xa466"]
+
+[resource]
+script = ExtResource("1_mkpts")
+name = "Rolly Polly"
+id = 2
+icon = ExtResource("1_xa466")
+count = 1
+max_count = 64
+item_scene_path = "res://scenes/critters/rolly_polly_pollie.tscn"
+metadata/_custom_type_script = "uid://4tlhr6pdyntd"

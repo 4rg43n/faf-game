@@ -1,22 +1,30 @@
 class_name ThrowBug extends Node
 
-@export var new_parent : Node
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_released() and event.is_action("Throw"):
-		_on_player_attempt_throw.rpc_id(1, multiplayer.get_unique_id())
+		var peer_id : int = multiplayer.get_unique_id()
+		var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
+		var item : Item = player.decrement_active_item()
+		if item == null:
+			return
+		_throw_on_server.rpc_id(1, peer_id, item.item_scene.resource_path)
 
+#runs on server - we retake authority away from player as it is now in the shared world.
 @rpc("reliable", "any_peer", "call_local")
-func _on_player_attempt_throw(peer_id : int) -> void:
-	var player := LobbyManager.instance.get_current_player(peer_id)
-	if player.current_equipment == CustomEnums.Equipment_Type.EMPTY_HAND:
+func _throw_on_server(peer_id : int, item_resource_scene_path : NodePath) -> void:
+	var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
+	var scene : PackedScene = load(item_resource_scene_path)
+	if scene == null:
+		printerr("couldnt find scene from path %s" % item_resource_scene_path)
 		return
-	player.current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
-	if player.player_controller.left_hand_socket.get_child_count() != 0:
-		var child_obj = player.player_controller.left_hand_socket.get_child(0)
-		child_obj.process_mode = Node.PROCESS_MODE_ALWAYS
-		if child_obj is RigidBody3D:
-			var rigid_body := (child_obj as RigidBody3D)
-			var force : Vector3 = 1000 * (-player.global_transform.basis.z) + 200 * Vector3.UP
-			rigid_body.apply_force(force)
-		child_obj.reparent(new_parent)
+	var child_obj : RigidBody3D = scene.instantiate()
+	child_obj.set_multiplayer_authority(1)
+	InteractableItemSpawner.instance.add_child(child_obj, true)
+	if player.player_controller.LEFT_HANDED:
+		child_obj.global_position = player.player_controller.left_hand_socket.global_position
+		child_obj.global_basis = player.player_controller.left_hand_socket.global_basis
+	else:
+		child_obj.global_position = player.player_controller.right_hand_socket.global_position
+		child_obj.global_basis = player.player_controller.right_hand_socket.global_basis
+	var force : Vector3 = 2500 * (player.player_controller.visuals.global_transform.basis.z) + 200 * Vector3.UP
+	child_obj.apply_force(force)

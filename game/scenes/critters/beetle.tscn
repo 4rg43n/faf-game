@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ds416ia8s8gt3" path="res://scenes/critters/fly_bait.gd" id="1_621sy"]
 [ext_resource type="Curve" uid="uid://ctb1m2dqykw1w" path="res://scenes/critters/beetle_speed_distrbution.tres" id="2_4rkqc"]
+[ext_resource type="Resource" uid="uid://dm6gfqa4i2uwo" path="res://resources/items/beetle.tres" id="2_bsqsq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gpta"]
 albedo_color = Color(0.3647596, 0.34046692, 0.09233739, 1)
@@ -14,9 +15,29 @@ size = Vector3(1, 0.8149414, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ups32"]
 size = Vector3(0.29261017, 0.16151428, 0.37936783)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4rkqc"]
+properties/0/path = NodePath(".:speed")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:flee_direction")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:visible")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
 [node name="Beetle" type="RigidBody3D" unique_id=310955514]
+collision_layer = 12
+collision_mask = 3
 mass = 3.0
 script = ExtResource("1_621sy")
+item_resource = ExtResource("2_bsqsq")
 speed_curve = ExtResource("2_4rkqc")
 max_speed = 3.0
 
@@ -86,3 +107,6 @@ mesh = SubResource("BoxMesh_ups32")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1939620536]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005344391, 0.02040863, -0.0038516521)
 shape = SubResource("BoxShape3D_ups32")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=184216996]
+replication_config = SubResource("SceneReplicationConfig_4rkqc")

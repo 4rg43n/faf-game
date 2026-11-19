@@ -1,14 +1,18 @@
 class_name FleeingBait extends RigidBody3D
 
+@export var item_resource: Item
+
 ## basically the timer - they spawn randomly inside a bug pickup minigame and once they leave the area they despawn.
 @export var speed_curve : Curve
 @export var max_speed : float
-var speed : float = 1
+@export var speed : float = 1
 
 ## ground direction (no flying) - we can allow flying in the flying class that extends this one.
-var flee_direction : Vector3
+@export var flee_direction : Vector3
 
 func _ready() -> void:
+	if not is_multiplayer_authority():
+		return
 	generate_flee_direction()
 
 func generate_flee_direction() -> void:
@@ -21,15 +25,16 @@ func generate_flee_direction() -> void:
 	speed = speed_curve.sample_baked(rand_sample_index) * max_speed
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	#state.linear_velocity.x = flee_direction.x * speed
-	#state.linear_velocity.y = flee_direction.y * speed
-	#state.linear_velocity.z = flee_direction.z * speed
-
+	if not is_multiplayer_authority():
+		return
+	if not is_node_ready():
+		await ready
 	var up_dir: Vector3 = Vector3.UP
-	var target_dir = state.linear_velocity
+	var target_dir = state.linear_velocity.normalized()
+	if target_dir.is_zero_approx():
+		return
 	if abs(target_dir.dot(up_dir)) > 0.999:
 		up_dir = Vector3.FORWARD
-
 	var target_basis: Basis = Basis.looking_at(target_dir, up_dir)
 
 	var current_quat: Quaternion = state.transform.basis.get_rotation_quaternion()
@@ -47,8 +52,23 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.angular_velocity = Vector3.ZERO
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
 	apply_force(flee_direction * speed * delta)
 
 func _enter_tree() -> void:
+	if not is_multiplayer_authority():
+		return
 	if get_parent() is BoneAttachment3D:
 		process_mode = ProcessMode.PROCESS_MODE_DISABLED
+
+func on_interact(peer_id : int) -> void:
+	var player : PlayerMetadata = LobbyManager.instance.get_player_from_peer_id(peer_id)
+	player.pickup_item(self)
+
+@rpc("reliable", "call_local", "any_peer")
+func remove_from_server_control() -> void:
+	if not multiplayer.get_unique_id() == 1:
+		remove_from_server_control.rpc_id(1)
+		return
+	self.queue_free()
