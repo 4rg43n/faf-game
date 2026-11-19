@@ -21,6 +21,8 @@ func init(in_peer_id : int, in_steam_id : int, in_spawn_location : Node3D) -> vo
 
 
 func add_item_if_possible(new_item: Item) -> bool:
+	## TODO set new active index if we pickup an item set_active_item - as we need to spawn the new object in its hand
+
 	if not new_item:
 		printerr("Tried to add null item to inventory")
 		return false
@@ -88,3 +90,35 @@ func merge_items(first_item: Item, second_item: Item):
 	hotbar_updated.emit()
 	main_inventory_updated.emit()
 	return
+
+##TODO return the current active
+func get_active_item() -> Node3D:
+	var active_item : Node3D = null
+	if player_controller.LEFT_HANDED and player_controller.left_hand_spawner.get_child_count() != 0:
+		active_item = player_controller.left_hand_spawner.get_child(0)
+	elif not player_controller.LEFT_HANDED and player_controller.right_hand_spawner.get_child_count() != 0:
+		active_item =  player_controller.right_hand_spawner.get_child(0)
+	return active_item
+
+## should be called when we scroll to new slot or when we pick up a new item into the active slot.
+func set_active_item(new_index : int) -> void:
+	## do inventory stuff here...
+
+	var new_active_object : Node3D = null
+	## TODO get new active scene object (initate if if we need to)
+
+	var old_active_item : Node3D = get_active_item()
+	if player_controller.LEFT_HANDED:
+		player_controller.left_hand_spawner.remove_child(old_active_item)
+		if not new_active_object == null:
+			player_controller.left_hand_spawner.add_child(new_active_object)
+			current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
+		else:
+			current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
+	else:
+		player_controller.right_hand_spawner.remove_child(old_active_item)
+		if not new_active_object == null:
+			player_controller.right_hand_spawner.add_child(new_active_object)
+			current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
+		else:
+			current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND

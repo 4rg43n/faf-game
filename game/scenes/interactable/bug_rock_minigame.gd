@@ -2,7 +2,6 @@ class_name BugRockMiniGame extends InteractableObject
 
 @export var pivot : Node3D
 @export var minigame_camera : Camera3D
-@export var bug_spawner : MultiplayerSpawner
 @export var bug_spawn_area : CollisionShape3D
 @export var bug_spawn_area_area : Area3D
 
@@ -42,7 +41,7 @@ func on_open_animation_finish() -> void:
 		)
 		newest_bug.position = to_global(local_point)
 		newest_bug.set_multiplayer_authority(1)
-		bug_spawner.add_child(newest_bug, true)
+		InteractableItemSpawner.instance.add_child(newest_bug, true)
 
 #server
 @rpc("any_peer", "reliable", "call_local")
