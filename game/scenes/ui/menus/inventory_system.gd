@@ -126,10 +126,10 @@ func _on_main_inventory_updated():
 		inventory_slot.stored_item = item if item else null
 
 
-func _on_active_slot_changed(slot: int, old_slot : int):
+func _on_active_slot_changed(slot: int, in_old_slot : int):
 	var hotbar_buttons : Array = hotbar.get_children()
 	for button: InventoryButton in hotbar_buttons:
 		button.add_theme_stylebox_override("normal", normal_stylebox)
 	var hotbar_button: InventoryButton = hotbar.get_children()[slot]
 	hotbar_button.add_theme_stylebox_override("normal", hover_stylebox)
-	on_active_slot_changed.emit(old_slot)
+	on_active_slot_changed.emit(in_old_slot)
