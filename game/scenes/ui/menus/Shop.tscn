@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://nax3bjwe2l47"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4h2d"]
+bg_color = Color(0.15847227, 0.15847233, 0.15847221, 1)
+
+[node name="Shop" type="CenterContainer" unique_id=1333479588]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 100.0
+offset_top = -200.01001
+offset_right = 350.0
+offset_bottom = 200.01001
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=912148173]
+custom_minimum_size = Vector2(250, 400)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4h2d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1441174567]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=1523864629]
+layout_mode = 2
+text = "Shop Item 🤑"
+
+[node name="Label2" type="Label" parent="Panel/VBoxContainer" unique_id=651270040]
+layout_mode = 2
+text = "Shop Item 🤑"
+
+[node name="Label3" type="Label" parent="Panel/VBoxContainer" unique_id=91604553]
+layout_mode = 2
+text = "Shop Item 🤑"
+
+[node name="Label4" type="Label" parent="Panel/VBoxContainer" unique_id=35472008]
+layout_mode = 2
+text = "Shop Item 🤑"
+
+[node name="Label5" type="Label" parent="Panel/VBoxContainer" unique_id=198227866]
+layout_mode = 2
+text = "Shop Item 🤑"
+
+[node name="Label6" type="Label" parent="Panel/VBoxContainer" unique_id=313251231]
+layout_mode = 2
+text = "Shop Item 🤑"
+
+[node name="Label7" type="Label" parent="Panel/VBoxContainer" unique_id=149709432]
+layout_mode = 2
+text = "Etc..."
