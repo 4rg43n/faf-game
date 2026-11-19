@@ -54,6 +54,9 @@ func button_pressed(button: InventoryButton):
 
 
 func button_released():
+	if hovered_slot == old_slot:
+		drag_icon.texture = null
+		return
 	if hovered_slot and old_slot and old_slot.stored_item:
 		# fuck you this code works don't complain I know it's ass
 		var old_item : Item = old_slot.stored_item
