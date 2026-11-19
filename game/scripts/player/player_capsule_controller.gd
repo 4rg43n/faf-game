@@ -23,7 +23,7 @@ var can_move:bool=true
 #####################################################################
 # animation junk for jumping
 @onready var animation_state:AnimationNodeStateMachinePlayback=\
-	animation_tree.get("parameters/playback")
+	animation_tree.get("parameters/Locomotion/playback")
 var was_on_floor:bool = true
 var landing_requested:bool=false
 @export var jump_start_time_scale:float = 1.5
@@ -41,6 +41,10 @@ var landing_timer:float = 0.0
 var is_holding_spell:bool=false
 var time_holding_spell:float=0.0
 @export var spell_enter_time_scale:float=2.0
+####################################################################
+# punches
+@export var punch_light_speed_scale:float = 4
+@export var punch_heavy_speed_scale:float = 2
 ####################################################################
 
 @export var player_metadata : PlayerMetadata
@@ -110,6 +114,9 @@ func _physics_process(delta: float) -> void:
 	handle_animation(delta)
 
 	update_locomotion()
+	
+	#print(animation_state)
+	#print(animation_state.get_current_node())	
 
 func update_locomotion()->void:
 	# get our speed
@@ -123,7 +130,7 @@ func update_locomotion()->void:
 		1.0)
 
 	# set the blend
-	animation_tree.set("parameters/Locomotion/blend_position",
+	animation_tree.set("parameters/Locomotion/Locomotion/blend_position",
 		blend);
 
 func make_current_player() -> void:
@@ -152,7 +159,7 @@ func handle_spell(delta: float)->void:
 			can_move=false
 			is_holding_spell=true
 			time_holding_spell=0.0
-			animation_tree.set("parameters/Spell_Enter/TimeScale/scale", spell_enter_time_scale)
+			animation_tree.set("parameters/Locomotion/Spell_Enter/TimeScale/scale", spell_enter_time_scale)
 			animation_state.travel("Spell_Enter")
 	else:
 		if not is_on_floor() or is_moving(): # we fell, or we tried to move
@@ -166,13 +173,17 @@ func handle_spell(delta: float)->void:
 
 
 func handle_fire1()->void:
-	if Input.is_action_just_pressed("fire1"):
+	if is_on_floor() and Input.is_action_just_pressed("fire1"):
 		print_rich("[Color=red]Fire 1")
+		animation_tree.set("parameters/Locomotion/Punch_Light/TimeScale/scale", punch_light_speed_scale)
+		animation_state.travel("Punch_Light")
 
 func handle_fire2()->void:
-	if Input.is_action_just_pressed("fire2"):
+	if is_on_floor() and Input.is_action_just_pressed("fire2"):
 		print_rich("[Color=red]Fire 2")
-
+		animation_tree.set("parameters/Locomotion/Punch_Heavy/TimeScale/scale", punch_heavy_speed_scale)
+		animation_state.travel("Punch_Heavy")
+		
 func cancel_spell()->void:
 	if is_holding_spell:
 		can_move=true
@@ -290,17 +301,16 @@ func check_dev_inputs():
 
 func handle_animation(delta: float):
 	var grounded := is_on_floor()
-	animation_tree.set("parameters/Jump_Start/TimeScale/scale", jump_start_time_scale)
-	animation_tree.set("parameters/Jump_Land/TimeScale/scale", jump_end_time_scale)
+	animation_tree.set("parameters/Locomotion/Jump_Start/TimeScale/scale", jump_start_time_scale)
+	animation_tree.set("parameters/Locomotion/Jump_Land/TimeScale/scale", jump_end_time_scale)
 
 	# Detect landing after being airborne
 	if grounded and not was_on_floor:
 		if not landing_requested:
 			landing_timer=0.0
-			animation_tree.set("parameters/conditions/landing_done", false)
+			animation_tree.set("parameters/Locomotion/conditions/landing_done", false)
 			animation_state.travel("Jump_Land")
 			landing_requested=true
-			animation_state.travel("Jump_Land")
 
 	# check for out of jump
 	# Note: This has to be done because AnimationTree does not support multiple transitions
@@ -310,7 +320,7 @@ func handle_animation(delta: float):
 		var moving:=input_dir.length()>0.1
 		var finished:=landing_timer>=landing_duration-0.05 # account for xfade
 
-		animation_tree.set("parameters/conditions/landing_done",
+		animation_tree.set("parameters/Locomotion/conditions/landing_done",
 		moving or finished)
 
 
@@ -319,8 +329,3 @@ func handle_animation(delta: float):
 		landing_requested=false
 
 	was_on_floor=grounded
-
-	#var playback: AnimationNodeStateMachinePlayback = \
-		#$AnimationTree.get("parameters/playback")
-
-	#print(playback.get_current_node())
