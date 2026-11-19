@@ -48,7 +48,11 @@ var time_holding_spell:float=0.0
 		active_camera = camera
 		make_current_player()
 
-@export var SPEED: float = 5.0
+@export var walk_speed: float = 7.0
+@export var run_speed: float = 8.5
+@export var ground_accel: float = 14.0
+@export var ground_decel: float = 10.0
+@export var ground_friction: float = 6.0
 @export var JUMP_VELOCITY: float = 6.0
 @export var air_cap := 0.85
 @export var air_accel := 800.0
@@ -69,9 +73,9 @@ var owned_by_current_client : bool = false
 
 var input_dir : Vector2
 var wish_dir : Vector3
+var move_speed: float = walk_speed
 
 # ----DEV SETTINGS----
-var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
 func _physics_process(delta: float) -> void:
@@ -81,10 +85,6 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
-	# DEV TOOLS
-	if OS.is_debug_build():
-		check_dev_inputs()
 
 	handle_move_input(delta)
 
@@ -107,7 +107,7 @@ func update_locomotion()->void:
 		velocity.z).length()
 
 	# set the blend	value
-	var blend:=clampf(horizontal_speed/SPEED,
+	var blend:=clampf(horizontal_speed/move_speed,
 		0.0,
 		1.0)
 
@@ -179,15 +179,25 @@ func _handle_air_physics(delta: float) -> void:
 
 
 func _handle_ground_physics(delta: float) -> void:
-	velocity.x = wish_dir.x * SPEED
-	velocity.z = wish_dir.z * SPEED
+	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
+	var add_speed_till_cap = move_speed - cur_speed_in_wish_dir
+	if add_speed_till_cap > 0:
+		var accel_speed = ground_accel * delta * move_speed
+		accel_speed = min(accel_speed, add_speed_till_cap)
+		velocity += accel_speed * wish_dir
 
+	var control = max(velocity.length(), ground_decel)
+	var drop = control * ground_friction * delta
+	var new_speed = max(velocity.length() - drop, 0.0)
+	if velocity.length() > 0:
+		new_speed /= velocity.length()
+	velocity *= new_speed
 
 
 func handle_move_input(delta: float) -> void:
 	if GameManager.instance.paused:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, move_speed)
+		velocity.z = move_toward(velocity.z, 0, move_speed)
 		return
 
 	# Handle jump.
@@ -196,6 +206,15 @@ func handle_move_input(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		landing_requested=false
 		animation_state.travel("Jump_Start")
+
+	if Input.is_action_pressed("shift"):
+		move_speed = run_speed
+	else:
+		move_speed = walk_speed
+
+	# DEV TOOLS
+	if OS.is_debug_build() and debug_scene_play:
+		check_dev_inputs()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -241,9 +260,9 @@ func handle_interaction():
 
 func check_dev_inputs():
 	if Input.is_action_pressed("shift"):
-		SPEED = dev_speed
+		move_speed = dev_speed
 	else:
-		SPEED = regular_speed
+		move_speed = walk_speed
 
 
 func handle_animation(delta: float):
