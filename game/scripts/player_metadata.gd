@@ -134,10 +134,7 @@ func item_removed_from_hotbar(item : Item, old_hotbar_index : int) -> void:
 	var old_item_obj : Node3D = get_node_or_null(item.hotbar_item_path)
 	item.hotbar_item_path = ""
 	if old_item_obj != null:
-		if player_controller.LEFT_HANDED:
-			player_controller.left_hand_socket.remove_child(old_item_obj)
-		else:
-			player_controller.right_hand_socket.remove_child(old_item_obj)
+		old_item_obj.queue_free()
 	hotbar.set(old_hotbar_index, null)
 	current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
 	hotbar_updated.emit()
