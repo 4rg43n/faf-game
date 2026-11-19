@@ -24,6 +24,8 @@
 [ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="18_37hlw"]
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
+[ext_resource type="Script" uid="uid://cft17jvxfva7v" path="res://scripts/fish/fish_system.gd" id="25_6llfj"]
+[ext_resource type="PackedScene" uid="uid://dldk7t22vxdo" path="res://scenes/critters/king_of_the_pond.tscn" id="26_0bhws"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
 
@@ -100,6 +102,16 @@ world = NodePath("../World/TestIsland")
 oceanResolution = 0.5
 oceanShader = ExtResource("18_37hlw")
 metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
+
+[node name="FishSystem" type="Node" parent="." unique_id=26131347 node_paths=PackedStringArray("world")]
+script = ExtResource("25_6llfj")
+maxFishes = 500
+baseFish = ExtResource("26_0bhws")
+world = NodePath("../World/TestIsland")
+spawnAreaRadius = 20.0
+fishAttackRadius = 2.0
+spawnFrequency = 15.0
+metadata/_custom_type_script = "uid://cft17jvxfva7v"
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
