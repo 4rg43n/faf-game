@@ -50,6 +50,10 @@ var time_holding_spell:float=0.0
 
 @export var SPEED: float = 5.0
 @export var JUMP_VELOCITY: float = 6.0
+@export var air_cap := 0.85
+@export var air_accel := 800.0
+@export var air_move_speed := 500.0
+
 # TODO(Nef): I really hate how we have to do this, ask me for my pseudo-comp lookup idea later
 @export var shapeColl: CollisionShape3D
 const ASSUMED_MASS = 60.0
@@ -64,6 +68,9 @@ const ASSUMED_MASS = 60.0
 var owned_by_current_client : bool = false
 
 var input_dir : Vector2
+var wish_dir : Vector3
+
+# ----DEV SETTINGS----
 var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
@@ -151,6 +158,16 @@ func cancel_spell()->void:
 		can_move=true
 		is_holding_spell=false
 
+func _handle_air_physics(delta: float) -> void:
+	pass
+
+
+func _handle_ground_physics(delta: float) -> void:
+	velocity.x = wish_dir.x * SPEED
+	velocity.z = wish_dir.z * SPEED
+
+
+
 func handle_move_input(delta: float) -> void:
 	if GameManager.instance.paused:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -169,23 +186,20 @@ func handle_move_input(delta: float) -> void:
 
 	# stop move input if we can't move. Doing it here lets physics finish up
 	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	if not can_move:
-		input_dir = Vector2(0.0, 0.0)
+	wish_dir = (global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	wish_dir = wish_dir.rotated(Vector3.UP, active_camera.global_rotation.y)
 
-	direction = direction.rotated(Vector3.UP, active_camera.global_rotation.y)
-
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-
-		# Face the movement direction (Godot's forward is -Z)
-		var target_yaw := atan2(direction.x, direction.z)
-		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
+	if is_on_floor():
+		_handle_ground_physics(delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		_handle_air_physics(delta)
+
+	if wish_dir:
+		# ----Animation stuff----
+		var target_yaw := atan2(wish_dir.x, wish_dir.z)
+		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
+		# ----Animation stuff----
 
 
 func handle_interaction():
@@ -252,9 +266,3 @@ func handle_animation(delta: float):
 		#$AnimationTree.get("parameters/playback")
 
 	#print(playback.get_current_node())
-
-func pickup_item(child_obj : Node3D) -> void:
-	if LEFT_HANDED:
-		left_hand_spawner.pickup_item(child_obj)
-	else:
-		right_hand_spawner.pickup_item(child_obj)

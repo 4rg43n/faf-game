@@ -126,3 +126,9 @@ func set_active_item(new_index : int) -> void:
 			current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
 		else:
 			current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
+
+func pickup_item(child_obj : Node3D) -> void:
+	if player_controller.LEFT_HANDED:
+		player_controller.left_hand_spawner.pickup_item(child_obj)
+	else:
+		player_controller.right_hand_spawner.pickup_item(child_obj)

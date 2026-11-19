@@ -64,7 +64,7 @@ func _enter_tree() -> void:
 
 func on_interact(peer_id : int) -> void:
 	var player : PlayerMetadata = LobbyManager.instance.get_player_from_peer_id(peer_id)
-	player.player_controller.pickup_item(self)
+	player.pickup_item(self)
 
 @rpc("reliable", "call_local", "any_peer")
 func remove_from_server_control() -> void:
