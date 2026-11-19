@@ -121,9 +121,9 @@ func set_active_item(old_slot : int) -> void:
 		if scene != null:
 			new_item_obj = scene.instantiate()
 			if player_controller.LEFT_HANDED:
-				player_controller.left_hand_spawner.add_child(new_item_obj)
+				player_controller.left_hand_spawner.add_child(new_item_obj, true)
 			else:
-				player_controller.right_hand_spawner.add_child(new_item_obj)
+				player_controller.right_hand_spawner.add_child(new_item_obj, true)
 			new_active_item.hotbar_item_path = new_item_obj.get_path()
 	new_item_obj.visible = true
 	current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
