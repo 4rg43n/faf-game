@@ -125,14 +125,13 @@ func make_current_player() -> void:
 	if not is_node_ready():
 		await ready
 	if not debug_scene_play:
-		var parent_peer_id : int = get_parent().get("peer_id")
+		var parent_peer_id : int = player_metadata.peer_id
 		var current_peer_id : int = multiplayer.get_unique_id()
 		if current_peer_id != parent_peer_id:
 			return
 	owned_by_current_client = true
 	active_camera.make_current()
 	active_camera_changed.emit(active_camera)
-	active_camera.make_current()
 
 func is_moving()->bool:
 	var test_input = Input.get_vector("move_left", "move_right", "move_up", "move_down") # poll again because 'can_move' interferes
