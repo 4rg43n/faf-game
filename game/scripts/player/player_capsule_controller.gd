@@ -2,24 +2,39 @@ class_name PlayerController extends CharacterBody3D
 
 signal active_camera_changed(camera: Camera3D)
 
-@onready var visuals: Node3D = $Visuals
-@onready var animation_tree:AnimationTree = $AnimationTree
-@onready var animation_player:AnimationPlayer=$AnimationPlayer
-
-@export var turn_speed: float = 10.0
-
-var debug_scene_play : bool = false
-
+#region Exports
+@export_group("Nodes")
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
+@export var player_metadata : PlayerMetadata
+@export var visuals: Node3D
+@export var animation_tree: AnimationTree
+@export var animation_player: AnimationPlayer
+@export var interact_label: Label
+@export var active_camera: Camera3D:
+	set(camera):
+		if camera == active_camera:
+			return
+		active_camera = camera
+		make_current_player()
+# TODO(Nef): I really hate how we have to do this, ask me for my pseudo-comp lookup idea later
+@export var shapeColl: CollisionShape3D
 
-var sound_player := AudioStreamPlayer.new()
-var reverb_effect = AudioServer.get_bus_effect(2, 0)  # Adjust index as necessary
-var JumpSounds = [preload("res://assets/sfx/main-char/jump-1.wav"), preload("res://assets/sfx/main-char/jump-2.wav"), preload("res://assets/sfx/main-char/jump-3.wav")]
+@export_group("Hands")
+@export var left_hand_socket : BoneAttachment3D
+@export var right_hand_socket : BoneAttachment3D
+@export var left_hand_spawner : HandableSpawner
+@export var right_hand_spawner : HandableSpawner
+@export var LEFT_HANDED : bool = true
 
-var can_move:bool=true
+@export_group("Misc Settings")
+@export var turn_speed: float = 10.0
+@export var INTERACT_RAYCAST_LENGTH: float
 
+
+
+@export_group("Animation Settings")
 #####################################################################
 # animation junk for jumping
 @onready var animation_state:AnimationNodeStateMachinePlayback=\
@@ -34,8 +49,7 @@ var landing_requested:bool=false
 # landing
 @onready var landing_duration: float = landing_animation.length / maxf(jump_end_time_scale, 0.001)
 var landing_timer:float = 0.0
-@export var interact_label: Label
-@export var INTERACT_RAYCAST_LENGTH: float
+
 ####################################################################
 # spell junk
 @onready var animation_state_attacks:AnimationNodeStateMachinePlayback=\
@@ -47,15 +61,7 @@ var landing_timer:float = 0.0
 @export var punch_heavy_speed_scale:float = 2
 ####################################################################
 
-@export var player_metadata : PlayerMetadata
-
-@export var active_camera: Camera3D:
-	set(camera):
-		if camera == active_camera:
-			return
-		active_camera = camera
-		make_current_player()
-
+@export_group("Movement Settings")
 @export var walk_speed: float = 7.0
 @export var run_speed: float = 8.5
 @export var ground_accel: float = 14.0
@@ -65,20 +71,20 @@ var landing_timer:float = 0.0
 @export var air_cap := 0.85
 @export var air_accel := 800.0
 @export var air_move_speed := 500.0
+#endregion Exports
 
-# TODO(Nef): I really hate how we have to do this, ask me for my pseudo-comp lookup idea later
-@export var shapeColl: CollisionShape3D
 const ASSUMED_MASS = 60.0
 
-@export_group("Hands")
-@export var left_hand_socket : BoneAttachment3D
-@export var right_hand_socket : BoneAttachment3D
-@export var left_hand_spawner : HandableSpawner
-@export var right_hand_spawner : HandableSpawner
-@export var LEFT_HANDED : bool = true
+# ----Sound----
+var sound_player := AudioStreamPlayer.new()
+var reverb_effect = AudioServer.get_bus_effect(2, 0)  # Adjust index as necessary
+var JumpSounds = [preload("res://assets/sfx/main-char/jump-1.wav"), preload("res://assets/sfx/main-char/jump-2.wav"), preload("res://assets/sfx/main-char/jump-3.wav")]
 
+# ----Misc----
+var can_move : bool = true
 var owned_by_current_client : bool = false
 
+# ----Movement----
 var input_dir : Vector2
 var wish_dir : Vector3
 var move_speed: float = walk_speed
@@ -88,6 +94,7 @@ var max_available_jumps : int = 1
 
 # ----DEV SETTINGS----
 var dev_speed: float = 50.0
+var debug_scene_play : bool = false
 
 func _ready():
 	add_child(sound_player)
