@@ -65,3 +65,10 @@ func _enter_tree() -> void:
 func on_interact(peer_id : int) -> void:
 	var player : PlayerMetadata = LobbyManager.instance.get_player_from_peer_id(peer_id)
 	player.player_controller.pickup_item(self)
+
+@rpc("reliable", "call_local", "any_peer")
+func remove_from_server_control() -> void:
+	if not multiplayer.get_unique_id() == 1:
+		remove_from_server_control.rpc_id(1)
+		return
+	InteractableItemSpawner.instance.remove_child(self)

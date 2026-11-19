@@ -21,6 +21,10 @@ func init(in_peer_id : int, in_steam_id : int, in_spawn_location : Node3D) -> vo
 
 
 func add_item_if_possible(new_item: Item) -> bool:
+	#TODO implement this Zachy poo - checkout handable spawner for use case.
+	#we need to check active index and see if this item is there? or make it so we pass in object into add_item_if_possible
+	#so we can do the queue free there - set active should already be adding to correct hand
+
 	## TODO set new active index if we pickup an item set_active_item - as we need to spawn the new object in its hand
 
 	if not new_item:

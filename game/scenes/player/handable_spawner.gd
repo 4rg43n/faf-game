@@ -9,21 +9,17 @@ func _ready() -> void:
 
 #called from the player (client) trying to pickup an item.
 func pickup_item(child_obj : Node3D) -> void:
-	if not child_obj.has("item_resource"):
-		return
 	var item_resource : Item = child_obj.get("item_resource")
+	if item_resource == null or not child_obj.has_method("remove_from_server_control"):
+		return
 	var peer_id : int = multiplayer.get_unique_id()
 	var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
+	child_obj.call("remove_from_server_control")
 	if not player.add_item_if_possible(item_resource):
 		print("Inventory full, cannot hold anymore items.")
 		return
 	print("LETS FUCKING GOOOO: " + str(player.main_inventory) + "\n" + str(player.hotbar))
-	#delete it it is tracked in our inventory system.
-	if player.current_equipment != CustomEnums.Equipment_Type.EMPTY_HAND:
-		child_obj.queue_free()
-		return
-	player.current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
-	child_obj.reparent(hand_socket)
+
 
 #grabs items!
 #asumes we already set_multiplayer_authority to the player that is picking up the item
