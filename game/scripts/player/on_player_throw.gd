@@ -18,6 +18,7 @@ func _throw_on_server(peer_id : int, item_resource_scene_path : NodePath) -> voi
 		printerr("couldnt find scene from path %s" % item_resource_scene_path)
 		return
 	var child_obj : RigidBody3D = scene.instantiate()
+	child_obj.set_multiplayer_authority(1)
 	InteractableItemSpawner.instance.add_child(child_obj, true)
 	if player.player_controller.LEFT_HANDED:
 		child_obj.global_position = player.player_controller.left_hand_socket.global_position
