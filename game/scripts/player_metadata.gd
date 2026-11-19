@@ -13,13 +13,12 @@ signal hotbar_updated()
 const MAX_INVENTORY_SIZE : int = 50
 const MAX_HOTBAR_SIZE : int = 9
 
-var ative_hotbar_index : int = 0
-
 func init(in_peer_id : int, in_steam_id : int, in_spawn_location : Node3D) -> void:
 	print("spawning in a new client for peer ", String.num_int64(in_peer_id))
 	peer_id = in_peer_id
 	steam_id = in_steam_id
 	player_controller.position = in_spawn_location.position
+	InventorySystem.instance.on_active_slot_changed.connect(set_active_item)
 
 
 func add_item_if_possible(new_item: Item) -> bool:
@@ -41,7 +40,6 @@ func add_item_if_possible(new_item: Item) -> bool:
 			return true
 	if free_slot >= 0:
 		hotbar.set(free_slot, new_item)
-		set_active_item(free_slot)
 		hotbar_updated.emit()
 		return true
 	index = -1
@@ -94,30 +92,29 @@ func merge_items(first_item: Item, second_item: Item):
 
 func decrement_active_item() -> Item:
 	var item : Item = null
-	if hotbar[ative_hotbar_index] == null:
+	if hotbar[InventorySystem.instance.active_slot] == null:
 		return item
-	item = hotbar[ative_hotbar_index]
-	var current_hotbar_item : Item = hotbar[ative_hotbar_index]
+	item = hotbar[InventorySystem.instance.active_slot]
+	var current_hotbar_item : Item = hotbar[InventorySystem.instance.active_slot]
 	current_hotbar_item.count -= 1
 
 	if current_hotbar_item.count <= 0:
-		item_removed_from_hotbar(current_hotbar_item, ative_hotbar_index)
+		item_removed_from_hotbar(current_hotbar_item, InventorySystem.instance.active_slot)
 	hotbar_updated.emit()
 	return item
 
 ## should be called when we scroll to new slot or when we pick up a new item into the active slot.
-func set_active_item(new_index : int) -> void:
-	if not hotbar[ative_hotbar_index] == null:
-		var old_active_item : Item = hotbar[ative_hotbar_index]
+func set_active_item(old_slot : int) -> void:
+	if not hotbar[old_slot] == null:
+		var old_active_item : Item = hotbar[old_slot]
 		var old_item_obj : Node3D = get_node_or_null(old_active_item.hotbar_item_path)
 		if not old_item_obj == null:
 			old_item_obj.visible = false
 
-	ative_hotbar_index = new_index
-	if hotbar[ative_hotbar_index] == null:
+	if hotbar[InventorySystem.instance.active_slot] == null:
 		current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
 		return
-	var new_active_item : Item = hotbar[ative_hotbar_index]
+	var new_active_item : Item = hotbar[InventorySystem.instance.active_slot]
 	var new_item_obj : Node3D = get_node_or_null(new_active_item.hotbar_item_path)
 	if new_item_obj == null:
 		var scene : PackedScene = new_active_item.item_scene

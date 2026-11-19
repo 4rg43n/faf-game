@@ -8,8 +8,9 @@ class_name InventorySystem extends MarginContainer
 		if value > 8 or value < 0: # We only have 9 hotbar slots 0-8
 			printerr("Tried to set active slot to invalid index")
 			return
+		var old_value = active_slot
 		active_slot = value
-		_on_active_slot_changed(active_slot)
+		_on_active_slot_changed(active_slot, old_value)
 
 @export_group("Stylebox Resources")
 @export var normal_stylebox: StyleBox
@@ -18,6 +19,8 @@ class_name InventorySystem extends MarginContainer
 
 @onready var main: Main = Main.instance
 @onready var game_manager: GameManager = GameManager.instance
+
+signal on_active_slot_changed(old_slot : int)
 
 var player_data : PlayerMetadata = null
 var drag_icon : Sprite2D = Sprite2D.new()
@@ -123,9 +126,10 @@ func _on_main_inventory_updated():
 		inventory_slot.stored_item = item if item else null
 
 
-func _on_active_slot_changed(slot: int):
+func _on_active_slot_changed(slot: int, old_slot : int):
 	var hotbar_buttons : Array = hotbar.get_children()
 	for button: InventoryButton in hotbar_buttons:
 		button.add_theme_stylebox_override("normal", normal_stylebox)
 	var hotbar_button: InventoryButton = hotbar.get_children()[slot]
 	hotbar_button.add_theme_stylebox_override("normal", hover_stylebox)
+	on_active_slot_changed.emit(old_slot)
