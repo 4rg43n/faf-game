@@ -71,4 +71,4 @@ func remove_from_server_control() -> void:
 	if not multiplayer.get_unique_id() == 1:
 		remove_from_server_control.rpc_id(1)
 		return
-	InteractableItemSpawner.instance.remove_child(self)
+	self.queue_free()

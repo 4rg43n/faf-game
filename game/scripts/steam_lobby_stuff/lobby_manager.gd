@@ -315,12 +315,12 @@ func _on_player_leave(client_peer_id : int) -> void:
 	var current_children := player_spawner.get_children()
 	if client_peer_id == 1:
 		for player : PlayerMetadata in current_children:
-			player_spawner.remove_child(player)
+			player.queue_free()
 		show()
 	else:
 		for player : PlayerMetadata in current_children:
 			if player.peer_id == client_peer_id:
-				player_spawner.remove_child(player)
+				player.queue_free()
 				break
 
 func get_player_from_peer_id(client_peer_id : int) -> PlayerMetadata:

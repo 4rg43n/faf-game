@@ -32,6 +32,7 @@ properties/4/replication_mode = 1
 
 [node name="Worm" type="RigidBody3D" unique_id=791724085 groups=["Bait"]]
 collision_layer = 12
+collision_mask = 3
 gravity_scale = 0.0
 script = ExtResource("1_mmd53")
 item_resource = ExtResource("2_1gpta")

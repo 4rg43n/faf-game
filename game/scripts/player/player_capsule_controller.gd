@@ -8,7 +8,7 @@ signal active_camera_changed(camera: Camera3D)
 
 @export var turn_speed: float = 10.0
 
-@export var debug_scene_play:bool=false
+var debug_scene_play : bool = false
 
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D
@@ -52,7 +52,11 @@ var time_holding_spell:float=0.0
 		active_camera = camera
 		make_current_player()
 
-@export var SPEED: float = 5.0
+@export var walk_speed: float = 7.0
+@export var run_speed: float = 8.5
+@export var ground_accel: float = 14.0
+@export var ground_decel: float = 10.0
+@export var ground_friction: float = 6.0
 @export var JUMP_VELOCITY: float = 6.0
 @export var air_cap := 0.85
 @export var air_accel := 800.0
@@ -73,14 +77,18 @@ var owned_by_current_client : bool = false
 
 var input_dir : Vector2
 var wish_dir : Vector3
+var move_speed: float = walk_speed
+
+var available_jumps : int = 1
+var max_available_jumps : int = 1
 
 # ----DEV SETTINGS----
-var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
 func _ready():
 	add_child(sound_player)
-	
+	active_camera = third_person_cam
+
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -89,14 +97,12 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# DEV TOOLS
-	if OS.is_debug_build():
-		check_dev_inputs()
-
 	handle_move_input(delta)
 
 	handle_interaction()
 
+	handle_fire1()
+	handle_fire2()
 	handle_spell(delta)
 
 	move_and_slide()
@@ -112,7 +118,7 @@ func update_locomotion()->void:
 		velocity.z).length()
 
 	# set the blend	value
-	var blend:=clampf(horizontal_speed/SPEED,
+	var blend:=clampf(horizontal_speed/move_speed,
 		0.0,
 		1.0)
 
@@ -124,14 +130,13 @@ func make_current_player() -> void:
 	if not is_node_ready():
 		await ready
 	if not debug_scene_play:
-		var parent_peer_id : int = get_parent().get("peer_id")
+		var parent_peer_id : int = player_metadata.peer_id
 		var current_peer_id : int = multiplayer.get_unique_id()
 		if current_peer_id != parent_peer_id:
 			return
 	owned_by_current_client = true
 	active_camera.make_current()
 	active_camera_changed.emit(active_camera)
-	active_camera.make_current()
 
 func is_moving()->bool:
 	var test_input = Input.get_vector("move_left", "move_right", "move_up", "move_down") # poll again because 'can_move' interferes
@@ -160,11 +165,11 @@ func handle_spell(delta: float)->void:
 			time_holding_spell+=delta
 
 
-func fire1()->void:
+func handle_fire1()->void:
 	if Input.is_action_just_pressed("fire1"):
 		print_rich("[Color=red]Fire 1")
 
-func fire2()->void:
+func handle_fire2()->void:
 	if Input.is_action_just_pressed("fire2"):
 		print_rich("[Color=red]Fire 2")
 
@@ -184,19 +189,32 @@ func _handle_air_physics(delta: float) -> void:
 
 
 func _handle_ground_physics(delta: float) -> void:
-	velocity.x = wish_dir.x * SPEED
-	velocity.z = wish_dir.z * SPEED
+	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
+	var add_speed_till_cap = move_speed - cur_speed_in_wish_dir
+	if add_speed_till_cap > 0:
+		var accel_speed = ground_accel * delta * move_speed
+		accel_speed = min(accel_speed, add_speed_till_cap)
+		velocity += accel_speed * wish_dir
 
+	var control = max(velocity.length(), ground_decel)
+	var drop = control * ground_friction * delta
+	var new_speed = max(velocity.length() - drop, 0.0)
+	if velocity.length() > 0:
+		new_speed /= velocity.length()
+	velocity *= new_speed
 
 
 func handle_move_input(delta: float) -> void:
 	if GameManager.instance.paused:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, move_speed)
+		velocity.z = move_toward(velocity.z, 0, move_speed)
 		return
 
+	if is_on_floor():
+		available_jumps = max_available_jumps
+
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and available_jumps > 0:
 		cancel_spell() # cancels a spell if we were trying to cast
 		velocity.y = JUMP_VELOCITY
 		landing_requested=false
@@ -205,6 +223,17 @@ func handle_move_input(delta: float) -> void:
 			reverb_effect.room_size = RainSystem.instance.calculate_amount_indoors() / 2
 			sound_player.stream = JumpSounds.pick_random()
 			sound_player.play()
+		if not is_on_floor():
+			available_jumps -= 1
+
+	if Input.is_action_pressed("shift"):
+		move_speed = run_speed
+	else:
+		move_speed = walk_speed
+
+	# DEV TOOLS
+	if OS.is_debug_build() and debug_scene_play:
+		check_dev_inputs()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -250,9 +279,9 @@ func handle_interaction():
 
 func check_dev_inputs():
 	if Input.is_action_pressed("shift"):
-		SPEED = dev_speed
+		move_speed = dev_speed
 	else:
-		SPEED = regular_speed
+		move_speed = walk_speed
 
 
 func handle_animation(delta: float):

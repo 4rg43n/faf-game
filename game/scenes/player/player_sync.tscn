@@ -62,4 +62,3 @@ visibility_update_mode = 1
 
 [node name="Player" parent="." unique_id=422766350 node_paths=PackedStringArray("player_metadata") instance=ExtResource("1_vefth")]
 player_metadata = NodePath("..")
-JUMP_VELOCITY = 6.0

@@ -18,15 +18,10 @@ func init(in_peer_id : int, in_steam_id : int, in_spawn_location : Node3D) -> vo
 	peer_id = in_peer_id
 	steam_id = in_steam_id
 	player_controller.position = in_spawn_location.position
+	InventorySystem.instance.on_active_slot_changed.connect(set_active_item)
 
 
 func add_item_if_possible(new_item: Item) -> bool:
-	#TODO implement this Zachy poo - checkout handable spawner for use case.
-	#we need to check active index and see if this item is there? or make it so we pass in object into add_item_if_possible
-	#so we can do the queue free there - set active should already be adding to correct hand
-
-	## TODO set new active index if we pickup an item set_active_item - as we need to spawn the new object in its hand
-
 	if not new_item:
 		printerr("Tried to add null item to inventory")
 		return false
@@ -45,6 +40,8 @@ func add_item_if_possible(new_item: Item) -> bool:
 			return true
 	if free_slot >= 0:
 		hotbar.set(free_slot, new_item)
+		if InventorySystem.instance.active_slot == free_slot:
+			set_active_item(-1)
 		hotbar_updated.emit()
 		return true
 	index = -1
@@ -95,37 +92,53 @@ func merge_items(first_item: Item, second_item: Item):
 	main_inventory_updated.emit()
 	return
 
-##TODO return the current active
-func get_active_item() -> Node3D:
-	var active_item : Node3D = null
-	if player_controller.LEFT_HANDED and player_controller.left_hand_spawner.get_child_count() != 0:
-		active_item = player_controller.left_hand_spawner.get_child(0)
-	elif not player_controller.LEFT_HANDED and player_controller.right_hand_spawner.get_child_count() != 0:
-		active_item =  player_controller.right_hand_spawner.get_child(0)
-	return active_item
+func decrement_active_item() -> Item:
+	var item : Item = null
+	if hotbar[InventorySystem.instance.active_slot] == null:
+		return item
+	item = hotbar[InventorySystem.instance.active_slot]
+	var current_hotbar_item : Item = hotbar[InventorySystem.instance.active_slot]
+	current_hotbar_item.count -= 1
+
+	if current_hotbar_item.count <= 0:
+		item_removed_from_hotbar(current_hotbar_item, InventorySystem.instance.active_slot)
+	hotbar_updated.emit()
+	return item
 
 ## should be called when we scroll to new slot or when we pick up a new item into the active slot.
-func set_active_item(new_index : int) -> void:
-	## do inventory stuff here...
+func set_active_item(old_slot : int) -> void:
+	if old_slot != -1 and not hotbar[old_slot] == null:
+		var old_active_item : Item = hotbar[old_slot]
+		var old_item_obj : Node3D = get_node_or_null(old_active_item.hotbar_item_path)
+		if not old_item_obj == null:
+			old_item_obj.visible = false
 
-	var new_active_object : Node3D = null
-	## TODO get new active scene object (initate if if we need to)
+	if hotbar[InventorySystem.instance.active_slot] == null:
+		current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
+		return
+	var new_active_item : Item = hotbar[InventorySystem.instance.active_slot]
+	var new_item_obj : Node3D = get_node_or_null(new_active_item.hotbar_item_path)
+	if new_item_obj == null:
+		var scene : PackedScene = new_active_item.item_scene
+		if scene != null:
+			new_item_obj = scene.instantiate()
+			if player_controller.LEFT_HANDED:
+				player_controller.left_hand_socket.add_child(new_item_obj, true)
+			else:
+				player_controller.right_hand_socket.add_child(new_item_obj, true)
+			new_item_obj.set_multiplayer_authority(multiplayer.get_unique_id())
+			new_active_item.hotbar_item_path = new_item_obj.get_path()
+	new_item_obj.visible = true
+	current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
 
-	var old_active_item : Node3D = get_active_item()
-	if player_controller.LEFT_HANDED:
-		player_controller.left_hand_spawner.remove_child(old_active_item)
-		if not new_active_object == null:
-			player_controller.left_hand_spawner.add_child(new_active_object)
-			current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
-		else:
-			current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
-	else:
-		player_controller.right_hand_spawner.remove_child(old_active_item)
-		if not new_active_object == null:
-			player_controller.right_hand_spawner.add_child(new_active_object)
-			current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
-		else:
-			current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
+func item_removed_from_hotbar(item : Item, old_hotbar_index : int) -> void:
+	var old_item_obj : Node3D = get_node_or_null(item.hotbar_item_path)
+	item.hotbar_item_path = ""
+	if old_item_obj != null:
+		old_item_obj.queue_free()
+	hotbar.set(old_hotbar_index, null)
+	current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
+	hotbar_updated.emit()
 
 func pickup_item(child_obj : Node3D) -> void:
 	if player_controller.LEFT_HANDED:

@@ -16,6 +16,10 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		process_mode = Node.PROCESS_MODE_DISABLED
+		return
+
 	if not Input.mouse_mode == Input.MouseMode.MOUSE_MODE_CAPTURED:
 		return
 
