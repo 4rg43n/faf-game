@@ -10,4 +10,5 @@ id = 1
 icon = ExtResource("1_x25yc")
 count = 1
 max_count = 64
+item_scene_path = "res://assets/models/creatures/worm.tscn"
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"
