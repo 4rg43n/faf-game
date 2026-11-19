@@ -51,7 +51,7 @@ mouse_filter = 2
 script = ExtResource("3_necax")
 lobby_manager = NodePath("../LobbyManager")
 options_menu = NodePath("OptionsMenu")
-inventory = NodePath("Inventory")
+inventory = NodePath("InventorySystem")
 game_manager = NodePath("../GameManager")
 metadata/_edit_lock_ = true
 
@@ -67,7 +67,7 @@ offset_right = 1152.8015
 offset_bottom = 647.3821
 metadata/_edit_lock_ = true
 
-[node name="Inventory" parent="UI" unique_id=1333479588 instance=ExtResource("6_pg34l")]
+[node name="InventorySystem" parent="UI" unique_id=1333479588 instance=ExtResource("6_pg34l")]
 visible = false
 layout_mode = 1
 
