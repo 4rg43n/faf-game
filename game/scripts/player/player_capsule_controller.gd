@@ -88,10 +88,6 @@ func _physics_process(delta: float) -> void:
 
 	handle_move_input(delta)
 
-	# DEV TOOLS
-	if OS.is_debug_build() and debug_scene_play:
-		check_dev_inputs()
-
 	handle_interaction()
 
 	handle_fire1()
@@ -215,6 +211,10 @@ func handle_move_input(delta: float) -> void:
 		move_speed = run_speed
 	else:
 		move_speed = walk_speed
+
+	# DEV TOOLS
+	if OS.is_debug_build() and debug_scene_play:
+		check_dev_inputs()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
