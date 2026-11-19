@@ -6,31 +6,34 @@
 [ext_resource type="Texture2D" uid="uid://dt8okcy3ef6s7" path="res://assets/critters/worm.png" id="3_ac1le"]
 [ext_resource type="Texture2D" uid="uid://5irkgv5h0sfm" path="res://assets/critters/beetle.png" id="4_wleiu"]
 
-[sub_resource type="Resource" id="Resource_3mesa"]
+[sub_resource type="Resource" id="Resource_ac1le"]
 script = ExtResource("2_temku")
 name = "Worm"
 id = 1
 icon = ExtResource("3_ac1le")
 count = 4
 max_count = 64
+item_scene_path = "res://scenes/critters/worm.tscn"
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"
 
-[sub_resource type="Resource" id="Resource_264sy"]
+[sub_resource type="Resource" id="Resource_wleiu"]
 script = ExtResource("2_temku")
 name = "Beetle"
 id = 3
 icon = ExtResource("4_wleiu")
 count = 1
 max_count = 64
+item_scene_path = "res://scenes/critters/beetle.tscn"
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"
 
-[sub_resource type="Resource" id="Resource_vlyy2"]
+[sub_resource type="Resource" id="Resource_3mesa"]
 script = ExtResource("2_temku")
 name = "Worm"
 id = 1
 icon = ExtResource("3_ac1le")
 count = 6
 max_count = 64
+item_scene_path = "res://scenes/critters/worm.tscn"
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vefth"]
@@ -53,7 +56,7 @@ properties/4/replication_mode = 2
 [node name="TheWholePackage" type="Node3D" unique_id=1542336818 node_paths=PackedStringArray("player_controller") groups=["Player"]]
 script = ExtResource("1_rbmgg")
 player_controller = NodePath("Player")
-main_inventory = Array[ExtResource("2_temku")]([SubResource("Resource_3mesa"), SubResource("Resource_264sy"), SubResource("Resource_vlyy2"), null, null, null, null, null, null, null, null, null, null, null, null])
+main_inventory = Array[ExtResource("2_temku")]([SubResource("Resource_ac1le"), SubResource("Resource_wleiu"), SubResource("Resource_3mesa"), null, null, null, null, null, null, null, null, null])
 hotbar = Array[ExtResource("2_temku")]([null, null, null, null, null, null, null, null, null])
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=751910215]

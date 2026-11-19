@@ -32,7 +32,7 @@ properties/1/replication_mode = 2
 
 [node name="BugCollectorMiniGame" type="StaticBody3D" unique_id=1401098916 node_paths=PackedStringArray("pivot", "minigame_camera", "bug_spawn_area", "bug_spawn_area_area")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
-collision_layer = 5
+collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_rd6ps")
 pivot = NodePath("Pivot")

@@ -128,7 +128,8 @@ func set_active_item(old_slot : int) -> void:
 				player_controller.right_hand_socket.add_child(new_item_obj, true)
 			new_item_obj.set_multiplayer_authority(multiplayer.get_unique_id())
 			new_active_item.hotbar_item_path = new_item_obj.get_path()
-	new_item_obj.visible = true
+	if new_item_obj:
+		new_item_obj.visible = true
 	current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
 
 func item_removed_from_hotbar(item : Item, old_hotbar_index : int) -> void:

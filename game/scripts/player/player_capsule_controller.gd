@@ -214,17 +214,17 @@ func handle_move_input(delta: float) -> void:
 		available_jumps = max_available_jumps
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and available_jumps > 0:
-		cancel_spell() # cancels a spell if we were trying to cast
-		velocity.y = JUMP_VELOCITY
-		landing_requested=false
-		animation_state.travel("Jump_Start")
-		if(randi() % 10 < 9):
-			reverb_effect.room_size = RainSystem.instance.calculate_amount_indoors() / 2
-			sound_player.stream = JumpSounds.pick_random()
-			sound_player.play()
-		if not is_on_floor():
-			available_jumps -= 1
+	if Input.is_action_just_pressed("jump"):
+		if is_on_wall():
+			velocity.y = JUMP_VELOCITY
+			velocity.x = -velocity.x
+		elif available_jumps > 0:
+			cancel_spell() # cancels a spell if we were trying to cast
+			velocity.y = JUMP_VELOCITY
+			landing_requested=false
+			animation_state.travel("Jump_Start")
+			if not is_on_floor():
+				available_jumps -= 1
 
 	if Input.is_action_pressed("shift"):
 		move_speed = run_speed
