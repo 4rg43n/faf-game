@@ -90,6 +90,8 @@ func _physics_process(delta: float) -> void:
 
 	handle_interaction()
 
+	handle_fire1()
+	handle_fire2()
 	handle_spell(delta)
 
 	move_and_slide()
@@ -153,11 +155,11 @@ func handle_spell(delta: float)->void:
 			time_holding_spell+=delta
 
 
-func fire1()->void:
+func handle_fire1()->void:
 	if Input.is_action_just_pressed("fire1"):
 		print_rich("[Color=red]Fire 1")
 
-func fire2()->void:
+func handle_fire2()->void:
 	if Input.is_action_just_pressed("fire2"):
 		print_rich("[Color=red]Fire 2")
 
