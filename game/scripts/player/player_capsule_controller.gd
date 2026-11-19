@@ -75,6 +75,9 @@ var input_dir : Vector2
 var wish_dir : Vector3
 var move_speed: float = walk_speed
 
+var available_jumps : int = 2
+var max_available_jumps : int = 2
+
 # ----DEV SETTINGS----
 var dev_speed: float = 50.0
 
@@ -200,12 +203,16 @@ func handle_move_input(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, move_speed)
 		return
 
+	if is_on_floor():
+		available_jumps = max_available_jumps
+
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and available_jumps > 0:
 		cancel_spell() # cancels a spell if we were trying to cast
 		velocity.y = JUMP_VELOCITY
 		landing_requested=false
 		animation_state.travel("Jump_Start")
+		available_jumps -= 1
 
 	if Input.is_action_pressed("shift"):
 		move_speed = run_speed
