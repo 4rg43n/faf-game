@@ -7,14 +7,8 @@ signal hotbar_updated()
 @export var steam_id : int
 @export var player_controller : PlayerController
 @export var current_equipment : CustomEnums.Equipment_Type = CustomEnums.Equipment_Type.EMPTY_HAND
-@export var main_inventory : Array[Item]:
-	set(value):
-		main_inventory = value
-		main_inventory_updated.emit()
-@export var hotbar : Array[Item]:
-	set(value):
-		hotbar = value
-		hotbar_updated.emit()
+@export var main_inventory : Array[Item]
+@export var hotbar : Array[Item]
 
 const MAX_INVENTORY_SIZE : int = 50
 const MAX_HOTBAR_SIZE : int = 9
@@ -30,6 +24,7 @@ func add_item_if_possible(new_item: Item) -> bool:
 	if not new_item:
 		printerr("Tried to add null item to inventory")
 		return false
+	new_item = new_item.duplicate()
 	var free_slot : int = -1
 	var index : int = -1
 	for hotbar_item: Item in hotbar:
@@ -61,3 +56,35 @@ func add_item_if_possible(new_item: Item) -> bool:
 		main_inventory_updated.emit()
 		return true
 	return false
+
+
+func merge_items(first_item: Item, second_item: Item):
+	print("Attemping to merge items...")
+	var first_idx : int = hotbar.find(first_item)
+	if not first_idx >= 0:
+		first_idx = main_inventory.find(first_item)
+		if not first_idx >= 0:
+			printerr("Tried to merge null items")
+			return
+	var second_idx : int = hotbar.find(second_item)
+	var is_second_main_item : bool = false
+	if not second_idx >= 0:
+		second_idx = main_inventory.find(second_item)
+		if not second_idx >= 0:
+			printerr("Tried to merge null items")
+			return
+		is_second_main_item = true
+
+	var total_count = first_item.count + second_item.count
+	first_item.count = wrapi(total_count, 0, first_item.max_count)
+	total_count -= first_item.count
+	if total_count <= 0:
+		if is_second_main_item:
+			main_inventory.set(second_idx, null)
+		else:
+			hotbar.set(second_idx, null)
+	else:
+		second_item.count = total_count
+	hotbar_updated.emit()
+	main_inventory_updated.emit()
+	return

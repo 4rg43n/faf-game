@@ -43,18 +43,27 @@ func button_released():
 		var old_item : Item = old_slot.stored_item
 		var main_slots : Array = main_inventory.get_children()
 		var hotbar_slots : Array = hotbar.get_children()
-		if main_slots.has(old_slot):
-			player_data.main_inventory.set(main_slots.find(old_slot), hovered_slot.stored_item)
-		elif hotbar_slots.has(old_slot):
-			player_data.hotbar.set(hotbar_slots.find(old_slot), hovered_slot.stored_item)
-		if not hovered_slot or main_slots.has(hovered_slot):
-			player_data.main_inventory.set(main_slots.find(hovered_slot), old_item)
+
+		var old_main_idx : int = main_slots.find(old_slot)
+		var old_hotbar_idx : int = hotbar_slots.find(old_slot)
+		var hovered_main_idx : int = main_slots.find(hovered_slot)
+		var hovered_hotbar_idx : int = hotbar_slots.find(hovered_slot)
+
+		if hovered_slot.stored_item and old_item.id == hovered_slot.stored_item.id:
+			player_data.merge_items(old_item, hovered_slot.stored_item)
+
+		if old_main_idx >= 0:
+			player_data.main_inventory.set(old_main_idx, hovered_slot.stored_item)
+		elif old_hotbar_idx >= 0:
+			player_data.hotbar.set(old_hotbar_idx, hovered_slot.stored_item)
+		if not hovered_slot or hovered_main_idx >= 0:
+			player_data.main_inventory.set(hovered_main_idx, old_item)
 			print(player_data.main_inventory)
-		elif not hovered_slot or hotbar_slots.has(hovered_slot):
-			player_data.hotbar.set(hotbar_slots.find(hovered_slot), old_item)
+		elif not hovered_slot or hovered_hotbar_idx >= 0:
+			player_data.hotbar.set(hovered_hotbar_idx, old_item)
 			print(player_data.hotbar)
-		old_slot.stored_item = hovered_slot.stored_item
-		hovered_slot.stored_item = old_item
+		_on_hotbar_updated()
+		_on_main_inventory_updated()
 
 	drag_icon.texture = null
 
@@ -81,6 +90,8 @@ func _on_player_synced():
 	player_data = game_manager.player_data
 	game_manager.player_data.hotbar_updated.connect(_on_hotbar_updated)
 	game_manager.player_data.main_inventory_updated.connect(_on_main_inventory_updated)
+	_on_hotbar_updated()
+	_on_main_inventory_updated()
 
 
 func _on_hotbar_updated():
