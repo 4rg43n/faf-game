@@ -14,6 +14,10 @@ signal active_camera_changed(camera: Camera3D)
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
 
+var sound_player := AudioStreamPlayer.new()
+var reverb_effect = AudioServer.get_bus_effect(2, 0)  # Adjust index as necessary
+var JumpSounds = [preload("res://assets/sfx/main-char/jump-1.wav"), preload("res://assets/sfx/main-char/jump-2.wav"), preload("res://assets/sfx/main-char/jump-3.wav")]
+
 var can_move:bool=true
 
 #####################################################################
@@ -74,6 +78,9 @@ var wish_dir : Vector3
 var regular_speed: float = SPEED
 var dev_speed: float = 50.0
 
+func _ready():
+	add_child(sound_player)
+	
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -194,6 +201,10 @@ func handle_move_input(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		landing_requested=false
 		animation_state.travel("Jump_Start")
+		if(randi() % 10 < 9):
+			reverb_effect.room_size = RainSystem.instance.calculate_amount_indoors() / 2
+			sound_player.stream = JumpSounds.pick_random()
+			sound_player.play()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
