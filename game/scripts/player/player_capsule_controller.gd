@@ -153,6 +153,14 @@ func handle_spell(delta: float)->void:
 			time_holding_spell+=delta
 
 
+func fire1()->void:
+	if Input.is_action_just_pressed("fire1"):
+		print_rich("[Color=red]Fire 1")
+
+func fire2()->void:
+	if Input.is_action_just_pressed("fire2"):
+		print_rich("[Color=red]Fire 2")
+
 func cancel_spell()->void:
 	if is_holding_spell:
 		can_move=true
