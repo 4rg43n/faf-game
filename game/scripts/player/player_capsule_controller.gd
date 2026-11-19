@@ -159,7 +159,13 @@ func cancel_spell()->void:
 		is_holding_spell=false
 
 func _handle_air_physics(delta: float) -> void:
-	pass
+	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
+	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
+	var add_speed_till_cap = capped_speed - cur_speed_in_wish_dir
+	if add_speed_till_cap > 0:
+		var accel_speed = air_accel * air_move_speed * delta
+		accel_speed = min(accel_speed, add_speed_till_cap)
+		velocity += accel_speed * wish_dir
 
 
 func _handle_ground_physics(delta: float) -> void:
