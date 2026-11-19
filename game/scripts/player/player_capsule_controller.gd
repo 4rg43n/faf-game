@@ -8,7 +8,7 @@ signal active_camera_changed(camera: Camera3D)
 
 @export var turn_speed: float = 10.0
 
-@export var debug_scene_play:bool=false
+var debug_scene_play : bool = false
 
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D

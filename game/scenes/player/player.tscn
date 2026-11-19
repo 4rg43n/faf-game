@@ -207,7 +207,6 @@ graph_offset = Vector2(-303, -223)
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_vi406")
-debug_scene_play = true
 first_person_cam = NodePath("SpringArmPivot/FirstPersonCam")
 third_person_cam = NodePath("SpringArmPivot/ThirdPersonCam")
 third_person_pivot = NodePath("SpringArmPivot")
