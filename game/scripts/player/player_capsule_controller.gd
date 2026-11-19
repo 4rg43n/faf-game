@@ -40,9 +40,7 @@ var landing_timer:float = 0.0
 # spell junk
 @onready var animation_state_attacks:AnimationNodeStateMachinePlayback=\
 	animation_tree.get("parameters/Attacks/playback")
-var is_holding_spell:bool=false
-var time_holding_spell:float=0.0
-@export var spell_enter_time_scale:float=2.0
+@export var spell_shoot_time_scale:float=1
 ####################################################################
 # punches
 @export var punch_light_speed_scale:float = 2
@@ -109,7 +107,7 @@ func _physics_process(delta: float) -> void:
 
 	handle_fire1()
 	handle_fire2()
-	handle_spell(delta)
+	handle_fire3()
 
 	move_and_slide()
 
@@ -155,47 +153,33 @@ func is_moving()->bool:
 	else:
 		return false
 
-func handle_spell(delta: float)->void:
-	if not is_holding_spell:
-		if is_on_floor() and not is_moving() and Input.is_action_just_pressed("spell_down"): # pressed the button
-			can_move=false
-			is_holding_spell=true
-			time_holding_spell=0.0
-			animation_tree.set("parameters/Locomotion/Spell_Enter/TimeScale/scale", spell_enter_time_scale)
-			animation_state.travel("Spell_Enter")
-	else:
-		if not is_on_floor() or is_moving(): # we fell, or we tried to move
-			cancel_spell()
-			animation_state.travel("Locomotion")
-		elif Input.is_action_just_released("spell_down") or not is_holding_spell: # released the button. the holding spell check is in case we release control when Spell_Enter is playing
-			cancel_spell()
-			animation_state.travel("Spell_Shoot")
-		else:
-			time_holding_spell+=delta
-
-
 func handle_fire1()->void:
 	if Input.is_action_just_pressed("fire1"):
-		#print_rich("[Color=red]Fire 1")
 		animation_tree.set("parameters/Attacks/Punch_Light/TimeScale/scale", punch_light_speed_scale)
 		animation_state_attacks.start("Punch_Light")
 		animation_tree.set(
 			"parameters/UpperBodyAttack/request",
 			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 		)
-		#animation_state_attacks.travel("Punch_Light")
 
 func handle_fire2()->void:
-	if is_on_floor() and Input.is_action_just_pressed("fire2"):
-		print_rich("[Color=red]Fire 2")
-		animation_tree.set("parameters/Locomotion/Punch_Heavy/TimeScale/scale", punch_heavy_speed_scale)
-		animation_state.travel("Punch_Heavy")
-		
-func cancel_spell()->void:
-	if is_holding_spell:
-		can_move=true
-		is_holding_spell=false
+	if Input.is_action_just_pressed("fire2"):
+		animation_tree.set("parameters/Attacks/Punch_Light/TimeScale/scale", punch_heavy_speed_scale)
+		animation_state_attacks.start("Punch_Heavy")
+		animation_tree.set(
+			"parameters/UpperBodyAttack/request",
+			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		)
 
+func handle_fire3()->void:
+	if Input.is_action_just_pressed("fire3"):
+		animation_tree.set("parameters/Attacks/Spell_Shoot/TimeScale/scale", spell_shoot_time_scale)
+		animation_state_attacks.start("Spell_Shoot")
+		animation_tree.set(
+			"parameters/UpperBodyAttack/request",
+			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		)
+		
 func _handle_air_physics(delta: float) -> void:
 	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
 	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
@@ -237,7 +221,6 @@ func handle_move_input(delta: float) -> void:
 			velocity.y = JUMP_VELOCITY
 			velocity.x = -velocity.x
 		elif available_jumps > 0:
-			cancel_spell() # cancels a spell if we were trying to cast
 			velocity.y = JUMP_VELOCITY
 			landing_requested=false
 			animation_state.travel("Jump_Start")
