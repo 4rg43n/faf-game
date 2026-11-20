@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://byujyoyd72yde" path="res://scenes/steam_lobby_stuff/main_menu_lobby_manager.tscn" id="1_iuonh"]
 [ext_resource type="Script" uid="uid://suqids5spj1b" path="res://scripts/main/main.gd" id="1_ou6is"]
-[ext_resource type="PackedScene" uid="uid://cs27qyaii4qhc" path="res://scenes/worlds/test_island.tscn" id="2_k2fmo"]
 [ext_resource type="Script" uid="uid://dd0g2xdhbs54h" path="res://scripts/main/game_manager.gd" id="2_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://gk6g40v2wk3y" path="res://scenes/debug/fps_tracker.tscn" id="3_b1x3f"]
 [ext_resource type="Script" uid="uid://cd4a6lf1xe5jp" path="res://scripts/weather/weather_manager.gd" id="3_hxu8e"]
@@ -13,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://c8vke606olrn" path="res://resources/weather/cloudy.tres" id="5_ou6is"]
 [ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="5_ouso4"]
 [ext_resource type="PackedScene" uid="uid://ged1a840ronn" path="res://scenes/ui/menus/options_menu.tscn" id="5_r4lks"]
+[ext_resource type="Script" uid="uid://dw7ps4j81ybl5" path="res://scripts/ui/jump_tracker.gd" id="6_0bhws"]
 [ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="6_blune"]
 [ext_resource type="Resource" uid="uid://bsqtk47oirn4s" path="res://resources/weather/foggy.tres" id="6_necax"]
 [ext_resource type="PackedScene" uid="uid://b0876tlwoagks" path="res://scenes/ui/menus/inventory.tscn" id="6_pg34l"]
@@ -25,6 +25,7 @@
 [ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="18_37hlw"]
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
+[ext_resource type="PackedScene" uid="uid://b5dsud5kke2w3" path="res://assets/models/env/terrain/island1.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
@@ -37,7 +38,7 @@ weather_manager = NodePath("WeatherManager")
 
 [node name="LobbyManager" parent="." unique_id=1925178178 node_paths=PackedStringArray("player_spawner", "starting_world") instance=ExtResource("1_iuonh")]
 player_spawner = NodePath("../PlayerSpawner")
-starting_world = NodePath("../World/TestIsland")
+starting_world = NodePath("../World/Island1")
 metadata/_edit_lock_ = true
 
 [node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager")]
@@ -62,16 +63,24 @@ layout_mode = 1
 offset_right = 179.0
 metadata/_edit_lock_ = true
 
-[node name="SpeedTracker" type="Label" parent="UI" unique_id=519599510]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI" unique_id=1543582842]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = 40.0
+offset_top = -40.0
+offset_right = 228.0
 grow_vertical = 0
+
+[node name="SpeedTracker" type="Label" parent="UI/HBoxContainer" unique_id=519599510]
+layout_mode = 2
 text = "Over 9000 m/s"
 script = ExtResource("5_6llfj")
+
+[node name="JumpTracker" type="Label" parent="UI/HBoxContainer" unique_id=1327207390]
+layout_mode = 2
+text = "Over 9000 m/s"
+script = ExtResource("6_0bhws")
 
 [node name="OptionsMenu" parent="UI" unique_id=450231988 instance=ExtResource("5_r4lks")]
 visible = false
@@ -114,7 +123,7 @@ script = ExtResource("17_s17dp")
 gravityFactor = 9.81
 waterDensity = 1.0
 drag = 0.15
-world = NodePath("../World/TestIsland")
+world = NodePath("../World/Island1")
 oceanResolution = 0.5
 oceanShader = ExtResource("18_37hlw")
 metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
@@ -157,13 +166,13 @@ dome_path = NodePath("../SkyDome")
 current_time = 6.65
 day = 2
 
-[node name="TestIsland" parent="World" unique_id=231429549 instance=ExtResource("2_k2fmo")]
+[node name="Island1" parent="World" unique_id=1149858785 instance=ExtResource("24_0bhws")]
 
 [node name="Killzone" type="Area3D" parent="World" unique_id=1159628725 node_paths=PackedStringArray("starting_world")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 collision_mask = 10
 script = ExtResource("18_ou6is")
-starting_world = NodePath("../TestIsland")
+starting_world = NodePath("")
 
 [node name="WorldBoundary" type="CollisionShape3D" parent="World/Killzone" unique_id=273165614]
 shape = SubResource("WorldBoundaryShape3D_0kwd2")

@@ -67,7 +67,9 @@ var landing_timer:float = 0.0
 @export var ground_accel: float = 14.0
 @export var ground_decel: float = 10.0
 @export var ground_friction: float = 6.0
-@export var JUMP_VELOCITY: float = 6.0
+@export var jump_velocity: float = 5.0
+@export var max_jump_velocity: float = 9.0
+@export var super_jump_charge_rate: float = 8.0
 @export var air_cap := 0.85
 @export var air_accel := 800.0
 @export var air_move_speed := 500.0
@@ -89,6 +91,7 @@ var input_dir : Vector2
 var wish_dir : Vector3
 var move_speed: float = walk_speed
 
+var current_jump_velocity : float = jump_velocity
 var available_jumps : int = 1
 var max_available_jumps : int = 1
 var available_wall_jumps : int = 1
@@ -190,7 +193,7 @@ func handle_fire3()->void:
 		)
 
 
-func clip_velocity(normal: Vector3, overbounce : float, delta: float) -> void:
+func clip_velocity(normal: Vector3, overbounce : float) -> void:
 	var backoff : float = velocity.dot(normal) * overbounce
 
 	if backoff >= 0: return
@@ -222,7 +225,7 @@ func _handle_air_physics(delta: float) -> void:
 			motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
 		else:
 			motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
-		clip_velocity(get_wall_normal(), 1, delta) # Allows surfing
+		clip_velocity(get_wall_normal(), 1) # Allows surfing
 
 func _handle_ground_physics(delta: float) -> void:
 	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
@@ -249,14 +252,18 @@ func handle_move_input(delta: float) -> void:
 	if is_on_floor():
 		available_jumps = max_available_jumps
 		available_wall_jumps = max_available_wall_jumps
+		if Input.is_action_pressed("ctrl"):
+			current_jump_velocity = clampf(current_jump_velocity + super_jump_charge_rate * delta, jump_velocity, max_jump_velocity)
+		else:
+			current_jump_velocity = jump_velocity
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump"):
 		if is_on_wall_only() and available_wall_jumps > 0:
 			available_wall_jumps -= 1
-			velocity.y = JUMP_VELOCITY
+			velocity.y = current_jump_velocity
 		elif available_jumps > 0:
-			velocity.y = JUMP_VELOCITY
+			velocity.y = current_jump_velocity
 			landing_requested=false
 			animation_state.travel("Jump_Start")
 			if not is_on_floor():
@@ -265,6 +272,7 @@ func handle_move_input(delta: float) -> void:
 			reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
 			sound_player.stream = JumpSounds.pick_random()
 			sound_player.play()
+		current_jump_velocity = jump_velocity
 
 	if Input.is_action_pressed("shift"):
 		move_speed = run_speed
