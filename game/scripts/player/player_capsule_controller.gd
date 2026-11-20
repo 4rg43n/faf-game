@@ -91,6 +91,8 @@ var move_speed: float = walk_speed
 
 var available_jumps : int = 1
 var max_available_jumps : int = 1
+var available_wall_jumps : int = 1
+var max_available_wall_jumps : int = 1
 
 # ----DEV SETTINGS----
 var dev_speed: float = 50.0
@@ -246,12 +248,13 @@ func handle_move_input(delta: float) -> void:
 
 	if is_on_floor():
 		available_jumps = max_available_jumps
+		available_wall_jumps = max_available_wall_jumps
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump"):
-		if is_on_wall():
+		if is_on_wall_only() and available_wall_jumps > 0:
+			available_wall_jumps -= 1
 			velocity.y = JUMP_VELOCITY
-			velocity.x = -velocity.x
 		elif available_jumps > 0:
 			velocity.y = JUMP_VELOCITY
 			landing_requested=false
