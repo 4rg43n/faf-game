@@ -172,7 +172,7 @@ day = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 collision_mask = 10
 script = ExtResource("18_ou6is")
-starting_world = NodePath("")
+starting_world = NodePath("../Island1")
 
 [node name="WorldBoundary" type="CollisionShape3D" parent="World/Killzone" unique_id=273165614]
 shape = SubResource("WorldBoundaryShape3D_0kwd2")
