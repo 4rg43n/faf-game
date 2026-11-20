@@ -187,6 +187,25 @@ func handle_fire3()->void:
 			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 		)
 
+
+func clip_velocity(normal: Vector3, overbounce : float, delta: float) -> void:
+	var backoff : float = velocity.dot(normal) * overbounce
+
+	if backoff >= 0: return
+
+	var change := normal * backoff
+	velocity -= change
+
+	var adjust := velocity.dot(normal)
+	if adjust < 0.0:
+		velocity -= normal * adjust
+
+
+func is_surface_too_steep(normal: Vector3) -> bool:
+	var max_slope_ang_dot = Vector3(0, 1, 0).rotated(Vector3(1.0, 0, 0), floor_max_angle).dot(Vector3(0, 1, 0))
+	return normal.dot(Vector3(0, 1, 0)) < max_slope_ang_dot
+
+
 func _handle_air_physics(delta: float) -> void:
 	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
 	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
@@ -196,6 +215,8 @@ func _handle_air_physics(delta: float) -> void:
 		accel_speed = min(accel_speed, add_speed_till_cap)
 		velocity += accel_speed * wish_dir
 
+	if is_on_wall():
+		clip_velocity(get_wall_normal(), 1, delta) # Allows surfing
 
 func _handle_ground_physics(delta: float) -> void:
 	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
