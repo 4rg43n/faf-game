@@ -262,16 +262,20 @@ func handle_move_input(delta: float) -> void:
 		if is_on_wall_only() and available_wall_jumps > 0:
 			available_wall_jumps -= 1
 			velocity.y = current_jump_velocity
+			if(randi() % 10 < 9):
+				reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
+				sound_player.stream = JumpSounds.pick_random()
+				sound_player.play()
 		elif available_jumps > 0:
 			velocity.y = current_jump_velocity
 			landing_requested=false
 			animation_state.travel("Jump_Start")
 			if not is_on_floor():
 				available_jumps -= 1
-		if(randi() % 10 < 9):
-			reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
-			sound_player.stream = JumpSounds.pick_random()
-			sound_player.play()
+			if(randi() % 10 < 9):
+				reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
+				sound_player.stream = JumpSounds.pick_random()
+				sound_player.play()
 		current_jump_velocity = jump_velocity
 
 	if Input.is_action_pressed("shift"):

@@ -2,6 +2,37 @@
 
 [ext_resource type="Script" uid="uid://cub0o4re6n8kq" path="res://scripts/world/base_world_class.gd" id="1_x0u74"]
 [ext_resource type="PackedScene" uid="uid://n46wsu2s5aim" path="res://assets/models/env/terrain/island0.tscn" id="2_x0u74"]
+[ext_resource type="Shader" uid="uid://bi3o8elbtqoni" path="res://addons/simplegrasstextured/shaders/grass.gdshader" id="3_jsfgd"]
+[ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="4_ft2bs"]
+[ext_resource type="PackedScene" uid="uid://crisams4xiht3" path="res://scenes/interactable/bug_collector_mini_game.tscn" id="5_ej332"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jsfgd"]
+render_priority = 0
+shader = ExtResource("3_jsfgd")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("4_ft2bs")
+shader_parameter/texture_frames = Vector2(1, 1)
+shader_parameter/light_mode = 1
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/normal_scale = 1.0
+shader_parameter/metallic = 0.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/roughness = 1.0
+shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/scale_h = 1.0
+shader_parameter/scale_w = 1.0
+shader_parameter/scale_var = -0.25
+shader_parameter/grass_strength = 0.55
+shader_parameter/optimization_by_distance = false
+shader_parameter/optimization_level = 7.0
+shader_parameter/optimization_dist_min = 10.0
+shader_parameter/optimization_dist_max = 50.0
+shader_parameter/grass_size_y = 1.0
+shader_parameter/interactive_mode = true
+shader_parameter/interactive_level_xz = 3.0
+shader_parameter/interactive_level_y = 0.3
+metadata/SimpleGrassTexturedMaterial = "2.1.0"
 
 [node name="TropicalIsland" type="Node3D" unique_id=283161791 node_paths=PackedStringArray("spawn_location")]
 script = ExtResource("1_x0u74")
@@ -10,5 +41,13 @@ metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 
 [node name="island0" parent="." unique_id=642752713 instance=ExtResource("2_x0u74")]
 
+[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 150442096) index="1" unique_id=874324246]
+material_override = SubResource("ShaderMaterial_jsfgd")
+
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8147697, 0)
+
+[node name="BugCollectorMiniGame" parent="." unique_id=1401098916 instance=ExtResource("5_ej332")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -53.3947, 6.832299, -8.78101)
+
+[editable path="island0"]
