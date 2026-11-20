@@ -17,6 +17,15 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and not LobbyManager.instance.is_visible_in_tree():
 		if Input.is_action_just_pressed("esc_key"):
+			if inventory.inventory_container.visible:
+				inventory.inventory_container.hide()
+				inventory.background.visible = !inventory.background.visible
+				inventory.shop_container.visible = false
+				if inventory.inventory_container.visible:
+					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				else:
+					Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+				return
 			options_menu.visible = !options_menu.visible
 			if options_menu.visible:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
