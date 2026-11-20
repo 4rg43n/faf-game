@@ -1,4 +1,11 @@
-extends InteractableObject
+class_name Shop extends InteractableObject
+
+@export var main_inventory : Array[Item]
+
+static var instance: Shop
+
+func _init() -> void:
+	instance = self
 
 
 @rpc("any_peer", "reliable", "call_local")

@@ -851,6 +851,7 @@ ctrl={
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Interactables"
 3d_physics/layer_4="Spawnables"
+3d_physics/layer_5="Equipment"
 
 [physics]
 

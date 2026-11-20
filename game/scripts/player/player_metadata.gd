@@ -9,6 +9,7 @@ signal hotbar_updated()
 @export var current_equipment : CustomEnums.Equipment_Type = CustomEnums.Equipment_Type.EMPTY_HAND
 @export var main_inventory : Array[Item]
 @export var hotbar : Array[Item]
+@export var money : float = 0.0
 
 const MAX_INVENTORY_SIZE : int = 50
 const MAX_HOTBAR_SIZE : int = 9

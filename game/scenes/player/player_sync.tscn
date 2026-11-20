@@ -14,6 +14,9 @@ id = 1
 icon = ExtResource("3_ac1le")
 count = 4
 max_count = 64
+sell_value = null
+buy_value = null
+unsellable = null
 item_scene_path = "res://scenes/critters/worm.tscn"
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"
 
@@ -24,6 +27,9 @@ id = 3
 icon = ExtResource("4_wleiu")
 count = 1
 max_count = 64
+sell_value = null
+buy_value = null
+unsellable = null
 item_scene_path = "res://scenes/critters/beetle.tscn"
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"
 
@@ -34,6 +40,9 @@ id = 1
 icon = ExtResource("3_ac1le")
 count = 6
 max_count = 64
+sell_value = null
+buy_value = null
+unsellable = null
 item_scene_path = "res://scenes/critters/worm.tscn"
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"
 
@@ -53,6 +62,9 @@ properties/3/replication_mode = 2
 properties/4/path = NodePath(".:current_equipment")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath(".:money")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [node name="TheWholePackage" type="Node3D" unique_id=1542336818 node_paths=PackedStringArray("player_controller") groups=["Player"]]
 script = ExtResource("1_rbmgg")

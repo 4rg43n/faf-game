@@ -88,6 +88,8 @@ var owned_by_current_client : bool = false
 var input_dir : Vector2
 var wish_dir : Vector3
 var move_speed: float = walk_speed
+var cur_ground_decel : float = ground_decel
+var cur_ground_friction : float = ground_friction
 
 var current_jump_velocity : float = jump_velocity
 var available_jumps : int = 1
@@ -233,8 +235,8 @@ func _handle_ground_physics(delta: float) -> void:
 		accel_speed = min(accel_speed, add_speed_till_cap)
 		velocity += accel_speed * wish_dir
 
-	var control = max(velocity.length(), ground_decel)
-	var drop = control * ground_friction * delta
+	var control = max(velocity.length(), cur_ground_decel)
+	var drop = control * cur_ground_friction * delta
 	var new_speed = max(velocity.length() - drop, 0.0)
 	if velocity.length() > 0:
 		new_speed /= velocity.length()
@@ -252,8 +254,16 @@ func handle_move_input(delta: float) -> void:
 		available_wall_jumps = max_available_wall_jumps
 		if Input.is_action_pressed("ctrl"):
 			current_jump_velocity = clampf(current_jump_velocity + super_jump_charge_rate * delta, jump_velocity, max_jump_velocity)
+			if velocity.length() > run_speed:
+				cur_ground_decel = ground_decel / 10
+				cur_ground_friction = ground_friction / 10
+			else:
+				cur_ground_decel = ground_decel
+				cur_ground_friction = ground_friction
 		else:
 			current_jump_velocity = jump_velocity
+			cur_ground_decel = ground_decel
+			cur_ground_friction = ground_friction
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump"):

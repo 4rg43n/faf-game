@@ -5,6 +5,7 @@ class_name InventorySystem extends MarginContainer
 @export var background: Panel
 @export var inventory_container: PanelContainer
 @export var shop_container: PanelContainer
+@export var shop_inventory: GridContainer
 @export var hotbar: HBoxContainer
 @export var active_slot: int:
 	set(value):
@@ -55,11 +56,13 @@ func button_pressed(button: InventoryButton):
 		drag_icon.texture = button.icon
 		var drag_icon_size = drag_icon.texture.get_size()
 		drag_icon.scale = Vector2(50/drag_icon_size.x, 50/drag_icon_size.y)
+	else:
+		reset()
 
 
 func button_released():
 	if hovered_slot == old_slot:
-		drag_icon.texture = null
+		reset()
 		return
 	if hovered_slot and old_slot and old_slot.stored_item:
 		# fuck you this code works don't complain I know it's ass
@@ -73,8 +76,7 @@ func button_released():
 		var hovered_hotbar_idx : int = hotbar_slots.find(hovered_slot)
 
 		if not [old_main_idx, old_hotbar_idx, hovered_main_idx, hovered_hotbar_idx].filter(func(v): return v >= 0).size() >= 2:
-			drag_icon.texture = null
-			printerr("Tried to move item to invalid inventory")
+			_handle_shop_interaction()
 			return
 
 		if hovered_slot.stored_item and old_item.id == hovered_slot.stored_item.id:
@@ -93,7 +95,7 @@ func button_released():
 		_on_hotbar_updated()
 		_on_main_inventory_updated()
 
-	drag_icon.texture = null
+	reset()
 
 
 func button_hovered(button: InventoryButton):
@@ -104,33 +106,34 @@ func button_unhovered():
 	hovered_slot = null
 
 
-func stored_item_set(button: InventoryButton):
+func stored_item_set(button: InventoryButton) -> void:
 	var button_slot = hotbar.get_children().find(button)
 	if not active_slot == button_slot:
 		return
 	player_data.set_active_item(-1)
 
 
-func reset():
+func reset() -> void:
 	old_slot = null
 	drag_icon.texture = null
 	hovered_slot = null
 
 
-func _on_main_inventory_visibility_changed():
+func _on_main_inventory_visibility_changed() -> void:
 	reset()
 
 
-func _on_player_synced():
+func _on_player_synced() -> void:
 	player_data = game_manager.player_data
 	game_manager.player_data.hotbar_updated.connect(_on_hotbar_updated)
 	game_manager.player_data.main_inventory_updated.connect(_on_main_inventory_updated)
 	_on_hotbar_updated()
 	_on_main_inventory_updated()
+	_on_shop_inventory_updated()
 	call_deferred("@active_slot_setter", 0) # FUCK OFF this is so stupid
 
 
-func _on_hotbar_updated():
+func _on_hotbar_updated() -> void:
 	var index : int = -1
 	for item: Item in player_data.hotbar:
 		index += 1
@@ -138,7 +141,7 @@ func _on_hotbar_updated():
 		inventory_slot.stored_item = item if item else null
 
 
-func _on_main_inventory_updated():
+func _on_main_inventory_updated() -> void:
 	var index : int = -1
 	for item: Item in player_data.main_inventory:
 		index += 1
@@ -146,7 +149,15 @@ func _on_main_inventory_updated():
 		inventory_slot.stored_item = item if item else null
 
 
-func _on_active_slot_changed(slot: int, in_old_slot : int):
+func _on_shop_inventory_updated() -> void:
+	var index : int = -1
+	for item: Item in Shop.instance.main_inventory:
+		index += 1
+		var inventory_slot : InventoryButton = shop_inventory.get_child(index)
+		inventory_slot.stored_item = item if item else null
+
+
+func _on_active_slot_changed(slot: int, in_old_slot : int) -> void:
 	if not hotbar:
 		return # go fuck yourself godot
 	var hotbar_buttons : Array = hotbar.get_children()
@@ -155,3 +166,8 @@ func _on_active_slot_changed(slot: int, in_old_slot : int):
 	var hotbar_button: InventoryButton = hotbar.get_children()[slot]
 	hotbar_button.add_theme_stylebox_override("normal", hover_stylebox)
 	on_active_slot_changed.emit(in_old_slot)
+
+
+func _handle_shop_interaction() -> void:
+	reset()
+	print("Yeet")
