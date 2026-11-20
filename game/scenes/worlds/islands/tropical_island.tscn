@@ -1,75 +1,14 @@
 [gd_scene format=3 uid="uid://cw24hfmfoxdm6"]
 
-[ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/player/player.tscn" id="1_x0u74"]
-[ext_resource type="PackedScene" uid="uid://dvcqp2rkh2dnd" path="res://assets/models/test/box.tscn" id="2_1k06y"]
+[ext_resource type="Script" uid="uid://cub0o4re6n8kq" path="res://scripts/world/base_world_class.gd" id="1_x0u74"]
+[ext_resource type="PackedScene" uid="uid://n46wsu2s5aim" path="res://assets/models/env/terrain/island0.tscn" id="2_x0u74"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dgpti"]
+[node name="TropicalIsland" type="Node3D" unique_id=283161791 node_paths=PackedStringArray("spawn_location")]
+script = ExtResource("1_x0u74")
+spawn_location = NodePath("SpawnLocation")
+metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 
-[sub_resource type="Sky" id="sky"]
-sky_material = SubResource("ProceduralSkyMaterial_dgpti")
+[node name="island0" parent="." unique_id=642752713 instance=ExtResource("2_x0u74")]
 
-[sub_resource type="Environment" id="Environment_ej332"]
-background_mode = 2
-sky = SubResource("sky")
-tonemap_mode = 2
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_jsfgd"]
-size = Vector2(200, 200)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ft2bs"]
-albedo_color = Color(0.15686275, 0.23921569, 0.2627451, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_j627t"]
-size = Vector3(200, 0.1, 200)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxppv"]
-albedo_color = Color(1, 1, 0, 1)
-
-[node name="TropicalIsland" type="Node3D" unique_id=1951115010]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2062424030]
-environment = SubResource("Environment_ej332")
-
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1114213902]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 0)
-shadow_enabled = true
-metadata/_edit_lock_ = true
-
-[node name="Ground" type="MeshInstance3D" parent="." unique_id=459996722]
-mesh = SubResource("PlaneMesh_jsfgd")
-surface_material_override/0 = SubResource("StandardMaterial3D_ft2bs")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=1568555215]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=1706488538]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
-shape = SubResource("BoxShape3D_j627t")
-
-[node name="Player" parent="." unique_id=422766350 instance=ExtResource("1_x0u74")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.049855, 0, 9.378431)
-
-[node name="Trees" type="Node3D" parent="." unique_id=1882458408]
-transform = Transform3D(5, 0, 0, 0, 20, 0, 0, 0, 5, 0.09675503, 10.095709, 0.13446426)
-
-[node name="Palm Tree" parent="Trees" unique_id=408511495 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.8, 0, 0, 0, 1.5, 0, 0, 0, 0.8, 0, 0.2402705, 0)
-
-[node name="Palm Tree3" parent="Trees" unique_id=791596327 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 0.6, 7.540262, 0, -9.780639)
-
-[node name="Palm Tree5" parent="Trees" unique_id=324343227 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 0.6, 10.609905, 0, 9.185817)
-
-[node name="Palm Tree4" parent="Trees" unique_id=1998303583 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 0.6, -11.553525, 0, -4.8784537)
-
-[node name="Palm Tree2" parent="Trees" unique_id=638396781 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 0.6, -11.569015, 0, 9.059259)
-
-[node name="Box5" parent="." unique_id=413713392 instance=ExtResource("2_1k06y")]
-transform = Transform3D(8.483259, 0, -2.6473722, 0, 5, 0, 5.2947445, 0, 4.2416296, 45.367714, 2.5714679, 50.00721)
-
-[node name="CSGBox3D" parent="Box5/StaticBody3D" parent_id_path=PackedInt32Array(413713392, 1028573371) index="0" unique_id=1018447675]
-material = SubResource("StandardMaterial3D_mxppv")
-
-[editable path="Box5"]
+[node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8147697, 0)

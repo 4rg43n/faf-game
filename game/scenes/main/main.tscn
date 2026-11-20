@@ -25,7 +25,7 @@
 [ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="18_37hlw"]
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
-[ext_resource type="PackedScene" uid="uid://b5dsud5kke2w3" path="res://assets/models/env/terrain/island1.tscn" id="24_0bhws"]
+[ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
@@ -38,7 +38,7 @@ weather_manager = NodePath("WeatherManager")
 
 [node name="LobbyManager" parent="." unique_id=1925178178 node_paths=PackedStringArray("player_spawner", "starting_world") instance=ExtResource("1_iuonh")]
 player_spawner = NodePath("../PlayerSpawner")
-starting_world = NodePath("../World/Island1")
+starting_world = NodePath("../World/TropicalIsland")
 metadata/_edit_lock_ = true
 
 [node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager")]
@@ -63,7 +63,7 @@ layout_mode = 1
 offset_right = 179.0
 metadata/_edit_lock_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI" unique_id=1543582842]
+[node name="Trackers" type="HBoxContainer" parent="UI" unique_id=1543582842]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -72,12 +72,12 @@ offset_top = -40.0
 offset_right = 228.0
 grow_vertical = 0
 
-[node name="SpeedTracker" type="Label" parent="UI/HBoxContainer" unique_id=519599510]
+[node name="SpeedTracker" type="Label" parent="UI/Trackers" unique_id=519599510]
 layout_mode = 2
 text = "Over 9000 m/s"
 script = ExtResource("5_6llfj")
 
-[node name="JumpTracker" type="Label" parent="UI/HBoxContainer" unique_id=1327207390]
+[node name="JumpTracker" type="Label" parent="UI/Trackers" unique_id=1327207390]
 layout_mode = 2
 text = "Over 9000 m/s"
 script = ExtResource("6_0bhws")
@@ -123,7 +123,7 @@ script = ExtResource("17_s17dp")
 gravityFactor = 9.81
 waterDensity = 1.0
 drag = 0.15
-world = NodePath("../World/Island1")
+world = NodePath("../World/TropicalIsland")
 oceanResolution = 0.5
 oceanShader = ExtResource("18_37hlw")
 metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
@@ -136,26 +136,26 @@ environment = ExtResource("4_a8run")
 camera_attributes = SubResource("CameraAttributesPractical_7smn1")
 script = ExtResource("5_ouso4")
 editor_time_enabled = false
-current_time = 6.65
+current_time = 7.913
 wind_direction = 2.35619451204804
 metadata/_custom_type_script = "uid://deo0gxkmk2ahd"
 
 [node name="SunLight" type="DirectionalLight3D" parent="World/Sky3D" unique_id=200503882]
-transform = Transform3D(0.426591, -0.06600468, 0.902033, 0, 0.9973335, 0.07297813, -0.90444463, -0.031131815, 0.4254535, 0.902033, 0.07297813, 0.4254535)
-light_color = Color(0.98291916, 0.59262115, 0.39704514, 1)
+transform = Transform3D(0.53613806, -0.2909592, 0.7924006, 0, 0.9387183, 0.3446852, -0.8441303, -0.18479885, 0.50328267, 0.7924006, 0.3446852, 0.50328267)
+light_color = Color(0.9937874, 0.85182965, 0.78069544, 1)
 shadow_enabled = true
 
 [node name="MoonLight" type="DirectionalLight3D" parent="World/Sky3D" unique_id=761120370]
-transform = Transform3D(0, -0.47161585, 0.8818041, 0.58394253, -0.7158441, -0.38285542, 0.81179494, 0.5149229, 0.2753966, 0.8818041, -0.38285542, 0.2753966)
+transform = Transform3D(0, -0.3664115, 0.93045294, 0.9604662, -0.25903484, -0.10200768, 0.2783965, 0.8936686, 0.3519259, 0.9304529, -0.10200767, 0.35192588)
 light_color = Color(0.572549, 0.776471, 0.956863, 1)
 light_energy = 0.0
 
 [node name="SkyDome" type="Node" parent="World/Sky3D" unique_id=781389807]
 script = ExtResource("6_blune")
-sun_azimuth = -2.0115166
-sun_altitude = -1.4977533
-moon_azimuth = -1.8735085
-moon_altitude = -1.9636816
+sun_azimuth = -2.1366518
+sun_altitude = -1.2188929
+moon_azimuth = -1.9323964
+moon_altitude = -1.6729817
 fog_render_priority = 1
 wind_direction = 2.35619451204804
 
@@ -163,16 +163,16 @@ wind_direction = 2.35619451204804
 script = ExtResource("7_th5th")
 editor_time_enabled = false
 dome_path = NodePath("../SkyDome")
-current_time = 6.65
+current_time = 7.913
 day = 2
 
-[node name="Island1" parent="World" unique_id=1149858785 instance=ExtResource("24_0bhws")]
+[node name="TropicalIsland" parent="World" unique_id=1951115010 instance=ExtResource("24_0bhws")]
 
 [node name="Killzone" type="Area3D" parent="World" unique_id=1159628725 node_paths=PackedStringArray("starting_world")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 collision_mask = 10
 script = ExtResource("18_ou6is")
-starting_world = NodePath("../Island1")
+starting_world = NodePath("../TropicalIsland")
 
 [node name="WorldBoundary" type="CollisionShape3D" parent="World/Killzone" unique_id=273165614]
 shape = SubResource("WorldBoundaryShape3D_0kwd2")
