@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://4tlhr6pdyntd" path="res://scripts/equipment/item.gd" id="2_temku"]
 [ext_resource type="Texture2D" uid="uid://dt8okcy3ef6s7" path="res://assets/critters/worm.png" id="3_ac1le"]
 [ext_resource type="Texture2D" uid="uid://5irkgv5h0sfm" path="res://assets/critters/beetle.png" id="4_wleiu"]
+[ext_resource type="Resource" uid="uid://cfjaugs11d535" path="res://resources/items/fishing_pole.tres" id="5_wleiu"]
 
 [sub_resource type="Resource" id="Resource_ac1le"]
 script = ExtResource("2_temku")
@@ -57,7 +58,7 @@ properties/4/replication_mode = 2
 script = ExtResource("1_rbmgg")
 player_controller = NodePath("Player")
 main_inventory = Array[ExtResource("2_temku")]([SubResource("Resource_ac1le"), SubResource("Resource_wleiu"), SubResource("Resource_3mesa"), null, null, null, null, null, null, null, null, null])
-hotbar = Array[ExtResource("2_temku")]([null, null, null, null, null, null, null, null, null])
+hotbar = Array[ExtResource("2_temku")]([null, ExtResource("5_wleiu"), null, null, null, null, null, null])
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=751910215]
 replication_config = SubResource("SceneReplicationConfig_vefth")
