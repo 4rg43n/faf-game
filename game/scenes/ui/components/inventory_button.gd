@@ -1,6 +1,7 @@
 @tool
 class_name InventoryButton extends Button
 
+
 @export var count_label: Label
 @export var hotkey_label: Label
 @export var is_hotkey: bool = false:
@@ -23,6 +24,7 @@ class_name InventoryButton extends Button
 		else:
 			icon = null
 			count_label.text = ""
+		inventory_system.stored_item_set(self)
 
 @onready var inventory_system: InventorySystem = InventorySystem.instance
 

@@ -26,7 +26,6 @@ pressed_stylebox = ExtResource("3_bq7gn")
 hover_stylebox = ExtResource("4_j13gv")
 
 [node name="Main Inventory" type="GridContainer" parent="." unique_id=19131589]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -37,66 +36,51 @@ columns = 5
 [node name="InventoryButton" parent="Main Inventory" unique_id=1038723319 instance=ExtResource("2_8snxo")]
 layout_mode = 2
 icon = ExtResource("3_8vq1n")
-is_hotkey = false
 stored_item = ExtResource("3_tfg5d")
 
 [node name="InventoryButton2" parent="Main Inventory" unique_id=1545141048 instance=ExtResource("2_8snxo")]
 layout_mode = 2
 icon = ExtResource("5_yq8mt")
-is_hotkey = false
 stored_item = ExtResource("5_f4i47")
 
 [node name="InventoryButton3" parent="Main Inventory" unique_id=1409744724 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton4" parent="Main Inventory" unique_id=413459196 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton5" parent="Main Inventory" unique_id=1387103360 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton6" parent="Main Inventory" unique_id=1135206804 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton7" parent="Main Inventory" unique_id=95747920 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton8" parent="Main Inventory" unique_id=17654511 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton9" parent="Main Inventory" unique_id=599820621 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton10" parent="Main Inventory" unique_id=1985861270 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton11" parent="Main Inventory" unique_id=1794472503 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton12" parent="Main Inventory" unique_id=1980350069 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton13" parent="Main Inventory" unique_id=1767094207 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton14" parent="Main Inventory" unique_id=171234773 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="InventoryButton15" parent="Main Inventory" unique_id=162903600 instance=ExtResource("2_8snxo")]
 layout_mode = 2
-is_hotkey = false
 
 [node name="Hotbar" type="HBoxContainer" parent="." unique_id=853595166]
 layout_mode = 2

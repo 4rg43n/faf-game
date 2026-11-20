@@ -130,7 +130,7 @@ func set_active_item(old_slot : int) -> void:
 			new_active_item.hotbar_item_path = new_item_obj.get_path()
 	if new_item_obj:
 		new_item_obj.visible = true
-	current_equipment = CustomEnums.Equipment_Type.THROWABLE_OBJ
+	current_equipment = new_active_item.equipment_type
 
 func item_removed_from_hotbar(item : Item, old_hotbar_index : int) -> void:
 	var old_item_obj : Node3D = get_node_or_null(item.hotbar_item_path)

@@ -26,7 +26,6 @@ action_mode = 0
 script = ExtResource("1_1t1s4")
 count_label = NodePath("MarginContainer/Count")
 hotkey_label = NodePath("MarginContainer/Hotkey")
-is_hotkey = null
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=764527851]
 custom_maximum_size = Vector2(50, 50)

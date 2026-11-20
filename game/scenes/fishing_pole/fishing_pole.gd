@@ -38,16 +38,16 @@ func _on_player_hooked_fish(peer_id : int) -> void:
 func _physics_process(_delta: float) -> void:
 	pass
 	# _update_fishing_line()
-	
+
 
 # Trash code
 func _update_fishing_line() -> void:
 	var center_pos = (fishing_line_start.global_position + bobber.global_position) / 2
 	var distance = fishing_line_start.global_position.distance_to(bobber.global_position)
-	
+
 	fishing_line.global_position = center_pos
 	fishing_line.mesh.height = distance
-	
+
 	fishing_line.look_at(fishing_line_start.global_position)
 	fishing_line.rotation_degrees.x -= 90
 
@@ -66,20 +66,20 @@ func _on_player_attempt_cast(peer_id : int) -> void:
 			var fake_fish = its_a_fish_scene.instantiate()
 			var fish_resource : Item = fake_fish.get("item_resource")
 			player.add_item_if_possible(fish_resource)
-			
+
 		bobber_cast = false
-		
+
 		bobber.freeze = true
 		bobber.top_level = false
 		bobber.set_physics_process(false)
-		
+
 		bobber.global_position = bobber_start_position.global_position
 		return
-	
+
 	bobber_cast = true
 	print_rich("[color=yellow][b]Trying to cast bobber!")
 	# fishing_line.show()
-	
+
 	# Yeet that bobber
 	var force : Vector3 = 1000 * (player.player_controller.visuals.global_transform.basis.z) + 500 * Vector3.UP
 	bobber.freeze = false

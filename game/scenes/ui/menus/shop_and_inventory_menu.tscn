@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://cmh5qypdiccew"]
+
+[ext_resource type="PackedScene" uid="uid://dxyl26q6ccf11" path="res://scenes/ui/components/inventory_button.tscn" id="1_a58ub"]
+[ext_resource type="Script" uid="uid://bu4q8qkxice5e" path="res://scenes/ui/menus/inventory_system.gd" id="1_hxvgh"]
+[ext_resource type="StyleBox" uid="uid://d04psfahgklfx" path="res://resources/ui/normal_stylebox.tres" id="2_845ur"]
+[ext_resource type="StyleBox" uid="uid://b4liip3hwxn33" path="res://resources/ui/hover_stylebox.tres" id="2_hxvgh"]
+[ext_resource type="StyleBox" uid="uid://tcsq604k15sn" path="res://resources/ui/pressed_stylebox.tres" id="3_wjarn"]
+[ext_resource type="StyleBox" uid="uid://k0rlrsaywexg" path="res://resources/ui/inventory_panel.tres" id="4_wjarn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5q2b1"]
+bg_color = Color(0, 0, 0, 0.52156866)
+
+[node name="ShopAndInventoryMenu" type="MarginContainer" unique_id=741391217 node_paths=PackedStringArray("main_inventory", "background", "inventory_container", "shop_container", "hotbar")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hxvgh")
+main_inventory = NodePath("Inventories/MainInventoryBackground/MainInventory")
+background = NodePath("Background")
+inventory_container = NodePath("Inventories/MainInventoryBackground")
+shop_container = NodePath("Inventories/ShopInventoryBackground")
+hotbar = NodePath("HotbarMargin/PanelContainer/Hotbar")
+active_slot = 8
+normal_stylebox = ExtResource("2_845ur")
+pressed_stylebox = ExtResource("3_wjarn")
+hover_stylebox = ExtResource("2_hxvgh")
+
+[node name="Background" type="Panel" parent="." unique_id=577550777]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5q2b1")
+
+[node name="HotbarMargin" type="MarginContainer" parent="." unique_id=844513065]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="HotbarMargin" unique_id=799621699]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_wjarn")
+
+[node name="Hotbar" type="HBoxContainer" parent="HotbarMargin/PanelContainer" unique_id=167793397]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+offset_transform_position = Vector2(0, -10)
+
+[node name="InventoryButton" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=864363703 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+is_hotkey = true
+hotkey_number = 1
+
+[node name="InventoryButton2" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=399377247 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+is_hotkey = true
+hotkey_number = 2
+
+[node name="InventoryButton3" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=1504470150 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+is_hotkey = true
+hotkey_number = 3
+
+[node name="InventoryButton4" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=65489879 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+is_hotkey = true
+hotkey_number = 4
+
+[node name="InventoryButton5" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=1148563369 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+is_hotkey = true
+hotkey_number = 5
+
+[node name="InventoryButton6" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=425833201 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+is_hotkey = true
+hotkey_number = 6
+
+[node name="InventoryButton7" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=1268407297 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+is_hotkey = true
+hotkey_number = 7
+
+[node name="InventoryButton8" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=106668015 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+is_hotkey = true
+hotkey_number = 8
+
+[node name="InventoryButton9" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=47695919 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_hxvgh")
+is_hotkey = true
+hotkey_number = 9
+
+[node name="Inventories" type="HBoxContainer" parent="." unique_id=1129530530]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="MainInventoryBackground" type="PanelContainer" parent="Inventories" unique_id=1900566914]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_wjarn")
+
+[node name="MainInventory" type="GridContainer" parent="Inventories/MainInventoryBackground" unique_id=436011095]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+mouse_filter = 2
+columns = 5
+
+[node name="InventoryButton" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1088923122 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton2" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1352834294 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton3" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1029989319 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton4" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1479450927 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton5" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=809844676 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton6" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=751865076 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton7" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1207485869 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton8" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=261729316 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton9" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1639097428 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton10" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1849185329 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton11" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1368386083 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton12" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1554496830 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton13" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=121817783 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton14" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1682681837 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton15" parent="Inventories/MainInventoryBackground/MainInventory" unique_id=1575947629 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="ShopInventoryBackground" type="PanelContainer" parent="Inventories" unique_id=774149171]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_wjarn")
+
+[node name="ShopInventory" type="GridContainer" parent="Inventories/ShopInventoryBackground" unique_id=1924075311]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+mouse_filter = 2
+columns = 5
+
+[node name="InventoryButton" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=42197906 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton2" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=1450718430 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton3" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=1931248639 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton4" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=490577440 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton5" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=1547093985 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton6" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=1014786834 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton7" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=916706776 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton8" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=1089437185 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton9" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=615625023 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton10" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=123521934 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton11" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=1846317742 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton12" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=1864896839 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton13" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=1803817883 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton14" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=1113272547 instance=ExtResource("1_a58ub")]
+layout_mode = 2
+
+[node name="InventoryButton15" parent="Inventories/ShopInventoryBackground/ShopInventory" unique_id=154333384 instance=ExtResource("1_a58ub")]
+layout_mode = 2

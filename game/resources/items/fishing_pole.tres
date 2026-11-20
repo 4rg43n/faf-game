@@ -10,5 +10,6 @@ id = 4
 icon = ExtResource("1_14t2j")
 count = 1
 max_count = 1
+equipment_type = 2
 item_scene_path = "res://scenes/fishing_pole/fishing_pole.tscn"
 metadata/_custom_type_script = "uid://4tlhr6pdyntd"

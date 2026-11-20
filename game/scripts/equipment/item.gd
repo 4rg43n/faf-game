@@ -6,6 +6,7 @@ class_name Item extends Resource
 @export var icon : Texture2D
 @export var count : int
 @export var max_count : int
+@export var equipment_type : CustomEnums.Equipment_Type = CustomEnums.Equipment_Type.THROWABLE_OBJ
 
 var item_scene : PackedScene
 @export var item_scene_path : String :

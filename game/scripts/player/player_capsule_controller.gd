@@ -32,8 +32,6 @@ signal active_camera_changed(camera: Camera3D)
 @export var turn_speed: float = 10.0
 @export var INTERACT_RAYCAST_LENGTH: float
 
-
-
 @export_group("Animation Settings")
 #####################################################################
 # animation junk for jumping

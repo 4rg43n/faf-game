@@ -4,6 +4,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_released() and event.is_action("Throw"):
 		var peer_id : int = multiplayer.get_unique_id()
 		var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
+		var active_item = player.hotbar[InventorySystem.instance.active_slot]
+		if not active_item:
+			return
+		if not active_item.equipment_type == CustomEnums.Equipment_Type.THROWABLE_OBJ:
+			return
 		var item : Item = player.decrement_active_item()
 		if item == null:
 			return

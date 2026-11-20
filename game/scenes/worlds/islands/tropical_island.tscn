@@ -5,8 +5,9 @@
 [ext_resource type="Shader" uid="uid://bi3o8elbtqoni" path="res://addons/simplegrasstextured/shaders/grass.gdshader" id="3_jsfgd"]
 [ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="4_ft2bs"]
 [ext_resource type="PackedScene" uid="uid://crisams4xiht3" path="res://scenes/interactable/bug_collector_mini_game.tscn" id="5_ej332"]
+[ext_resource type="PackedScene" uid="uid://cgk1kf88cibpm" path="res://scenes/interactable/shop_stand.tscn" id="6_jsfgd"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ej332"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jsfgd"]
 render_priority = 0
 shader = ExtResource("3_jsfgd")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -45,8 +46,8 @@ metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 
 [node name="island0" parent="." unique_id=642752713 instance=ExtResource("2_x0u74")]
 
-[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 706907315) index="1" unique_id=874324246]
-material_override = SubResource("ShaderMaterial_ej332")
+[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 150442096) index="1" unique_id=874324246]
+material_override = SubResource("ShaderMaterial_jsfgd")
 
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8147697, 0)
@@ -62,5 +63,8 @@ collision_mask = 11
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 466.90875, -6.248291, -159.18295)
 shape = SubResource("BoxShape3D_jsfgd")
 debug_color = Color(0, 0.6, 0.7019608, 1)
+
+[node name="ShopStand" parent="." unique_id=869337142 instance=ExtResource("6_jsfgd")]
+transform = Transform3D(-2.1855695e-07, 0, 5, 0, 5, 0, -5, 0, -2.1855695e-07, 18.186733, 5.2663803, -73.30017)
 
 [editable path="island0"]

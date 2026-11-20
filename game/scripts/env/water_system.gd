@@ -43,7 +43,7 @@ func _ready() -> void:
 func _on_body_enters_ocean(area: Node3D):
 	print("Entered ", area.name)
 	self.objectsInWater.append(area)
-	
+
 	# Sorry Nef, don't hate me :0
 	if area is Bobber:
 		area.hit_water()

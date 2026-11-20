@@ -2,6 +2,9 @@
 class_name InventorySystem extends MarginContainer
 
 @export var main_inventory: GridContainer
+@export var background: Panel
+@export var inventory_container: PanelContainer
+@export var shop_container: PanelContainer
 @export var hotbar: HBoxContainer
 @export var active_slot: int:
 	set(value):
@@ -34,8 +37,9 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	main_inventory.visibility_changed.connect(_on_main_inventory_visibility_changed)
+	inventory_container.visibility_changed.connect(_on_main_inventory_visibility_changed)
 	game_manager.player_synced.connect(_on_player_synced)
+
 
 func _process(_delta: float) -> void:
 	if drag_icon.texture:
@@ -95,6 +99,13 @@ func button_unhovered():
 	hovered_slot = null
 
 
+func stored_item_set(button: InventoryButton):
+	var button_slot = hotbar.get_children().find(button)
+	if not active_slot == button_slot:
+		return
+	player_data.set_active_item(-1)
+
+
 func reset():
 	old_slot = null
 	drag_icon.texture = null
@@ -111,6 +122,7 @@ func _on_player_synced():
 	game_manager.player_data.main_inventory_updated.connect(_on_main_inventory_updated)
 	_on_hotbar_updated()
 	_on_main_inventory_updated()
+	call_deferred("@active_slot_setter", 0) # FUCK OFF this is so stupid
 
 
 func _on_hotbar_updated():
@@ -130,6 +142,8 @@ func _on_main_inventory_updated():
 
 
 func _on_active_slot_changed(slot: int, in_old_slot : int):
+	if not hotbar:
+		return # go fuck yourself godot
 	var hotbar_buttons : Array = hotbar.get_children()
 	for button: InventoryButton in hotbar_buttons:
 		button.add_theme_stylebox_override("normal", normal_stylebox)

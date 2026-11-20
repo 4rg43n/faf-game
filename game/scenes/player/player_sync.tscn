@@ -56,13 +56,13 @@ properties/4/replication_mode = 2
 
 [node name="TheWholePackage" type="Node3D" unique_id=1542336818 node_paths=PackedStringArray("player_controller") groups=["Player"]]
 script = ExtResource("1_rbmgg")
-player_controller = NodePath("Player")
-main_inventory = Array[ExtResource("2_temku")]([SubResource("Resource_ac1le"), SubResource("Resource_wleiu"), SubResource("Resource_3mesa"), null, null, null, null, null, null, null, null, null])
-hotbar = Array[ExtResource("2_temku")]([null, ExtResource("5_wleiu"), null, null, null, null, null, null])
+player_controller = NodePath("Ashii")
+main_inventory = Array[ExtResource("2_temku")]([SubResource("Resource_ac1le"), SubResource("Resource_wleiu"), SubResource("Resource_3mesa"), null, null, null, null, null, null, null, null, null, null, null, null])
+hotbar = Array[ExtResource("2_temku")]([ExtResource("5_wleiu"), null, null, null, null, null, null, null, null])
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=751910215]
 replication_config = SubResource("SceneReplicationConfig_vefth")
 visibility_update_mode = 1
 
-[node name="Player" parent="." unique_id=422766350 node_paths=PackedStringArray("player_metadata") instance=ExtResource("1_vefth")]
+[node name="Ashii" parent="." unique_id=422766350 node_paths=PackedStringArray("player_metadata") instance=ExtResource("1_vefth")]
 player_metadata = NodePath("..")
