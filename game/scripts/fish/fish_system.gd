@@ -56,7 +56,7 @@ func _ready() -> void:
 		self.fishesToRecycle.enqueue(i)
 		self.fishes.append(fish)
 
-	_generate_directions(300, self.rayDirections)
+	_generate_directions(50, self.rayDirections)
 
 
 
@@ -105,26 +105,17 @@ func _create_sphere_query(pos: Vector3, radius: float, offset: Vector3 = Vector3
 
 # Thx Sebastian Lague
 func _fish_find_unobstructed_direction(fish: FishInfo) -> Vector3:
-	var bestDir := fish.node.linear_velocity
-	var furthestUnobstructedDst := 0.0
 	for rayDir in self.rayDirections:
 		var dir := fish.node.global_transform.basis * (rayDir)
-		var sphereQuery := _create_sphere_query(fish.node.global_position, self.fishBoundsRadius, dir)
+		DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + dir, Color.RED)
+		var sphereQuery := _create_sphere_query(fish.node.global_position, self.fishBoundsRadius, dir * 2.0)
 		var space := self.world.get_world_3d().direct_space_state
 		var results : Array[Dictionary] = space.intersect_shape(sphereQuery, 1)
 
 		if results == null or results.is_empty():
-			bestDir = dir
-			break
-		
-		var point : Vector3 = (results[0]["collider"] as Node3D).global_position
-		var diff := point - fish.node.global_position
-		var distance := diff.length()
+			return dir
 
-		if distance > furthestUnobstructedDst:
-			bestDir = dir
-			furthestUnobstructedDst = distance
-	return bestDir
+	return fish.targetVel
 
 
 func _spawn_fish_at(pos: Vector3, radius: float):
@@ -166,7 +157,7 @@ func spawn_fish_subsystem(delta: float):
 
 func _fish_movement(_delta: float, fish: FishInfo):
 	fish.node.linear_velocity = fish.targetVel
-	DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + fish.node.linear_velocity, Color.LIGHT_BLUE)
+	# DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + fish.node.linear_velocity, Color.LIGHT_BLUE)
 
 func _steer_towards(vector: Vector3, fish: FishInfo) -> Vector3:
 	var v : Vector3 = vector.normalized() * self.fishMaxSpeed - fish.node.linear_velocity
@@ -246,20 +237,22 @@ func fish_update(delta: float, fish: FishInfo) -> void:
 		return
 
 func _physics_process(delta: float) -> void:
+	for fish in self.fishes:
+		if fish.flags == EFishStateFlags.Dead:
+			continue
+		_fish_movement(delta, fish)
+	
+
+func _process(delta: float) -> void:
+	spawn_fish_subsystem(delta)
 	var localAvgHeading := Vector3.ZERO
 	var aliveFish := 0
 	for fish in self.fishes:
 		if fish.flags == EFishStateFlags.Dead:
 			continue
 		fish_update(delta, fish)
-		_fish_movement(delta, fish)
 		aliveFish += 1
 		localAvgHeading += fish.node.linear_velocity
 		pass
 	if aliveFish != 0:
 		self.avgFlockHeading = localAvgHeading / aliveFish
-	pass
-	
-
-func _process(delta: float) -> void:
-	spawn_fish_subsystem(delta)

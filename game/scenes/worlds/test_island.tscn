@@ -104,6 +104,12 @@ transform = Transform3D(8.483259, 0, -2.6473722, 0, 5, 0, 5.2947445, 0, 4.241629
 [node name="Box7" parent="." unique_id=499756389 instance=ExtResource("2_4gf4p")]
 transform = Transform3D(16.634588, 0, -1.059692, 0, 28.500002, 0, 10.3823185, 0, 1.6978425, 10.367714, 10.571468, 59.23889)
 
+[node name="Box8" parent="." unique_id=1721652692 instance=ExtResource("2_4gf4p")]
+transform = Transform3D(71.238556, 0, 1.0136733, 0, 51.30001, 0, -16.486067, 0, 4.3802195, 63.579453, 10.571468, 70.21017)
+
+[node name="Box9" parent="." unique_id=1357544310 instance=ExtResource("2_4gf4p")]
+transform = Transform3D(72.923546, -0.0543059, -0.33039483, 5.3719707, -0.67466336, 4.4834437, -0.14785783, -51.295547, -0.058618587, 52.579453, 43.57147, 38.210167)
+
 [node name="Box6" parent="." unique_id=377721160 instance=ExtResource("2_4gf4p")]
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0.18668818, 6.178111, 12.765796)
 script = ExtResource("4_nw7yp")
