@@ -216,6 +216,10 @@ func _handle_air_physics(delta: float) -> void:
 		velocity += accel_speed * wish_dir
 
 	if is_on_wall():
+		if is_surface_too_steep(get_wall_normal()):
+			motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
+		else:
+			motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 		clip_velocity(get_wall_normal(), 1, delta) # Allows surfing
 
 func _handle_ground_physics(delta: float) -> void:
