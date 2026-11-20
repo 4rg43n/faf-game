@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4mcfdc1t00l0"
-path.s3tc="res://.godot/imported/palmer_frondkun1vertToo_1.png-b4d1b491e8a99011d69e11168ecf4a2a.s3tc.ctex"
+uid="uid://c1xh374y7qpxa"
+path.s3tc="res://.godot/imported/palmer_frondkunLeavesAttempt2_1.png-739ff5a4f7d916cd228e2929498bb07e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "8f399b1045cca846f4a046391a8773fe"
+"md5": "aea85e81dc89bd2b6ed77e75377680b3"
 }
 
 [deps]
 
-source_file="res://assets/models/env/terrain/palmer_frondkun1vertToo_1.png"
-dest_files=["res://.godot/imported/palmer_frondkun1vertToo_1.png-b4d1b491e8a99011d69e11168ecf4a2a.s3tc.ctex"]
+source_file="res://assets/models/env/pieces/palm_tree/model/palmer_frondkunLeavesAttempt2_1.png"
+dest_files=["res://.godot/imported/palmer_frondkunLeavesAttempt2_1.png-739ff5a4f7d916cd228e2929498bb07e.s3tc.ctex"]
 
 [params]
 

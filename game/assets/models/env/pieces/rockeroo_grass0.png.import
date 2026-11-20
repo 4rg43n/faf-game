@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0dtu1jk0usvh"
+uid="uid://bvh8fru2bytaw"
 path.s3tc="res://.godot/imported/rockeroo_grass0.png-40955bda15e4c801ffc061a329ad0071.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "cd9638c0c4c739e268c3d81885da847b"
 }
 
 [deps]

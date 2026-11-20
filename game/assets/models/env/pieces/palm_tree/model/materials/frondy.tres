@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://8c1heeq26uex"]
+
+[ext_resource type="Texture2D" uid="uid://s6bqjviwnjro" path="res://assets/models/env/pieces/palm_tree/model/palmer_frondkunLeavesAttempt2.png" id="1_y2ao2"]
+
+[resource]
+resource_name = "frondy"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_y2ao2")
+roughness = 0.5
+metadata/_gltf_primary_texture_coord = 0

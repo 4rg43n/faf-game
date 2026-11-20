@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dm2wcnfimy5t8"]
 
 [ext_resource type="PackedScene" uid="uid://n46wsu2s5aim" path="res://assets/models/env/terrain/island0.tscn" id="1_puvwd"]
-[ext_resource type="PackedScene" uid="uid://dh3sut7xumgad" path="res://assets/models/env/terrain/palmer.glb" id="2_puvwd"]
+[ext_resource type="PackedScene" uid="uid://dh3sut7xumgad" path="res://assets/models/env/pieces/palm_tree/model/palmer.glb" id="2_puvwd"]
 [ext_resource type="PackedScene" uid="uid://dn4hri7edehr3" path="res://assets/models/catgirl/catgirl_godot.tscn" id="3_mal7a"]
+
 
 [node name="Island0" type="Node3D" unique_id=2118583149]
 
