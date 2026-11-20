@@ -261,10 +261,10 @@ func handle_move_input(delta: float) -> void:
 			animation_state.travel("Jump_Start")
 			if not is_on_floor():
 				available_jumps -= 1
-			if(randi() % 10 < 9):
-				reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
-				sound_player.stream = JumpSounds.pick_random()
-				sound_player.play()
+		if(randi() % 10 < 9):
+			reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
+			sound_player.stream = JumpSounds.pick_random()
+			sound_player.play()
 
 	if Input.is_action_pressed("shift"):
 		move_speed = run_speed
