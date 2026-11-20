@@ -186,6 +186,10 @@ SimpleGrass="*res://addons/simplegrasstextured/singleton.tscn"
 
 file_logging/enable_file_logging=true
 
+[debug_draw_3d]
+
+settings/addon_root_folder="res://addons/debug_draw_3d"
+
 [display]
 
 window/stretch/mode="canvas_items"
