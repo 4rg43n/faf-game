@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dm2wcnfimy5t8"]
+
+[ext_resource type="PackedScene" uid="uid://n46wsu2s5aim" path="res://assets/models/env/terrain/island0.tscn" id="1_puvwd"]
+[ext_resource type="PackedScene" uid="uid://dh3sut7xumgad" path="res://assets/models/env/terrain/palmer.glb" id="2_puvwd"]
+[ext_resource type="PackedScene" uid="uid://dn4hri7edehr3" path="res://assets/models/catgirl/catgirl_godot.tscn" id="3_mal7a"]
+
+[node name="Island0" type="Node3D" unique_id=2118583149]
+
+[node name="island1" parent="." unique_id=642752713 instance=ExtResource("1_puvwd")]
+
+[node name="palmer" parent="." unique_id=99763045 instance=ExtResource("2_puvwd")]
+transform = Transform3D(-0.79379106, 0.017613277, -0.60793555, 0.070230715, 0.9955483, -0.06285805, 0.6041222, -0.09259191, -0.79149437, -36.98915, 1.2504969, -53.648575)
+
+[node name="palmer2" parent="." unique_id=1306735033 instance=ExtResource("2_puvwd")]
+transform = Transform3D(0.54793704, 0, -0.8365196, 0, 1, 0, 0.8365196, 0, 0.54793704, -60.13175, 3.4125586, -40.916546)
+
+[node name="palmer4" parent="." unique_id=1273293760 instance=ExtResource("2_puvwd")]
+transform = Transform3D(0.8437675, 0, -0.53670883, 0, 1, 0, 0.53670883, 0, 0.8437675, -60.13175, 4.5551214, -29.263453)
+
+[node name="palmer3" parent="." unique_id=1568536965 instance=ExtResource("2_puvwd")]
+transform = Transform3D(0.644983, 0, -0.7641969, 0, 1, 0, 0.7641969, 0, 0.644983, -42.514286, 3.8977823, -37.95712)
+
+[node name="catgirl-godot" parent="." unique_id=148263498 instance=ExtResource("3_mal7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.19878, 1.0832946, -62.35598)
+
+[node name="catgirl-godot2" parent="." unique_id=1394633822 instance=ExtResource("3_mal7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015106201, 48.003105, -83.56006)
