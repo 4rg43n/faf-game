@@ -181,7 +181,6 @@ config/features=PackedStringArray("4.8", "Forward Plus")
 [autoload]
 
 SimpleGrass="*res://addons/simplegrasstextured/singleton.tscn"
-DebugDraw3d="*uid://cbx3hk46hg6cn"
 
 [debug]
 

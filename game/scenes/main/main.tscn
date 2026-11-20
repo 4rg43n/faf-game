@@ -108,9 +108,15 @@ script = ExtResource("25_6llfj")
 maxFishes = 500
 baseFish = ExtResource("26_0bhws")
 world = NodePath("../World/TestIsland")
-spawnAreaRadius = 20.0
 fishAttackRadius = 2.0
 spawnFrequency = 15.0
+fishSeparation = 2.0
+fishCoherence = 5.0
+fishSteerForce = 5.0
+fishMaxSpeed = 10.0
+fishAlignment = 5.0
+fishBoundsRadius = 5.0
+fishAvoidCollisionWeight = 10.0
 metadata/_custom_type_script = "uid://cft17jvxfva7v"
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]

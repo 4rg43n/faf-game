@@ -63,6 +63,7 @@ func _physics_process(delta: float) -> void:
 
 	# DEV TOOLS
 	if OS.is_debug_build():
+		DebugDraw3D.draw_line(self.global_position, self.global_position + velocity, Color.BLUE)
 		check_dev_inputs()
 
 	handle_move_input(delta)
