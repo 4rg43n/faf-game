@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dvjfxw7x50y55"]
+
+[ext_resource type="PackedScene" uid="uid://wadprtxs47k4" path="res://assets/models/catgirl/catgirl-godot-cowgirl-hat.glb" id="1_5sboc"]
+[ext_resource type="Material" uid="uid://codxc3wpu4iyk" path="res://assets/models/catgirl/materials/cowgirl.hat-outlined.tres" id="2_6qiq7"]
+
+[node name="catgirl-godot-cowgirl-hat" unique_id=1663465480 instance=ExtResource("1_5sboc")]
+
+[node name="geo_accessory_cowgirl-hat" parent="." index="0" unique_id=88063199]
+material_override = ExtResource("2_6qiq7")

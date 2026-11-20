@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b32ksodknlgbc"]
+
+[ext_resource type="PackedScene" uid="uid://dds1m8lxjnjws" path="res://assets/models/catgirl/catgirl-godot-glasses-one.glb" id="1_0may3"]
+[ext_resource type="Material" uid="uid://fth8cb4t7m1m" path="res://assets/models/catgirl/materials/glasses-one-outlined.tres" id="2_nfs4j"]
+
+[node name="catgirl-godot-glasses-one" unique_id=286954641 instance=ExtResource("1_0may3")]
+
+[node name="geo_accessory_glasses" parent="." index="0" unique_id=1311462429]
+material_override = ExtResource("2_nfs4j")
