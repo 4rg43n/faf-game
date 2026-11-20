@@ -256,7 +256,7 @@ func handle_move_input(delta: float) -> void:
 		available_wall_jumps = max_available_wall_jumps
 		if Input.is_action_pressed("ctrl"):
 			current_jump_velocity = clampf(current_jump_velocity + super_jump_charge_rate * delta, jump_velocity, max_jump_velocity)
-			if velocity.length() > walk_speed and time_sliding < max_slide_time:
+			if velocity.length() > walk_speed/2 and time_sliding < max_slide_time:
 				cur_ground_decel = ground_decel / 10
 				cur_ground_friction = ground_friction / 10
 				time_sliding += delta
