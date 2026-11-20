@@ -72,6 +72,11 @@ func button_released():
 		var hovered_main_idx : int = main_slots.find(hovered_slot)
 		var hovered_hotbar_idx : int = hotbar_slots.find(hovered_slot)
 
+		if not [old_main_idx, old_hotbar_idx, hovered_main_idx, hovered_hotbar_idx].filter(func(v): return v >= 0).size() >= 2:
+			drag_icon.texture = null
+			printerr("Tried to move item to invalid inventory")
+			return
+
 		if hovered_slot.stored_item and old_item.id == hovered_slot.stored_item.id:
 			player_data.merge_items(old_item, hovered_slot.stored_item)
 

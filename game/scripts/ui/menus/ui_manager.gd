@@ -27,7 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif Input.is_action_just_pressed("inventory"):
 			inventory.inventory_container.visible = !inventory.inventory_container.visible
 			inventory.background.visible = !inventory.background.visible
-			#inventory.shop_container.visible = !inventory.shop_container.visible
+			inventory.shop_container.visible = false
 			if inventory.inventory_container.visible:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			else:
@@ -55,3 +55,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_lobby_manager_visibility_changed():
 	inventory.visible = not lobby_manager.visible
+
+
+func show_shop():
+	inventory.inventory_container.visible = true
+	inventory.background.visible = true
+	inventory.shop_container.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
