@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bi6vvil3wb80o"]
+
+[resource]
+resource_name = "ds-fish-glow"
+cull_mode = 2
+albedo_color = Color(0.77179027, 0.8718699, 1, 1)
+roughness = 0.5
