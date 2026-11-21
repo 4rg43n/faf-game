@@ -1,75 +1,70 @@
 [gd_scene format=3 uid="uid://cw24hfmfoxdm6"]
 
-[ext_resource type="PackedScene" uid="uid://b0ga1y0f86ef6" path="res://scenes/player/player.tscn" id="1_x0u74"]
-[ext_resource type="PackedScene" uid="uid://dvcqp2rkh2dnd" path="res://assets/models/test/box.tscn" id="2_1k06y"]
+[ext_resource type="Script" uid="uid://cub0o4re6n8kq" path="res://scripts/world/base_world_class.gd" id="1_x0u74"]
+[ext_resource type="PackedScene" uid="uid://n46wsu2s5aim" path="res://assets/models/env/terrain/island0.tscn" id="2_x0u74"]
+[ext_resource type="Shader" uid="uid://bi3o8elbtqoni" path="res://addons/simplegrasstextured/shaders/grass.gdshader" id="3_jsfgd"]
+[ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="4_ft2bs"]
+[ext_resource type="PackedScene" uid="uid://crisams4xiht3" path="res://scenes/interactable/bug_collector_mini_game.tscn" id="5_ej332"]
+[ext_resource type="PackedScene" uid="uid://cgk1kf88cibpm" path="res://scenes/interactable/shop_stand.tscn" id="6_jsfgd"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dgpti"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jsfgd"]
+render_priority = 0
+shader = ExtResource("3_jsfgd")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("4_ft2bs")
+shader_parameter/texture_frames = Vector2(1, 1)
+shader_parameter/light_mode = 1
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/normal_scale = 1.0
+shader_parameter/metallic = 0.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/roughness = 1.0
+shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/scale_h = 1.0
+shader_parameter/scale_w = 1.0
+shader_parameter/scale_var = -0.25
+shader_parameter/grass_strength = 0.55
+shader_parameter/optimization_by_distance = false
+shader_parameter/optimization_level = 7.0
+shader_parameter/optimization_dist_min = 10.0
+shader_parameter/optimization_dist_max = 50.0
+shader_parameter/grass_size_y = 1.0
+shader_parameter/interactive_mode = true
+shader_parameter/interactive_level_xz = 3.0
+shader_parameter/interactive_level_y = 0.3
+metadata/SimpleGrassTexturedMaterial = "2.1.0"
 
-[sub_resource type="Sky" id="sky"]
-sky_material = SubResource("ProceduralSkyMaterial_dgpti")
+[sub_resource type="BoxShape3D" id="BoxShape3D_jsfgd"]
+size = Vector3(1308.0605, 11.919434, 199.91708)
 
-[sub_resource type="Environment" id="Environment_ej332"]
-background_mode = 2
-sky = SubResource("sky")
-tonemap_mode = 2
+[node name="TropicalIsland" type="Node3D" unique_id=283161791 node_paths=PackedStringArray("spawn_location", "ocean_areas")]
+script = ExtResource("1_x0u74")
+spawn_location = NodePath("SpawnLocation")
+ocean_areas = [NodePath("Ocean")]
+metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_jsfgd"]
-size = Vector2(200, 200)
+[node name="island0" parent="." unique_id=642752713 instance=ExtResource("2_x0u74")]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ft2bs"]
-albedo_color = Color(0.15686275, 0.23921569, 0.2627451, 1)
+[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 150442096) index="1" unique_id=874324246]
+material_override = SubResource("ShaderMaterial_jsfgd")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_j627t"]
-size = Vector3(200, 0.1, 200)
+[node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8147697, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxppv"]
-albedo_color = Color(1, 1, 0, 1)
+[node name="BugCollectorMiniGame" parent="." unique_id=1401098916 instance=ExtResource("5_ej332")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -53.3947, 6.832299, -8.78101)
 
-[node name="TropicalIsland" type="Node3D" unique_id=1951115010]
+[node name="Ocean" type="Area3D" parent="." unique_id=1494808209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -231.6875, 0, 51.49388)
+collision_mask = 26
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2062424030]
-environment = SubResource("Environment_ej332")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean" unique_id=2004367034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 466.90875, -6.248291, -159.18295)
+shape = SubResource("BoxShape3D_jsfgd")
+debug_color = Color(0, 0.6, 0.7019608, 1)
 
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1114213902]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 0)
-shadow_enabled = true
-metadata/_edit_lock_ = true
+[node name="ShopStand" parent="." unique_id=869337142 instance=ExtResource("6_jsfgd")]
+transform = Transform3D(-2.1855695e-07, 0, 5, 0, 5, 0, -5, 0, -2.1855695e-07, 18.186733, 5.2663803, -73.30017)
 
-[node name="Ground" type="MeshInstance3D" parent="." unique_id=459996722]
-mesh = SubResource("PlaneMesh_jsfgd")
-surface_material_override/0 = SubResource("StandardMaterial3D_ft2bs")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=1568555215]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=1706488538]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
-shape = SubResource("BoxShape3D_j627t")
-
-[node name="Player" parent="." unique_id=422766350 instance=ExtResource("1_x0u74")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.049855, 0, 9.378431)
-
-[node name="Trees" type="Node3D" parent="." unique_id=1882458408]
-transform = Transform3D(5, 0, 0, 0, 20, 0, 0, 0, 5, 0.09675503, 10.095709, 0.13446426)
-
-[node name="Palm Tree" parent="Trees" unique_id=408511495 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.8, 0, 0, 0, 1.5, 0, 0, 0, 0.8, 0, 0.2402705, 0)
-
-[node name="Palm Tree3" parent="Trees" unique_id=791596327 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 0.6, 7.540262, 0, -9.780639)
-
-[node name="Palm Tree5" parent="Trees" unique_id=324343227 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 0.6, 10.609905, 0, 9.185817)
-
-[node name="Palm Tree4" parent="Trees" unique_id=1998303583 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 0.6, -11.553525, 0, -4.8784537)
-
-[node name="Palm Tree2" parent="Trees" unique_id=638396781 instance=ExtResource("2_1k06y")]
-transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 0.6, -11.569015, 0, 9.059259)
-
-[node name="Box5" parent="." unique_id=413713392 instance=ExtResource("2_1k06y")]
-transform = Transform3D(8.483259, 0, -2.6473722, 0, 5, 0, 5.2947445, 0, 4.2416296, 45.367714, 2.5714679, 50.00721)
-
-[node name="CSGBox3D" parent="Box5/StaticBody3D" parent_id_path=PackedInt32Array(413713392, 1028573371) index="0" unique_id=1018447675]
-material = SubResource("StandardMaterial3D_mxppv")
-
-[editable path="Box5"]
+[editable path="island0"]

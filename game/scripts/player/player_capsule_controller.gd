@@ -2,24 +2,37 @@ class_name PlayerController extends CharacterBody3D
 
 signal active_camera_changed(camera: Camera3D)
 
-@onready var visuals: Node3D = $Visuals
-@onready var animation_tree:AnimationTree = $AnimationTree
-@onready var animation_player:AnimationPlayer=$AnimationPlayer
-
-@export var turn_speed: float = 10.0
-
-var debug_scene_play : bool = false
-
+#region Exports
+@export_group("Nodes")
 @export var first_person_cam : Camera3D
 @export var third_person_cam : Camera3D
 @export var third_person_pivot : Node3D
+@export var player_metadata : PlayerMetadata
+@export var visuals: Node3D
+@export var animation_tree: AnimationTree
+@export var animation_player: AnimationPlayer
+@export var interact_label: Label
+@export var active_camera: Camera3D:
+	set(camera):
+		if camera == active_camera:
+			return
+		active_camera = camera
+		make_current_player()
+# TODO(Nef): I really hate how we have to do this, ask me for my pseudo-comp lookup idea later
+@export var shapeColl: CollisionShape3D
 
-var sound_player := AudioStreamPlayer.new()
-var reverb_effect = AudioServer.get_bus_effect(2, 0)  # Adjust index as necessary
-var JumpSounds = [preload("res://assets/sfx/main-char/jump-1.wav"), preload("res://assets/sfx/main-char/jump-2.wav"), preload("res://assets/sfx/main-char/jump-3.wav")]
+@export_group("Hands")
+@export var left_hand_socket : BoneAttachment3D
+@export var right_hand_socket : BoneAttachment3D
+@export var left_hand_spawner : HandableSpawner
+@export var right_hand_spawner : HandableSpawner
+@export var LEFT_HANDED : bool = true
 
-var can_move:bool=true
+@export_group("Misc Settings")
+@export var turn_speed: float = 10.0
+@export var INTERACT_RAYCAST_LENGTH: float
 
+@export_group("Animation Settings")
 #####################################################################
 # animation junk for jumping
 @onready var animation_state:AnimationNodeStateMachinePlayback=\
@@ -34,8 +47,7 @@ var landing_requested:bool=false
 # landing
 @onready var landing_duration: float = landing_animation.length / maxf(jump_end_time_scale, 0.001)
 var landing_timer:float = 0.0
-@export var interact_label: Label
-@export var INTERACT_RAYCAST_LENGTH: float
+
 ####################################################################
 # spell junk
 @onready var animation_state_attacks:AnimationNodeStateMachinePlayback=\
@@ -47,47 +59,49 @@ var landing_timer:float = 0.0
 @export var punch_heavy_speed_scale:float = 2
 ####################################################################
 
-@export var player_metadata : PlayerMetadata
-
-@export var active_camera: Camera3D:
-	set(camera):
-		if camera == active_camera:
-			return
-		active_camera = camera
-		make_current_player()
-
+@export_group("Movement Settings")
 @export var walk_speed: float = 7.0
 @export var run_speed: float = 8.5
 @export var ground_accel: float = 14.0
 @export var ground_decel: float = 10.0
 @export var ground_friction: float = 6.0
-@export var JUMP_VELOCITY: float = 6.0
+@export var jump_velocity: float = 5.0
+@export var max_jump_velocity: float = 9.0
+@export var super_jump_charge_rate: float = 8.0
 @export var air_cap := 0.85
 @export var air_accel := 800.0
 @export var air_move_speed := 500.0
+#endregion Exports
 
-# TODO(Nef): I really hate how we have to do this, ask me for my pseudo-comp lookup idea later
-@export var shapeColl: CollisionShape3D
 const ASSUMED_MASS = 60.0
 
-@export_group("Hands")
-@export var left_hand_socket : BoneAttachment3D
-@export var right_hand_socket : BoneAttachment3D
-@export var left_hand_spawner : HandableSpawner
-@export var right_hand_spawner : HandableSpawner
-@export var LEFT_HANDED : bool = true
+# ----Sound----
+var sound_player := AudioStreamPlayer.new()
+var reverb_effect = AudioServer.get_bus_effect(2, 0)  # Adjust index as necessary
+var JumpSounds = [preload("res://assets/sfx/main-char/jump-1.wav"), preload("res://assets/sfx/main-char/jump-2.wav"), preload("res://assets/sfx/main-char/jump-3.wav")]
 
+# ----Misc----
+var can_move : bool = true
 var owned_by_current_client : bool = false
 
+# ----Movement----
 var input_dir : Vector2
 var wish_dir : Vector3
 var move_speed: float = walk_speed
+var cur_ground_decel : float = ground_decel
+var cur_ground_friction : float = ground_friction
 
+var current_jump_velocity : float = jump_velocity
 var available_jumps : int = 1
 var max_available_jumps : int = 1
+var available_wall_jumps : int = 1
+var max_available_wall_jumps : int = 1
+var max_slide_time : float = 0.75
+var time_sliding : float = 0.0
 
 # ----DEV SETTINGS----
 var dev_speed: float = 50.0
+var debug_scene_play : bool = false
 
 func _ready():
 	add_child(sound_player)
@@ -114,9 +128,9 @@ func _physics_process(delta: float) -> void:
 	handle_animation(delta)
 
 	update_locomotion()
-	
+
 	#print(animation_state)
-	#print(animation_state.get_current_node())	
+	#print(animation_state.get_current_node())
 
 func update_locomotion()->void:
 	# get our speed
@@ -179,7 +193,26 @@ func handle_fire3()->void:
 			"parameters/UpperBodyAttack/request",
 			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 		)
-		
+
+
+func clip_velocity(normal: Vector3, overbounce : float) -> void:
+	var backoff : float = velocity.dot(normal) * overbounce
+
+	if backoff >= 0: return
+
+	var change := normal * backoff
+	velocity -= change
+
+	var adjust := velocity.dot(normal)
+	if adjust < 0.0:
+		velocity -= normal * adjust
+
+
+func is_surface_too_steep(normal: Vector3) -> bool:
+	var max_slope_ang_dot = Vector3(0, 1, 0).rotated(Vector3(1.0, 0, 0), floor_max_angle).dot(Vector3(0, 1, 0))
+	return normal.dot(Vector3(0, 1, 0)) < max_slope_ang_dot
+
+
 func _handle_air_physics(delta: float) -> void:
 	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
 	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
@@ -189,6 +222,12 @@ func _handle_air_physics(delta: float) -> void:
 		accel_speed = min(accel_speed, add_speed_till_cap)
 		velocity += accel_speed * wish_dir
 
+	if is_on_wall():
+		if is_surface_too_steep(get_wall_normal()):
+			motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
+		else:
+			motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
+		clip_velocity(get_wall_normal(), 1) # Allows surfing
 
 func _handle_ground_physics(delta: float) -> void:
 	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
@@ -198,8 +237,8 @@ func _handle_ground_physics(delta: float) -> void:
 		accel_speed = min(accel_speed, add_speed_till_cap)
 		velocity += accel_speed * wish_dir
 
-	var control = max(velocity.length(), ground_decel)
-	var drop = control * ground_friction * delta
+	var control = max(velocity.length(), cur_ground_decel)
+	var drop = control * cur_ground_friction * delta
 	var new_speed = max(velocity.length() - drop, 0.0)
 	if velocity.length() > 0:
 		new_speed /= velocity.length()
@@ -214,14 +253,33 @@ func handle_move_input(delta: float) -> void:
 
 	if is_on_floor():
 		available_jumps = max_available_jumps
+		available_wall_jumps = max_available_wall_jumps
+		if Input.is_action_pressed("ctrl"):
+			current_jump_velocity = clampf(current_jump_velocity + super_jump_charge_rate * delta, jump_velocity, max_jump_velocity)
+			if velocity.length() > walk_speed/2 and time_sliding < max_slide_time:
+				cur_ground_decel = ground_decel / 10
+				cur_ground_friction = ground_friction / 10
+				time_sliding += delta
+			else:
+				cur_ground_decel = ground_decel
+				cur_ground_friction = ground_friction
+		else:
+			current_jump_velocity = jump_velocity
+			cur_ground_decel = ground_decel
+			cur_ground_friction = ground_friction
+			time_sliding = 0
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump"):
-		if is_on_wall():
-			velocity.y = JUMP_VELOCITY
-			velocity.x = -velocity.x
+		if is_on_wall_only() and available_wall_jumps > 0:
+			available_wall_jumps -= 1
+			velocity.y = current_jump_velocity
+			if(randi() % 10 < 9):
+				reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
+				sound_player.stream = JumpSounds.pick_random()
+				sound_player.play()
 		elif available_jumps > 0:
-			velocity.y = JUMP_VELOCITY
+			velocity.y = current_jump_velocity
 			landing_requested=false
 			animation_state.travel("Jump_Start")
 			if not is_on_floor():
@@ -230,6 +288,7 @@ func handle_move_input(delta: float) -> void:
 				reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
 				sound_player.stream = JumpSounds.pick_random()
 				sound_player.play()
+		current_jump_velocity = jump_velocity
 
 	if Input.is_action_pressed("shift"):
 		move_speed = run_speed

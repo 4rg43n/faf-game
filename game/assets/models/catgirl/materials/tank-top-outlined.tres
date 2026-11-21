@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://fvaex2buv2n"]
+
+[ext_resource type="Shader" uid="uid://b5wqm5rjjr2yh" path="res://assets/shaders/character_toon.gdshader" id="1_lqng2"]
+[ext_resource type="Texture2D" uid="uid://c2b82ki6ktj0x" path="res://assets/models/catgirl/catgirl-godot_tank-top.png" id="2_1u2hc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5rgqb"]
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_5rgqb")
+shader = ExtResource("1_lqng2")
+shader_parameter/albedo_texture = ExtResource("2_1u2hc")
+shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0.45, 0.5, 0.65, 1)
+shader_parameter/shadow_threshold = 0.45
+shader_parameter/shadow_softness = 0.12
+shader_parameter/ambient_strength = 0.35

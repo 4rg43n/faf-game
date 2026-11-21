@@ -1,7 +1,17 @@
 @tool
 class_name InventoryButton extends Button
 
+
 @export var count_label: Label
+@export var hotkey_label: Label
+@export var is_hotkey: bool = false:
+	set(value):
+		is_hotkey = value
+		hotkey_label.visible = value
+@export var hotkey_number: int:
+	set(value):
+		hotkey_number = value
+		hotkey_label.text = str(value)
 @export var stored_item: Item:
 	set(value):
 		stored_item = value
@@ -14,6 +24,7 @@ class_name InventoryButton extends Button
 		else:
 			icon = null
 			count_label.text = ""
+		inventory_system.stored_item_set(self)
 
 @onready var inventory_system: InventorySystem = InventorySystem.instance
 
@@ -34,6 +45,13 @@ func _on_released():
 
 
 func _on_mouse_entered():
+	if stored_item:
+		tooltip_text = stored_item.name
+		if stored_item.unsellable:
+			tooltip_text += "\nUnsellable"
+		else:
+			tooltip_text += "\nSingle Buy: " + str(stored_item.buy_value) + "g"\
+						+ "\nStack Sell: " + str(stored_item.sell_value * stored_item.count) + "g"
 	inventory_system.button_hovered(self)
 
 

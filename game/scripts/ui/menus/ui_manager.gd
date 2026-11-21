@@ -1,9 +1,14 @@
-extends Control
+class_name UI extends Control
 
 @export var lobby_manager: LobbyManager
 @export var options_menu: CenterContainer
 @export var inventory: InventorySystem
 @export var game_manager: GameManager
+
+static var instance: UI
+
+func _init() -> void:
+	instance = self
 
 func _ready() -> void:
 	lobby_manager.visibility_changed.connect(_on_lobby_manager_visibility_changed)
@@ -12,6 +17,15 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and not LobbyManager.instance.is_visible_in_tree():
 		if Input.is_action_just_pressed("esc_key"):
+			if inventory.inventory_container.visible:
+				inventory.inventory_container.hide()
+				inventory.background.visible = !inventory.background.visible
+				inventory.shop_container.visible = false
+				if inventory.inventory_container.visible:
+					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				else:
+					Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+				return
 			options_menu.visible = !options_menu.visible
 			if options_menu.visible:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -20,8 +34,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 				game_manager.paused = false
 		elif Input.is_action_just_pressed("inventory"):
-			inventory.main_inventory.visible = !inventory.main_inventory.visible
-			if inventory.main_inventory.visible:
+			inventory.inventory_container.visible = !inventory.inventory_container.visible
+			inventory.background.visible = !inventory.background.visible
+			inventory.shop_container.visible = false
+			if inventory.inventory_container.visible:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			else:
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -48,3 +64,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_lobby_manager_visibility_changed():
 	inventory.visible = not lobby_manager.visible
+
+
+func show_shop():
+	inventory.inventory_container.visible = true
+	inventory.background.visible = true
+	inventory.shop_container.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
