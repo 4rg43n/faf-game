@@ -10,7 +10,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5q2b1"]
 bg_color = Color(0, 0, 0, 0.52156866)
 
-[node name="ShopAndInventoryMenu" type="MarginContainer" unique_id=741391217 node_paths=PackedStringArray("main_inventory", "background", "inventory_container", "shop_container", "shop_inventory", "hotbar")]
+[node name="ShopAndInventoryMenu" type="MarginContainer" unique_id=741391217 node_paths=PackedStringArray("main_inventory", "background", "inventory_container", "shop_container", "shop_inventory", "hotbar", "money_label")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -23,6 +23,7 @@ inventory_container = NodePath("Inventories/MainInventoryBackground")
 shop_container = NodePath("Inventories/ShopInventoryBackground")
 shop_inventory = NodePath("Inventories/ShopInventoryBackground/VBoxContainer/ShopInventory")
 hotbar = NodePath("HotbarMargin/PanelContainer/Hotbar")
+money_label = NodePath("Inventories/MainInventoryBackground/VBoxContainer/Money")
 active_slot = 8
 normal_stylebox = ExtResource("2_845ur")
 pressed_stylebox = ExtResource("3_wjarn")
@@ -111,7 +112,7 @@ theme_override_styles/panel = ExtResource("4_wjarn")
 [node name="VBoxContainer" type="VBoxContainer" parent="Inventories/MainInventoryBackground" unique_id=549946771]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Inventories/MainInventoryBackground/VBoxContainer" unique_id=1196855152]
+[node name="Inventory" type="Label" parent="Inventories/MainInventoryBackground/VBoxContainer" unique_id=1196855152]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Inventory"
@@ -168,6 +169,11 @@ layout_mode = 2
 
 [node name="InventoryButton15" parent="Inventories/MainInventoryBackground/VBoxContainer/MainInventory" unique_id=1575947629 instance=ExtResource("1_a58ub")]
 layout_mode = 2
+
+[node name="Money" type="Label" parent="Inventories/MainInventoryBackground/VBoxContainer" unique_id=761389815]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Money: 0.0"
 
 [node name="ShopInventoryBackground" type="PanelContainer" parent="Inventories" unique_id=774149171]
 visible = false

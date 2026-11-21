@@ -7,6 +7,7 @@ class_name InventorySystem extends MarginContainer
 @export var shop_container: PanelContainer
 @export var shop_inventory: GridContainer
 @export var hotbar: HBoxContainer
+@export var money_label: Label
 @export var active_slot: int:
 	set(value):
 		if value > 8 or value < 0: # We only have 9 hotbar slots 0-8
@@ -137,11 +138,13 @@ func _on_main_inventory_visibility_changed() -> void:
 
 func _on_player_synced() -> void:
 	player_data = game_manager.player_data
-	game_manager.player_data.hotbar_updated.connect(_on_hotbar_updated)
-	game_manager.player_data.main_inventory_updated.connect(_on_main_inventory_updated)
+	player_data.hotbar_updated.connect(_on_hotbar_updated)
+	player_data.main_inventory_updated.connect(_on_main_inventory_updated)
+	player_data.money_updated.connect(_on_money_updated)
 	_on_hotbar_updated()
 	_on_main_inventory_updated()
 	_on_shop_inventory_updated()
+	_on_money_updated()
 	call_deferred("@active_slot_setter", 0) # FUCK OFF this is so stupid
 
 
@@ -180,8 +183,11 @@ func _on_active_slot_changed(slot: int, in_old_slot : int) -> void:
 	on_active_slot_changed.emit(in_old_slot)
 
 
+func _on_money_updated() -> void:
+	money_label.text = "Money: " + str(player_data.money)
+
+
 func _handle_shop_interaction(old_item: Item, old_inventory: Array[Node], new_inventory: Array[Node]) -> void:
-	print("Money before: ", player_data.money)
 	if old_item.unsellable:
 		print("Item is unable to be sold")
 		return
@@ -218,5 +224,3 @@ func _handle_shop_interaction(old_item: Item, old_inventory: Array[Node], new_in
 			player_data.main_inventory.set(new_slot_idx, new_item)
 		elif new_inventory == hotbar.get_children():
 			player_data.hotbar.set(new_slot_idx, new_item)
-		#new_inventory.set(new_slot_idx, new_item)
-	print("Money after: ", player_data.money)
