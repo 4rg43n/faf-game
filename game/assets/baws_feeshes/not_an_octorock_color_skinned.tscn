@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dn83xbdka81vs"]
+
+[ext_resource type="PackedScene" uid="uid://b5ehl7w8m1jf2" path="res://assets/baws_feeshes/not_an_octorock_color_skinned.glb" id="1_e3vjo"]
+
+[node name="not_an_octorock_color_skinned" unique_id=220396493 instance=ExtResource("1_e3vjo")]
