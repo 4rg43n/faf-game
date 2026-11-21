@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://n46wsu2s5aim" path="res://assets/models/env/terrain/island0.tscn" id="2_x0u74"]
 [ext_resource type="Shader" uid="uid://bi3o8elbtqoni" path="res://addons/simplegrasstextured/shaders/grass.gdshader" id="3_jsfgd"]
 [ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="4_ft2bs"]
-[ext_resource type="PackedScene" uid="uid://crisams4xiht3" path="res://scenes/interactable/bug_collector_mini_game.tscn" id="5_ej332"]
 [ext_resource type="PackedScene" uid="uid://cgk1kf88cibpm" path="res://scenes/interactable/shop_stand.tscn" id="6_jsfgd"]
 [ext_resource type="PackedScene" uid="uid://b00tgq7bnpmd5" path="res://scenes/terrain/rockeroo_small.tscn" id="7_ft2bs"]
 [ext_resource type="PackedScene" uid="uid://wqi5u3fiafq7" path="res://scenes/terrain/rockeroo_small_bald_snatched_in_a_mini.tscn" id="8_j627t"]
@@ -57,9 +56,6 @@ material_override = SubResource("ShaderMaterial_j627t")
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8147697, 0)
 
-[node name="BugCollectorMiniGame" parent="." unique_id=1401098916 instance=ExtResource("5_ej332")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -53.3947, 6.832299, -8.78101)
-
 [node name="Ocean" type="Area3D" parent="." unique_id=1494808209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -231.6875, 0, 51.49388)
 collision_mask = 26
@@ -99,16 +95,19 @@ transform = Transform3D(-0.32776213, 0.67514503, -0.6608716, -0.9183331, -0.3919
 [node name="RockerooSmallBaldSnatched4" parent="." unique_id=572593631 instance=ExtResource("9_i5vbv")]
 transform = Transform3D(-0.40352973, 0.042192124, -0.91399324, -0.3049693, -0.948016, 0.09088183, -0.8626457, 0.31541342, 0.3954199, 62.234825, -2.2393436, -50.28758)
 
-[node name="palmer" parent="." unique_id=1603064836 instance=ExtResource("11_k04q5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.797754, 0.43521166, -56.993336)
-
 [node name="palmer2" parent="." unique_id=929042567 instance=ExtResource("11_k04q5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.522472, 1.3160323, -75.989815)
+transform = Transform3D(-0.67605644, -0.5764427, 0.45897892, -0.67829263, 0.73019975, -0.082020715, -0.2878661, -0.3667727, -0.8846531, -1.8574457, 8.144835, -29.450521)
 
 [node name="palmer3" parent="." unique_id=1292103647 instance=ExtResource("11_k04q5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.062544, 1.1659695, -84.16892)
+transform = Transform3D(0.62552214, 0.13978112, 0.7675827, -0.09761337, 0.99011093, -0.10075717, -0.7740761, -0.011900514, 0.6329808, 30.062544, 1.1659695, -84.16892)
 
 [node name="palmer4" parent="." unique_id=1705573883 instance=ExtResource("11_k04q5")]
 transform = Transform3D(0.8537335, -0.0005353779, 0.52071, 0.0004570701, 0.9999999, 0.00027877666, -0.52071005, 0, 0.8537336, 48.625546, 4.593592, -61.142883)
+
+[node name="RockerooSmallBald3" parent="." unique_id=1233671957 instance=ExtResource("10_rhyyu")]
+transform = Transform3D(0.9999964, 0.0013815423, -0.0023056716, -0.0015331305, 0.99774617, -0.067085974, 0.00220778, 0.06708925, 0.9977446, 21.06458, 3.424492, -95.43829)
+
+[node name="RockerooSmall2" parent="." unique_id=1900180236 instance=ExtResource("7_ft2bs")]
+transform = Transform3D(0.988453, 0.1510663, 0.011824634, -0.14854465, 0.9814443, -0.12125104, -0.02992218, 0.11809444, 0.9925514, 29.709282, -4.380768, -77.27041)
 
 [editable path="island0"]
