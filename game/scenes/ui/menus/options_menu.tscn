@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://cybynp4ghvmv6" path="res://scripts/ui/menus/options_menu.gd" id="1_2lvmk"]
 [ext_resource type="PackedScene" uid="uid://byaempgdkbaf3" path="res://scenes/ui/components/transparent_button.tscn" id="1_8sva7"]
 
-[node name="CenterContainer" type="CenterContainer" unique_id=1879588313]
+[node name="CenterContainer" type="CenterContainer" unique_id=1879588313 node_paths=PackedStringArray("unstuck_button")]
 offset_right = 368.0
 offset_bottom = 123.0
 script = ExtResource("1_2lvmk")
+unstuck_button = NodePath("VBoxContainer/Button3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2053961547]
 layout_mode = 2
@@ -20,7 +21,11 @@ theme_override_font_sizes/font_size = 50
 text = "Fuck Ass Fish ™"
 horizontal_alignment = 1
 
-[node name="Button" parent="VBoxContainer" unique_id=1529887536 instance=ExtResource("1_8sva7")]
+[node name="Button3" parent="VBoxContainer" unique_id=1529887536 instance=ExtResource("1_8sva7")]
+layout_mode = 2
+text = "Unstuck"
+
+[node name="Button" parent="VBoxContainer" unique_id=545317038 instance=ExtResource("1_8sva7")]
 layout_mode = 2
 text = "Return to Lobby"
 

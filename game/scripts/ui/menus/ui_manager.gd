@@ -4,6 +4,8 @@ class_name UI extends Control
 @export var options_menu: CenterContainer
 @export var inventory: InventorySystem
 @export var game_manager: GameManager
+@export var chaos_tracker: VBoxContainer
+@export var speed_tracker: Label
 
 static var instance: UI
 
@@ -64,10 +66,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_lobby_manager_visibility_changed():
 	inventory.visible = not lobby_manager.visible
+	chaos_tracker.visible = not chaos_tracker.visible
 
 
 func show_shop():
 	inventory.inventory_container.visible = true
 	inventory.background.visible = true
 	inventory.shop_container.visible = true
+	speed_tracker.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

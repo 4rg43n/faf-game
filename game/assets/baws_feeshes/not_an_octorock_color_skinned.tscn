@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dn83xbdka81vs"]
+
+[ext_resource type="PackedScene" uid="uid://b5ehl7w8m1jf2" path="res://assets/baws_feeshes/not_an_octorock_color_skinned.glb" id="1_e3vjo"]
+[ext_resource type="Script" uid="uid://b6e2u6qe6entf" path="res://assets/baws_feeshes/octorock_behavior.gd" id="2_g2aj1"]
+
+[node name="not_an_octorock_color_skinned" unique_id=220396493 instance=ExtResource("1_e3vjo")]
+script = ExtResource("2_g2aj1")
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1052346615) index="0" unique_id=1518576451]
+bones/11/rotation = Quaternion(0.14834835, 0.5066752, 0.7546047, -0.38967258)
+bones/12/rotation = Quaternion(0.6691627, 0.5243244, -0.1915918, -0.4905077)
+bones/28/rotation = Quaternion(0.023115994, 0.19055308, 0.1894249, 0.96295035)

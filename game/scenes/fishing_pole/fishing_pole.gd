@@ -66,6 +66,7 @@ func _on_player_attempt_cast(peer_id : int) -> void:
 			var fake_fish = its_a_fish_scene.instantiate()
 			var fish_resource : Item = fake_fish.get("item_resource")
 			player.add_item_if_possible(fish_resource)
+			ChaosSystem.instance._decrease_chaos()
 
 		bobber_cast = false
 
