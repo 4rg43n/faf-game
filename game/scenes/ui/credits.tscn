@@ -1,0 +1,218 @@
+[gd_scene format=3 uid="uid://bkksku8gani3e"]
+
+[ext_resource type="Script" uid="uid://wy8yv28fauie" path="res://scenes/ui/credits.gd" id="1_oap8i"]
+
+[node name="Credits" type="Control" unique_id=623738196]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oap8i")
+
+[node name="Label" type="Label" parent="." unique_id=1235372036]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 200.0
+offset_right = 20.0
+offset_bottom = 223.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "You saved the ocean
+from the corrupted fish!!!"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Credits" type="Label" parent="." unique_id=1862626413]
+layout_mode = 0
+offset_left = 261.5
+offset_top = 650.0
+offset_right = 890.5
+offset_bottom = 717.0
+theme_override_font_sizes/font_size = 48
+text = "CREDITS"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=763908710]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -314.5
+offset_top = 476.0
+offset_right = 314.5
+offset_bottom = 1324.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="Developers" type="Label" parent="VBoxContainer" unique_id=955940178]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "DEVELOPERS"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=1836332072]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=487897586]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Game Developer: Zach Ault (Zalmoxes)"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=1223284978]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Game Developer: Jocelyn Byron (dragonsarebest)"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer" unique_id=2113515208]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Game Developer: Neftali González (Kyn21kx)"
+horizontal_alignment = 1
+
+[node name="Label14" type="Label" parent="VBoxContainer" unique_id=529921888]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Game Developer: Ethan Hicks (feistyjalapeno)"
+horizontal_alignment = 1
+
+[node name="Label9" type="Label" parent="VBoxContainer" unique_id=568206830]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Junior Game Developer: Kye Sprouse (Crazy)"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="VBoxContainer" unique_id=243484517]
+layout_mode = 2
+
+[node name="Art" type="Label" parent="VBoxContainer" unique_id=143227264]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ART"
+horizontal_alignment = 1
+
+[node name="Spacer3" type="Control" parent="VBoxContainer" unique_id=809552000]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="VBoxContainer" unique_id=1893421638]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Character Artist: David Reeves (Argaen)"
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="VBoxContainer" unique_id=1027671536]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Animator: David Reeves (Argaen)"
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="VBoxContainer" unique_id=1063394943]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Environment Artist: Charly (nelonelo)"
+horizontal_alignment = 1
+
+[node name="Label7" type="Label" parent="VBoxContainer" unique_id=1696371786]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Creature Artist: Jocelyn Byron (dragonsarebest)"
+horizontal_alignment = 1
+
+[node name="Label8" type="Label" parent="VBoxContainer" unique_id=730450771]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead UI Designer: Zach Ault (Zalmoxes)"
+horizontal_alignment = 1
+
+[node name="Spacer4" type="Control" parent="VBoxContainer" unique_id=1522961625]
+layout_mode = 2
+
+[node name="Design" type="Label" parent="VBoxContainer" unique_id=1814340470]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "DESIGN"
+horizontal_alignment = 1
+
+[node name="Spacer5" type="Control" parent="VBoxContainer" unique_id=1206912894]
+layout_mode = 2
+
+[node name="Label10" type="Label" parent="VBoxContainer" unique_id=341375876]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Game Design: The Whole Team <3"
+horizontal_alignment = 1
+
+[node name="Label11" type="Label" parent="VBoxContainer" unique_id=1202015859]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Level Designer: Audrey Byron (AyyPlusX)"
+horizontal_alignment = 1
+
+[node name="Spacer6" type="Control" parent="VBoxContainer" unique_id=1846662646]
+layout_mode = 2
+
+[node name="Voice" type="Label" parent="VBoxContainer" unique_id=1186570548]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "VOICE"
+horizontal_alignment = 1
+
+[node name="Spacer7" type="Control" parent="VBoxContainer" unique_id=1319438663]
+layout_mode = 2
+
+[node name="Label12" type="Label" parent="VBoxContainer" unique_id=617557485]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ashii (Main Character): Simone Cash (Lupa)"
+horizontal_alignment = 1
+
+[node name="Label13" type="Label" parent="VBoxContainer" unique_id=931070561]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Shop Keeper: Kat Smith (Kat)"
+horizontal_alignment = 1
+
+[node name="Spacer8" type="Control" parent="VBoxContainer" unique_id=85417740]
+layout_mode = 2
+
+[node name="Writing" type="Label" parent="VBoxContainer" unique_id=845729435]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "WRITING"
+horizontal_alignment = 1
+
+[node name="Spacer9" type="Control" parent="VBoxContainer" unique_id=628936306]
+layout_mode = 2
+
+[node name="Label15" type="Label" parent="VBoxContainer" unique_id=1278108156]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Script Writer: Aiden Bruntz (TheLad6603)"
+horizontal_alignment = 1
+
+[node name="Spacer10" type="Control" parent="VBoxContainer" unique_id=237995342]
+layout_mode = 2
+
+[node name="Management" type="Label" parent="VBoxContainer" unique_id=463292540]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "MANAGEMENT"
+horizontal_alignment = 1
+
+[node name="Spacer11" type="Control" parent="VBoxContainer" unique_id=1706580827]
+layout_mode = 2
+
+[node name="Label16" type="Label" parent="VBoxContainer" unique_id=619147487]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Project Manager: Zach Ault (Zalmoxes)"
+horizontal_alignment = 1

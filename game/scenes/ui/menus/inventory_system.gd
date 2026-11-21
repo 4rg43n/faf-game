@@ -6,6 +6,7 @@ class_name InventorySystem extends MarginContainer
 @export var inventory_container: PanelContainer
 @export var shop_container: PanelContainer
 @export var shop_inventory: GridContainer
+@export var hotbar_container: PanelContainer
 @export var hotbar: HBoxContainer
 @export var money_label: Label
 @export var active_slot: int:

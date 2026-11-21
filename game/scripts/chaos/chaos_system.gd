@@ -9,6 +9,8 @@ var current_chaos : float = 100.0:
 			_spawn_beetle_boss()
 		if current_chaos <= 33.0 and not octopus_already_spawned:
 			_spawn_octopus_boss()
+		if current_chaos <= 0.0:
+			UI.instance.credits.start_credits()
 		chaos_changed.emit()
 var max_chaos : float = 100.0
 var chaos_pieces : int = 0
@@ -28,10 +30,6 @@ func _spawn_beetle_boss():
 
 
 func _spawn_octopus_boss():
-	pass
-
-
-func _start_end_game_scene():
 	pass
 
 
