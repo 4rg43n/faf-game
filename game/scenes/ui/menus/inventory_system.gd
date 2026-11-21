@@ -7,6 +7,7 @@ class_name InventorySystem extends MarginContainer
 @export var shop_container: PanelContainer
 @export var shop_inventory: GridContainer
 @export var hotbar: HBoxContainer
+@export var money_label: Label
 @export var active_slot: int:
 	set(value):
 		if value > 8 or value < 0: # We only have 9 hotbar slots 0-8
@@ -75,8 +76,20 @@ func button_released():
 		var hovered_main_idx : int = main_slots.find(hovered_slot)
 		var hovered_hotbar_idx : int = hotbar_slots.find(hovered_slot)
 
-		if not [old_main_idx, old_hotbar_idx, hovered_main_idx, hovered_hotbar_idx].filter(func(v): return v >= 0).size() >= 2:
-			_handle_shop_interaction()
+		var player_items : Array = [old_main_idx, old_hotbar_idx, hovered_main_idx, hovered_hotbar_idx]\
+			.filter(func(v): return v >= 0)
+
+		if not player_items.size(): # Trying to move items around in the shop
+			reset()
+			return
+		if not player_items.size() >= 2:
+			_handle_shop_interaction(
+				old_item,
+				main_slots if old_main_idx >= 0 else hotbar_slots,
+				main_slots if hovered_main_idx >= 0 else hotbar_slots)
+			_on_main_inventory_updated()
+			_on_hotbar_updated()
+			reset()
 			return
 
 		if hovered_slot.stored_item and old_item.id == hovered_slot.stored_item.id:
@@ -125,11 +138,13 @@ func _on_main_inventory_visibility_changed() -> void:
 
 func _on_player_synced() -> void:
 	player_data = game_manager.player_data
-	game_manager.player_data.hotbar_updated.connect(_on_hotbar_updated)
-	game_manager.player_data.main_inventory_updated.connect(_on_main_inventory_updated)
+	player_data.hotbar_updated.connect(_on_hotbar_updated)
+	player_data.main_inventory_updated.connect(_on_main_inventory_updated)
+	player_data.money_updated.connect(_on_money_updated)
 	_on_hotbar_updated()
 	_on_main_inventory_updated()
 	_on_shop_inventory_updated()
+	_on_money_updated()
 	call_deferred("@active_slot_setter", 0) # FUCK OFF this is so stupid
 
 
@@ -168,6 +183,45 @@ func _on_active_slot_changed(slot: int, in_old_slot : int) -> void:
 	on_active_slot_changed.emit(in_old_slot)
 
 
-func _handle_shop_interaction() -> void:
-	reset()
-	print("Yeet")
+func _on_money_updated() -> void:
+	money_label.text = "Money: " + str(player_data.money)
+
+
+func _handle_shop_interaction(old_item: Item, old_inventory: Array[Node], new_inventory: Array[Node]) -> void:
+	if old_item.unsellable:
+		print("Item is unable to be sold")
+		return
+	var old_slot_idx : int = old_inventory.find(old_slot)
+	if old_slot_idx >= 0: # We're selling
+		player_data.money += old_item.sell_value * old_item.count
+		if old_inventory == main_inventory.get_children():
+			player_data.main_inventory.set(old_slot_idx, null)
+		elif new_inventory == hotbar.get_children():
+			player_data.hotbar.set(old_slot_idx, null)
+	elif new_inventory.has(hovered_slot): # We're buying
+		var shop_inventory_slots = shop_inventory.get_children()
+		old_slot_idx = shop_inventory_slots.find(old_slot)
+		var new_slot_idx : int = new_inventory.find(hovered_slot)
+		if not player_data.money -  old_item.sell_value >= 0:
+			print("You're too poor bitch")
+			return
+		var new_stored_item = new_inventory[new_slot_idx].stored_item
+		var old_stored_item = shop_inventory_slots[old_slot_idx].stored_item
+		if old_stored_item == null:
+			print("old index: ", old_slot_idx)
+			print(old_inventory[old_slot_idx].stored_item)
+		elif new_stored_item != null:
+			if new_stored_item.id == old_stored_item.id:
+				if new_stored_item.count < new_stored_item.max_count:
+					new_stored_item.count += 1
+					player_data.money -= old_item.sell_value
+			else:
+				print("Tried to buy item in non-empty slot: ", new_inventory[new_slot_idx].stored_item)
+			return
+		player_data.money -= old_item.sell_value
+		var new_item : Item = old_item.duplicate()
+		new_item.count = 1
+		if new_inventory == main_inventory.get_children():
+			player_data.main_inventory.set(new_slot_idx, new_item)
+		elif new_inventory == hotbar.get_children():
+			player_data.hotbar.set(new_slot_idx, new_item)
