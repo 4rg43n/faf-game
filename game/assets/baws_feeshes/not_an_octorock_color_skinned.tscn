@@ -2,11 +2,311 @@
 
 [ext_resource type="PackedScene" uid="uid://b5ehl7w8m1jf2" path="res://assets/baws_feeshes/not_an_octorock_color_skinned.glb" id="1_e3vjo"]
 [ext_resource type="Script" uid="uid://b6e2u6qe6entf" path="res://assets/baws_feeshes/octorock_behavior.gd" id="2_g2aj1"]
+[ext_resource type="Script" uid="uid://d1gympxl7lr3g" path="res://assets/baws_feeshes/animation_state.gd" id="3_2ri2w"]
 
-[node name="not_an_octorock_color_skinned" unique_id=220396493 instance=ExtResource("1_e3vjo")]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_2ri2w"]
+var/player_locations/name = &"player_locations"
+var/player_locations/type = 36
+var/player_locations/value = PackedVector3Array()
+var/player_locations/hint = 0
+var/player_locations/hint_string = "player locations"
+var/current_victim/name = &"current_victim"
+var/current_victim/type = 2
+var/current_victim/value = 0
+var/current_victim/hint = 0
+var/current_victim/hint_string = "current player index"
+var/player_peer_ids/name = &"player_peer_ids"
+var/player_peer_ids/type = 30
+var/player_peer_ids/value = PackedInt32Array()
+var/player_peer_ids/hint = 0
+var/player_peer_ids/hint_string = "player peer ids (steam)"
+var/stun_locked/name = &"stun_locked"
+var/stun_locked/type = 3
+var/stun_locked/value = 0.0
+var/stun_locked/hint = 0
+var/stun_locked/hint_string = "when a player hits the soft squishy legs stun lock him for X time with a cooldown"
+var/reload_timer/name = &"reload_timer"
+var/reload_timer/type = 3
+var/reload_timer/value = 0.0
+var/reload_timer/hint = 0
+var/reload_timer/hint_string = "time b/w main attack (gun)"
+var/stun_cooldown/name = &"stun_cooldown"
+var/stun_cooldown/type = 3
+var/stun_cooldown/value = 0.0
+var/stun_cooldown/hint = 0
+var/stun_cooldown/hint_string = "time b/w stuns"
+var/current_hp/name = &"current_hp"
+var/current_hp/type = 3
+var/current_hp/value = 0.0
+var/current_hp/hint = 0
+var/current_hp/hint_string = "health"
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_flawj"]
+var/player_locations/name = &"player_locations"
+var/player_locations/type = 36
+var/player_locations/value = PackedVector3Array()
+var/player_locations/hint = 0
+var/player_locations/hint_string = "player locations"
+var/current_victim/name = &"current_victim"
+var/current_victim/type = 2
+var/current_victim/value = 0
+var/current_victim/hint = 0
+var/current_victim/hint_string = "current player index"
+var/player_peer_ids/name = &"player_peer_ids"
+var/player_peer_ids/type = 30
+var/player_peer_ids/value = PackedInt32Array()
+var/player_peer_ids/hint = 0
+var/player_peer_ids/hint_string = "player peer ids (steam)"
+var/stun_locked/name = &"stun_locked"
+var/stun_locked/type = 3
+var/stun_locked/value = 0.0
+var/stun_locked/hint = 0
+var/stun_locked/hint_string = "when a player hits the soft squishy legs stun lock him for X time with a cooldown"
+var/reload_timer/name = &"reload_timer"
+var/reload_timer/type = 3
+var/reload_timer/value = 0.0
+var/reload_timer/hint = 0
+var/reload_timer/hint_string = "time b/w main attack (gun)"
+var/stun_cooldown/name = &"stun_cooldown"
+var/stun_cooldown/type = 3
+var/stun_cooldown/value = 0.0
+var/stun_cooldown/hint = 0
+var/stun_cooldown/hint_string = "time b/w stuns"
+var/current_hp/name = &"current_hp"
+var/current_hp/type = 3
+var/current_hp/value = 0.0
+var/current_hp/hint = 0
+var/current_hp/hint_string = "health"
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_16ebe"]
+var/player_locations/name = &"player_locations"
+var/player_locations/type = 36
+var/player_locations/value = PackedVector3Array()
+var/player_locations/hint = 0
+var/player_locations/hint_string = "player locations"
+var/current_victim/name = &"current_victim"
+var/current_victim/type = 2
+var/current_victim/value = 0
+var/current_victim/hint = 0
+var/current_victim/hint_string = "current player index"
+var/player_peer_ids/name = &"player_peer_ids"
+var/player_peer_ids/type = 30
+var/player_peer_ids/value = PackedInt32Array()
+var/player_peer_ids/hint = 0
+var/player_peer_ids/hint_string = "player peer ids (steam)"
+var/stun_locked/name = &"stun_locked"
+var/stun_locked/type = 3
+var/stun_locked/value = 0.0
+var/stun_locked/hint = 0
+var/stun_locked/hint_string = "when a player hits the soft squishy legs stun lock him for X time with a cooldown"
+var/reload_timer/name = &"reload_timer"
+var/reload_timer/type = 3
+var/reload_timer/value = 0.0
+var/reload_timer/hint = 0
+var/reload_timer/hint_string = "time b/w main attack (gun)"
+var/stun_cooldown/name = &"stun_cooldown"
+var/stun_cooldown/type = 3
+var/stun_cooldown/value = 0.0
+var/stun_cooldown/hint = 0
+var/stun_cooldown/hint_string = "time b/w stuns"
+var/current_hp/name = &"current_hp"
+var/current_hp/type = 3
+var/current_hp/value = 0.0
+var/current_hp/hint = 0
+var/current_hp/hint_string = "health"
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_teyar"]
+var/player_locations/name = &"player_locations"
+var/player_locations/type = 36
+var/player_locations/value = PackedVector3Array()
+var/player_locations/hint = 0
+var/player_locations/hint_string = "player locations"
+var/current_victim/name = &"current_victim"
+var/current_victim/type = 2
+var/current_victim/value = 0
+var/current_victim/hint = 0
+var/current_victim/hint_string = "current player index"
+var/player_peer_ids/name = &"player_peer_ids"
+var/player_peer_ids/type = 30
+var/player_peer_ids/value = PackedInt32Array()
+var/player_peer_ids/hint = 0
+var/player_peer_ids/hint_string = "player peer ids (steam)"
+var/stun_locked/name = &"stun_locked"
+var/stun_locked/type = 3
+var/stun_locked/value = 0.0
+var/stun_locked/hint = 0
+var/stun_locked/hint_string = "when a player hits the soft squishy legs stun lock him for X time with a cooldown"
+var/reload_timer/name = &"reload_timer"
+var/reload_timer/type = 3
+var/reload_timer/value = 0.0
+var/reload_timer/hint = 0
+var/reload_timer/hint_string = "time b/w main attack (gun)"
+var/stun_cooldown/name = &"stun_cooldown"
+var/stun_cooldown/type = 3
+var/stun_cooldown/value = 0.0
+var/stun_cooldown/hint = 0
+var/stun_cooldown/hint_string = "time b/w stuns"
+var/current_hp/name = &"current_hp"
+var/current_hp/type = 3
+var/current_hp/value = 0.0
+var/current_hp/hint = 0
+var/current_hp/hint_string = "health"
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_hltho"]
+var/player_locations/name = &"player_locations"
+var/player_locations/type = 36
+var/player_locations/value = PackedVector3Array()
+var/player_locations/hint = 0
+var/player_locations/hint_string = "player locations"
+var/current_victim/name = &"current_victim"
+var/current_victim/type = 2
+var/current_victim/value = 0
+var/current_victim/hint = 0
+var/current_victim/hint_string = "current player index"
+var/player_peer_ids/name = &"player_peer_ids"
+var/player_peer_ids/type = 30
+var/player_peer_ids/value = PackedInt32Array()
+var/player_peer_ids/hint = 0
+var/player_peer_ids/hint_string = "player peer ids (steam)"
+var/stun_locked/name = &"stun_locked"
+var/stun_locked/type = 3
+var/stun_locked/value = 0.0
+var/stun_locked/hint = 0
+var/stun_locked/hint_string = "when a player hits the soft squishy legs stun lock him for X time with a cooldown"
+var/reload_timer/name = &"reload_timer"
+var/reload_timer/type = 3
+var/reload_timer/value = 0.0
+var/reload_timer/hint = 0
+var/reload_timer/hint_string = "time b/w main attack (gun)"
+var/stun_cooldown/name = &"stun_cooldown"
+var/stun_cooldown/type = 3
+var/stun_cooldown/value = 0.0
+var/stun_cooldown/hint = 0
+var/stun_cooldown/hint_string = "time b/w stuns"
+var/current_hp/name = &"current_hp"
+var/current_hp/type = 3
+var/current_hp/value = 0.0
+var/current_hp/hint = 0
+var/current_hp/hint_string = "health"
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_1h85i"]
+var/player_locations/name = &"player_locations"
+var/player_locations/type = 36
+var/player_locations/value = PackedVector3Array()
+var/player_locations/hint = 0
+var/player_locations/hint_string = "player locations"
+var/current_victim/name = &"current_victim"
+var/current_victim/type = 2
+var/current_victim/value = 0
+var/current_victim/hint = 0
+var/current_victim/hint_string = "current player index"
+var/player_peer_ids/name = &"player_peer_ids"
+var/player_peer_ids/type = 30
+var/player_peer_ids/value = PackedInt32Array()
+var/player_peer_ids/hint = 0
+var/player_peer_ids/hint_string = "player peer ids (steam)"
+var/stun_locked/name = &"stun_locked"
+var/stun_locked/type = 3
+var/stun_locked/value = 0.0
+var/stun_locked/hint = 0
+var/stun_locked/hint_string = "when a player hits the soft squishy legs stun lock him for X time with a cooldown"
+var/reload_timer/name = &"reload_timer"
+var/reload_timer/type = 3
+var/reload_timer/value = 0.0
+var/reload_timer/hint = 0
+var/reload_timer/hint_string = "time b/w main attack (gun)"
+var/stun_cooldown/name = &"stun_cooldown"
+var/stun_cooldown/type = 3
+var/stun_cooldown/value = 0.0
+var/stun_cooldown/hint = 0
+var/stun_cooldown/hint_string = "time b/w stuns"
+var/current_hp/name = &"current_hp"
+var/current_hp/type = 3
+var/current_hp/value = 0.0
+var/current_hp/hint = 0
+var/current_hp/hint_string = "health"
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_2cptm"]
+var/player_locations/name = &"player_locations"
+var/player_locations/type = 36
+var/player_locations/value = PackedVector3Array()
+var/player_locations/hint = 0
+var/player_locations/hint_string = "player locations"
+var/current_victim/name = &"current_victim"
+var/current_victim/type = 2
+var/current_victim/value = 0
+var/current_victim/hint = 0
+var/current_victim/hint_string = "current player index"
+var/player_peer_ids/name = &"player_peer_ids"
+var/player_peer_ids/type = 30
+var/player_peer_ids/value = PackedInt32Array()
+var/player_peer_ids/hint = 0
+var/player_peer_ids/hint_string = "player peer ids (steam)"
+var/stun_locked/name = &"stun_locked"
+var/stun_locked/type = 3
+var/stun_locked/value = 0.0
+var/stun_locked/hint = 0
+var/stun_locked/hint_string = "when a player hits the soft squishy legs stun lock him for X time with a cooldown"
+var/reload_timer/name = &"reload_timer"
+var/reload_timer/type = 3
+var/reload_timer/value = 0.0
+var/reload_timer/hint = 0
+var/reload_timer/hint_string = "time b/w main attack (gun)"
+var/stun_cooldown/name = &"stun_cooldown"
+var/stun_cooldown/type = 3
+var/stun_cooldown/value = 0.0
+var/stun_cooldown/hint = 0
+var/stun_cooldown/hint_string = "time b/w stuns"
+var/current_hp/name = &"current_hp"
+var/current_hp/type = 3
+var/current_hp/value = 0.0
+var/current_hp/hint = 0
+var/current_hp/hint_string = "health"
+
+[node name="not_an_octorock_color_skinned" unique_id=220396493 node_paths=PackedStringArray("root_hsm") instance=ExtResource("1_e3vjo")]
 script = ExtResource("2_g2aj1")
+root_hsm = NodePath("Root")
 
 [node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1052346615) index="0" unique_id=1518576451]
 bones/11/rotation = Quaternion(0.14834835, 0.5066752, 0.7546047, -0.38967258)
 bones/12/rotation = Quaternion(0.6691627, 0.5243244, -0.1915918, -0.4905077)
 bones/28/rotation = Quaternion(0.023115994, 0.19055308, 0.1894249, 0.96295035)
+
+[node name="Root" type="LimboHSM" parent="." index="2" unique_id=63098536]
+
+[node name="spin timmer is up - 3-8s - can interrupt suckage - more of an event" type="LimboHSM" parent="Root" index="0" unique_id=520613373]
+blackboard_plan = SubResource("BlackboardPlan_2ri2w")
+script = ExtResource("3_2ri2w")
+animation_name = null
+
+[node name="spin attack animation" type="LimboState" parent="Root/spin timmer is up - 3-8s - can interrupt suckage - more of an event" index="0" unique_id=697419133]
+
+[node name="out of ammo" type="LimboHSM" parent="Root" index="1" unique_id=140526674]
+blackboard_plan = SubResource("BlackboardPlan_flawj")
+
+[node name="has no valid target" type="LimboHSM" parent="Root/out of ammo" index="0" unique_id=245465370]
+blackboard_plan = SubResource("BlackboardPlan_16ebe")
+
+[node name="choose target interactable or player" type="LimboState" parent="Root/out of ammo/has no valid target" index="0" unique_id=1209865498]
+
+[node name="target out of suck range" type="LimboHSM" parent="Root/out of ammo" index="1" unique_id=1848947596]
+blackboard_plan = SubResource("BlackboardPlan_teyar")
+
+[node name="move into suck range" type="LimboState" parent="Root/out of ammo/target out of suck range" index="0" unique_id=888357213]
+
+[node name="target out of swallow range" type="LimboHSM" parent="Root/out of ammo" index="2" unique_id=1312736817]
+blackboard_plan = SubResource("BlackboardPlan_hltho")
+
+[node name="suck up target (animation + pull toward mouth) 3ish sec animation" type="LimboState" parent="Root/out of ammo/target out of swallow range" index="0" unique_id=1700654137]
+
+[node name="swallow any target that gets close to mouf - more of an event" type="LimboState" parent="Root/out of ammo" index="3" unique_id=251031311]
+
+[node name="current target invalid - at least 1 player not swallowed" type="LimboHSM" parent="Root" index="2" unique_id=248827231]
+blackboard_plan = SubResource("BlackboardPlan_1h85i")
+
+[node name="find closest target player" type="LimboState" parent="Root/current target invalid - at least 1 player not swallowed" index="0" unique_id=1939337396]
+
+[node name="spin to face target - we are always facing a null target" type="LimboHSM" parent="Root" index="3" unique_id=1261177160]
+blackboard_plan = SubResource("BlackboardPlan_2cptm")
+
+[node name="once we aim at them we shoot" type="LimboState" parent="Root/spin to face target - we are always facing a null target" index="0" unique_id=181588049]
