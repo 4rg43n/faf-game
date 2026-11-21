@@ -1,10 +1,3 @@
-# Claude Code context files — kept local, never committed
-CLAUDE.md
-**/CLAUDE.md
-CLAUDE.local.md
-**/CLAUDE.local.md
-.claude/
-
 # Engine is a separate repo (fork of godotengine/godot), cloned locally into engine/
 /engine/
 
