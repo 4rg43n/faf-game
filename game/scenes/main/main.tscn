@@ -141,6 +141,8 @@ weather_conditions = Dictionary[String, Resource]({
 "storm": ExtResource("9_m4h2d")
 })
 environment = ExtResource("4_a8run")
+delay_min_sec = 60.0
+delay_max_sec = 300.0
 
 [node name="Rain" parent="WeatherManager" unique_id=1079689614 instance=ExtResource("11_p8abn")]
 visible = false
