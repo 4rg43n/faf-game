@@ -27,8 +27,10 @@
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
 [ext_resource type="Script" uid="uid://botd1s4mi7ogx" path="res://scripts/chaos/chaos_system.gd" id="21_62atk"]
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
+[ext_resource type="Script" uid="uid://bd7kjvr27uf67" path="res://scripts/audio/music_manager.gd" id="23_7nlll"]
 [ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
+[ext_resource type="AudioStream" uid="uid://dxli54sb7xfhj" path="res://audio/music/the_mountain-toy-theme-159128.mp3" id="24_ii537"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvec"]
 bg_color = Color(0.43405953, 8.139512e-05, 0.049701735, 1)
@@ -177,6 +179,16 @@ metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
 [node name="ChaosSystem" type="Node" parent="." unique_id=1071842316]
 script = ExtResource("21_62atk")
 metadata/_custom_type_script = "uid://botd1s4mi7ogx"
+
+[node name="MusicManager" type="Node" parent="." unique_id=377988477 node_paths=PackedStringArray("music_player")]
+script = ExtResource("23_7nlll")
+music_player = NodePath("AudioStreamPlayer")
+metadata/_custom_type_script = "uid://bd7kjvr27uf67"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
+stream = ExtResource("24_ii537")
+volume_db = -8.0
+bus = &"Music"
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
