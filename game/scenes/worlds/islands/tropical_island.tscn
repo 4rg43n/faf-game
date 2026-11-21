@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://rgl6eya62sa5" path="res://scenes/terrain/rockeroo_small_bald.tscn" id="10_rhyyu"]
 [ext_resource type="PackedScene" uid="uid://dhgiltlcdf4fh" path="res://scenes/terrain/rockeroo.tscn" id="11_es7ny"]
 [ext_resource type="PackedScene" uid="uid://c0xmse77ksqjy" path="res://scenes/terrain/palm_tree.tscn" id="11_k04q5"]
+[ext_resource type="PackedScene" uid="uid://m35pdhn1bfgj" path="res://scenes/terrain/rockeroo_bald.tscn" id="12_es7ny"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gp616"]
 render_priority = 0
@@ -137,5 +138,8 @@ transform = Transform3D(1, 0, 0, 0, -0.9919634, 0.12652522, 0, -0.12652522, -0.9
 
 [node name="RockerooSmallBaldSnatched9" parent="." unique_id=239913121 instance=ExtResource("9_i5vbv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1451774, 17.71839, -95.84464)
+
+[node name="RockerooBald" parent="." unique_id=1466777032 instance=ExtResource("12_es7ny")]
+transform = Transform3D(0.9715709, 0, 0.23674868, 0, 1, 0, -0.23674868, 0, 0.9715709, -3.820611, 9.663697, -93.674065)
 
 [editable path="island0"]
