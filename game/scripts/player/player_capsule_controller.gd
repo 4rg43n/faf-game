@@ -12,6 +12,7 @@ signal active_camera_changed(camera: Camera3D)
 @export var animation_tree: AnimationTree
 @export var animation_player: AnimationPlayer
 @export var interact_label: Label
+@export var fishing_label: Label
 @export var active_camera: Camera3D:
 	set(camera):
 		if camera == active_camera:
@@ -334,7 +335,7 @@ func handle_interaction():
 		interact_label.text = "She could interact but she has no method..." + result.collider.name
 		var hit = result.collider
 		if hit.has_method("on_interact"):
-			interact_label.text = "press E to interact"
+			interact_label.text = "Press E to interact"
 			if Input.is_key_pressed(KEY_E):
 				hit.on_interact(player_metadata.peer_id)
 	else:
