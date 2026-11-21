@@ -3,6 +3,7 @@ class_name GameManager extends Node
 signal player_synced()
 
 @export var sky_3d: Sky3D
+@export var lobby_camera: Camera3D
 
 var player: PlayerController
 var player_data: PlayerMetadata

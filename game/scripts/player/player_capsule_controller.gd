@@ -13,6 +13,7 @@ signal active_camera_changed(camera: Camera3D)
 @export var animation_player: AnimationPlayer
 @export var interact_label: Label
 @export var fishing_label: Label
+@export var super_jump_label: Label
 @export var super_jump_bar: ProgressBar
 @export var active_camera: Camera3D:
 	set(camera):
@@ -101,6 +102,8 @@ var max_available_wall_jumps : int = 1
 var max_slide_time : float = 0.75
 var time_sliding : float = 0.0
 
+var ui_hidden : bool = false
+
 # ----DEV SETTINGS----
 var dev_speed: float = 50.0
 var debug_scene_play : bool = false
@@ -130,6 +133,12 @@ func _physics_process(delta: float) -> void:
 	handle_animation(delta)
 
 	update_locomotion()
+
+	if ui_hidden:
+		interact_label.visible = false
+		fishing_label.visible = false
+		super_jump_label.visible = false
+		super_jump_bar.visible = false
 
 	#print(animation_state)
 	#print(animation_state.get_current_node())
@@ -386,3 +395,7 @@ func handle_animation(delta: float):
 		landing_requested=false
 
 	was_on_floor=grounded
+
+
+func hide_ui():
+	ui_hidden = true

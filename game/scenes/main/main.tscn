@@ -18,6 +18,7 @@
 [ext_resource type="Resource" uid="uid://c23rdredqqqog" path="res://resources/weather/heavy_rain.tres" id="7_r4lks"]
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="7_th5th"]
 [ext_resource type="Resource" uid="uid://cno1bfob1d317" path="res://resources/weather/rain.tres" id="8_pg34l"]
+[ext_resource type="PackedScene" uid="uid://bkksku8gani3e" path="res://scenes/ui/credits.tscn" id="9_i7in8"]
 [ext_resource type="Resource" uid="uid://182qlsti6ibm" path="res://resources/weather/storm.tres" id="9_m4h2d"]
 [ext_resource type="PackedScene" uid="uid://cmh5qypdiccew" path="res://scenes/ui/menus/shop_and_inventory_menu.tscn" id="10_gkmcc"]
 [ext_resource type="PackedScene" uid="uid://bk6rwduy8u5ym" path="res://scenes/weather/rain.tscn" id="11_p8abn"]
@@ -26,8 +27,10 @@
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
 [ext_resource type="Script" uid="uid://botd1s4mi7ogx" path="res://scripts/chaos/chaos_system.gd" id="21_62atk"]
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
+[ext_resource type="Script" uid="uid://bd7kjvr27uf67" path="res://scripts/audio/music_manager.gd" id="23_7nlll"]
 [ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
+[ext_resource type="AudioStream" uid="uid://dxli54sb7xfhj" path="res://audio/music/the_mountain-toy-theme-159128.mp3" id="24_ii537"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvec"]
 bg_color = Color(0.43405953, 8.139512e-05, 0.049701735, 1)
@@ -45,7 +48,7 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TropicalIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker", "speed_tracker")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker", "speed_tracker", "fps_tracker", "credits")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,6 +65,8 @@ inventory = NodePath("ShopAndInventoryMenu")
 game_manager = NodePath("../GameManager")
 chaos_tracker = NodePath("ChaosTracker")
 speed_tracker = NodePath("SpeedTracker")
+fps_tracker = NodePath("FpsTracker")
+credits = NodePath("Credits")
 metadata/_edit_lock_ = true
 
 [node name="ChaosTracker" type="VBoxContainer" parent="UI" unique_id=261019762]
@@ -129,9 +134,14 @@ visible = false
 layout_mode = 1
 mouse_filter = 2
 
-[node name="GameManager" type="Node" parent="." unique_id=217552877 node_paths=PackedStringArray("sky_3d")]
+[node name="Credits" parent="UI" unique_id=623738196 instance=ExtResource("9_i7in8")]
+visible = false
+layout_mode = 1
+
+[node name="GameManager" type="Node" parent="." unique_id=217552877 node_paths=PackedStringArray("sky_3d", "lobby_camera")]
 script = ExtResource("2_yyfjg")
 sky_3d = NodePath("../World/Sky3D")
+lobby_camera = NodePath("../LobbyCamera")
 metadata/_custom_type_script = "uid://dd0g2xdhbs54h"
 
 [node name="WeatherManager" type="Node" parent="." unique_id=234665414 node_paths=PackedStringArray("rain_particles", "sky_3d", "time_of_day", "sky_dome")]
@@ -169,6 +179,16 @@ metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
 [node name="ChaosSystem" type="Node" parent="." unique_id=1071842316]
 script = ExtResource("21_62atk")
 metadata/_custom_type_script = "uid://botd1s4mi7ogx"
+
+[node name="MusicManager" type="Node" parent="." unique_id=377988477 node_paths=PackedStringArray("music_player")]
+script = ExtResource("23_7nlll")
+music_player = NodePath("AudioStreamPlayer")
+metadata/_custom_type_script = "uid://bd7kjvr27uf67"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
+stream = ExtResource("24_ii537")
+volume_db = -8.0
+bus = &"Music"
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
