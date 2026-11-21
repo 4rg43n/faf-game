@@ -202,7 +202,7 @@ func _handle_shop_interaction(old_item: Item, old_inventory: Array[Node], new_in
 		var shop_inventory_slots = shop_inventory.get_children()
 		old_slot_idx = shop_inventory_slots.find(old_slot)
 		var new_slot_idx : int = new_inventory.find(hovered_slot)
-		if not player_data.money > old_item.sell_value:
+		if not player_data.money -  old_item.sell_value >= 0:
 			print("You're too poor bitch")
 			return
 		var new_stored_item = new_inventory[new_slot_idx].stored_item
