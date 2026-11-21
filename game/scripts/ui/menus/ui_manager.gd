@@ -5,6 +5,7 @@ class_name UI extends Control
 @export var inventory: InventorySystem
 @export var game_manager: GameManager
 @export var chaos_tracker: VBoxContainer
+@export var speed_tracker: Label
 
 static var instance: UI
 
@@ -72,4 +73,5 @@ func show_shop():
 	inventory.inventory_container.visible = true
 	inventory.background.visible = true
 	inventory.shop_container.visible = true
+	speed_tracker.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

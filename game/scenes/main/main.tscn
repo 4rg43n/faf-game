@@ -13,7 +13,6 @@
 [ext_resource type="Resource" uid="uid://c8vke606olrn" path="res://resources/weather/cloudy.tres" id="5_ou6is"]
 [ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="5_ouso4"]
 [ext_resource type="PackedScene" uid="uid://ged1a840ronn" path="res://scenes/ui/menus/options_menu.tscn" id="5_r4lks"]
-[ext_resource type="Script" uid="uid://dw7ps4j81ybl5" path="res://scripts/ui/jump_tracker.gd" id="6_0bhws"]
 [ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="6_blune"]
 [ext_resource type="Resource" uid="uid://bsqtk47oirn4s" path="res://resources/weather/foggy.tres" id="6_necax"]
 [ext_resource type="Resource" uid="uid://c23rdredqqqog" path="res://resources/weather/heavy_rain.tres" id="7_r4lks"]
@@ -46,7 +45,7 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TropicalIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker", "speed_tracker")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,6 +61,7 @@ options_menu = NodePath("OptionsMenu")
 inventory = NodePath("ShopAndInventoryMenu")
 game_manager = NodePath("../GameManager")
 chaos_tracker = NodePath("ChaosTracker")
+speed_tracker = NodePath("SpeedTracker")
 metadata/_edit_lock_ = true
 
 [node name="ChaosTracker" type="VBoxContainer" parent="UI" unique_id=261019762]
@@ -96,24 +96,14 @@ layout_mode = 1
 offset_right = 179.0
 metadata/_edit_lock_ = true
 
-[node name="Trackers" type="HBoxContainer" parent="UI" unique_id=1543582842]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 228.0
-grow_vertical = 0
-
-[node name="SpeedTracker" type="Label" parent="UI/Trackers" unique_id=519599510]
-layout_mode = 2
+[node name="SpeedTracker" type="Label" parent="UI" unique_id=519599510]
+visible = false
+layout_mode = 0
+offset_top = 616.0
+offset_right = 112.0
+offset_bottom = 639.0
 text = "Over 9000 m/s"
 script = ExtResource("5_6llfj")
-
-[node name="JumpTracker" type="Label" parent="UI/Trackers" unique_id=1327207390]
-layout_mode = 2
-text = "Over 9000 m/s"
-script = ExtResource("6_0bhws")
 
 [node name="OptionsMenu" parent="UI" unique_id=450231988 node_paths=PackedStringArray("world") instance=ExtResource("5_r4lks")]
 visible = false

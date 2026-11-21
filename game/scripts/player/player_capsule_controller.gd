@@ -13,6 +13,7 @@ signal active_camera_changed(camera: Camera3D)
 @export var animation_player: AnimationPlayer
 @export var interact_label: Label
 @export var fishing_label: Label
+@export var super_jump_bar: ProgressBar
 @export var active_camera: Camera3D:
 	set(camera):
 		if camera == active_camera:
@@ -251,6 +252,12 @@ func handle_move_input(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 		velocity.z = move_toward(velocity.z, 0, move_speed)
 		return
+
+	var jump_percent = current_jump_velocity - jump_velocity
+	if jump_percent == 0:
+		super_jump_bar.value = 0
+	else:
+		super_jump_bar.value = (current_jump_velocity - jump_velocity) / (max_jump_velocity - jump_velocity) * 100
 
 	if is_on_floor():
 		available_jumps = max_available_jumps
