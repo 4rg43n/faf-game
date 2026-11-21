@@ -10,7 +10,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5q2b1"]
 bg_color = Color(0, 0, 0, 0.52156866)
 
-[node name="ShopAndInventoryMenu" type="MarginContainer" unique_id=741391217 node_paths=PackedStringArray("main_inventory", "background", "inventory_container", "shop_container", "shop_inventory", "hotbar", "money_label")]
+[node name="ShopAndInventoryMenu" type="MarginContainer" unique_id=741391217 node_paths=PackedStringArray("main_inventory", "background", "inventory_container", "shop_container", "shop_inventory", "hotbar_container", "hotbar", "money_label")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -22,7 +22,8 @@ background = NodePath("Background")
 inventory_container = NodePath("Inventories/MainInventoryBackground")
 shop_container = NodePath("Inventories/ShopInventoryBackground")
 shop_inventory = NodePath("Inventories/ShopInventoryBackground/VBoxContainer/ShopInventory")
-hotbar = NodePath("HotbarMargin/PanelContainer/Hotbar")
+hotbar_container = NodePath("HotbarMargin/HotbarBackground")
+hotbar = NodePath("HotbarMargin/HotbarBackground/Hotbar")
 money_label = NodePath("Inventories/MainInventoryBackground/VBoxContainer/Money")
 active_slot = 8
 normal_stylebox = ExtResource("2_845ur")
@@ -40,57 +41,57 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="HotbarMargin" unique_id=799621699]
+[node name="HotbarBackground" type="PanelContainer" parent="HotbarMargin" unique_id=799621699]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("4_wjarn")
 
-[node name="Hotbar" type="HBoxContainer" parent="HotbarMargin/PanelContainer" unique_id=167793397]
+[node name="Hotbar" type="HBoxContainer" parent="HotbarMargin/HotbarBackground" unique_id=167793397]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 offset_transform_position = Vector2(0, -10)
 
-[node name="InventoryButton" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=864363703 instance=ExtResource("1_a58ub")]
+[node name="InventoryButton" parent="HotbarMargin/HotbarBackground/Hotbar" unique_id=864363703 instance=ExtResource("1_a58ub")]
 layout_mode = 2
 is_hotkey = true
 hotkey_number = 1
 
-[node name="InventoryButton2" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=399377247 instance=ExtResource("1_a58ub")]
+[node name="InventoryButton2" parent="HotbarMargin/HotbarBackground/Hotbar" unique_id=399377247 instance=ExtResource("1_a58ub")]
 layout_mode = 2
 is_hotkey = true
 hotkey_number = 2
 
-[node name="InventoryButton3" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=1504470150 instance=ExtResource("1_a58ub")]
+[node name="InventoryButton3" parent="HotbarMargin/HotbarBackground/Hotbar" unique_id=1504470150 instance=ExtResource("1_a58ub")]
 layout_mode = 2
 is_hotkey = true
 hotkey_number = 3
 
-[node name="InventoryButton4" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=65489879 instance=ExtResource("1_a58ub")]
+[node name="InventoryButton4" parent="HotbarMargin/HotbarBackground/Hotbar" unique_id=65489879 instance=ExtResource("1_a58ub")]
 layout_mode = 2
 is_hotkey = true
 hotkey_number = 4
 
-[node name="InventoryButton5" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=1148563369 instance=ExtResource("1_a58ub")]
+[node name="InventoryButton5" parent="HotbarMargin/HotbarBackground/Hotbar" unique_id=1148563369 instance=ExtResource("1_a58ub")]
 layout_mode = 2
 is_hotkey = true
 hotkey_number = 5
 
-[node name="InventoryButton6" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=425833201 instance=ExtResource("1_a58ub")]
+[node name="InventoryButton6" parent="HotbarMargin/HotbarBackground/Hotbar" unique_id=425833201 instance=ExtResource("1_a58ub")]
 layout_mode = 2
 is_hotkey = true
 hotkey_number = 6
 
-[node name="InventoryButton7" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=1268407297 instance=ExtResource("1_a58ub")]
+[node name="InventoryButton7" parent="HotbarMargin/HotbarBackground/Hotbar" unique_id=1268407297 instance=ExtResource("1_a58ub")]
 layout_mode = 2
 is_hotkey = true
 hotkey_number = 7
 
-[node name="InventoryButton8" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=106668015 instance=ExtResource("1_a58ub")]
+[node name="InventoryButton8" parent="HotbarMargin/HotbarBackground/Hotbar" unique_id=106668015 instance=ExtResource("1_a58ub")]
 layout_mode = 2
 is_hotkey = true
 hotkey_number = 8
 
-[node name="InventoryButton9" parent="HotbarMargin/PanelContainer/Hotbar" unique_id=47695919 instance=ExtResource("1_a58ub")]
+[node name="InventoryButton9" parent="HotbarMargin/HotbarBackground/Hotbar" unique_id=47695919 instance=ExtResource("1_a58ub")]
 layout_mode = 2
 theme_override_styles/normal = ExtResource("2_hxvgh")
 is_hotkey = true

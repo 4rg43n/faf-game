@@ -19,6 +19,7 @@ var wind_intensity: float = 1.0
 
 var is_raining: bool = false
 var is_storming: bool = false
+var disabled: bool = false
 
 var current_condition: WeatherCondition
 
@@ -36,6 +37,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if disabled:
+		return
 	time_elapsed += delta
 
 	if time_elapsed >= selected_delay:

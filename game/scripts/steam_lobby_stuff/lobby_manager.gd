@@ -68,6 +68,12 @@ func _ready() -> void:
 
 	_check_command_line_args()
 
+	if OS.has_feature("web"):
+		host_button.disabled = true
+		host_button.tooltip_text = "Multiplayer disabled in web version"
+		join_button.disabled = true
+		join_button.tooltip_text = "Multiplayer disabled in web version"
+
 func _init_multiplayer() -> void:
 	if peer != null:
 		return
