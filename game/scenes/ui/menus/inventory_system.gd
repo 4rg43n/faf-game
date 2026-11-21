@@ -214,6 +214,7 @@ func _handle_shop_interaction(old_item: Item, old_inventory: Array[Node], new_in
 			if new_stored_item.id == old_stored_item.id:
 				if new_stored_item.count < new_stored_item.max_count:
 					new_stored_item.count += 1
+					player_data.money -= old_item.sell_value
 			else:
 				print("Tried to buy item in non-empty slot: ", new_inventory[new_slot_idx].stored_item)
 			return
