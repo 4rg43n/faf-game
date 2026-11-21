@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://vffktdft71k4"]
+
+[ext_resource type="PackedScene" uid="uid://mxofsbykevle" path="res://assets/models/creatures/evil_fish/ds-fish/ds-fish.glb" id="1_bsm6g"]
+[ext_resource type="Material" uid="uid://dq1bo7ui7pqx4" path="res://assets/models/creatures/evil_fish/ds-fish/materials/ds-fish-outline.tres" id="2_a664j"]
+[ext_resource type="Material" uid="uid://bi6vvil3wb80o" path="res://assets/models/creatures/evil_fish/ds-fish/materials/ds-fish-glow.tres" id="3_5ay7i"]
+
+[node name="ds-fish" unique_id=1134361902 instance=ExtResource("1_bsm6g")]
+
+[node name="Sphere_Retopology" parent="armature_ds/Skeleton3D" parent_id_path=PackedInt32Array(857401624) index="0" unique_id=1291088821]
+surface_material_override/0 = ExtResource("2_a664j")
+surface_material_override/1 = ExtResource("3_5ay7i")

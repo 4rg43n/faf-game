@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dfawevgr71usi"]
+
+[ext_resource type="Texture2D" uid="uid://1vf3fxe3ojcl" path="res://assets/models/creatures/evil_fish/ds-fish/ds-fish_ds-fish-body.png" id="1_01qm5"]
+
+[resource]
+resource_name = "ds-fish"
+cull_mode = 2
+albedo_texture = ExtResource("1_01qm5")
+metadata/_gltf_primary_texture_coord = 0
