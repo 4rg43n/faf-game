@@ -46,8 +46,12 @@ func _on_released():
 
 func _on_mouse_entered():
 	if stored_item:
-		tooltip_text = "Buy: " + str(stored_item.buy_value * stored_item.count) + "g"\
-					+ "\nSell: " + str(stored_item.sell_value * stored_item.count) + "g"
+		tooltip_text = stored_item.name
+		if stored_item.unsellable:
+			tooltip_text += "\nUnsellable"
+		else:
+			tooltip_text += "\nSingle Buy: " + str(stored_item.buy_value) + "g"\
+						+ "\nStack Sell: " + str(stored_item.sell_value * stored_item.count) + "g"
 	inventory_system.button_hovered(self)
 
 
