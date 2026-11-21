@@ -39,4 +39,4 @@ func _decrease_chaos():
 	chaos_pieces += 1
 	if chaos_pieces >= chaos_pieces_needed:
 		chaos_pieces = 0
-		current_chaos -= 1.0
+		current_chaos -= 5.0

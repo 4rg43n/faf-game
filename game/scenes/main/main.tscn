@@ -46,7 +46,7 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TropicalIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,9 +61,11 @@ lobby_manager = NodePath("../LobbyManager")
 options_menu = NodePath("OptionsMenu")
 inventory = NodePath("ShopAndInventoryMenu")
 game_manager = NodePath("../GameManager")
+chaos_tracker = NodePath("ChaosTracker")
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=261019762]
+[node name="ChaosTracker" type="VBoxContainer" parent="UI" unique_id=261019762]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,12 +75,12 @@ grow_vertical = 2
 offset_transform_position = Vector2(-0.225, 0)
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="UI/VBoxContainer" unique_id=814268835]
+[node name="Label" type="Label" parent="UI/ChaosTracker" unique_id=814268835]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Chaos"
 
-[node name="ProgressBar" type="ProgressBar" parent="UI/VBoxContainer" unique_id=352976152]
+[node name="ProgressBar" type="ProgressBar" parent="UI/ChaosTracker" unique_id=352976152]
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_irvec")
 value = 100.0
@@ -108,12 +110,13 @@ layout_mode = 2
 text = "Over 9000 m/s"
 script = ExtResource("6_0bhws")
 
-[node name="OptionsMenu" parent="UI" unique_id=450231988 instance=ExtResource("5_r4lks")]
+[node name="OptionsMenu" parent="UI" unique_id=450231988 node_paths=PackedStringArray("world") instance=ExtResource("5_r4lks")]
 visible = false
 layout_mode = 1
 offset_right = 1152.8015
 offset_bottom = 647.3821
 mouse_filter = 2
+world = NodePath("../../World/TropicalIsland")
 metadata/_edit_lock_ = true
 
 [node name="ShopAndInventoryMenu" parent="UI" unique_id=741391217 instance=ExtResource("10_gkmcc")]
@@ -141,6 +144,8 @@ weather_conditions = Dictionary[String, Resource]({
 "storm": ExtResource("9_m4h2d")
 })
 environment = ExtResource("4_a8run")
+delay_min_sec = 60.0
+delay_max_sec = 300.0
 
 [node name="Rain" parent="WeatherManager" unique_id=1079689614 instance=ExtResource("11_p8abn")]
 visible = false
