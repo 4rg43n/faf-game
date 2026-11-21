@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cd4a6lf1xe5jp" path="res://scripts/weather/weather_manager.gd" id="3_hxu8e"]
 [ext_resource type="Script" uid="uid://dek1mvhhnw5d4" path="res://scripts/ui/menus/ui_manager.gd" id="3_necax"]
 [ext_resource type="Environment" uid="uid://0x4j6mofq72x" path="res://resources/world_environment.tres" id="4_a8run"]
+[ext_resource type="Script" uid="uid://cxuw7fmjocexn" path="res://scripts/ui/progress_bar.gd" id="4_i7in8"]
 [ext_resource type="Resource" uid="uid://cxdu4jyq8tikp" path="res://resources/weather/clear.tres" id="4_nvumn"]
 [ext_resource type="Script" uid="uid://dq7rc5f0fftqi" path="res://scenes/main/speed_tracker.gd" id="5_6llfj"]
 [ext_resource type="Resource" uid="uid://c8vke606olrn" path="res://resources/weather/cloudy.tres" id="5_ou6is"]
@@ -28,6 +29,9 @@
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
 [ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvec"]
+bg_color = Color(0.43405953, 8.139512e-05, 0.049701735, 1)
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
 
@@ -59,15 +63,26 @@ inventory = NodePath("ShopAndInventoryMenu")
 game_manager = NodePath("../GameManager")
 metadata/_edit_lock_ = true
 
-[node name="ProgressBar" type="ProgressBar" parent="UI" unique_id=352976152]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=261019762]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -2.0
-offset_right = 2.0
-offset_bottom = 27.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(-0.225, 0)
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UI/VBoxContainer" unique_id=814268835]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Chaos"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/VBoxContainer" unique_id=352976152]
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_irvec")
+value = 100.0
+script = ExtResource("4_i7in8")
 
 [node name="FpsTracker" parent="UI" unique_id=1956701810 instance=ExtResource("3_b1x3f")]
 layout_mode = 1

@@ -1,5 +1,7 @@
 class_name ChaosSystem extends Node
 
+signal chaos_changed()
+
 var current_chaos : float = 100.0:
 	set(value):
 		current_chaos = clampf(value, 0, 100.0)
@@ -7,9 +9,10 @@ var current_chaos : float = 100.0:
 			_spawn_beetle_boss()
 		if current_chaos <= 33.0 and not octopus_already_spawned:
 			_spawn_octopus_boss()
+		chaos_changed.emit()
 var max_chaos : float = 100.0
 var chaos_pieces : int = 0
-var chaos_pieces_needed : int = 5
+var chaos_pieces_needed : int = 1
 
 var beetle_already_spawned : bool = false
 var octopus_already_spawned : bool = false
