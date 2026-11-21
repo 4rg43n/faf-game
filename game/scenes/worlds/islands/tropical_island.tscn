@@ -44,7 +44,7 @@ shader_parameter/interactive_level_y = 0.3
 metadata/SimpleGrassTexturedMaterial = "2.1.0"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jsfgd"]
-size = Vector3(1308.0605, 11.919434, 199.91708)
+size = Vector3(1500, 11.919, 1500)
 
 [node name="TropicalIsland" type="Node3D" unique_id=283161791 node_paths=PackedStringArray("spawn_location", "ocean_areas")]
 script = ExtResource("1_x0u74")
@@ -57,7 +57,7 @@ metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 [node name="RockerooSmallBaldSnatchedInAMini" parent="island0/Grid/StaticBody3D" parent_id_path=PackedInt32Array(642752713, 1474437580) index="1" unique_id=807610147 instance=ExtResource("8_j627t")]
 transform = Transform3D(-0.29585552, 0.32785103, 0.8972086, -0.952, -0.17840725, -0.2487309, 0.07852188, -0.9277307, 0.3648969, -9.974749, 39.306103, -82.40844)
 
-[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 107249039) index="1" unique_id=874324246]
+[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 1660281035) index="1" unique_id=874324246]
 material_override = SubResource("ShaderMaterial_f8da5")
 
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
