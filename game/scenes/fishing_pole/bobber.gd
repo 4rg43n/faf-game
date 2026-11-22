@@ -1,7 +1,9 @@
 class_name Bobber extends RigidBody3D
 
-@onready var ray_cast_3d: RayCast3D = $RayCast3D
 @export var label_3d: Label3D
+@onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var fish_bite_timer: Timer = %FishBiteTimer
+
 
 signal fish_bit_bobber(caught: bool)
 
@@ -11,6 +13,7 @@ var near_ground : bool = false
 func _ready() -> void:
 	body_entered.connect(_bobber_hit)
 	label_3d.visible = false
+	fish_bite_timer.timeout.connect(_fish_bite_timer_timeout)
 
 
 func hit_water():
@@ -18,7 +21,8 @@ func hit_water():
 	angular_velocity = Vector3.ZERO
 	set_deferred("freeze", true)
 
-	start_fish_delay_timer()
+	_start_fish_delay_timer()
+
 
 ## TODO[Ethan]: Should just move this label into living on the player so we
 ## don't have to worry about setting a position
@@ -30,9 +34,16 @@ func notify_hook(start_location : Vector3):
 	label_3d.visible = false
 
 
-func start_fish_delay_timer():
-	await get_tree().create_timer(randf_range(4, 12)).timeout
+func _start_fish_delay_timer():
+	fish_bite_timer.start(randf_range(4, 10))
 	# await get_tree().create_timer(randf_range(4, 12)).timeout
+
+
+func cancel_fish_delay_timer():
+	fish_bite_timer.stop()
+
+
+func _fish_bite_timer_timeout():
 	# label_3d.visible = true
 	# label_3d.global_position = self.global_position # set to where the bobber is at
 	# label_3d.global_position.y += 2

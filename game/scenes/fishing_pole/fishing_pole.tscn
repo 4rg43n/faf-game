@@ -43,7 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2, 0)
 
 [node name="FishingLineStart" type="Marker3D" parent="." unique_id=2003030999]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0047045927, 2, 0)
 
 [node name="FishingLine" type="MeshInstance3D" parent="." unique_id=1921519161]
 unique_name_in_owner = true
@@ -85,3 +85,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="Bobber" unique_id=1294600004]
 target_position = Vector3(0, -0.15, 0)
+
+[node name="FishBiteTimer" type="Timer" parent="Bobber" unique_id=504008798]
+unique_name_in_owner = true

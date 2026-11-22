@@ -82,20 +82,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_player_attempt_cast(peer_id : int) -> void:
 	var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
 	if bobber_cast:
-		if fish_currently_hooked:
-			var its_a_fish_scene = preload("res://scenes/critters/rolly_polly_pollie.tscn")
-			var fake_fish = its_a_fish_scene.instantiate()
-			var fish_resource : Item = fake_fish.get("item_resource")
-			player.add_item_if_possible(fish_resource)
-			ChaosSystem.instance._decrease_chaos()
-
-		bobber_cast = false
-
-		bobber.freeze = true
-		bobber.top_level = false
-		bobber.set_physics_process(false)
-
-		bobber.global_position = bobber_start_position.global_position
+		reel_in(player)
 		return
 
 	bobber_cast = true
@@ -108,6 +95,28 @@ func _on_player_attempt_cast(peer_id : int) -> void:
 	bobber.top_level = true
 	bobber.set_physics_process(true)
 	bobber.apply_force(force)
+
+
+func reel_in(player : PlayerMetadata) -> void:
+	if fish_currently_hooked:
+		## TODO, this needs to be replaced with a fish LUT
+		var its_a_fish_scene = preload("res://scenes/critters/rolly_polly_pollie.tscn")
+		var fake_fish = its_a_fish_scene.instantiate()
+		var fish_resource : Item = fake_fish.get("item_resource")
+		player.add_item_if_possible(fish_resource)
+		ChaosSystem.instance._decrease_chaos()
+
+	bobber_cast = false
+
+	bobber.freeze = true
+	bobber.top_level = false
+	bobber.set_physics_process(false)
+
+	bobber.global_position = bobber_start_position.global_position
+	
+	# In case we reeled in before the fishing timer went off it needs to be cancelled
+	# It's kind of trash being set up this way...
+	bobber.cancel_fish_delay_timer()
 
 @rpc("reliable", "call_local", "any_peer")
 func remove_from_server_control() -> void:
