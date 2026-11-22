@@ -196,7 +196,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_animated_image/plugin.cfg", "res://addons/godotsteam/plugin.cfg", "res://addons/simplegrasstextured/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg", "res://addons/simplegrasstextured/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
 
 [global_group]
 
@@ -856,6 +856,11 @@ ctrl={
 [physics]
 
 common/physics_interpolation=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 
 [shader_globals]
 
