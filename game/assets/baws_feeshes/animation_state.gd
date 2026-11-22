@@ -1,4 +1,4 @@
-extends LimboHSM
+class_name WaitForAnimationToFinish extends LimboHSM
 
 @export var animation_player: AnimationPlayer
 @export var animation_name: StringName

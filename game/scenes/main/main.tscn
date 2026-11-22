@@ -30,10 +30,16 @@
 [ext_resource type="Script" uid="uid://bd7kjvr27uf67" path="res://scripts/audio/music_manager.gd" id="23_7nlll"]
 [ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
+<<<<<<< HEAD
+[ext_resource type="Script" uid="uid://cft17jvxfva7v" path="res://scripts/fish/fish_system.gd" id="25_6llfj"]
+[ext_resource type="PackedScene" uid="uid://dldk7t22vxdo" path="res://scenes/critters/king_of_the_pond.tscn" id="26_0bhws"]
+=======
 [ext_resource type="AudioStream" uid="uid://dxli54sb7xfhj" path="res://audio/music/the_mountain-toy-theme-159128.mp3" id="24_ii537"]
+[ext_resource type="Script" uid="uid://bulitqh4g88h2" path="res://scenes/main/player_spawner.gd" id="31_ii537"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvec"]
 bg_color = Color(0.43405953, 8.139512e-05, 0.049701735, 1)
+>>>>>>> 2116aa0d6f5a1eddb70de675cecc5399bf1c16a5
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
 
@@ -176,6 +182,23 @@ oceanResolution = 0.5
 oceanShader = ExtResource("18_37hlw")
 metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
 
+<<<<<<< HEAD
+[node name="FishSystem" type="Node" parent="." unique_id=26131347 node_paths=PackedStringArray("world")]
+script = ExtResource("25_6llfj")
+maxFishes = 500
+baseFish = ExtResource("26_0bhws")
+world = NodePath("../World/TropicalIsland")
+fishAttackRadius = 2.0
+spawnFrequency = 15.0
+fishSeparation = 2.0
+fishCoherence = 5.0
+fishSteerForce = 5.0
+fishMaxSpeed = 10.0
+fishAlignment = 5.0
+fishBoundsRadius = 5.0
+fishAvoidCollisionWeight = 10.0
+metadata/_custom_type_script = "uid://cft17jvxfva7v"
+=======
 [node name="ChaosSystem" type="Node" parent="." unique_id=1071842316]
 script = ExtResource("21_62atk")
 metadata/_custom_type_script = "uid://botd1s4mi7ogx"
@@ -188,7 +211,7 @@ metadata/_custom_type_script = "uid://bd7kjvr27uf67"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
 stream = ExtResource("24_ii537")
 volume_db = -8.0
-bus = &"Music"
+>>>>>>> 2116aa0d6f5a1eddb70de675cecc5399bf1c16a5
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
@@ -240,7 +263,7 @@ starting_world = NodePath("../TropicalIsland")
 shape = SubResource("WorldBoundaryShape3D_0kwd2")
 
 [node name="InteractableItemSpawner" type="MultiplayerSpawner" parent="World" unique_id=913016617]
-_spawnable_scenes = PackedStringArray("uid://3mkg6nfyac2f", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
+_spawnable_scenes = PackedStringArray("uid://dldk7t22vxdo", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
 spawn_path = NodePath(".")
 script = ExtResource("24_37hlw")
 
@@ -252,6 +275,7 @@ metadata/_edit_lock_ = true
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1692186644]
 _spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
 spawn_path = NodePath(".")
+script = ExtResource("31_ii537")
 
 [node name="unhandled_input_handler" type="Node" parent="." unique_id=2098882594]
 

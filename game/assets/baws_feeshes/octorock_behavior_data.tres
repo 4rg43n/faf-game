@@ -1,0 +1,20 @@
+[gd_resource type="BlackboardPlan" format=3 uid="uid://bolg6nunmhp4w"]
+
+[resource]
+var/current_suck_target/name = &"current_suck_target"
+var/current_suck_target/type = 24
+var/current_suck_target/hint = 34
+var/current_suck_target/hint_string = "Interactable or Player"
+var/current_ammo/name = &"current_ammo"
+var/current_ammo/type = 28
+var/current_ammo/value = []
+var/current_ammo/hint = 0
+var/current_ammo/hint_string = "Interactables or Players sucked into boss"
+var/current_health/name = &"current_health"
+var/current_health/type = 3
+var/current_health/value = 0.0
+var/current_health/hint = 0
+var/current_health/hint_string = "HP remaining"
+binding/current_suck_target = NodePath("..:current_suckage_target")
+binding/current_ammo = NodePath("..:current_ammo")
+binding/current_health = NodePath("..:current_hp")

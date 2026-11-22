@@ -2,6 +2,9 @@ class_name WaterSystem
 
 extends Node
 
+signal object_entered_water(obj: Node3D)
+signal object_exited_water(obj: Node3D)
+
 @export
 var gravityFactor : float
 @export
@@ -25,10 +28,14 @@ var oceanShader: Shader
 
 var objectsInWater: Array[Node3D]
 
+static var s_instance: WaterSystem
 
 # We probably need to find all bodies that enter the water and then apply an upwards force to them
 
 # F = (p)Vg
+
+func _init() -> void:
+	s_instance = self
 
 func _ready() -> void:
 	var cntr := 0
@@ -40,18 +47,23 @@ func _ready() -> void:
 		_create_water_plane(cntr)
 		cntr += 1
 
-func _on_body_enters_ocean(area: Node3D):
-	print("Entered ", area.name)
-	self.objectsInWater.append(area)
+func _on_body_enters_ocean(body: Node3D):
+	print("Entered ", body.name)
+	self.objectsInWater.append(body)
+	object_entered_water.emit(body)
 
 	# Sorry Nef, don't hate me :0
-	if area is Bobber:
-		area.hit_water()
+	if body is Bobber:
+		body.hit_water()
 
 func _on_body_exits_ocean(area: Node3D):
 	print("Exited")
 	self.objectsInWater.erase(area)
+	object_exited_water.emit(area)
 
+func get_water_height_at(_pos: Vector3) -> float:
+	const defaultOcean := 0 # We really just have one in the game, so
+	return self.oceanAreas[defaultOcean].global_position.y
 
 func ocean_process(oceanIdx: int, delta: float) -> void:
 	for obj in self.objectsInWater:
