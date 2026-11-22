@@ -76,7 +76,7 @@ shape = SubResource("BoxShape3D_jsfgd")
 debug_color = Color(0, 0.6, 0.7019608, 1)
 
 [node name="ShopStand" parent="." unique_id=869337142 instance=ExtResource("6_jsfgd")]
-transform = Transform3D(-2.3932097, 0, -4.390052, 0, 5, 0, 4.390052, 0, -2.3932097, 72.458275, 32.31527, 29.751282)
+transform = Transform3D(-0.47864193, 0, -0.8780102, 0, 1, 0, 0.8780102, 0, -0.47864193, 72.458275, 24.37611, 29.751282)
 
 [node name="RockerooSmall" parent="." unique_id=639007622 instance=ExtResource("7_ft2bs")]
 transform = Transform3D(-0.9957482, 0.06062749, -0.06935547, 0.043881357, 0.9741598, 0.22155704, 0.08099572, 0.21757159, -0.97267807, 48.72577, -5.6192183, -62.835197)
