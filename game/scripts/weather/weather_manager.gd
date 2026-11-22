@@ -10,6 +10,10 @@ class_name WeatherManager extends Node
 @export var weather_conditions: Dictionary[String, Resource]
 @export var environment: Environment
 
+@export_group("Settings")
+@export var delay_min_sec: float = 3000.0
+@export var delay_max_sec: float = 12000.0
+
 var wind_direction: Vector3 = Vector3(1.0, 0.0, 0.0)
 var wind_intensity: float = 1.0
 
@@ -18,6 +22,9 @@ var is_storming: bool = false
 
 var current_condition: WeatherCondition
 
+var time_elapsed: float = 0.0
+var selected_delay: float = 0.0
+
 static var instance: WeatherManager
 func _init() -> void:
 	instance = self
@@ -25,10 +32,27 @@ func _init() -> void:
 
 func _ready() -> void:
 	environment.fog_density = 0.0
+	selected_delay = randf_range(delay_min_sec, delay_max_sec)
 
 
-func randomize_weather() -> void:
-	var condition : String = weather_conditions.keys().pick_random()
+func _process(delta: float) -> void:
+	time_elapsed += delta
+
+	if time_elapsed >= selected_delay:
+		time_elapsed = 0.0
+		selected_delay = randf_range(delay_min_sec, delay_max_sec)
+
+		if current_condition.condition_name != "Clear":
+			rpc("load_weather_condition","clear")
+		else:
+			randomize_weather(true)
+
+
+func randomize_weather(exclude_clear: bool) -> void:
+	var conditions : Array = weather_conditions.keys()
+	if exclude_clear:
+		conditions.remove_at(0)
+	var condition = conditions.pick_random()
 	var rand_wind_direction : Vector3 = Vector3(randf_range(-5.0, 5.0),0.0,randf_range(-5.0, 5.0))
 	var rand_wind_intensity : float = randf()
 	rpc("load_weather_condition", condition)

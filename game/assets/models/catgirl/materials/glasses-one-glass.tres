@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bkxjq2y2oasql"]
+
+[resource]
+resource_name = "glasses-one-glass"
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 0.7490196)

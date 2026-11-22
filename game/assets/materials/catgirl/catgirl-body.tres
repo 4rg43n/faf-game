@@ -1,7 +1,15 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://d2ntpjkq7lkxe"]
 
 [ext_resource type="Texture2D" uid="uid://bst86hek5c1dc" path="res://assets/models/catgirl/catgirl-godot_Female-Texture.png" id="1_bo3hk"]
+[ext_resource type="Shader" uid="uid://ctwxqnd7nm5gl" path="res://assets/shaders/character_outline.gdshader" id="2_shf7i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7b5b"]
+render_priority = 0
+shader = ExtResource("2_shf7i")
+shader_parameter/outline_color = Color(0.015, 0.012, 0.02, 1)
+shader_parameter/outline_width = 0.003
 
 [resource]
+next_pass = SubResource("ShaderMaterial_l7b5b")
 albedo_texture = ExtResource("1_bo3hk")
 roughness = 0.8

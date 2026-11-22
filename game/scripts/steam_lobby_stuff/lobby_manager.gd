@@ -21,6 +21,7 @@ static var invite_lobby_id : int = 0
 
 static var instance : LobbyManager
 
+@export var singleplayer_button : Button
 @export var host_button : Button
 @export var join_button : Button
 @export var exit_button : Button
@@ -92,6 +93,7 @@ func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_player_joined)
 	multiplayer.peer_disconnected.connect(_on_player_leave)
 
+	singleplayer_button.pressed.connect(_on_singleplayer_button_pressed)
 	host_button.pressed.connect(_open_lobby_host)
 	join_button.pressed.connect(_open_lobby_search)
 	exit_button.pressed.connect(_close_game)
@@ -224,6 +226,15 @@ func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, respon
 		_:
 			printerr("Failed joining lobby %s", in_lobby_id)
 
+func _on_singleplayer_button_pressed() -> void:
+	#hide UI for host/join
+	hide()
+	LobbySearchScreen.instance.hide()
+	LobbyHostScreen.instance.hide()
+
+	player_spawner.spawn(1)
+
+
 func toggle_lobby_joinable(can_new_players_join : bool) -> void:
 	Steam.setLobbyJoinable(LobbyManager.instance.lobby_id, can_new_players_join)
 
@@ -308,12 +319,12 @@ func _on_player_leave(client_peer_id : int) -> void:
 	var current_children := player_spawner.get_children()
 	if client_peer_id == 1:
 		for player : PlayerMetadata in current_children:
-			player_spawner.remove_child(player)
+			player.queue_free()
 		show()
 	else:
 		for player : PlayerMetadata in current_children:
 			if player.peer_id == client_peer_id:
-				player_spawner.remove_child(player)
+				player.queue_free()
 				break
 
 func get_player_from_peer_id(client_peer_id : int) -> PlayerMetadata:

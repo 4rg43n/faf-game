@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c727q4xqmyuom"]
+
+[ext_resource type="PackedScene" uid="uid://b12th56hw3sf4" path="res://assets/models/vehicles/corvette_ship/corvette.glb" id="1_7rbdc"]
+[ext_resource type="Material" uid="uid://c5ogdht733857" path="res://assets/models/vehicles/corvette_ship/corvette_base.tres" id="2_nvvy2"]
+
+[node name="corvette" unique_id=1195830585 instance=ExtResource("1_7rbdc")]
+
+[node name="Corvette_Pawn" parent="." index="0" unique_id=1336157750]
+material_override = ExtResource("2_nvvy2")

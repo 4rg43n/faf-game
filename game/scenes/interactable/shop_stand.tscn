@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cgk1kf88cibpm"]
+
+[ext_resource type="Script" uid="uid://cmbwerf7k10ja" path="res://scripts/interactables/shop.gd" id="1_qgj8k"]
+[ext_resource type="Script" uid="uid://4tlhr6pdyntd" path="res://scripts/equipment/item.gd" id="2_aoo8a"]
+[ext_resource type="Texture2D" uid="uid://dt8okcy3ef6s7" path="res://assets/critters/worm.png" id="3_rjddk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j627t"]
+albedo_color = Color(0.6544856, 0.13047433, 1.92523e-07, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_om7pc"]
+material = SubResource("StandardMaterial3D_j627t")
+size = Vector3(1.1513672, 1, 2.6601563)
+
+[sub_resource type="Resource" id="Resource_j6b73"]
+script = ExtResource("2_aoo8a")
+name = "Worm"
+id = 1
+icon = ExtResource("3_rjddk")
+count = 10
+max_count = 64
+sell_value = 1.0
+buy_value = 1.0
+item_scene_path = "res://scenes/critters/worm.tscn"
+metadata/_custom_type_script = "uid://4tlhr6pdyntd"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t1h4u"]
+size = Vector3(1.1484985, 1, 2.6624756)
+
+[node name="ShopPlaceholder" type="MeshInstance3D" unique_id=869337142]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("BoxMesh_om7pc")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1271301678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53844595, -0.5130861, 0)
+collision_layer = 5
+collision_mask = 10
+script = ExtResource("1_qgj8k")
+main_inventory = Array[ExtResource("2_aoo8a")]([SubResource("Resource_j6b73"), null, null, null, null, null, null, null, null])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1574649270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54732656, 0.5130861, -0.006164551)
+shape = SubResource("BoxShape3D_t1h4u")

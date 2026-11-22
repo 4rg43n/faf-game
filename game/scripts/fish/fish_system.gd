@@ -1,5 +1,7 @@
 class_name FishSystem extends Node
 
+# TODO: Fish can only stay under or slightly above water
+
 enum EFishStateFlags {
 	Dead = 0,
 	Passive = 1,
@@ -12,6 +14,8 @@ class FishInfo:
 	var targetVel: Vector3
 	# TODO: Maybe this will be exported
 	var detectRange = 5
+	var dashTimer: float = 0.0
+	var dashCooldown: float = 0.0
 
 
 const FISH_COLL_LAYER := 2
@@ -20,6 +24,7 @@ const FISH_COLL_LAYER := 2
 
 # All fishes, maybe alive, maybe not
 @export var maxFishes: int
+@export var maxAliveFishes: int
 @export var baseFish: PackedScene
 @export var world: WorldBackBone
 @export var fishAttackRadius: float
@@ -31,12 +36,17 @@ const FISH_COLL_LAYER := 2
 @export var fishAlignment: float
 @export var fishBoundsRadius: float
 @export var fishAvoidCollisionWeight: float
+@export var fishChaseForce: float
+@export var fishDashSpeed: float
+@export var fishDashDuration: float
+@export var fishDashCooldown: float
 
 var fishes: Array[FishInfo]
 var fishesToRecycle: Queue
 var spawners: Array[FishSpawner]
 var rayDirections: Array[Vector3] = []
 var avgFlockHeading: Vector3
+var aliveFishCount: int = 0
 
 func _ready() -> void:
 	self.avgFlockHeading = Vector3.LEFT
@@ -146,16 +156,25 @@ func spawn_fish_subsystem(delta: float):
 		if spawner.spawnTimer > 0:
 			continue
 
+		var maxNewFish := clampi(self.maxAliveFishes - self.aliveFishCount, 0, self.fishesToRecycle._length)
+		if maxNewFish <= 0:
+			continue
+
+		var fishToSpawn := randi_range(spawner.minFishesPerSpawn, spawner.maxFishesPerSpawn)
+		fishToSpawn = clampi(fishToSpawn, 0, maxNewFish)
+		if fishToSpawn <= 0:
+			continue
 
 		spawner.spawnTimer = spawner.spawnFrequency
 		DebugDraw3D.draw_sphere(spawner.global_position, spawner.spawnRadius, Color.GREEN)
-		var fishToSpawn := randi_range(spawner.minFishesPerSpawn, spawner.maxFishesPerSpawn)
-		fishToSpawn = clampi(fishToSpawn, 0, self.fishesToRecycle._length)
 		for i in range(fishToSpawn):
 			_spawn_fish_at(spawner.global_position, spawner.spawnRadius)
 
 
 func _fish_movement(_delta: float, fish: FishInfo):
+	var oceanSurfaceY := WaterSystem.s_instance.get_water_height_at(fish.node.global_position)
+	if fish.node.global_position.y >= oceanSurfaceY + 5.0:
+		fish.targetVel.y = minf(fish.targetVel.y, 0.0)
 	fish.node.linear_velocity = fish.targetVel
 	# DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + fish.node.linear_velocity, Color.LIGHT_BLUE)
 
@@ -176,65 +195,83 @@ func _is_heading_for_collision(pos: Vector3, fwd: Vector3) -> bool:
 
 
 func fish_update(delta: float, fish: FishInfo) -> void:
-	var acceleration := Vector3.ZERO
-	var flockMates := get_flockmate_positions(fish, 2)
-	var centre := Vector3.ZERO
-	for pos in flockMates:
-		centre += pos
+	if fish.dashTimer > 0:
+		fish.dashTimer -= delta
+		if fish.dashTimer <= 0:
+			fish.dashCooldown = self.fishDashCooldown
+	elif fish.dashCooldown > 0:
+		fish.dashCooldown -= delta
 
-	if (!flockMates.is_empty()):
-		centre /= flockMates.size()
-	else:
-		centre = fish.node.global_position
-	var offsetToFlockmatesCentre := (centre - fish.node.global_position)
+	if fish.dashTimer <= 0:
+		var acceleration := Vector3.ZERO
+		var flockMates := get_flockmate_positions(fish, 2)
+		var centre := Vector3.ZERO
+		for pos in flockMates:
+			centre += pos
 
-	var separationOffset := Vector3.ZERO
-	for pos in flockMates:
-		separationOffset += (fish.node.global_position - pos).normalized()
+		if (!flockMates.is_empty()):
+			centre /= flockMates.size()
+		else:
+			centre = fish.node.global_position
+		var offsetToFlockmatesCentre := (centre - fish.node.global_position)
 
-	var alignmentForce := _steer_towards(self.avgFlockHeading, fish) * self.fishAlignment
-	var cohesionForce := _steer_towards(offsetToFlockmatesCentre, fish) * self.fishCoherence
-	var separationForce := _steer_towards(separationOffset, fish) * self.fishSeparation
+		var separationOffset := Vector3.ZERO
+		for pos in flockMates:
+			separationOffset += (fish.node.global_position - pos).normalized()
 
-	DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + alignmentForce, Color.YELLOW)
-	DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + cohesionForce, Color.CHOCOLATE)
-	DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + separationForce, Color.SALMON)
+		var alignmentForce := _steer_towards(self.avgFlockHeading, fish) * self.fishAlignment
+		var cohesionForce := _steer_towards(offsetToFlockmatesCentre, fish) * self.fishCoherence
+		var separationForce := _steer_towards(separationOffset, fish) * self.fishSeparation
 
-	acceleration += alignmentForce
-	acceleration += cohesionForce
-	acceleration += separationForce
+		DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + alignmentForce, Color.YELLOW)
+		DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + cohesionForce, Color.CHOCOLATE)
+		DebugDraw3D.draw_line(fish.node.global_position, fish.node.global_position + separationForce, Color.SALMON)
 
-	# Collision detection
-	if _is_heading_for_collision(fish.node.global_position, -fish.node.global_basis.z):
-		var unobstructedDir := _fish_find_unobstructed_direction(fish)
-		var collisionAvoidForce := _steer_towards(unobstructedDir, fish) * self.fishAvoidCollisionWeight
-		acceleration += collisionAvoidForce
+		acceleration += alignmentForce
+		acceleration += cohesionForce
+		acceleration += separationForce
 
-	fish.targetVel += acceleration * delta
-	fish.targetVel = fish.targetVel.limit_length(self.fishMaxSpeed)
+		# Collision detection
+		if _is_heading_for_collision(fish.node.global_position, -fish.node.global_basis.z):
+			var unobstructedDir := _fish_find_unobstructed_direction(fish)
+			var collisionAvoidForce := _steer_towards(unobstructedDir, fish) * self.fishAvoidCollisionWeight
+			acceleration += collisionAvoidForce
+
+		if (fish.flags & EFishStateFlags.Detected) != 0:
+			var player := nearest_player(fish.node.global_position)
+			if player != null:
+				acceleration += _steer_towards(player.global_position - fish.node.global_position, fish) * self.fishChaseForce
+
+		fish.targetVel += acceleration * delta
+		fish.targetVel = fish.targetVel.limit_length(self.fishMaxSpeed)
 
 	# Detect the player
 	if fish.flags == EFishStateFlags.Passive:
 		var player := nearest_player(fish.node.global_position)
-		if (player == null):
+		if player == null:
 			return
-
+		var toPlayerV := player.global_position - fish.node.global_position
+		if toPlayerV.length_squared() > fish.detectRange * fish.detectRange:
+			return
 		fish.flags |= EFishStateFlags.Detected
 		# TODO: Move this to the physics update
 		return
 	if (fish.flags & EFishStateFlags.Detected) != 0:
 		var player := nearest_player(fish.node.global_position)
 		# We can't detect a player, we should turn off our aggressive flags
-		if (player == null):
+		if player == null:
+			fish.flags = (int(fish.flags) & ~int(EFishStateFlags.Detected)) as EFishStateFlags
+			fish.dashTimer = 0.0
+			fish.dashCooldown = 0.0
+			return
+		var toPlayerV := player.global_position - fish.node.global_position
+		var playerDistSqr := toPlayerV.length_squared()
+		if playerDistSqr > fish.detectRange * fish.detectRange:
 			fish.flags = (int(fish.flags) & ~int(EFishStateFlags.Detected)) as EFishStateFlags
 			return
-
-		var toPlayerV : Vector3 = player.global_position - fish.node.global_position
-		var playerDisSqr = toPlayerV.length_squared()
-		if playerDisSqr < (self.fishAttackRadius * self.fishAttackRadius):
-			pass
-
-		return
+		if playerDistSqr < (self.fishAttackRadius * self.fishAttackRadius) and fish.dashCooldown <= 0 and fish.dashTimer <= 0:
+			fish.targetVel = toPlayerV.normalized() * self.fishDashSpeed
+			fish.dashTimer = self.fishDashDuration
 
 func _physics_process(delta: float) -> void:
 	for fish in self.fishes:
@@ -246,13 +283,12 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	spawn_fish_subsystem(delta)
 	var localAvgHeading := Vector3.ZERO
-	var aliveFish := 0
+	self.aliveFishCount = 0
 	for fish in self.fishes:
 		if fish.flags == EFishStateFlags.Dead:
 			continue
 		fish_update(delta, fish)
-		aliveFish += 1
+		self.aliveFishCount += 1
 		localAvgHeading += fish.node.linear_velocity
-		pass
-	if aliveFish != 0:
-		self.avgFlockHeading = localAvgHeading / aliveFish
+	if self.aliveFishCount != 0:
+		self.avgFlockHeading = localAvgHeading / self.aliveFishCount

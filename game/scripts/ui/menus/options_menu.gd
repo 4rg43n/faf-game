@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 func _on_lobby_button_pressed() -> void:
 	LobbyManager.instance.leave_lobby()
 	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
-	
+
 
 
 
