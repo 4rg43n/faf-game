@@ -1,6 +1,6 @@
 @tool
 ##meant solely for use in editor.
-extends CollisionShape3D
+class_name Node3DConvexShapeColliderBuilder extends CollisionShape3D
 
 @export var rebuild_shape: bool = false:
 	set(value):

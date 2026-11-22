@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://be4c4q60cygxd"]
+
+[ext_resource type="PackedScene" uid="uid://cx7mb4xoujc07" path="res://assets/models/kobold/kobold.tscn" id="1_1aphe"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0ap4n"]
+radius = 0.13085938
+height = 0.50061035
+
+[node name="KoboldRigidBody" type="RigidBody3D" unique_id=2081013973]
+
+[node name="Capsule Collider" type="CollisionShape3D" parent="." unique_id=70673437]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23370361, 0)
+shape = SubResource("CapsuleShape3D_0ap4n")
+
+[node name="kobold" parent="." unique_id=1607980251 instance=ExtResource("1_1aphe")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
