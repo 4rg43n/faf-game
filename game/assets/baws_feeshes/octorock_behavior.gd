@@ -38,6 +38,11 @@ static var instance : OctoRockBehavior
 func _on_hit_by_player(peer_id : int, damage : float, critical_damage : bool, _area_hit : Area3D) -> void:
 	damage *= 1 if not critical_damage else 1.5
 	current_hp -= damage
+	if current_hp <= 0:
+		#death
+		queue_free()
+		return
+
 	if not spin_timmer.is_stopped():
 		return
 	spin_timmer.start(3)
@@ -93,6 +98,8 @@ func _ready() -> void:
 	out_of_ammo.add_transition(vaccum_in_ammo, get_in_range_of_target, LimboState.EVENT_FINISHED, _not_has_target_in_area)
 	#events that call dispatch / transitions
 	spin_timmer.timeout.connect(_on_countdown_timer_completed)
+
+	ChaosSystem.instance.octopus_already_spawned = true
 
 
 ##internal events start at the leaf that dispatched them and bubble up to root instead.

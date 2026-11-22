@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dg5yeiysdht6n"]
+
+[ext_resource type="Script" uid="uid://b6e2u6qe6entf" path="res://assets/baws_feeshes/octorock_behavior.gd" id="1_4x6b7"]
+[ext_resource type="PackedScene" uid="uid://dn83xbdka81vs" path="res://assets/baws_feeshes/not_an_octorock_color_skinned.tscn" id="2_elw1b"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3gghr"]
+
+[node name="OctopusBoss" type="Node3D" unique_id=1842794768 node_paths=PackedStringArray("root_hsm", "spin_attack_state", "out_of_ammo", "get_in_range_of_target", "vaccum_in_ammo", "shoot_your_shot", "hurt_boxes", "hit_boxes", "sucking_boxes", "mesh", "spin_timmer", "swallow_cam", "swallow_anchor", "fire_direction", "aggro_area")]
+script = ExtResource("1_4x6b7")
+root_hsm = NodePath("not_an_octorock_color_skinned/Root")
+spin_attack_state = NodePath("not_an_octorock_color_skinned/Root/spin - get players away they hort me")
+out_of_ammo = NodePath("not_an_octorock_color_skinned/Root/out of ammo")
+get_in_range_of_target = NodePath("not_an_octorock_color_skinned/Root/out of ammo/get valid target into suck range")
+vaccum_in_ammo = NodePath("not_an_octorock_color_skinned/Root/out of ammo/turn on da vacccum while target in range")
+shoot_your_shot = NodePath("not_an_octorock_color_skinned/Root/shoot at new target player or other rigid body in range")
+hurt_boxes = [NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeRightFront"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/KneeLeftFront"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/KneeRightBack"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/KneeLeftBack"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg6/RightLeg6"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg5/RightLeg5"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg4/RightLeg4"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg3/RightLeg3"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg2/RightLeg2"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/RightLeg1"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/LeftLeg1"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HurtBoxes/HipBoneAttachment/EyesHurtBox"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HurtBoxes/HipBoneAttachment/MainBodyHurtBox")]
+hit_boxes = [NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/LeftLeg1"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/RightLeg1"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/KneeLeftBack"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/KneeRightBack"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/KneeLeftFront"), NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeRightFront")]
+sucking_boxes = [NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/SuckingUpStuffArea/SuckageHappensHere")]
+mesh = NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/Octorock")
+spin_timmer = NodePath("not_an_octorock_color_skinned/SpinAttackTimer")
+swallow_cam = NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/RootBone/SwallowCam")
+swallow_anchor = NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/SuckingUpStuffArea")
+fire_direction = NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/SuckingUpStuffArea/FireDirection")
+aggro_area = NodePath("not_an_octorock_color_skinned/Armature/Skeleton3D/RootBone/AggroRange")
+
+[node name="not_an_octorock_color_skinned" parent="." unique_id=220396493 instance=ExtResource("2_elw1b")]
+script = null
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1458139215]
+replication_config = SubResource("SceneReplicationConfig_3gghr")
+
+[editable path="not_an_octorock_color_skinned"]

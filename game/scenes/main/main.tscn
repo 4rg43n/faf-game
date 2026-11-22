@@ -177,8 +177,10 @@ oceanResolution = 0.5
 oceanShader = ExtResource("18_37hlw")
 metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
 
-[node name="ChaosSystem" type="Node" parent="." unique_id=1071842316]
+[node name="ChaosSystem" type="Node" parent="." unique_id=1071842316 node_paths=PackedStringArray("current_world", "boss_spawner")]
 script = ExtResource("21_62atk")
+current_world = NodePath("../World/TropicalIsland")
+boss_spawner = NodePath("../World/BossSpawner")
 metadata/_custom_type_script = "uid://botd1s4mi7ogx"
 
 [node name="MusicManager" type="Node" parent="." unique_id=377988477 node_paths=PackedStringArray("music_player")]
@@ -243,6 +245,12 @@ shape = SubResource("WorldBoundaryShape3D_0kwd2")
 _spawnable_scenes = PackedStringArray("uid://dldk7t22vxdo", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
 spawn_path = NodePath(".")
 script = ExtResource("24_37hlw")
+
+[node name="BossSpawner" type="MultiplayerSpawner" parent="World" unique_id=1784696640]
+_spawnable_scenes = PackedStringArray("uid://dg5yeiysdht6n")
+spawn_path = NodePath(".")
+script = ExtResource("31_ii537")
+metadata/_custom_type_script = "uid://bulitqh4g88h2"
 
 [node name="LobbyCamera" type="Camera3D" parent="." unique_id=1345780627]
 transform = Transform3D(0.19414859, 0.0659656, -0.9787517, -0.0128350835, 0.9978219, 0.06470488, 0.9808882, 0, 0.19457237, -104.5698, 37.076996, 45.213646)

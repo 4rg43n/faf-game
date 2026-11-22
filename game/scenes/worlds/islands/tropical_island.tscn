@@ -57,7 +57,7 @@ metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 [node name="RockerooSmallBaldSnatchedInAMini" parent="island0/Grid/StaticBody3D" parent_id_path=PackedInt32Array(642752713, 1474437580) index="1" unique_id=807610147 instance=ExtResource("8_j627t")]
 transform = Transform3D(-0.29585552, 0.32785103, 0.8972086, -0.952, -0.17840725, -0.2487309, 0.07852188, -0.9277307, 0.3648969, -9.974749, 39.306103, -82.40844)
 
-[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 1660281035) index="1" unique_id=874324246]
+[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 1386240062) index="1" unique_id=874324246]
 material_override = SubResource("ShaderMaterial_f8da5")
 
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
@@ -67,7 +67,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8147697, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -231.6875, 0, 51.49388)
 collision_mask = 26
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean" unique_id=2004367034]
+[node name="OceanShape" type="CollisionShape3D" parent="Ocean" unique_id=2004367034]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 466.90875, -6.248291, -159.18295)
 shape = SubResource("BoxShape3D_jsfgd")
 debug_color = Color(0, 0.6, 0.7019608, 1)
@@ -172,5 +172,8 @@ transform = Transform3D(0.10040338, -0.6841191, 0.7224266, 0.9894012, 0.14520751
 
 [node name="RockerooSmall4" parent="." unique_id=1944586221 instance=ExtResource("7_ft2bs")]
 transform = Transform3D(1, 0, 0, 0, 0.975855, -0.21841928, 0, 0.21841928, 0.975855, 43.61161, -6.555538, -63.214916)
+
+[node name="OctopusSpawnLocation" type="Node3D" parent="." unique_id=1272024086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.80275, 0, -62.2983)
 
 [editable path="island0"]
