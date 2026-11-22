@@ -8,6 +8,13 @@ class_name UI extends Control
 @export var speed_tracker: Label
 @export var fps_tracker: Label
 @export var credits: Control
+@export var shop_voice: AudioStreamPlayer
+
+var voice_lines: Array = [[19.7, 27.9], [30.90, 40.0], [42.8, 51.5], [65, 72.7], [74.5, 81.5], [83.7, 86.5], [92.91, 95.3]]
+
+var playing_line : bool = false
+var line_timer : float = 0.0
+var time_elapsed : float = 0.0
 
 static var instance: UI
 
@@ -16,6 +23,15 @@ func _init() -> void:
 
 func _ready() -> void:
 	lobby_manager.visibility_changed.connect(_on_lobby_manager_visibility_changed)
+
+
+func _process(delta: float) -> void:
+	if playing_line:
+		time_elapsed += delta
+		if time_elapsed > line_timer:
+			shop_voice.stop()
+			time_elapsed = 0.0
+			playing_line = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -77,6 +93,11 @@ func show_shop():
 	inventory.shop_container.visible = true
 	speed_tracker.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	if not playing_line:
+		var line = voice_lines.pick_random()
+		shop_voice.play(line[0])
+		playing_line = true
+		line_timer = line[1] - line[0]
 
 
 func hide_all_ui():

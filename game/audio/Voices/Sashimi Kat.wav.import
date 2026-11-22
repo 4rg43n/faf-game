@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://daqh7jr2x1ovl"
+path="res://.godot/imported/Sashimi Kat.wav-7a8d30a403f1d018eb30915a84c3ffb1.sample"
+
+[deps]
+
+source_file="res://audio/Voices/Sashimi Kat.wav"
+dest_files=["res://.godot/imported/Sashimi Kat.wav-7a8d30a403f1d018eb30915a84c3ffb1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

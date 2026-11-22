@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
 [ext_resource type="AudioStream" uid="uid://dxli54sb7xfhj" path="res://audio/music/the_mountain-toy-theme-159128.mp3" id="24_ii537"]
+[ext_resource type="AudioStream" uid="uid://daqh7jr2x1ovl" path="res://audio/Voices/Sashimi Kat.wav" id="25_rofvo"]
 [ext_resource type="Script" uid="uid://bulitqh4g88h2" path="res://scenes/main/player_spawner.gd" id="31_ii537"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvec"]
@@ -49,7 +50,7 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TropicalIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker", "speed_tracker", "fps_tracker", "credits")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker", "speed_tracker", "fps_tracker", "credits", "shop_voice")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,6 +69,7 @@ chaos_tracker = NodePath("ChaosTracker")
 speed_tracker = NodePath("SpeedTracker")
 fps_tracker = NodePath("FpsTracker")
 credits = NodePath("Credits")
+shop_voice = NodePath("../MusicManager/VoiceLines")
 metadata/_edit_lock_ = true
 
 [node name="ChaosTracker" type="VBoxContainer" parent="UI" unique_id=261019762]
@@ -183,12 +185,15 @@ metadata/_custom_type_script = "uid://botd1s4mi7ogx"
 
 [node name="MusicManager" type="Node" parent="." unique_id=377988477 node_paths=PackedStringArray("music_player")]
 script = ExtResource("23_7nlll")
-music_player = NodePath("AudioStreamPlayer")
+music_player = NodePath("Background")
 metadata/_custom_type_script = "uid://bd7kjvr27uf67"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
+[node name="Background" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
 stream = ExtResource("24_ii537")
 volume_db = -8.0
+
+[node name="VoiceLines" type="AudioStreamPlayer" parent="MusicManager" unique_id=1079081201]
+stream = ExtResource("25_rofvo")
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
