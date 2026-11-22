@@ -30,7 +30,7 @@ height = 0.2
 radius = 0.1
 
 [node name="FishingPole" type="Node3D" unique_id=748185126 node_paths=PackedStringArray("bobber", "fishing_line", "fishing_line_start", "bobber_marker", "bobber_start_position")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.09, 0)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_ghk1x")
 item_resource = ExtResource("2_fno7m")
 bobber = NodePath("Bobber")
@@ -58,6 +58,7 @@ mesh = SubResource("CylinderMesh_ghk1x")
 [node name="Bobber" type="RigidBody3D" parent="." unique_id=632675122 node_paths=PackedStringArray("label_3d")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2, 0)
+collision_layer = 16
 freeze = true
 contact_monitor = true
 max_contacts_reported = 1
