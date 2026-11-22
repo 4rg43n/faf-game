@@ -40,6 +40,8 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	if not game_manager.is_node_ready():
+		await game_manager.ready
 	inventory_container.visibility_changed.connect(_on_main_inventory_visibility_changed)
 	game_manager.player_synced.connect(_on_player_synced)
 

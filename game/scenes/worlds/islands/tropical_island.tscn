@@ -48,7 +48,7 @@ size = Vector3(1500, 11.919, 1500)
 
 [node name="TropicalIsland" type="Node3D" unique_id=283161791 node_paths=PackedStringArray("spawn_location", "ocean_areas", "octopus_spawn_location")]
 script = ExtResource("1_x0u74")
-spawn_location = NodePath("SpawnLocation")
+spawn_location = NodePath("Shop/test spawn location shop")
 ocean_areas = [NodePath("Ocean")]
 octopus_spawn_location = NodePath("OctopusSpawnLocation")
 metadata/_custom_type_script = "uid://cub0o4re6n8kq"

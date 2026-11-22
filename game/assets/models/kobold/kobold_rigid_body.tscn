@@ -6,10 +6,10 @@
 radius = 0.13085938
 height = 0.50061035
 
-[node name="KoboldRigidBody" type="RigidBody3D" unique_id=2081013973]
+[node name="KoboldRigidBody" type="CharacterBody3D" unique_id=2071371683]
 
 [node name="Capsule Collider" type="CollisionShape3D" parent="." unique_id=70673437]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23370361, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00032613054, 0.2290147, -0.0010268092)
 shape = SubResource("CapsuleShape3D_0ap4n")
 
 [node name="kobold" parent="." unique_id=1607980251 instance=ExtResource("1_1aphe")]
