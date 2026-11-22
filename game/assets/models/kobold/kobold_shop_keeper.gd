@@ -7,6 +7,7 @@ const JUMP_VELOCITY = 4.5
 
 func _ready() -> void:
 	animation_player.current_animation = &"idle"
+	animation_player.active = true
 
 
 func _physics_process(delta: float) -> void:
