@@ -17,6 +17,21 @@ material = SubResource("StandardMaterial3D_ghk1x")
 top_radius = 0.005
 bottom_radius = 0.015
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fno7m"]
+albedo_color = Color(0.0068263966, 0.07548476, 0.3338918, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fno7m"]
+material = SubResource("StandardMaterial3D_fno7m")
+top_radius = 0.021
+bottom_radius = 0.025
+height = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tregw"]
+top_radius = 0.035
+bottom_radius = 0.035
+height = 0.02
+radial_segments = 16
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xa1ir"]
 albedo_color = Color(1, 0.39215687, 0, 1)
 
@@ -29,7 +44,7 @@ height = 0.2
 radius = 0.1
 
 [node name="FishingPole" type="Node3D" unique_id=748185126 node_paths=PackedStringArray("bobber", "line", "fishing_line_start", "bobber_marker", "bobber_start_position")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("1_ghk1x")
 item_resource = ExtResource("2_fno7m")
 bobber = NodePath("Bobber")
@@ -56,6 +71,14 @@ mesh = SubResource("ImmediateMesh_fpt8w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CylinderMesh_ghk1x")
 
+[node name="Handle" type="MeshInstance3D" parent="Rod" unique_id=936210135]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.80081284, 0)
+mesh = SubResource("CylinderMesh_fno7m")
+
+[node name="Reel" type="MeshInstance3D" parent="Rod" unique_id=1372057748]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.05358558, -0.65380585, 0)
+mesh = SubResource("CylinderMesh_tregw")
+
 [node name="Bobber" type="RigidBody3D" parent="." unique_id=632675122 node_paths=PackedStringArray("label_3d")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2, 0)
@@ -70,6 +93,7 @@ label_3d = NodePath("MeshInstance3D/Label3D")
 mesh = SubResource("SphereMesh_xa1ir")
 
 [node name="Label3D" type="Label3D" parent="Bobber/MeshInstance3D" unique_id=681557926]
+visible = false
 pixel_size = 0.0075
 billboard = 1
 modulate = Color(0.84705883, 0.07058824, 0.13333334, 1)
