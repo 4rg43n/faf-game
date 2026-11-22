@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
 [ext_resource type="AudioStream" uid="uid://dxli54sb7xfhj" path="res://audio/music/the_mountain-toy-theme-159128.mp3" id="24_ii537"]
+[ext_resource type="Script" uid="uid://bulitqh4g88h2" path="res://scenes/main/player_spawner.gd" id="31_ii537"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvec"]
 bg_color = Color(0.43405953, 8.139512e-05, 0.049701735, 1)
@@ -188,7 +189,6 @@ metadata/_custom_type_script = "uid://bd7kjvr27uf67"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
 stream = ExtResource("24_ii537")
 volume_db = -8.0
-bus = &"Music"
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
@@ -240,7 +240,7 @@ starting_world = NodePath("../TropicalIsland")
 shape = SubResource("WorldBoundaryShape3D_0kwd2")
 
 [node name="InteractableItemSpawner" type="MultiplayerSpawner" parent="World" unique_id=913016617]
-_spawnable_scenes = PackedStringArray("uid://3mkg6nfyac2f", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
+_spawnable_scenes = PackedStringArray("uid://dldk7t22vxdo", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
 spawn_path = NodePath(".")
 script = ExtResource("24_37hlw")
 
@@ -252,6 +252,7 @@ metadata/_edit_lock_ = true
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1692186644]
 _spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
 spawn_path = NodePath(".")
+script = ExtResource("31_ii537")
 
 [node name="unhandled_input_handler" type="Node" parent="." unique_id=2098882594]
 

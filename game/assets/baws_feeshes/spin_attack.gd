@@ -1,20 +1,29 @@
 class_name SpinAttackState extends WaitForAnimationToFinish
 
-@export var hurt_boxes : Array[Area3D] = []
+@export var hit_boxes : Array[Area3D] = []
 
 ## Called once, when state is initialized.
 func _setup() -> void:
-	pass
+	super._setup()
+	for area : Area3D in hit_boxes:
+		area.monitorable = false
+		area.monitoring = false
 
 ## Called when state is entered.
 func _enter() -> void:
 	super._enter()
+	for area : Area3D in hit_boxes:
+		area.monitorable = false
+		area.monitoring = false
 
 ## Called when state is exited.
 func _exit() -> void:
-	pass
+	super._exit()
+	for area : Area3D in hit_boxes:
+		area.monitorable = false
+		area.monitoring = false
 
 ## Called each frame when this state is active.
-func _update(_delta: float) -> void:
-	if not animation_player.is_playing() or animation_player.assigned_animation != animation_name:
-		dispatch(EVENT_FINISHED)
+func _update(delta: float) -> void:
+	super._update(delta)
+	dispatch("&search_for_ammo")

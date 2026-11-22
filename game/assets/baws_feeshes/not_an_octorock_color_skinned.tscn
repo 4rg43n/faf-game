@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b5ehl7w8m1jf2" path="res://assets/baws_feeshes/not_an_octorock_color_skinned.glb" id="1_e3vjo"]
 [ext_resource type="Script" uid="uid://b6e2u6qe6entf" path="res://assets/baws_feeshes/octorock_behavior.gd" id="2_g2aj1"]
+[ext_resource type="BlackboardPlan" uid="uid://bolg6nunmhp4w" path="res://assets/baws_feeshes/octorock_behavior_data.tres" id="3_1h85i"]
 [ext_resource type="Script" uid="uid://ctcfnyla0bqhp" path="res://assets/baws_feeshes/spin_attack.gd" id="3_2ri2w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ri2w"]
@@ -110,6 +111,7 @@ hurt_boxes = [NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeR
 hit_boxes = [NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/LeftLeg1"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/RightLeg1"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/KneeLeftBack"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/KneeRightBack"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/KneeLeftFront"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeRightFront")]
 sucking_boxes = [NodePath("Armature/Skeleton3D/SuckingUpStuffArea/SuckageHappensHere")]
 spin_timmer = NodePath("SpinAttackTimer")
+current_hp = null
 
 [node name="SpinAttackTimer" type="Timer" parent="." index="0" unique_id=1522223699]
 
@@ -371,9 +373,11 @@ transform = Transform3D(0.9201608, -2.8465195e-09, 0.39154068, -3.2111809e-09, 1
 shape = SubResource("BoxShape3D_72m37")
 
 [node name="Root" type="LimboHSM" parent="." index="3" unique_id=63098536]
+blackboard_plan = ExtResource("3_1h85i")
 
-[node name="spin - get players away they hort me" type="LimboState" parent="Root" index="0" unique_id=697419133 node_paths=PackedStringArray("animation_player")]
+[node name="spin - get players away they hort me" type="LimboState" parent="Root" index="0" unique_id=697419133 node_paths=PackedStringArray("hit_boxes", "animation_player")]
 script = ExtResource("3_2ri2w")
+hit_boxes = [NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/LeftLeg1"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/RightLeg1"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("../../Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("../../Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/KneeLeftBack"), NodePath("../../Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/KneeRightBack"), NodePath("../../Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/KneeLeftFront"), NodePath("../../Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeRightFront")]
 animation_player = NodePath("../../AnimationPlayer")
 
 [node name="out of ammo" type="LimboHSM" parent="Root" index="1" unique_id=140526674]
