@@ -52,23 +52,25 @@ func start_fish_delay_timer():
 	# tween.tween_property(label_3d, "modulate:a", 0.0, 1 * 0.6).set_delay(1 * 0.4)
 
 
+## Sometimes this isn't enough to detect colliding with the ground, see _physics_process
 func _bobber_hit(_body: Node) -> void:
 	print("hit something")
 
 	# if near_ground:
 		# Close enough to something underneath to stop
 		# print("We should stop moving")
-	linear_velocity = Vector3.ZERO
-	angular_velocity = Vector3.ZERO
-	set_deferred("freeze", true)
+	_stop_moving_bobber()
 
-"""
+
 func _physics_process(_delta: float) -> void:
 	if ray_cast_3d.is_colliding():
 		print("Near ground")
 		# near_ground = true
 
-		linear_velocity = Vector3.ZERO
-		angular_velocity = Vector3.ZERO
-		set_deferred("freeze", true)
-"""
+		_stop_moving_bobber()
+
+
+func _stop_moving_bobber() -> void:
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO
+	set_deferred("freeze", true)

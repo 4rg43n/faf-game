@@ -4,11 +4,10 @@
 [ext_resource type="Script" uid="uid://cll72nekbddgd" path="res://scenes/fishing_pole/bobber.gd" id="2_db0tb"]
 [ext_resource type="Resource" uid="uid://cfjaugs11d535" path="res://resources/items/fishing_pole.tres" id="2_fno7m"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_xa1ir"]
-top_radius = 0.005
-bottom_radius = 0.005
-cap_top = false
-cap_bottom = false
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ynw10"]
+shading_mode = 0
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_fpt8w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghk1x"]
 albedo_color = Color(0.87177515, 0.5471249, 0.1797021, 1)
@@ -29,12 +28,12 @@ height = 0.2
 [sub_resource type="SphereShape3D" id="SphereShape3D_ghk1x"]
 radius = 0.1
 
-[node name="FishingPole" type="Node3D" unique_id=748185126 node_paths=PackedStringArray("bobber", "fishing_line", "fishing_line_start", "bobber_marker", "bobber_start_position")]
+[node name="FishingPole" type="Node3D" unique_id=748185126 node_paths=PackedStringArray("bobber", "line", "fishing_line_start", "bobber_marker", "bobber_start_position")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_ghk1x")
 item_resource = ExtResource("2_fno7m")
 bobber = NodePath("Bobber")
-fishing_line = NodePath("FishingLine")
+line = NodePath("FishingLine")
 fishing_line_start = NodePath("FishingLineStart")
 bobber_marker = NodePath("Bobber/BobberMarker")
 bobber_start_position = NodePath("BobberStartPosition")
@@ -48,8 +47,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025, 2, 0)
 
 [node name="FishingLine" type="MeshInstance3D" parent="." unique_id=1921519161]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173, 1, 0)
-mesh = SubResource("CylinderMesh_xa1ir")
+top_level = true
+material_override = SubResource("StandardMaterial3D_ynw10")
+cast_shadow = 0
+mesh = SubResource("ImmediateMesh_fpt8w")
 
 [node name="Rod" type="MeshInstance3D" parent="." unique_id=1802761896]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -80,6 +81,7 @@ shape = SubResource("SphereShape3D_ghk1x")
 
 [node name="BobberMarker" type="Marker3D" parent="Bobber" unique_id=1988463378]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="Bobber" unique_id=1294600004]
 target_position = Vector3(0, -0.15, 0)

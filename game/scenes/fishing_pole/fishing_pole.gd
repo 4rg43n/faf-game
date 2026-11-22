@@ -3,7 +3,7 @@ class_name FishingPole extends Node3D
 @export var item_resource: Item
 
 @export var bobber: Bobber
-@export var fishing_line: MeshInstance3D
+@export var line: MeshInstance3D
 
 @export var fishing_line_start: Marker3D
 @export var bobber_marker: Marker3D
@@ -15,8 +15,45 @@ var fish_currently_hooked: bool = false
 
 func _ready() -> void:
 	bobber.set_physics_process(false)
-	fishing_line.hide()
 	bobber.fish_bit_bobber.connect(fish_hooked)
+
+
+func _process(_delta: float) -> void:
+	## Docs: https://docs.godotengine.org/en/stable/tutorials/3d/procedural_geometry/immediatemesh.html
+	# Clean up before drawing.
+	line.mesh.clear_surfaces()
+
+	# Only draw the line when the bobber is actually out
+	if not bobber_cast:
+		return
+	
+	# Begin draw.
+	line.mesh.surface_begin(Mesh.PRIMITIVE_LINE_STRIP)
+
+	# Draw mesh.
+	# line.mesh.surface_add_vertex(fishing_line_start.global_position) # Start
+	# line.mesh.surface_add_vertex(bobber_marker.global_position) # End
+	# line.mesh.surface_end()
+	
+	var start = fishing_line_start.global_position
+	var end = bobber_marker.global_position
+	
+	var distance = start.distance_to(end)
+	
+	# This will still clip into the ground but I think adding sag generally looks better than a strait line
+	var total_line_points = clampf(distance, 5.0, 20.0)
+	var sag : float = 3
+	for t in range(total_line_points):
+		var t_percent = t/total_line_points
+		var point = start.lerp(end, t_percent)
+		var sag_amount = sag * t_percent * (1.0 - t_percent)
+		point.y -= sag_amount
+		line.mesh.surface_add_vertex(point)
+		t += 1
+	line.mesh.surface_add_vertex(end)
+
+	# End drawing.
+	line.mesh.surface_end()
 
 
 func fish_hooked(hooked) -> void:
@@ -34,22 +71,6 @@ func _on_player_hooked_fish(peer_id : int) -> void:
 	var player := LobbyManager.instance.get_player_from_peer_id(peer_id)
 	bobber.notify_hook(player.player_controller.global_position)
 
-
-func _physics_process(_delta: float) -> void:
-	pass
-	# _update_fishing_line()
-
-
-# Trash code
-func _update_fishing_line() -> void:
-	var center_pos = (fishing_line_start.global_position + bobber.global_position) / 2
-	var distance = fishing_line_start.global_position.distance_to(bobber.global_position)
-
-	fishing_line.global_position = center_pos
-	fishing_line.mesh.height = distance
-
-	fishing_line.look_at(fishing_line_start.global_position)
-	fishing_line.rotation_degrees.x -= 90
 
 
 func _unhandled_input(event: InputEvent) -> void:
