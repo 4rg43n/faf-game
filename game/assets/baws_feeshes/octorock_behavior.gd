@@ -4,6 +4,8 @@ class_name OctoRockBehavior extends Node3D
 @export var root_hsm : LimboHSM
 @export var spin_attack_state : LimboState
 @export var out_of_ammo : LimboHSM
+@export var get_in_range_of_target : LimboState
+@export var vaccum_in_ammo : LimboState
 @export var shoot_your_shot : LimboState
 
 @export var hurt_boxes : Array[Area3D]
@@ -25,8 +27,10 @@ func _ready() -> void:
 	root_hsm.initial_state = out_of_ammo
 	#what event causes a transition from this state to another specified state, guard returns false = no transition
 	root_hsm.add_transition(root_hsm.ANYSTATE, spin_attack_state, &"start_spin_attack", _can_spin_attack_guard)
-	root_hsm.add_transition(spin_attack_state, out_of_ammo, &"search_for_ammo", _needs_ammo)
+	root_hsm.add_transition(root_hsm.ANYSTATE, out_of_ammo, &"search_for_ammo", _needs_ammo)
 	root_hsm.add_transition(root_hsm.ANYSTATE, shoot_your_shot, &"shoot_da_stuff", _has_ammo_to_shoot)
+
+	out_of_ammo.add_transition(get_in_range_of_target, vaccum_in_ammo, &"turn_on_the_suck")
 
 	#events that call dispatch / transitions
 	spin_timmer.timeout.connect(_on_countdown_timer_completed)

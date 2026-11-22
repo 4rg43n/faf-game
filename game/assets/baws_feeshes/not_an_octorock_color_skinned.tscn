@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b5ehl7w8m1jf2" path="res://assets/baws_feeshes/not_an_octorock_color_skinned.glb" id="1_e3vjo"]
 [ext_resource type="Script" uid="uid://b6e2u6qe6entf" path="res://assets/baws_feeshes/octorock_behavior.gd" id="2_g2aj1"]
-[ext_resource type="Script" uid="uid://d1gympxl7lr3g" path="res://assets/baws_feeshes/animation_state.gd" id="3_2ri2w"]
+[ext_resource type="Script" uid="uid://ctcfnyla0bqhp" path="res://assets/baws_feeshes/spin_attack.gd" id="3_2ri2w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ri2w"]
 size = Vector3(2.9556465, 3.333496, 3.156128)
@@ -98,9 +98,18 @@ var/current_hp/value = 0.0
 var/current_hp/hint = 0
 var/current_hp/hint_string = "health"
 
-[node name="not_an_octorock_color_skinned" unique_id=220396493 node_paths=PackedStringArray("root_hsm") instance=ExtResource("1_e3vjo")]
+[node name="not_an_octorock_color_skinned" unique_id=220396493 node_paths=PackedStringArray("root_hsm", "spin_attack_state", "out_of_ammo", "get_in_range_of_target", "vaccum_in_ammo", "shoot_your_shot", "hurt_boxes", "hit_boxes", "sucking_boxes", "spin_timmer") instance=ExtResource("1_e3vjo")]
 script = ExtResource("2_g2aj1")
 root_hsm = NodePath("Root")
+spin_attack_state = NodePath("Root/spin - get players away they hort me")
+out_of_ammo = NodePath("Root/out of ammo")
+get_in_range_of_target = NodePath("Root/out of ammo/get valid target into suck range")
+vaccum_in_ammo = NodePath("Root/out of ammo/turn on da vacccum while target in range")
+shoot_your_shot = NodePath("Root/shoot at new target player or other rigid body in range")
+hurt_boxes = [NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeRightFront"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/KneeLeftFront"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/KneeRightBack"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/KneeLeftBack"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg6/RightLeg6"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg5/RightLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg4/RightLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg3/RightLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg2/RightLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/RightLeg1"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/LeftLeg1"), NodePath("Armature/Skeleton3D/HurtBoxes/HipBoneAttachment/EyesHurtBox"), NodePath("Armature/Skeleton3D/HurtBoxes/HipBoneAttachment/MainBodyHurtBox")]
+hit_boxes = [NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/LeftLeg1"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/RightLeg1"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/KneeLeftBack"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/KneeRightBack"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/KneeLeftFront"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeRightFront")]
+sucking_boxes = [NodePath("Armature/Skeleton3D/SuckingUpStuffArea/SuckageHappensHere")]
+spin_timmer = NodePath("SpinAttackTimer")
 
 [node name="SpinAttackTimer" type="Timer" parent="." index="0" unique_id=1522223699]
 
@@ -153,10 +162,10 @@ bone_idx = 16
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1" index="0" unique_id=657826297]
+[node name="LeftLeg1" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1" index="0" unique_id=657826297]
 transform = Transform3D(1, 3.7252903e-09, -5.5879354e-09, 2.7939677e-09, 1, -2.9802322e-08, 1.6763806e-08, 2.9802322e-08, 1, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/Area3D" index="0" unique_id=1629570968]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/LeftLeg1" index="0" unique_id=1629570968]
 transform = Transform3D(0.99759376, 0.021384753, -0.06603125, -0.036907695, 0.9691434, -0.24373494, 0.05878118, 0.24558485, 0.9675953, 0.0077803135, 0.093536854, -0.07330203)
 shape = SubResource("BoxShape3D_teyar")
 
@@ -166,9 +175,9 @@ bone_idx = 17
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2" index="0" unique_id=132738884]
+[node name="LeftLeg2" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2" index="0" unique_id=132738884]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/Area3D" index="0" unique_id=2043614796]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2" index="0" unique_id=2043614796]
 transform = Transform3D(1.0000001, -4.8428774e-08, 0, -7.450581e-09, 1, -2.9802322e-08, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_hltho")
 
@@ -178,9 +187,9 @@ bone_idx = 17
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3" index="0" unique_id=257286096]
+[node name="LeftLeg3" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3" index="0" unique_id=257286096]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/Area3D" index="0" unique_id=488653402]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3" index="0" unique_id=488653402]
 transform = Transform3D(1.0000006, -3.46452e-07, -7.450581e-09, 3.5390258e-07, 1, -8.940697e-08, 2.9802322e-08, -2.9802322e-08, 1, 0, 0.05883789, 0)
 shape = SubResource("BoxShape3D_2cptm")
 
@@ -190,9 +199,9 @@ bone_idx = 19
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4" index="0" unique_id=1659973042]
+[node name="LeftLeg4" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4" index="0" unique_id=1659973042]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/Area3D" index="0" unique_id=1805653453]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4" index="0" unique_id=1805653453]
 transform = Transform3D(1, -2.4400651e-07, 2.6077032e-08, 0, 0.99999976, 1.4901161e-07, -3.7252903e-09, 4.172325e-07, 1, -0.102540016, -0.16357422, 2.3841858e-07)
 shape = SubResource("BoxShape3D_oix60")
 
@@ -202,10 +211,10 @@ bone_idx = 20
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5" index="0" unique_id=1872755459]
+[node name="LeftLeg5" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5" index="0" unique_id=1872755459]
 transform = Transform3D(1.0000001, -9.313226e-09, -1.8626451e-09, -3.7252903e-09, 0.9999999, 2.9802322e-08, -3.7252903e-09, 0, 1, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/Area3D" index="0" unique_id=1819371741]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5" index="0" unique_id=1819371741]
 transform = Transform3D(0.9999999, 1.3038516e-08, -1.4901161e-08, 9.313226e-10, 1.0000002, -5.9604645e-08, -3.7252903e-09, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_3oq2a")
 
@@ -215,9 +224,9 @@ bone_idx = 21
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6" index="0" unique_id=1913130339]
+[node name="LeftLeg6" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6" index="0" unique_id=1913130339]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/Area3D" index="0" unique_id=2048450135]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6" index="0" unique_id=2048450135]
 transform = Transform3D(0.9999882, -0.004621364, -0.0013523996, 0.004626304, 0.9999825, 0.003674388, 0.0013344884, -0.003679067, 0.9999924, -0.00057935715, 0.12554741, -0.000461936)
 shape = SubResource("BoxShape3D_mahgi")
 
@@ -229,9 +238,9 @@ bone_idx = 23
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg" index="0" unique_id=515855744]
+[node name="RightLeg1" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg" index="0" unique_id=515855744]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/Area3D" index="0" unique_id=588332400]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/RightLeg1" index="0" unique_id=588332400]
 transform = Transform3D(1, 5.355105e-07, -3.1664968e-08, -2.7008355e-08, 0.9999998, 2.9802322e-08, -1.937151e-07, 4.172325e-07, 1.0000001, 0.041870117, -5.9604645e-08, 0.099609315)
 shape = SubResource("BoxShape3D_pxo4n")
 
@@ -241,9 +250,9 @@ bone_idx = 24
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg2" index="0" unique_id=523232669]
+[node name="RightLeg2" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg2" index="0" unique_id=523232669]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg2/Area3D" index="0" unique_id=999543135]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg2/RightLeg2" index="0" unique_id=999543135]
 shape = SubResource("BoxShape3D_7ra2c")
 
 [node name="RightSquishyLeg3" type="BoneAttachment3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg" index="2" unique_id=987732963]
@@ -252,9 +261,9 @@ bone_idx = 25
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg3" index="0" unique_id=1254462883]
+[node name="RightLeg3" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg3" index="0" unique_id=1254462883]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg3/Area3D" index="0" unique_id=824325548]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg3/RightLeg3" index="0" unique_id=824325548]
 shape = SubResource("BoxShape3D_8qi85")
 
 [node name="RightSquishyLeg4" type="BoneAttachment3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg" index="3" unique_id=201202477]
@@ -263,9 +272,9 @@ bone_idx = 26
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg4" index="0" unique_id=1191438373]
+[node name="RightLeg4" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg4" index="0" unique_id=1191438373]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg4/Area3D" index="0" unique_id=615308920]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg4/RightLeg4" index="0" unique_id=615308920]
 shape = SubResource("BoxShape3D_ey0dg")
 
 [node name="RightSquishyLeg5" type="BoneAttachment3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg" index="4" unique_id=1776801742]
@@ -274,9 +283,9 @@ bone_idx = 27
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg5" index="0" unique_id=261379394]
+[node name="RightLeg5" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg5" index="0" unique_id=261379394]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg5/Area3D" index="0" unique_id=602590619]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg5/RightLeg5" index="0" unique_id=602590619]
 transform = Transform3D(1, -4.656613e-09, -9.872019e-08, -4.656613e-09, 1.0000002, 1.1920929e-07, 1.8626451e-09, -2.9802322e-08, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_g0lb2")
 
@@ -286,9 +295,9 @@ bone_idx = 28
 use_external_skeleton = true
 external_skeleton = NodePath("../../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg6" index="0" unique_id=271170723]
+[node name="RightLeg6" type="Area3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg6" index="0" unique_id=271170723]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg6/Area3D" index="0" unique_id=1619845144]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg6/RightLeg6" index="0" unique_id=1619845144]
 transform = Transform3D(1, -2.9802322e-08, 5.5134296e-07, -7.450581e-09, 1, 9.834766e-07, 7.450581e-09, 0, 0.999999, 4.7683716e-07, 0.14892483, -2.3841858e-07)
 shape = SubResource("BoxShape3D_uh5bj")
 
@@ -300,9 +309,9 @@ bone_idx = 3
 use_external_skeleton = true
 external_skeleton = NodePath("../..")
 
-[node name="HitBox" type="Area3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack" index="0" unique_id=661713608]
+[node name="KneeLeftBack" type="Area3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack" index="0" unique_id=661713608]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/HitBox" index="0" unique_id=967527024]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/KneeLeftBack" index="0" unique_id=967527024]
 transform = Transform3D(0.9565646, -0.009396628, 0.29142138, 0.022041932, 0.9989646, -0.040128037, -0.29074097, 0.044806138, 0.95576304, -0.29697573, 0.81073, 0.009110451)
 shape = SubResource("BoxShape3D_rr127")
 
@@ -312,9 +321,9 @@ bone_idx = 9
 use_external_skeleton = true
 external_skeleton = NodePath("../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack" index="0" unique_id=2017043576]
+[node name="KneeRightBack" type="Area3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack" index="0" unique_id=2017043576]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/Area3D" index="0" unique_id=1979175811]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/KneeRightBack" index="0" unique_id=1979175811]
 transform = Transform3D(0.80660397, 0.17655252, 0.56410944, -0.17370695, 0.983012, -0.059279963, -0.5649919, -0.05017431, 0.8235704, 0.19239414, 0.7517183, -0.10898441)
 shape = SubResource("BoxShape3D_5uodg")
 
@@ -324,9 +333,9 @@ bone_idx = 6
 use_external_skeleton = true
 external_skeleton = NodePath("../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront" index="0" unique_id=716904751]
+[node name="KneeLeftFront" type="Area3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront" index="0" unique_id=716904751]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/Area3D" index="0" unique_id=1683030101]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/KneeLeftFront" index="0" unique_id=1683030101]
 transform = Transform3D(1.0000005, -1.1175871e-08, 0, -2.2351742e-08, 1.0000011, -1.8626451e-09, -1.7881393e-07, 6.891787e-08, 1, 0.02105701, 0.7001816, 0.056701303)
 shape = SubResource("BoxShape3D_mjwhl")
 
@@ -336,9 +345,9 @@ bone_idx = 12
 use_external_skeleton = true
 external_skeleton = NodePath("../..")
 
-[node name="Area3D" type="Area3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront" index="0" unique_id=65768154]
+[node name="KneeRightFront" type="Area3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront" index="0" unique_id=65768154]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/Area3D" index="0" unique_id=489613567]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeRightFront" index="0" unique_id=489613567]
 transform = Transform3D(0.7073821, 0.05670497, -0.70455337, -0.07886426, 0.99688756, 0.0010515116, 0.7024181, 0.05481974, 0.7096506, 0.050691843, 0.716897, 0.029439688)
 shape = SubResource("BoxShape3D_dhgsw")
 
@@ -363,8 +372,9 @@ shape = SubResource("BoxShape3D_72m37")
 
 [node name="Root" type="LimboHSM" parent="." index="3" unique_id=63098536]
 
-[node name="spin - get players away they hort me" type="LimboState" parent="Root" index="0" unique_id=697419133]
+[node name="spin - get players away they hort me" type="LimboState" parent="Root" index="0" unique_id=697419133 node_paths=PackedStringArray("animation_player")]
 script = ExtResource("3_2ri2w")
+animation_player = NodePath("../../AnimationPlayer")
 
 [node name="out of ammo" type="LimboHSM" parent="Root" index="1" unique_id=140526674]
 blackboard_plan = SubResource("BlackboardPlan_flawj")
