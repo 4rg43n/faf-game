@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://be4c4q60cygxd"]
 
+[ext_resource type="Script" uid="uid://blww07g6r11gi" path="res://assets/models/kobold/kobold_shop_keeper.gd" id="1_0ap4n"]
 [ext_resource type="PackedScene" uid="uid://cx7mb4xoujc07" path="res://assets/models/kobold/kobold.tscn" id="1_1aphe"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0ap4n"]
@@ -7,6 +8,7 @@ radius = 0.13085938
 height = 0.50061035
 
 [node name="KoboldRigidBody" type="CharacterBody3D" unique_id=2071371683]
+script = ExtResource("1_0ap4n")
 
 [node name="Capsule Collider" type="CollisionShape3D" parent="." unique_id=70673437]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00032613054, 0.2290147, -0.0010268092)
@@ -14,3 +16,21 @@ shape = SubResource("CapsuleShape3D_0ap4n")
 
 [node name="kobold" parent="." unique_id=1607980251 instance=ExtResource("1_1aphe")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Skeleton3D" parent="kobold/Armature_001" parent_id_path=PackedInt32Array(1607980251, 699660451) index="0" unique_id=379972826]
+bones/16/rotation = Quaternion(0.020121377, -1.6267265e-12, 4.7303836e-09, 0.9997975)
+bones/21/rotation = Quaternion(0.8845671, 1.10117284e-07, 4.2240296e-07, 0.46641323)
+bones/31/position = Vector3(-0.3687851, 0.5654829, 0.08700093)
+bones/32/rotation = Quaternion(-0.4244784, 0.4850472, 0.014153184, 0.764426)
+bones/33/rotation = Quaternion(0.06604753, 0.0018005247, -0.19426197, 0.9787221)
+bones/34/rotation = Quaternion(0.09037688, 0.0025199435, -0.23853806, 0.9669154)
+bones/52/position = Vector3(0.36878508, 0.56548303, 0.08700114)
+bones/53/rotation = Quaternion(-0.44119805, -0.465151, 0.036032923, 0.7666033)
+bones/72/rotation = Quaternion(-0.8642155, -7.301182e-11, -2.0610578e-07, 0.5031219)
+bones/73/rotation = Quaternion(-0.27670714, -7.49323e-12, -6.622681e-08, 0.96095437)
+bones/74/rotation = Quaternion(-0.16730529, -7.751438e-14, -3.9417582e-08, 0.9859051)
+bones/75/rotation = Quaternion(-0.025302665, 2.1526904e-11, -5.364241e-09, 0.9996799)
+bones/76/rotation = Quaternion(0.039914574, 2.383352e-07, 2.2346708e-08, 0.99920315)
+bones/84/position = Vector3(0.292196, 0.05318986, 0.93323594)
+
+[editable path="kobold"]
