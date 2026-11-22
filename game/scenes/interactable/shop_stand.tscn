@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://b63hjkjx30tc8" path="res://scenes/interactable/generate_convex_collision_shape3D_from_node3D.gd" id="5_8nuba"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t1h4u"]
-size = Vector3(6.9690003, 0.8759239, 6.310201)
+size = Vector3(6.9690003, 0.8295635, 6.310201)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8nuba"]
 size = Vector3(7.101682, 5.955303, 2.4809284)
@@ -53,7 +53,12 @@ transform = Transform3D(0.666, 0, 0, 0, 0.666, 0, 0, 0, 0.666, 0, 0, 0)
 transform = Transform3D(0.666, 0, 0, 0, 0.666, 0, 0, 0, 0.666, 0, 0, 0)
 
 [node name="floor" type="CollisionShape3D" parent="StaticBody3D" unique_id=1574649270]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.414707e-05, -2.875177, 0.007926541)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.414707e-05, -2.898357, 0.007926541)
+shape = SubResource("BoxShape3D_t1h4u")
+debug_color = Color(1.4439226e-07, 0.63565356, 0.41840193, 0.41960785)
+
+[node name="floor2" type="CollisionShape3D" parent="StaticBody3D" unique_id=1032562617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.414707e-05, -2.898357, 0.007926541)
 shape = SubResource("BoxShape3D_t1h4u")
 debug_color = Color(1.4439226e-07, 0.63565356, 0.41840193, 0.41960785)
 
@@ -180,20 +185,20 @@ shape = SubResource("CapsuleShape3D_j6b73")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7844706, 0.42500567)
 
 [node name="Skeleton3D" parent="KoboldRigidBody/kobold/Armature_001" parent_id_path=PackedInt32Array(2081013973, 1607980251, 699660451) index="0" unique_id=379972826]
-bones/16/rotation = Quaternion(0.011879789, -7.014015e-11, -1.4613903e-10, 0.9999295)
-bones/21/rotation = Quaternion(0.8796024, 1.2306353e-07, 4.1401634e-07, 0.4757099)
-bones/31/position = Vector3(-0.36456618, 0.6277161, 0.08657758)
-bones/32/rotation = Quaternion(-0.41940483, 0.5023337, -0.020340463, 0.75587475)
-bones/33/rotation = Quaternion(0.06007398, 0.0017380693, -0.17741117, 0.98230016)
-bones/34/rotation = Quaternion(0.08259021, 0.0024753464, -0.21733856, 0.9725928)
-bones/52/position = Vector3(0.36456615, 0.62771624, 0.08657767)
-bones/53/rotation = Quaternion(-0.4302496, -0.48973522, 0.051592052, 0.75656)
-bones/72/rotation = Quaternion(-0.86732084, -1.693401e-09, -2.0819206e-07, 0.4977495)
-bones/73/rotation = Quaternion(-0.2826342, -6.6696225e-11, -6.965948e-08, 0.95922786)
-bones/74/rotation = Quaternion(-0.17955308, 7.0317986e-13, -4.7076043e-08, 0.9837484)
-bones/75/rotation = Quaternion(-0.042304866, -1.9147804e-10, -1.6036047e-08, 0.9991048)
-bones/76/rotation = Quaternion(0.011125071, 2.3747398e-07, -2.4803809e-08, 0.9999382)
-bones/84/position = Vector3(0.292196, 0.05318986, 0.9282473)
+bones/16/rotation = Quaternion(-0.0006229263, -5.3901328e-14, -1.4852307e-10, 0.9999998)
+bones/21/rotation = Quaternion(0.8721411, 1.16646824e-07, 4.1586986e-07, 0.48925442)
+bones/31/position = Vector3(-0.358398, 0.7187025, 0.08595863)
+bones/32/rotation = Quaternion(-0.41598722, 0.51959115, -0.07087315, 0.7429379)
+bones/33/rotation = Quaternion(0.05008775, 0.0016368406, -0.14918211, 0.98753905)
+bones/34/rotation = Quaternion(0.069571994, 0.00240185, -0.1819554, 0.98083955)
+bones/52/position = Vector3(0.358398, 0.7187026, 0.0859586)
+bones/53/rotation = Quaternion(-0.41598713, -0.5195912, 0.070872694, 0.742938)
+bones/72/rotation = Quaternion(-0.8719479, -6.750156e-14, -2.0788876e-07, 0.4895988)
+bones/73/rotation = Quaternion(-0.2920878, -2.4202867e-14, -6.9639185e-08, 0.95639163)
+bones/74/rotation = Quaternion(-0.19742578, 9.966854e-15, -4.706997e-08, 0.98031783)
+bones/75/rotation = Quaternion(-0.06723323, 9.353629e-15, -1.6029654e-08, 0.99773735)
+bones/76/rotation = Quaternion(-0.030996984, 2.3830785e-07, -1.4780631e-08, 0.99951947)
+bones/84/position = Vector3(0.292196, 0.05318986, 0.91981536)
 
 [node name="CollisionShape3D" parent="KoboldRigidBody/kobold/Armature_001/Skeleton3D/root/shop" parent_id_path=PackedInt32Array(2081013973, 1607980251, 1271301678) index="0" unique_id=1908581407]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5268583, 2.1649256, 0.33580703)
