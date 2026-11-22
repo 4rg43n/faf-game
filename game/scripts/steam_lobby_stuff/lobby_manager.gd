@@ -24,9 +24,6 @@ static var instance : LobbyManager
 @export var join_button : Button
 @export var exit_button : Button
 
-@export var spinning_fish_player : AnimatedImagePlayer
-@export var spinning_fish_gif : AnimatedImageTexture
-
 @export var player_spawner : MultiplayerSpawner
 @export var starting_world : WorldBackBone
 
@@ -50,10 +47,6 @@ func _init() -> void:
 	LobbyManager.instance = self
 
 func _ready() -> void:
-	#spinning_fish_player.load_from_file(spinning_fish_gif.resource_path)
-	if not Engine.is_editor_hint():
-		spinning_fish_player.play()
-
 	player_spawner.spawn_function = spawn_player
 	#bc host and client are same process we need to cover spawning their client as a special case
 	player_spawner.child_entered_tree.connect(_on_player_spawned)
