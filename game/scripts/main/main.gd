@@ -9,12 +9,6 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	Steam.setAchievement("ACH_WIN_ONE_GAME")
-	Steam.setAchievement("ACH_TRAVEL_FAR_ACCUM")
-	Steam.setAchievement("ACH_TRAVEL_FAR_SINGLE")
-	Steam.setAchievement("ACH_WIN_100_GAMES")
-	Steam.setAchievement("NEW_ACHIEVEMENT_0_4")
-
 	if weather_manager:
 		weather_manager.load_weather_condition.call_deferred("clear")
 
