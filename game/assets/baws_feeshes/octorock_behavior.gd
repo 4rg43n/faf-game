@@ -1,6 +1,8 @@
 # spawns at 33% cahos in the water and walks up beach - he should ignore the water.
 class_name OctoRockBehavior extends Node3D
 
+static var instance : OctoRockBehavior
+
 @export var root_hsm : LimboHSM
 @export var spin_attack_state : LimboState
 @export var out_of_ammo : LimboHSM
@@ -11,8 +13,14 @@ class_name OctoRockBehavior extends Node3D
 @export var hurt_boxes : Array[Area3D]
 @export var hit_boxes : Array[Area3D]
 @export var sucking_boxes : Array[Area3D]
+@export var mesh : MeshInstance3D
 
 @export var spin_timmer : Timer
+@export var swallow_cam : Camera3D
+@export var swallow_anchor : BoneAttachment3D
+@export var fire_direction : Node3D
+
+@export var aggro_area : Area3D
 
 @export_group("blackboard")
 @export var current_suckage_target : Node3D = null
@@ -23,9 +31,8 @@ class_name OctoRockBehavior extends Node3D
 		if old_size == 0 and new_size != 0:
 			_on_capture_ammo.call_deferred()
 		current_ammo = new_value
-@export var current_hp : float
-
-@export var aggro_area : Area3D
+@export var current_hp : float = 100
+@export var current_player_target : Node3D = null
 
 #player that dealt damage, flat damage we intend to deal, if we hit a weakpoint
 func _on_hit_by_player(peer_id : int, damage : float, critical_damage : bool, _area_hit : Area3D) -> void:
@@ -68,6 +75,7 @@ func find_closest_player() -> Node3D:
 
 func _init() -> void:
 	aggro_area.monitorable = false
+	OctoRockBehavior.instance = self
 
 
 #will run current limbo state (leaf) every tick until a transition tells it to leave

@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://b6e2u6qe6entf" path="res://assets/baws_feeshes/octorock_behavior.gd" id="2_g2aj1"]
 [ext_resource type="BlackboardPlan" uid="uid://bolg6nunmhp4w" path="res://assets/baws_feeshes/octorock_behavior_data.tres" id="3_1h85i"]
 [ext_resource type="Script" uid="uid://ctcfnyla0bqhp" path="res://assets/baws_feeshes/spin_attack.gd" id="3_2ri2w"]
+[ext_resource type="Script" uid="uid://ckdpoustfnor1" path="res://assets/baws_feeshes/chase_down_your_prey.gd" id="5_16ebe"]
+[ext_resource type="Script" uid="uid://cejrogfda2a1l" path="res://assets/baws_feeshes/vaccuum.gd" id="5_flawj"]
+[ext_resource type="Script" uid="uid://b4v32tjay3ucu" path="res://assets/baws_feeshes/chase_and_shoot_prey.gd" id="7_teyar"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ri2w"]
 size = Vector3(2.9556465, 3.333496, 3.156128)
@@ -62,6 +65,9 @@ size = Vector3(1, 2.555603, 1.4483032)
 [sub_resource type="BoxShape3D" id="BoxShape3D_72m37"]
 size = Vector3(5.134094, 3.780487, 1.9616699)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_teyar"]
+radius = 80.0
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_flawj"]
 var/player_locations/name = &"player_locations"
 var/player_locations/type = 36
@@ -99,7 +105,8 @@ var/current_hp/value = 0.0
 var/current_hp/hint = 0
 var/current_hp/hint_string = "health"
 
-[node name="not_an_octorock_color_skinned" unique_id=220396493 node_paths=PackedStringArray("root_hsm", "spin_attack_state", "out_of_ammo", "get_in_range_of_target", "vaccum_in_ammo", "shoot_your_shot", "hurt_boxes", "hit_boxes", "sucking_boxes", "spin_timmer") instance=ExtResource("1_e3vjo")]
+[node name="not_an_octorock_color_skinned" unique_id=220396493 node_paths=PackedStringArray("root_hsm", "spin_attack_state", "out_of_ammo", "get_in_range_of_target", "vaccum_in_ammo", "shoot_your_shot", "hurt_boxes", "hit_boxes", "sucking_boxes", "mesh", "spin_timmer", "swallow_cam", "swallow_anchor", "fire_direction", "aggro_area") instance=ExtResource("1_e3vjo")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("2_g2aj1")
 root_hsm = NodePath("Root")
 spin_attack_state = NodePath("Root/spin - get players away they hort me")
@@ -110,8 +117,12 @@ shoot_your_shot = NodePath("Root/shoot at new target player or other rigid body 
 hurt_boxes = [NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeRightFront"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/KneeLeftFront"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/KneeRightBack"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/KneeLeftBack"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg6/RightLeg6"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg5/RightLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg4/RightLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg3/RightLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg2/RightLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/RightLeg1"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/LeftLeg1"), NodePath("Armature/Skeleton3D/HurtBoxes/HipBoneAttachment/EyesHurtBox"), NodePath("Armature/Skeleton3D/HurtBoxes/HipBoneAttachment/MainBodyHurtBox")]
 hit_boxes = [NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart1/LeftLeg1"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/RightSquishyLeg/RightSquishyLeg/RightLeg1"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart2/LeftLeg2"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart3/LeftLeg3"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart4/LeftLeg4"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart5/LeftLeg5"), NodePath("Armature/Skeleton3D/HitAndHurtBoxes/LeftSquishyLeg/LeftSquishyLegPart6/LeftLeg6"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftBack/KneeLeftBack"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightBack/KneeRightBack"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeLeftFront/KneeLeftFront"), NodePath("Armature/Skeleton3D/HitBoxes/ArmoredKneeRightFront/KneeRightFront")]
 sucking_boxes = [NodePath("Armature/Skeleton3D/SuckingUpStuffArea/SuckageHappensHere")]
+mesh = NodePath("Armature/Skeleton3D/Octorock")
 spin_timmer = NodePath("SpinAttackTimer")
-current_hp = null
+swallow_cam = NodePath("Armature/Skeleton3D/RootBone/SwallowCam")
+swallow_anchor = NodePath("Armature/Skeleton3D/SuckingUpStuffArea")
+fire_direction = NodePath("Armature/Skeleton3D/SuckingUpStuffArea/FireDirection")
+aggro_area = NodePath("Armature/Skeleton3D/RootBone/AggroRange")
 
 [node name="SpinAttackTimer" type="Timer" parent="." index="0" unique_id=1522223699]
 
@@ -372,6 +383,21 @@ shape = SubResource("BoxShape3D_72m37")
 transform = Transform3D(0.9201608, -2.8465195e-09, 0.39154068, -3.2111809e-09, 1, 1.4816636e-08, -0.39154083, -1.4890995e-08, 0.920161, 3.6060345, 1.7797357, -0.969827)
 shape = SubResource("BoxShape3D_72m37")
 
+[node name="FireDirection" type="Node3D" parent="Armature/Skeleton3D/SuckingUpStuffArea" index="1" unique_id=1395049287]
+transform = Transform3D(0.99999994, 1.4901161e-07, -2.7939677e-09, 1.7881393e-07, 1, 0, 0, 3.7252903e-09, 1, 0.6500491, 5.590086, -0.39155486)
+
+[node name="RootBone" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="5" unique_id=1277351200]
+bone_name = "Root"
+bone_idx = 0
+
+[node name="SwallowCam" type="Camera3D" parent="Armature/Skeleton3D/RootBone" index="0" unique_id=784076307]
+transform = Transform3D(-4.371138e-08, 0.10036534, -0.99495065, 3.5527137e-15, 0.99495065, 0.10036534, 1, 4.387104e-09, -4.349067e-08, 1.2136127, 4.1035457, -0.006850547)
+
+[node name="AggroRange" type="Area3D" parent="Armature/Skeleton3D/RootBone" index="1" unique_id=1134148029]
+
+[node name="AggroRange" type="CollisionShape3D" parent="Armature/Skeleton3D/RootBone/AggroRange" index="0" unique_id=59974716]
+shape = SubResource("SphereShape3D_teyar")
+
 [node name="Root" type="LimboHSM" parent="." index="3" unique_id=63098536]
 blackboard_plan = ExtResource("3_1h85i")
 
@@ -384,7 +410,11 @@ animation_player = NodePath("../../AnimationPlayer")
 blackboard_plan = SubResource("BlackboardPlan_flawj")
 
 [node name="get valid target into suck range" type="LimboState" parent="Root/out of ammo" index="0" unique_id=1209865498]
+script = ExtResource("5_16ebe")
 
-[node name="turn on da vacccum while target in range" type="LimboState" parent="Root/out of ammo" index="1" unique_id=888357213]
+[node name="turn on da vacccum while target in range" type="LimboState" parent="Root/out of ammo" index="1" unique_id=888357213 node_paths=PackedStringArray("sucking_boxes")]
+script = ExtResource("5_flawj")
+sucking_boxes = [NodePath("../../../Armature/Skeleton3D/SuckingUpStuffArea/SuckageHappensHere")]
 
 [node name="shoot at new target player or other rigid body in range" type="LimboState" parent="Root" index="2" unique_id=1939337396]
+script = ExtResource("7_teyar")
