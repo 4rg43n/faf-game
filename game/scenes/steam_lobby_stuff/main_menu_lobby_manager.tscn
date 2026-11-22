@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bjbwywy424ihg" path="res://scenes/player/player_sync.tscn" id="3_dqjaf"]
 [ext_resource type="PackedScene" uid="uid://dijfr0d4tmgks" path="res://scenes/steam_lobby_stuff/lobby_search_screen.tscn" id="4_jxa7w"]
 
-[node name="LobbyManager" type="Control" unique_id=1925178178 node_paths=PackedStringArray("singleplayer_button", "host_button", "join_button", "exit_button", "spinning_fish_player", "starting_screen_ui")]
+[node name="LobbyManager" type="Control" unique_id=1925178178 node_paths=PackedStringArray("singleplayer_button", "host_button", "join_button", "exit_button", "starting_screen_ui")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,6 @@ singleplayer_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOption
 host_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/HostLobbyButton")
 join_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/JoinLobbyButton")
 exit_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitButton")
-spinning_fish_player = NodePath("")
 starting_screen_ui = NodePath("Control")
 player_scene = ExtResource("3_dqjaf")
 

@@ -68,6 +68,8 @@ func _ready() -> void:
 		join_button.tooltip_text = "Multiplayer disabled in web version"
 
 func _init_multiplayer() -> void:
+	if OS.has_feature("web"):
+		return
 	if peer != null:
 		return
 	LobbyManager.app_id = ProjectSettings.get_setting("steam/initialization/app_data/app_id")
@@ -141,6 +143,8 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 		printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY])
 
 func spinup_server(in_lobby_id : int) -> void:
+	if OS.has_feature("web"):
+		return
 	print("trying to start server")
 	Steam.setLobbyJoinable(in_lobby_id, true)
 	# Create the host peer (virtual port 0) and assign to Godot's MultiplayerAPI
@@ -155,6 +159,8 @@ func spinup_server(in_lobby_id : int) -> void:
 
 ## if you join a friends game without having the game open yet it will pass the lobby_id via command args
 func _check_command_line_args() -> void:
+	if OS.has_feature("web"):
+		return
 	var command_line_args : Array = OS.get_cmdline_args()
 	if command_line_args.is_empty():
 		return
@@ -293,6 +299,8 @@ func update_player_list() -> void:
 	pass
 
 func _process(_delta: float) -> void:
+	if OS.has_feature("web"):
+		return
 	Steam.run_callbacks()
 
 
