@@ -65,6 +65,7 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0090496065, 1.7772642, 0.003629303)
 
 [node name="shop_visuals" parent="shop_scalar" unique_id=1620599326 instance=ExtResource("1_j6b73")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="Collision" type="Area3D" parent="shop_scalar" unique_id=640590441]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0090496065, -2.8787057, -0.003629303)
@@ -179,9 +180,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7190979, 7.9320865, 1.1886
 shape = SubResource("BoxShape3D_b65y5")
 
 [node name="kobold" parent="." unique_id=1607980251 instance=ExtResource("6_60j2u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26227933, 0.543755)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 1.1586533, 0.543755)
 
-[node name="Skeleton3D" parent="kobold/Armature_001" parent_id_path=PackedInt32Array(1607980251, 699660451) index="0" unique_id=379972826]
+[node name="Skeleton3D" parent="kobold/Armature_001" parent_id_path=PackedInt32Array(1607980251, 1002114793) index="0" unique_id=198771280]
 bones/16/rotation = Quaternion(-0.0006229263, -5.3901328e-14, -1.4852307e-10, 0.9999998)
 bones/21/rotation = Quaternion(0.8721411, 1.16646824e-07, 4.1586986e-07, 0.48925442)
 bones/31/position = Vector3(-0.358398, 0.7187025, 0.08595863)
