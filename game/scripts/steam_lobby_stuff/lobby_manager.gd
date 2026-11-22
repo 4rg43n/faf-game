@@ -316,7 +316,9 @@ func _on_player_joined(client_peer_id : int) -> void:
 func spawn_player(for_peer_id : int) -> PlayerMetadata:
 	print("spawn player ", for_peer_id)
 	var new_player : PlayerMetadata = player_scene.instantiate()
-	var steam_id : int = Steam.getSteamID()
+	var steam_id : int = -1
+	if not OS.has_feature("web"):
+		steam_id = Steam.getSteamID()
 	new_player.init(for_peer_id, steam_id, starting_world.spawn_location)
 	new_player.set_multiplayer_authority(for_peer_id)
 
