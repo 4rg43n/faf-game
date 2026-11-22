@@ -144,10 +144,10 @@ func _on_capture_ammo() -> void:
 #respond to an event without a transition
 """
 func _setup() -> void:
-    add_event_handler("movement_started", _on_movement_started)
+	add_event_handler("movement_started", _on_movement_started)
 
 func _on_movement_started(cargo = null) -> bool:
-    # Handle the "movement_started" event here.
+	# Handle the "movement_started" event here.
     # `cargo` can be passed with the event when calling `dispatch()`.
     # It's quite handy when you need to pass some data to the event handler.
     return true

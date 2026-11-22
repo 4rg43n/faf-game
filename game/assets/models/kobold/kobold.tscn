@@ -1,7 +1,13 @@
 [gd_scene format=3 uid="uid://cx7mb4xoujc07"]
 
+[ext_resource type="Script" uid="uid://cmbwerf7k10ja" path="res://scripts/interactables/shop.gd" id="1_qgj8k"]
 [ext_resource type="PackedScene" uid="uid://du53lt57qmbsa" path="res://assets/models/kobold/kobold.glb" id="1_r24ec"]
+[ext_resource type="Script" uid="uid://4tlhr6pdyntd" path="res://scripts/equipment/item.gd" id="2_aoo8a"]
 [ext_resource type="Material" uid="uid://c7slt58cvax6m" path="res://assets/models/kobold/materials/kobold-outline.tres" id="2_cf07i"]
+[ext_resource type="Resource" uid="uid://bvf3jra3t57yw" path="res://resources/items/worm.tres" id="5_bt124"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qap73"]
+size = Vector3(1.5079956, 2.5682373, 0.92025757)
 
 [node name="kobold" unique_id=1607980251 instance=ExtResource("1_r24ec")]
 
@@ -50,3 +56,18 @@ bones/85/rotation = Quaternion(0, -0.51035964, 0, 0.85996103)
 
 [node name="geo_body_kobold" parent="Armature_001/Skeleton3D" index="0" unique_id=1309657909]
 material_override = ExtResource("2_cf07i")
+
+[node name="root" type="BoneAttachment3D" parent="Armature_001/Skeleton3D" index="1" unique_id=184162607]
+bone_name = "root"
+bone_idx = 0
+
+[node name="shop" type="StaticBody3D" parent="Armature_001/Skeleton3D/root" index="0" unique_id=1271301678]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.53844595, 0.543755, -0.93615973)
+collision_layer = 5
+collision_mask = 10
+script = ExtResource("1_qgj8k")
+main_inventory = Array[ExtResource("2_aoo8a")]([ExtResource("5_bt124"), null, null, null, null, null, null, null, null])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature_001/Skeleton3D/root/shop" index="0" unique_id=1908581407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5268583, 1.7177091, 0.36256403)
+shape = SubResource("BoxShape3D_qap73")
