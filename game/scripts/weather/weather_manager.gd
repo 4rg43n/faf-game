@@ -59,7 +59,7 @@ func randomize_weather(exclude_clear: bool) -> void:
 	var rand_wind_direction : Vector3 = Vector3(randf_range(-5.0, 5.0),0.0,randf_range(-5.0, 5.0))
 	var rand_wind_intensity : float = randf()
 	rpc("load_weather_condition", condition)
-	rpc("set_wind", [rand_wind_direction, rand_wind_intensity])
+	rpc("set_wind", rand_wind_direction, rand_wind_intensity)
 
 
 @rpc("any_peer", "call_local")
