@@ -41,12 +41,14 @@ const MAGIC_KEY : String = "asdasda23w2ivn17800as9u77v6982nnmv;;aoi8y77ayubhl;"
 
 #we can set player specific lobby values using setLobbyMemberData instead of setLobbyData
 
-var steam_enabled : bool = false
+var steam_enabled : bool = true
 
 func _init() -> void:
 	LobbyManager.instance = self
 
 func _ready() -> void:
+	if OS.has_feature("web"):
+		steam_enabled = false
 	player_spawner.spawn_function = spawn_player
 	#bc host and client are same process we need to cover spawning their client as a special case
 	player_spawner.child_entered_tree.connect(_on_player_spawned)
@@ -61,14 +63,14 @@ func _ready() -> void:
 
 	_check_command_line_args()
 
-	if OS.has_feature("web"):
+	if not steam_enabled:
 		host_button.disabled = true
 		host_button.tooltip_text = "Multiplayer disabled in web version"
 		join_button.disabled = true
 		join_button.tooltip_text = "Multiplayer disabled in web version"
 
 func _init_multiplayer() -> void:
-	if OS.has_feature("web"):
+	if not steam_enabled:
 		return
 	if peer != null:
 		return
@@ -143,7 +145,7 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 		printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY])
 
 func spinup_server(in_lobby_id : int) -> void:
-	if OS.has_feature("web"):
+	if not steam_enabled:
 		return
 	print("trying to start server")
 	Steam.setLobbyJoinable(in_lobby_id, true)
@@ -159,7 +161,7 @@ func spinup_server(in_lobby_id : int) -> void:
 
 ## if you join a friends game without having the game open yet it will pass the lobby_id via command args
 func _check_command_line_args() -> void:
-	if OS.has_feature("web"):
+	if not steam_enabled:
 		return
 	var command_line_args : Array = OS.get_cmdline_args()
 	if command_line_args.is_empty():
@@ -299,7 +301,7 @@ func update_player_list() -> void:
 	pass
 
 func _process(_delta: float) -> void:
-	if OS.has_feature("web"):
+	if not steam_enabled:
 		return
 	Steam.run_callbacks()
 
@@ -317,7 +319,7 @@ func spawn_player(for_peer_id : int) -> PlayerMetadata:
 	print("spawn player ", for_peer_id)
 	var new_player : PlayerMetadata = player_scene.instantiate()
 	var steam_id : int = -1
-	if not OS.has_feature("web"):
+	if not steam_enabled:
 		steam_id = Steam.getSteamID()
 	new_player.init(for_peer_id, steam_id, starting_world.spawn_location)
 	new_player.set_multiplayer_authority(for_peer_id)
