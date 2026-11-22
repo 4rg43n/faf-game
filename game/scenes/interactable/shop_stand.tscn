@@ -62,7 +62,7 @@ size = Vector3(1.1748047, 2.4374084, 1)
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="shop_scalar" type="Node3D" parent="." unique_id=1105224818]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.0090496065, 1.7772642, 0.003629303)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0090496065, 1.7772642, 0.003629303)
 
 [node name="shop_visuals" parent="shop_scalar" unique_id=1620599326 instance=ExtResource("1_j6b73")]
 
