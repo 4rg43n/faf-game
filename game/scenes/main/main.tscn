@@ -7,28 +7,39 @@
 [ext_resource type="Script" uid="uid://cd4a6lf1xe5jp" path="res://scripts/weather/weather_manager.gd" id="3_hxu8e"]
 [ext_resource type="Script" uid="uid://dek1mvhhnw5d4" path="res://scripts/ui/menus/ui_manager.gd" id="3_necax"]
 [ext_resource type="Environment" uid="uid://0x4j6mofq72x" path="res://resources/world_environment.tres" id="4_a8run"]
+[ext_resource type="Script" uid="uid://cxuw7fmjocexn" path="res://scripts/ui/progress_bar.gd" id="4_i7in8"]
 [ext_resource type="Resource" uid="uid://cxdu4jyq8tikp" path="res://resources/weather/clear.tres" id="4_nvumn"]
 [ext_resource type="Script" uid="uid://dq7rc5f0fftqi" path="res://scenes/main/speed_tracker.gd" id="5_6llfj"]
 [ext_resource type="Resource" uid="uid://c8vke606olrn" path="res://resources/weather/cloudy.tres" id="5_ou6is"]
 [ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="5_ouso4"]
 [ext_resource type="PackedScene" uid="uid://ged1a840ronn" path="res://scenes/ui/menus/options_menu.tscn" id="5_r4lks"]
-[ext_resource type="Script" uid="uid://dw7ps4j81ybl5" path="res://scripts/ui/jump_tracker.gd" id="6_0bhws"]
 [ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="6_blune"]
 [ext_resource type="Resource" uid="uid://bsqtk47oirn4s" path="res://resources/weather/foggy.tres" id="6_necax"]
 [ext_resource type="Resource" uid="uid://c23rdredqqqog" path="res://resources/weather/heavy_rain.tres" id="7_r4lks"]
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="7_th5th"]
 [ext_resource type="Resource" uid="uid://cno1bfob1d317" path="res://resources/weather/rain.tres" id="8_pg34l"]
+[ext_resource type="PackedScene" uid="uid://bkksku8gani3e" path="res://scenes/ui/credits.tscn" id="9_i7in8"]
 [ext_resource type="Resource" uid="uid://182qlsti6ibm" path="res://resources/weather/storm.tres" id="9_m4h2d"]
 [ext_resource type="PackedScene" uid="uid://cmh5qypdiccew" path="res://scenes/ui/menus/shop_and_inventory_menu.tscn" id="10_gkmcc"]
 [ext_resource type="PackedScene" uid="uid://bk6rwduy8u5ym" path="res://scenes/weather/rain.tscn" id="11_p8abn"]
 [ext_resource type="Script" uid="uid://ctqyt4l0fwa3l" path="res://scripts/env/water_system.gd" id="17_s17dp"]
 [ext_resource type="Shader" uid="uid://cn371to81doe" path="res://shaders/ocean.gdshader" id="18_37hlw"]
 [ext_resource type="Script" uid="uid://dmpdc3to4dfhh" path="res://scripts/world/killzone.gd" id="18_ou6is"]
+[ext_resource type="Script" uid="uid://botd1s4mi7ogx" path="res://scripts/chaos/chaos_system.gd" id="21_62atk"]
 [ext_resource type="Script" uid="uid://bx1vuerbrrtmt" path="res://scripts/player/on_player_throw.gd" id="22_m4h2d"]
+[ext_resource type="Script" uid="uid://bd7kjvr27uf67" path="res://scripts/audio/music_manager.gd" id="23_7nlll"]
 [ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
+<<<<<<< HEAD
 [ext_resource type="Script" uid="uid://cft17jvxfva7v" path="res://scripts/fish/fish_system.gd" id="25_6llfj"]
 [ext_resource type="PackedScene" uid="uid://dldk7t22vxdo" path="res://scenes/critters/king_of_the_pond.tscn" id="26_0bhws"]
+=======
+[ext_resource type="AudioStream" uid="uid://dxli54sb7xfhj" path="res://audio/music/the_mountain-toy-theme-159128.mp3" id="24_ii537"]
+[ext_resource type="Script" uid="uid://bulitqh4g88h2" path="res://scenes/main/player_spawner.gd" id="31_ii537"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvec"]
+bg_color = Color(0.43405953, 8.139512e-05, 0.049701735, 1)
+>>>>>>> 2116aa0d6f5a1eddb70de675cecc5399bf1c16a5
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
 
@@ -43,7 +54,7 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TropicalIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker", "speed_tracker", "fps_tracker", "credits")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,46 +69,85 @@ lobby_manager = NodePath("../LobbyManager")
 options_menu = NodePath("OptionsMenu")
 inventory = NodePath("ShopAndInventoryMenu")
 game_manager = NodePath("../GameManager")
+chaos_tracker = NodePath("ChaosTracker")
+speed_tracker = NodePath("SpeedTracker")
+fps_tracker = NodePath("FpsTracker")
+credits = NodePath("Credits")
 metadata/_edit_lock_ = true
+
+[node name="ChaosTracker" type="VBoxContainer" parent="UI" unique_id=261019762]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(-0.225, 0)
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UI/ChaosTracker" unique_id=814268835]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Chaos"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/ChaosTracker" unique_id=352976152]
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_irvec")
+value = 100.0
+script = ExtResource("4_i7in8")
+
+[node name="Line2D" type="Line2D" parent="UI/ChaosTracker/ProgressBar" unique_id=847720178]
+position = Vector2(0, -27)
+points = PackedVector2Array(375, 27, 375, 54)
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="UI/ChaosTracker/ProgressBar" unique_id=1505613659]
+position = Vector2(0, -27)
+points = PackedVector2Array(755, 27, 755, 54)
+default_color = Color(0, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="UI/ChaosTracker" unique_id=995863543]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Catch corrupted fish to cleanse the ocean!"
 
 [node name="FpsTracker" parent="UI" unique_id=1956701810 instance=ExtResource("3_b1x3f")]
 layout_mode = 1
 offset_right = 179.0
 metadata/_edit_lock_ = true
 
-[node name="Trackers" type="HBoxContainer" parent="UI" unique_id=1543582842]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 228.0
-grow_vertical = 0
-
-[node name="SpeedTracker" type="Label" parent="UI/Trackers" unique_id=519599510]
-layout_mode = 2
+[node name="SpeedTracker" type="Label" parent="UI" unique_id=519599510]
+visible = false
+layout_mode = 0
+offset_top = 616.0
+offset_right = 112.0
+offset_bottom = 639.0
 text = "Over 9000 m/s"
 script = ExtResource("5_6llfj")
 
-[node name="JumpTracker" type="Label" parent="UI/Trackers" unique_id=1327207390]
-layout_mode = 2
-text = "Over 9000 m/s"
-script = ExtResource("6_0bhws")
-
-[node name="OptionsMenu" parent="UI" unique_id=450231988 instance=ExtResource("5_r4lks")]
+[node name="OptionsMenu" parent="UI" unique_id=450231988 node_paths=PackedStringArray("world") instance=ExtResource("5_r4lks")]
 visible = false
 layout_mode = 1
 offset_right = 1152.8015
 offset_bottom = 647.3821
+mouse_filter = 2
+world = NodePath("../../World/TropicalIsland")
 metadata/_edit_lock_ = true
 
 [node name="ShopAndInventoryMenu" parent="UI" unique_id=741391217 instance=ExtResource("10_gkmcc")]
 visible = false
 layout_mode = 1
+mouse_filter = 2
 
-[node name="GameManager" type="Node" parent="." unique_id=217552877 node_paths=PackedStringArray("sky_3d")]
+[node name="Credits" parent="UI" unique_id=623738196 instance=ExtResource("9_i7in8")]
+visible = false
+layout_mode = 1
+
+[node name="GameManager" type="Node" parent="." unique_id=217552877 node_paths=PackedStringArray("sky_3d", "lobby_camera")]
 script = ExtResource("2_yyfjg")
 sky_3d = NodePath("../World/Sky3D")
+lobby_camera = NodePath("../LobbyCamera")
 metadata/_custom_type_script = "uid://dd0g2xdhbs54h"
 
 [node name="WeatherManager" type="Node" parent="." unique_id=234665414 node_paths=PackedStringArray("rain_particles", "sky_3d", "time_of_day", "sky_dome")]
@@ -115,6 +165,8 @@ weather_conditions = Dictionary[String, Resource]({
 "storm": ExtResource("9_m4h2d")
 })
 environment = ExtResource("4_a8run")
+delay_min_sec = 60.0
+delay_max_sec = 300.0
 
 [node name="Rain" parent="WeatherManager" unique_id=1079689614 instance=ExtResource("11_p8abn")]
 visible = false
@@ -130,6 +182,7 @@ oceanResolution = 0.5
 oceanShader = ExtResource("18_37hlw")
 metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
 
+<<<<<<< HEAD
 [node name="FishSystem" type="Node" parent="." unique_id=26131347 node_paths=PackedStringArray("world")]
 script = ExtResource("25_6llfj")
 maxFishes = 500
@@ -145,6 +198,20 @@ fishAlignment = 5.0
 fishBoundsRadius = 5.0
 fishAvoidCollisionWeight = 10.0
 metadata/_custom_type_script = "uid://cft17jvxfva7v"
+=======
+[node name="ChaosSystem" type="Node" parent="." unique_id=1071842316]
+script = ExtResource("21_62atk")
+metadata/_custom_type_script = "uid://botd1s4mi7ogx"
+
+[node name="MusicManager" type="Node" parent="." unique_id=377988477 node_paths=PackedStringArray("music_player")]
+script = ExtResource("23_7nlll")
+music_player = NodePath("AudioStreamPlayer")
+metadata/_custom_type_script = "uid://bd7kjvr27uf67"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
+stream = ExtResource("24_ii537")
+volume_db = -8.0
+>>>>>>> 2116aa0d6f5a1eddb70de675cecc5399bf1c16a5
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
@@ -196,7 +263,7 @@ starting_world = NodePath("../TropicalIsland")
 shape = SubResource("WorldBoundaryShape3D_0kwd2")
 
 [node name="InteractableItemSpawner" type="MultiplayerSpawner" parent="World" unique_id=913016617]
-_spawnable_scenes = PackedStringArray("uid://3mkg6nfyac2f", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
+_spawnable_scenes = PackedStringArray("uid://dldk7t22vxdo", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
 spawn_path = NodePath(".")
 script = ExtResource("24_37hlw")
 
@@ -208,6 +275,7 @@ metadata/_edit_lock_ = true
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1692186644]
 _spawnable_scenes = PackedStringArray("uid://bjbwywy424ihg")
 spawn_path = NodePath(".")
+script = ExtResource("31_ii537")
 
 [node name="unhandled_input_handler" type="Node" parent="." unique_id=2098882594]
 

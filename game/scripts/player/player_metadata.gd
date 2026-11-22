@@ -2,6 +2,7 @@ class_name PlayerMetadata extends Node3D
 
 signal main_inventory_updated()
 signal hotbar_updated()
+signal money_updated()
 
 @export var peer_id : int
 @export var steam_id : int
@@ -9,7 +10,10 @@ signal hotbar_updated()
 @export var current_equipment : CustomEnums.Equipment_Type = CustomEnums.Equipment_Type.EMPTY_HAND
 @export var main_inventory : Array[Item]
 @export var hotbar : Array[Item]
-@export var money : float = 0.0
+@export var money : float = 0.0:
+	set(value):
+		money = value
+		money_updated.emit()
 
 const MAX_INVENTORY_SIZE : int = 50
 const MAX_HOTBAR_SIZE : int = 9
@@ -116,6 +120,7 @@ func set_active_item(old_slot : int) -> void:
 
 	if hotbar[InventorySystem.instance.active_slot] == null:
 		current_equipment = CustomEnums.Equipment_Type.EMPTY_HAND
+		player_controller.fishing_label.visible = current_equipment == CustomEnums.Equipment_Type.TOOL
 		return
 	var new_active_item : Item = hotbar[InventorySystem.instance.active_slot]
 	var new_item_obj : Node3D = get_node_or_null(new_active_item.hotbar_item_path)
@@ -132,6 +137,7 @@ func set_active_item(old_slot : int) -> void:
 	if new_item_obj:
 		new_item_obj.visible = true
 	current_equipment = new_active_item.equipment_type
+	player_controller.fishing_label.visible = current_equipment == CustomEnums.Equipment_Type.TOOL
 
 func item_removed_from_hotbar(item : Item, old_hotbar_index : int) -> void:
 	var old_item_obj : Node3D = get_node_or_null(item.hotbar_item_path)

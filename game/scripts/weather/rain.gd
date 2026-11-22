@@ -31,6 +31,9 @@ enum RainSounds{
 		Storm
 	}
 
+var use_debug : bool = false
+
+
 func _init() -> void:
 	instance = self
 
@@ -99,7 +102,8 @@ func calculate_amount_indoors() -> float:
 	for raycast: RayCast3D in indoor_raycasts_array:
 		if raycast.is_colliding():
 			amount_indoors += add_amount
-	debug_label.text = "Indoor Amount: " + str(amount_indoors * 100) + "%"
+	if use_debug:
+		debug_label.text = "Indoor Amount: " + str(amount_indoors * 100) + "%"
 	return amount_indoors
 
 

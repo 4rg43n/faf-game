@@ -12,6 +12,9 @@ signal active_camera_changed(camera: Camera3D)
 @export var animation_tree: AnimationTree
 @export var animation_player: AnimationPlayer
 @export var interact_label: Label
+@export var fishing_label: Label
+@export var super_jump_label: Label
+@export var super_jump_bar: ProgressBar
 @export var active_camera: Camera3D:
 	set(camera):
 		if camera == active_camera:
@@ -102,6 +105,8 @@ var max_slide_time : float = 0.75
 var time_sliding : float = 0.0
 var on_water: bool = false
 
+var ui_hidden : bool = false
+
 # ----DEV SETTINGS----
 var dev_speed: float = 50.0
 var debug_scene_play : bool = false
@@ -146,6 +151,12 @@ func _physics_process(delta: float) -> void:
 	handle_animation(delta)
 
 	update_locomotion()
+
+	if ui_hidden:
+		interact_label.visible = false
+		fishing_label.visible = false
+		super_jump_label.visible = false
+		super_jump_bar.visible = false
 
 	#print(animation_state)
 	#print(animation_state.get_current_node())
@@ -304,6 +315,12 @@ func handle_move_input(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, move_speed)
 		return
 
+	var jump_percent = current_jump_velocity - jump_velocity
+	if jump_percent == 0:
+		super_jump_bar.value = 0
+	else:
+		super_jump_bar.value = (current_jump_velocity - jump_velocity) / (max_jump_velocity - jump_velocity) * 100
+
 	if is_on_floor():
 		available_jumps = max_available_jumps
 		available_wall_jumps = max_available_wall_jumps
@@ -384,7 +401,7 @@ func handle_interaction():
 		interact_label.text = "She could interact but she has no method..." + result.collider.name
 		var hit = result.collider
 		if hit.has_method("on_interact"):
-			interact_label.text = "press E to interact"
+			interact_label.text = "Press E to interact"
 			if Input.is_key_pressed(KEY_E):
 				hit.on_interact(player_metadata.peer_id)
 	else:
@@ -428,3 +445,7 @@ func handle_animation(delta: float):
 		landing_requested=false
 
 	was_on_floor=grounded
+
+
+func hide_ui():
+	ui_hidden = true

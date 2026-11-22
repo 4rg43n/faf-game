@@ -6,11 +6,19 @@
 [ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="4_ft2bs"]
 [ext_resource type="PackedScene" uid="uid://crisams4xiht3" path="res://scenes/interactable/bug_collector_mini_game.tscn" id="5_ej332"]
 [ext_resource type="PackedScene" uid="uid://cgk1kf88cibpm" path="res://scenes/interactable/shop_stand.tscn" id="6_jsfgd"]
-[ext_resource type="Script" uid="uid://be71yjcpvrnws" path="res://scripts/env/spawners.gd" id="7_spawner"]
-[ext_resource type="Script" uid="uid://cft17jvxfva7v" path="res://scripts/fish/fish_system.gd" id="8_fish"]
-[ext_resource type="PackedScene" uid="uid://dldk7t22vxdo" path="res://scenes/critters/king_of_the_pond.tscn" id="9_i5vbv"]
+[ext_resource type="PackedScene" uid="uid://b00tgq7bnpmd5" path="res://scenes/terrain/rockeroo_small.tscn" id="7_ft2bs"]
+[ext_resource type="PackedScene" uid="uid://wqi5u3fiafq7" path="res://scenes/terrain/rockeroo_small_bald_snatched_in_a_mini.tscn" id="8_j627t"]
+[ext_resource type="PackedScene" uid="uid://8bodtx5u1qtk" path="res://scenes/terrain/rockeroo_small_bald_snatched.tscn" id="9_i5vbv"]
+[ext_resource type="PackedScene" uid="uid://rgl6eya62sa5" path="res://scenes/terrain/rockeroo_small_bald.tscn" id="10_rhyyu"]
+[ext_resource type="PackedScene" uid="uid://dhgiltlcdf4fh" path="res://scenes/terrain/rockeroo.tscn" id="11_es7ny"]
+[ext_resource type="PackedScene" uid="uid://c0xmse77ksqjy" path="res://scenes/terrain/palm_tree.tscn" id="11_k04q5"]
+[ext_resource type="PackedScene" uid="uid://m35pdhn1bfgj" path="res://scenes/terrain/rockeroo_bald.tscn" id="12_es7ny"]
+[ext_resource type="Script" uid="uid://cs0evbuhj8imr" path="res://scenes/interactable/bug_rock_minigame.gd" id="13_f8da5"]
+[ext_resource type="Script" uid="uid://be71yjcpvrnws" path="res://scripts/env/spawners.gd" id="14_spawner"]
+[ext_resource type="Script" uid="uid://cft17jvxfva7v" path="res://scripts/fish/fish_system.gd" id="15_fish"]
+[ext_resource type="PackedScene" uid="uid://dldk7t22vxdo" path="res://scenes/critters/king_of_the_pond.tscn" id="16_king"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhyyu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f8da5"]
 render_priority = 0
 shader = ExtResource("3_jsfgd")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -39,7 +47,7 @@ shader_parameter/interactive_level_y = 0.3
 metadata/SimpleGrassTexturedMaterial = "2.1.0"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jsfgd"]
-size = Vector3(2983.7485, 11.919434, 2381.3481)
+size = Vector3(1500, 11.919, 1500)
 
 [node name="TropicalIsland" type="Node3D" unique_id=283161791 node_paths=PackedStringArray("spawn_location", "ocean_areas", "evil_fish_spawners")]
 script = ExtResource("1_x0u74")
@@ -50,14 +58,14 @@ metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 
 [node name="island0" parent="." unique_id=642752713 instance=ExtResource("2_x0u74")]
 
-[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 1294909534) index="1" unique_id=874324246]
-material_override = SubResource("ShaderMaterial_rhyyu")
+[node name="RockerooSmallBaldSnatchedInAMini" parent="island0/Grid/StaticBody3D" parent_id_path=PackedInt32Array(642752713, 1474437580) index="1" unique_id=807610147 instance=ExtResource("8_j627t")]
+transform = Transform3D(-0.29585552, 0.32785103, 0.8972086, -0.952, -0.17840725, -0.2487309, 0.07852188, -0.9277307, 0.3648969, -9.974749, 39.306103, -82.40844)
+
+[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 1660281035) index="1" unique_id=874324246]
+material_override = SubResource("ShaderMaterial_f8da5")
 
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8147697, 0)
-
-[node name="BugCollectorMiniGame" parent="." unique_id=1401098916 instance=ExtResource("5_ej332")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -53.3947, 6.832299, -8.78101)
 
 [node name="Ocean" type="Area3D" parent="." unique_id=1494808209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -231.6875, 0, 51.49388)
@@ -69,11 +77,109 @@ shape = SubResource("BoxShape3D_jsfgd")
 debug_color = Color(0, 0.6, 0.7019608, 1)
 
 [node name="ShopStand" parent="." unique_id=869337142 instance=ExtResource("6_jsfgd")]
-transform = Transform3D(-2.1855695e-07, 0, 5, 0, 5, 0, -5, 0, -2.1855695e-07, 18.186733, 5.2663803, -73.30017)
+transform = Transform3D(1.4244162, 0, -4.7928114, 0, 5, 0, 4.7928114, 0, 1.4244162, 7.106264, 5.060714, -64.852005)
+
+[node name="RockerooSmall" parent="." unique_id=639007622 instance=ExtResource("7_ft2bs")]
+transform = Transform3D(-0.9957482, 0.06062749, -0.06935547, 0.043881357, 0.9741598, 0.22155704, 0.08099572, 0.21757159, -0.97267807, 48.72577, -5.6192183, -62.835197)
+
+[node name="RockerooSmallBaldSnatchedInAMini" parent="." unique_id=356909169 instance=ExtResource("8_j627t")]
+transform = Transform3D(0.26400766, -0.13184558, 0.95546675, 0.035114788, 0.99127024, 0.12708348, -0.9638812, 0, 0.2663327, 66.110985, -1.0698683, -18.451252)
+
+[node name="RockerooSmallBaldSnatched" parent="." unique_id=1154196310 instance=ExtResource("9_i5vbv")]
+transform = Transform3D(0.19464967, -0.013930796, -0.9807739, -0.8704078, 0.45853734, -0.17925884, 0.45221865, 0.8885659, 0.07712866, 63.701645, -0.550313, -27.072752)
+
+[node name="RockerooSmallBald" parent="." unique_id=487326663 instance=ExtResource("10_rhyyu")]
+transform = Transform3D(0.9981999, -0.059334874, -0.008754078, -0.059977293, -0.98751, -0.14569423, 3.6388084e-09, 0.14595698, -0.98929113, 74.2781, -4.5254316, -39.030132)
+
+[node name="RockerooSmallBaldSnatchedInAMini2" parent="." unique_id=1046153978 instance=ExtResource("8_j627t")]
+transform = Transform3D(0.21995008, 0.97551113, 0, -0.97551113, 0.21995008, 0, 0, 0, 1, 79.69729, 3.3463297, -23.331608)
+
+[node name="RockerooSmallBaldSnatched2" parent="." unique_id=1146768734 instance=ExtResource("9_i5vbv")]
+transform = Transform3D(0.9983023, -0.043706287, 0.038501907, 0.04439869, 0.9988638, -0.017315889, -0.037701357, 0.018995902, 0.9991085, 86.39717, -5.4228354, -23.065271)
+
+[node name="RockerooSmallBald2" parent="." unique_id=51622811 instance=ExtResource("10_rhyyu")]
+transform = Transform3D(0.53578746, -0.3156889, -0.78311694, 0.23834872, 0.9463037, -0.21840075, 0.8100133, -0.06963851, 0.5822619, 91.12222, -4.216917, -31.047882)
+
+[node name="RockerooSmallBaldSnatched3" parent="." unique_id=1562395874 instance=ExtResource("9_i5vbv")]
+transform = Transform3D(-0.32776213, 0.67514503, -0.6608716, -0.9183331, -0.3919659, 0.055019572, -0.221893, 0.6249336, 0.7484795, 66.70929, 3.4878569, -47.182133)
+
+[node name="RockerooSmallBaldSnatched4" parent="." unique_id=572593631 instance=ExtResource("9_i5vbv")]
+transform = Transform3D(-0.40352973, 0.042192124, -0.91399324, -0.3049693, -0.948016, 0.09088183, -0.8626457, 0.31541342, 0.3954199, 62.234825, -2.2393436, -50.28758)
+
+[node name="palmer2" parent="." unique_id=929042567 instance=ExtResource("11_k04q5")]
+transform = Transform3D(-0.95454246, 0.043316197, 0.2949107, -0.06973158, 0.9294795, -0.36222312, -0.28980365, -0.36632192, -0.8842071, -80.72845, 2.538837, -61.635048)
+
+[node name="palmer3" parent="." unique_id=1292103647 instance=ExtResource("11_k04q5")]
+transform = Transform3D(0.53574204, 0.122838974, 0.83539873, 0.029842908, 0.98598886, -0.16412036, -0.8438544, 0.11285695, 0.52456987, 31.028706, 7.6948113, -74.703156)
+
+[node name="palmer4" parent="." unique_id=1705573883 instance=ExtResource("11_k04q5")]
+transform = Transform3D(0.8537335, -0.0005353779, 0.52071, 0.0004570701, 0.9999999, 0.00027877666, -0.52071005, 0, 0.8537336, 48.625546, 6.3004575, -61.142883)
+
+[node name="RockerooSmallBald3" parent="." unique_id=1233671957 instance=ExtResource("10_rhyyu")]
+transform = Transform3D(0.9983606, -0.057236034, 0.0002530692, 0.057192594, 0.9974106, -0.043604318, 0.0022433118, 0.04354728, 0.99904895, 21.06458, 2.4518518, -95.43829)
+
+[node name="RockerooSmall2" parent="." unique_id=1900180236 instance=ExtResource("7_ft2bs")]
+transform = Transform3D(0.988453, 0.1510663, 0.011824634, -0.14854465, 0.9814443, -0.12125104, -0.02992218, 0.11809444, 0.9925514, 29.709282, -3.7269049, -77.27041)
+
+[node name="RockerooSmallBaldSnatchedInAMini3" parent="." unique_id=1691511020 instance=ExtResource("8_j627t")]
+transform = Transform3D(0.028752599, -0.8939521, -0.44723934, 0.99949944, 0.03161654, 0.0010610278, 0.013191652, -0.44704592, 0.89441377, 23.598278, 9.514539, -84.32503)
+
+[node name="RockerooSmallBaldSnatchedInAMini4" parent="." unique_id=171557224 instance=ExtResource("8_j627t")]
+transform = Transform3D(0.04692425, -0.9975623, 0.051651113, 0.007906632, -0.05133556, -0.9986504, 0.9988672, 0.047269292, 0.0054784734, 23.465075, 9.990837, -87.04666)
+
+[node name="Rockeroo" parent="." unique_id=157025683 instance=ExtResource("11_es7ny")]
+transform = Transform3D(0.999816, 0.019110285, -0.0016797015, -0.019183962, 0.99597615, -0.08754148, 0, 0.08755759, 0.99615943, 16.916668, -4.4090853, -101.34802)
+
+[node name="RockerooSmallBaldSnatched5" parent="." unique_id=295919862 instance=ExtResource("9_i5vbv")]
+transform = Transform3D(-0.12263818, -0.99245155, 0, 0.93982375, -0.11613491, -0.32131642, 0.3188909, -0.03940565, 0.9469719, 19.704355, 11.400698, -93.94376)
+
+[node name="RockerooSmallBaldSnatched6" parent="." unique_id=150899588 instance=ExtResource("9_i5vbv")]
+transform = Transform3D(-0.15887226, -0.93508434, 0.3168228, 0.9174719, -0.25836444, -0.30247778, 0.36469793, 0.2426207, 0.898961, 15.969812, 17.898834, -101.050514)
+
+[node name="RockerooSmallBaldSnatchedInAMini5" parent="." unique_id=844762385 instance=ExtResource("8_j627t")]
+transform = Transform3D(-0.05841273, -0.99758077, 0.03768925, -1.3472023e-09, -0.037753712, -0.99928707, 0.9982925, -0.058371097, 0.0022052974, 16.048582, 19.359102, -96.533424)
+
+[node name="RockerooSmallBaldSnatched7" parent="." unique_id=182595052 instance=ExtResource("9_i5vbv")]
+transform = Transform3D(0.07951075, -0.69669664, -0.71294606, -0.92659146, -0.31537828, 0.20485285, -0.36756784, 0.64432174, -0.6706292, 12.557993, 21.254322, -89.5973)
+
+[node name="RockerooSmallBaldSnatched8" parent="." unique_id=891069122 instance=ExtResource("9_i5vbv")]
+transform = Transform3D(1, 0, 0, 0, -0.9919634, 0.12652522, 0, -0.12652522, -0.9919634, -3.0798254, 34.880775, -93.95178)
+
+[node name="RockerooSmallBaldSnatched9" parent="." unique_id=239913121 instance=ExtResource("9_i5vbv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1451774, 17.71839, -95.84464)
+
+[node name="RockerooBald" parent="." unique_id=1466777032 instance=ExtResource("12_es7ny")]
+transform = Transform3D(0.9715709, 0, 0.23674868, 0, 1, 0, -0.23674868, 0, 0.9715709, -3.820611, 9.663697, -93.674065)
+
+[node name="RockerooSmallBaldSnatchedInAMini6" parent="." unique_id=1109221611 instance=ExtResource("8_j627t")]
+transform = Transform3D(0.6739475, 0, -0.73877925, 0.09920046, 0.99094397, 0.0904951, 0.73208886, -0.13427618, 0.66784424, -6.5825477, 27.800957, -101.11502)
+
+[node name="BugRockMiniGame" type="Node3D" parent="." unique_id=1995282015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2022196, 48.062805, -87.03124)
+script = ExtResource("13_f8da5")
+metadata/_custom_type_script = "uid://cs0evbuhj8imr"
+
+[node name="BugCollectorMiniGame" parent="." unique_id=1401098916 instance=ExtResource("5_ej332")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 2.9063416, 46.887165, -84.09488)
+
+[node name="RockerooSmall3" parent="." unique_id=578745820 instance=ExtResource("7_ft2bs")]
+transform = Transform3D(1, 0, 0, 0, 0.95522434, 0.2958828, 0, -0.2958828, 0.95522434, -12.391747, 23.154095, -98.72622)
+
+[node name="RockerooSmallBald4" parent="." unique_id=650318062 instance=ExtResource("10_rhyyu")]
+transform = Transform3D(0.8549316, -0.19539931, 0.4805323, 0.118923925, 0.97549987, 0.18508686, -0.50492495, -0.1010898, 0.85722315, -14.876038, 24.105595, -95.01045)
+
+[node name="RockerooSmallBaldSnatchedInAMini7" parent="." unique_id=1870088864 instance=ExtResource("8_j627t")]
+transform = Transform3D(0.0065652416, -0.9999784, 0, 0.9999784, 0.0065652416, 0, 0, 0, 1, -12.323578, 35.899647, -88.13526)
+
+[node name="RockerooSmallBaldSnatchedInAMini8" parent="." unique_id=1448056510 instance=ExtResource("8_j627t")]
+transform = Transform3D(0.10040338, -0.6841191, 0.7224266, 0.9894012, 0.14520751, 0, -0.10490177, 0.7147698, 0.6914476, -11.881771, 36.95359, -84.313126)
+
+[node name="RockerooSmall4" parent="." unique_id=1944586221 instance=ExtResource("7_ft2bs")]
+transform = Transform3D(1, 0, 0, 0, 0.975855, -0.21841928, 0, 0.21841928, 0.975855, 43.61161, -6.555538, -63.214916)
 
 [node name="FishSpawner1" type="Node3D" parent="." unique_id=1123456002]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 50)
-script = ExtResource("7_spawner")
+script = ExtResource("14_spawner")
 spawnFrequency = 15.0
 maxFishesPerSpawn = 3
 minFishesPerSpawn = 1
@@ -81,7 +187,7 @@ spawnRadius = 10.0
 
 [node name="FishSpawner2" type="Node3D" parent="." unique_id=1123456003]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, -8, 0)
-script = ExtResource("7_spawner")
+script = ExtResource("14_spawner")
 spawnFrequency = 15.0
 maxFishesPerSpawn = 3
 minFishesPerSpawn = 1
@@ -89,18 +195,18 @@ spawnRadius = 10.0
 
 [node name="FishSpawner3" type="Node3D" parent="." unique_id=1123456004]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, -6, -50)
-script = ExtResource("7_spawner")
+script = ExtResource("14_spawner")
 spawnFrequency = 15.0
 maxFishesPerSpawn = 3
 minFishesPerSpawn = 1
 spawnRadius = 10.0
 
 [node name="FishSystem" type="Node" parent="." unique_id=1123456001 node_paths=PackedStringArray("world")]
-script = ExtResource("8_fish")
+script = ExtResource("15_fish")
+world = NodePath("..")
 maxFishes = 20
 maxAliveFishes = 10
-baseFish = ExtResource("9_i5vbv")
-world = NodePath("..")
+baseFish = ExtResource("16_king")
 fishAttackRadius = 2.0
 spawnFrequency = 15.0
 fishSeparation = 1.5

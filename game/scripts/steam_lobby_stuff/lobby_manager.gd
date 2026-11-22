@@ -46,45 +46,15 @@ const MAGIC_KEY : String = "asdasda23w2ivn17800as9u77v6982nnmv;;aoi8y77ayubhl;"
 
 #we can set player specific lobby values using setLobbyMemberData instead of setLobbyData
 
+var steam_enabled : bool = false
+
 func _init() -> void:
 	LobbyManager.instance = self
 
 func _ready() -> void:
-	var initialize_response: Dictionary = Steam.get_steam_init_result()
-	print("Did Steam initialize?: %s " % initialize_response)
-
-	Steam.initRelayNetworkAccess()
-	peer = SteamMultiplayerPeer.new()
-	peer.server_relay = true
-
-	var status : Steam.SteamAPIInitResult = initialize_response['status']
-	if status != Steam.STEAM_API_INIT_RESULT_OK:
-		printerr("Failed to initialize Steam, shutting down: %s" % initialize_response)
-		_close_game()
-		return
-
-	LobbyManager.app_id = Steam.getAppID()
-	LobbyManager.is_online = Steam.loggedOn()
-	LobbyManager.current_user_id = Steam.getSteamID()
-	LobbyManager.current_user_username = Steam.getPersonaName()
-	LobbyManager.owns_game = Steam.isSubscribed()
-
-	#ignore while in development
-	if Engine.is_editor_hint():
-		owns_game = true
-	if not owns_game:
-		printerr("User does not own this game")
-		_close_game()
-		return
-
 	#spinning_fish_player.load_from_file(spinning_fish_gif.resource_path)
 	if not Engine.is_editor_hint():
 		spinning_fish_player.play()
-
-	Steam.lobby_joined.connect(LobbyManager.instance._on_lobby_joined)
-	Steam.join_requested.connect(_on_join_though_friend)
-	Steam.lobby_chat_update.connect(_on_lobby_chat_update)
-	Steam.lobby_data_update.connect(_on_lobby_data_update)
 
 	player_spawner.spawn_function = spawn_player
 	#bc host and client are same process we need to cover spawning their client as a special case
@@ -100,11 +70,56 @@ func _ready() -> void:
 
 	_check_command_line_args()
 
+	if OS.has_feature("web"):
+		host_button.disabled = true
+		host_button.tooltip_text = "Multiplayer disabled in web version"
+		join_button.disabled = true
+		join_button.tooltip_text = "Multiplayer disabled in web version"
+
+func _init_multiplayer() -> void:
+	if peer != null:
+		return
+	LobbyManager.app_id = ProjectSettings.get_setting("steam/initialization/app_data/app_id")
+	Steam.steamInitEx(LobbyManager.app_id, true)
+
+	var initialize_response: Dictionary = Steam.get_steam_init_result()
+	print("Did Steam initialize?: %s " % initialize_response)
+
+	var status : Steam.SteamAPIInitResult = initialize_response['status']
+	if status != Steam.STEAM_API_INIT_RESULT_OK:
+		printerr("Failed to initialize Steam, shutting down: %s" % initialize_response)
+		_close_game()
+		return
+
+	Steam.initRelayNetworkAccess()
+	peer = SteamMultiplayerPeer.new()
+	peer.server_relay = true
+
+	LobbyManager.is_online = Steam.loggedOn()
+	LobbyManager.current_user_id = Steam.getSteamID()
+	LobbyManager.current_user_username = Steam.getPersonaName()
+	LobbyManager.owns_game = Steam.isSubscribed()
+
+	Steam.lobby_joined.connect(LobbyManager.instance._on_lobby_joined)
+	Steam.join_requested.connect(_on_join_though_friend)
+	Steam.lobby_chat_update.connect(_on_lobby_chat_update)
+	Steam.lobby_data_update.connect(_on_lobby_data_update)
+
+	#ignore while in development
+	if Engine.is_editor_hint():
+		owns_game = true
+	if not owns_game:
+		printerr("User does not own this game")
+		_close_game()
+		return
+
 #region runs on client
 func _open_lobby_host() -> void:
+	_init_multiplayer()
 	LobbyHostScreen.instance.popup()
 
 func _open_lobby_search() -> void:
+	_init_multiplayer()
 	LobbySearchScreen.instance.popup()
 
 func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> void:
