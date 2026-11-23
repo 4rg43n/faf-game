@@ -6,9 +6,11 @@ const JUMP_VELOCITY = 4.5
 @export var animation_player : AnimationPlayer
 
 func _ready() -> void:
+	setup_animation.call_deferred()
+
+func setup_animation() -> void:
 	animation_player.current_animation = &"idle"
 	animation_player.active = true
-
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
