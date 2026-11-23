@@ -43,7 +43,7 @@ height = 0.2
 [sub_resource type="SphereShape3D" id="SphereShape3D_ghk1x"]
 radius = 0.1
 
-[node name="FishingPole" type="Node3D" unique_id=748185126 node_paths=PackedStringArray("bobber", "line", "fishing_line_start", "bobber_marker", "bobber_start_position")]
+[node name="FishingPole" type="Node3D" unique_id=748185126 node_paths=PackedStringArray("bobber", "line", "fishing_line_start", "bobber_marker", "bobber_start_position", "audio_player")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("1_ghk1x")
 item_resource = ExtResource("2_fno7m")
@@ -52,6 +52,7 @@ line = NodePath("FishingLine")
 fishing_line_start = NodePath("FishingLineStart")
 bobber_marker = NodePath("Bobber/BobberMarker")
 bobber_start_position = NodePath("BobberStartPosition")
+audio_player = NodePath("AudioStreamPlayer")
 
 [node name="BobberStartPosition" type="Marker3D" parent="." unique_id=666888222]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2, 0)
@@ -112,3 +113,5 @@ target_position = Vector3(0, -0.15, 0)
 
 [node name="FishBiteTimer" type="Timer" parent="Bobber" unique_id=504008798]
 unique_name_in_owner = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=150180613]

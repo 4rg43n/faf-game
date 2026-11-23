@@ -9,6 +9,10 @@ class_name FishingPole extends Node3D
 @export var bobber_marker: Marker3D
 @export var bobber_start_position: Marker3D
 
+# ----Sound----
+@export var audio_player: AudioStreamPlayer
+var hook_sfx = preload("res://audio/sfx/ui_exclaim.mp3")
+
 var bobber_cast: bool = false
 var fish_currently_hooked: bool = false
 
@@ -16,6 +20,8 @@ var fish_currently_hooked: bool = false
 func _ready() -> void:
 	bobber.set_physics_process(false)
 	bobber.fish_bit_bobber.connect(fish_hooked)
+	
+	audio_player.stream = hook_sfx
 
 
 func _process(_delta: float) -> void:
@@ -58,7 +64,9 @@ func _process(_delta: float) -> void:
 
 func fish_hooked(hooked) -> void:
 	fish_currently_hooked = hooked
+	
 	if hooked:
+		audio_player.play()
 		_on_player_hooked_fish.rpc_id(1, multiplayer.get_unique_id())
 	else:
 		if bobber_cast:

@@ -47,7 +47,85 @@ bg_color = Color(0.43405953, 8.139512e-05, 0.049701735, 1)
 
 [node name="Main" type="Node" unique_id=1017812370 node_paths=PackedStringArray("weather_manager")]
 script = ExtResource("1_ou6is")
-weather_manager = NodePath("WeatherManager")
+weather_manager = NodePath("MANAGERS/WeatherManager")
+
+[node name="MANAGERS" type="Node" parent="." unique_id=837078941]
+
+[node name="GameManager" type="Node" parent="MANAGERS" unique_id=217552877 node_paths=PackedStringArray("sky_3d", "lobby_camera")]
+script = ExtResource("2_yyfjg")
+sky_3d = NodePath("../../World/Sky3D")
+lobby_camera = NodePath("../../LobbyCamera")
+metadata/_custom_type_script = "uid://dd0g2xdhbs54h"
+
+[node name="WeatherManager" type="Node" parent="MANAGERS" unique_id=234665414 node_paths=PackedStringArray("rain_particles", "sky_3d", "time_of_day", "sky_dome")]
+script = ExtResource("3_hxu8e")
+rain_particles = NodePath("Rain")
+sky_3d = NodePath("../../World/Sky3D")
+time_of_day = NodePath("../../World/Sky3D/TimeOfDay")
+sky_dome = NodePath("../../World/Sky3D/SkyDome")
+weather_conditions = Dictionary[String, Resource]({
+"clear": ExtResource("4_nvumn"),
+"cloudy": ExtResource("5_ou6is"),
+"foggy": ExtResource("6_necax"),
+"heavy_rain": ExtResource("7_r4lks"),
+"rain": ExtResource("8_pg34l"),
+"storm": ExtResource("9_m4h2d")
+})
+environment = ExtResource("4_a8run")
+delay_min_sec = 60.0
+delay_max_sec = 300.0
+
+[node name="Rain" parent="MANAGERS/WeatherManager" unique_id=1079689614 instance=ExtResource("11_p8abn")]
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="WaterSystem" type="Node" parent="MANAGERS" unique_id=375738724 node_paths=PackedStringArray("world")]
+script = ExtResource("17_s17dp")
+gravityFactor = 9.81
+waterDensity = 1.0
+drag = 0.15
+world = NodePath("../../World/TropicalIsland")
+oceanResolution = 0.5
+oceanShader = ExtResource("18_37hlw")
+metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
+
+[node name="FishSystem" type="Node" parent="MANAGERS" unique_id=26131347 node_paths=PackedStringArray("world")]
+script = ExtResource("25_6llfj")
+maxFishes = 500
+baseFish = ExtResource("26_0bhws")
+world = NodePath("../../World/TropicalIsland")
+fishAttackRadius = 2.0
+spawnFrequency = 15.0
+fishSeparation = 2.0
+fishCoherence = 5.0
+fishSteerForce = 5.0
+fishMaxSpeed = 10.0
+fishAlignment = 5.0
+fishBoundsRadius = 5.0
+fishAvoidCollisionWeight = 10.0
+metadata/_custom_type_script = "uid://cft17jvxfva7v"
+
+[node name="ChaosSystem" type="Node" parent="MANAGERS" unique_id=1071842316 node_paths=PackedStringArray("current_world", "boss_spawner")]
+script = ExtResource("21_62atk")
+octopus_spawn_scene = ExtResource("23_tbnf8")
+current_world = NodePath("../../World/TropicalIsland")
+boss_spawner = NodePath("../../World/BossSpawner")
+metadata/_custom_type_script = "uid://botd1s4mi7ogx"
+
+[node name="MusicManager" type="Node" parent="MANAGERS" unique_id=377988477 node_paths=PackedStringArray("music_player")]
+script = ExtResource("23_7nlll")
+music_player = NodePath("Background")
+metadata/_custom_type_script = "uid://bd7kjvr27uf67"
+
+[node name="Background" type="AudioStreamPlayer" parent="MANAGERS/MusicManager" unique_id=1962807362]
+stream = ExtResource("24_ii537")
+volume_db = -16.0
+parameters/looping = true
+
+[node name="VoiceLines" type="AudioStreamPlayer" parent="MANAGERS/MusicManager" unique_id=1079081201]
+stream = ExtResource("25_rofvo")
+
+[node name="UI" type="AudioStreamPlayer" parent="MANAGERS/MusicManager" unique_id=1349830003]
 
 [node name="LobbyManager" parent="." unique_id=1925178178 node_paths=PackedStringArray("player_spawner", "starting_world") instance=ExtResource("1_iuonh")]
 player_spawner = NodePath("../PlayerSpawner")
@@ -68,12 +146,12 @@ script = ExtResource("3_necax")
 lobby_manager = NodePath("../LobbyManager")
 options_menu = NodePath("OptionsMenu")
 inventory = NodePath("ShopAndInventoryMenu")
-game_manager = NodePath("../GameManager")
+game_manager = NodePath("../MANAGERS/GameManager")
 chaos_tracker = NodePath("ChaosTracker2")
 speed_tracker = NodePath("DevInfoContainer/VBoxContainer/SpeedTracker")
 fps_tracker = NodePath("DevInfoContainer/VBoxContainer/FpsTracker")
 credits = NodePath("Credits")
-shop_voice = NodePath("../MusicManager/VoiceLines")
+shop_voice = NodePath("../MANAGERS/MusicManager/VoiceLines")
 metadata/_edit_lock_ = true
 
 [node name="ChaosTracker2" type="MarginContainer" parent="UI" unique_id=1157672392]
@@ -119,7 +197,7 @@ value = 100.0
 show_percentage = false
 script = ExtResource("4_i7in8")
 chaos_label = NodePath("LabelChaos")
-audio_player = NodePath("../../../../MusicManager/UI")
+audio_player = NodePath("../../../../MANAGERS/MusicManager/UI")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/ChaosTracker2/ChaosBarAnchor/ProgressBar" unique_id=1107397212]
 layout_mode = 1
@@ -225,82 +303,6 @@ mouse_filter = 2
 [node name="Credits" parent="UI" unique_id=623738196 instance=ExtResource("9_i7in8")]
 visible = false
 layout_mode = 1
-
-[node name="GameManager" type="Node" parent="." unique_id=217552877 node_paths=PackedStringArray("sky_3d", "lobby_camera")]
-script = ExtResource("2_yyfjg")
-sky_3d = NodePath("../World/Sky3D")
-lobby_camera = NodePath("../LobbyCamera")
-metadata/_custom_type_script = "uid://dd0g2xdhbs54h"
-
-[node name="WeatherManager" type="Node" parent="." unique_id=234665414 node_paths=PackedStringArray("rain_particles", "sky_3d", "time_of_day", "sky_dome")]
-script = ExtResource("3_hxu8e")
-rain_particles = NodePath("Rain")
-sky_3d = NodePath("../World/Sky3D")
-time_of_day = NodePath("../World/Sky3D/TimeOfDay")
-sky_dome = NodePath("../World/Sky3D/SkyDome")
-weather_conditions = Dictionary[String, Resource]({
-"clear": ExtResource("4_nvumn"),
-"cloudy": ExtResource("5_ou6is"),
-"foggy": ExtResource("6_necax"),
-"heavy_rain": ExtResource("7_r4lks"),
-"rain": ExtResource("8_pg34l"),
-"storm": ExtResource("9_m4h2d")
-})
-environment = ExtResource("4_a8run")
-delay_min_sec = 60.0
-delay_max_sec = 300.0
-
-[node name="Rain" parent="WeatherManager" unique_id=1079689614 instance=ExtResource("11_p8abn")]
-visible = false
-metadata/_edit_lock_ = true
-
-[node name="WaterSystem" type="Node" parent="." unique_id=375738724 node_paths=PackedStringArray("world")]
-script = ExtResource("17_s17dp")
-gravityFactor = 9.81
-waterDensity = 1.0
-drag = 0.15
-world = NodePath("../World/TropicalIsland")
-oceanResolution = 0.5
-oceanShader = ExtResource("18_37hlw")
-metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
-
-[node name="FishSystem" type="Node" parent="." unique_id=26131347 node_paths=PackedStringArray("world")]
-script = ExtResource("25_6llfj")
-maxFishes = 500
-baseFish = ExtResource("26_0bhws")
-world = NodePath("../World/TropicalIsland")
-fishAttackRadius = 2.0
-spawnFrequency = 15.0
-fishSeparation = 2.0
-fishCoherence = 5.0
-fishSteerForce = 5.0
-fishMaxSpeed = 10.0
-fishAlignment = 5.0
-fishBoundsRadius = 5.0
-fishAvoidCollisionWeight = 10.0
-metadata/_custom_type_script = "uid://cft17jvxfva7v"
-
-[node name="ChaosSystem" type="Node" parent="." unique_id=1071842316 node_paths=PackedStringArray("current_world", "boss_spawner")]
-script = ExtResource("21_62atk")
-octopus_spawn_scene = ExtResource("23_tbnf8")
-current_world = NodePath("../World/TropicalIsland")
-boss_spawner = NodePath("../World/BossSpawner")
-metadata/_custom_type_script = "uid://botd1s4mi7ogx"
-
-[node name="MusicManager" type="Node" parent="." unique_id=377988477 node_paths=PackedStringArray("music_player")]
-script = ExtResource("23_7nlll")
-music_player = NodePath("Background")
-metadata/_custom_type_script = "uid://bd7kjvr27uf67"
-
-[node name="Background" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
-stream = ExtResource("24_ii537")
-volume_db = -16.0
-parameters/looping = true
-
-[node name="VoiceLines" type="AudioStreamPlayer" parent="MusicManager" unique_id=1079081201]
-stream = ExtResource("25_rofvo")
-
-[node name="UI" type="AudioStreamPlayer" parent="MusicManager" unique_id=1349830003]
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
