@@ -1,6 +1,9 @@
 ## we are using GodotSteam plugin docs located here : https://godotsteam.com
 class_name LobbyManager extends Control
 
+signal lobby_created_succesfully()
+signal started_single_player()
+
 ## 480 is the default for local testing
 ## to publish we need a developer account on steamworks ($100 per registered application)
 ## this is set in the project steam settings
@@ -144,6 +147,8 @@ func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> voi
 	if not Steam.setLobbyData(in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY):
 		printerr("Failed to set lobby %s data [%s : %s]" % [in_lobby_id, LobbyManager.magic_tag, LobbyManager.MAGIC_KEY])
 
+	self.lobby_created_succesfully.emit()
+
 func spinup_server(in_lobby_id : int) -> void:
 	if not steam_enabled:
 		return
@@ -245,6 +250,7 @@ func _on_singleplayer_button_pressed() -> void:
 	LobbyHostScreen.instance.hide()
 
 	player_spawner.spawn(1)
+	started_single_player.emit()
 
 
 func toggle_lobby_joinable(can_new_players_join : bool) -> void:

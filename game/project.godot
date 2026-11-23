@@ -190,6 +190,10 @@ SimpleGrass="*res://addons/simplegrasstextured/singleton.tscn"
 
 file_logging/enable_file_logging=true
 
+[debug_draw_3d]
+
+settings/addon_root_folder="res://addons/debug_draw_3d"
+
 [display]
 
 window/stretch/mode="canvas_items"
@@ -859,8 +863,7 @@ common/physics_interpolation=true
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method.mobile="forward_plus"
 
 [shader_globals]
 
