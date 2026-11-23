@@ -293,7 +293,7 @@ func _handle_water_physics(delta: float):
 	if (vel2d.length() > err):
 		self.velocity *= 1.0 / self.water_decel
 	self.velocity = self.velocity.limit_length(self.run_speed)
-		
+
 
 func _handle_ground_physics(delta: float) -> void:
 	was_spit = false

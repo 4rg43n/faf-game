@@ -278,7 +278,7 @@ func _physics_process(delta: float) -> void:
 		if fish.flags == EFishStateFlags.Dead:
 			continue
 		_fish_movement(delta, fish)
-	
+
 
 func _process(delta: float) -> void:
 	spawn_fish_subsystem(delta)

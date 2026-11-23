@@ -26,7 +26,7 @@ func _process(_delta: float) -> void:
 	# Only draw the line when the bobber is actually out
 	if not bobber_cast:
 		return
-	
+
 	# Begin draw.
 	line.mesh.surface_begin(Mesh.PRIMITIVE_LINE_STRIP)
 
@@ -34,12 +34,12 @@ func _process(_delta: float) -> void:
 	# line.mesh.surface_add_vertex(fishing_line_start.global_position) # Start
 	# line.mesh.surface_add_vertex(bobber_marker.global_position) # End
 	# line.mesh.surface_end()
-	
+
 	var start = fishing_line_start.global_position
 	var end = bobber_marker.global_position
-	
+
 	var distance = start.distance_to(end)
-	
+
 	# This will still clip into the ground but I think adding sag generally looks better than a strait line
 	var total_line_points = clampf(distance, 5.0, 20.0)
 	var sag : float = 3
@@ -113,7 +113,7 @@ func reel_in(player : PlayerMetadata) -> void:
 	bobber.set_physics_process(false)
 
 	bobber.global_position = bobber_start_position.global_position
-	
+
 	# In case we reeled in before the fishing timer went off it needs to be cancelled
 	# It's kind of trash being set up this way...
 	bobber.cancel_fish_delay_timer()
