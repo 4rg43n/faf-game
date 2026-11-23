@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://ctwxqnd7nm5gl" path="res://assets/shaders/character_outline.gdshader" id="1_fpt8w"]
 [ext_resource type="Shader" uid="uid://b5wqm5rjjr2yh" path="res://assets/shaders/character_toon.gdshader" id="2_ynw10"]
-[ext_resource type="Texture2D" uid="uid://cpnpm4iybmcxg" path="res://assets/models/catgirl/catgirl-godot-cowgirl-hat_hat.png" id="3_4sbr8"]
+[ext_resource type="Texture2D" uid="uid://ck252mteta1ke" path="res://assets/models/catgirl/catgirl-godot-cowgirl-hat_hat.png" id="3_4sbr8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k0ru4"]
 render_priority = 0

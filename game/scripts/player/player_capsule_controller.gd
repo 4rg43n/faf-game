@@ -68,6 +68,8 @@ var landing_timer:float = 0.0
 @export var walk_speed: float = 7.0
 @export var run_speed: float = 8.5
 @export var ground_accel: float = 14.0
+@export var water_accel: float = 8.0
+@export var water_decel: float = 2.0
 @export var ground_decel: float = 10.0
 @export var ground_friction: float = 6.0
 @export var jump_velocity: float = 5.0
@@ -103,6 +105,7 @@ var available_wall_jumps : int = 1
 var max_available_wall_jumps : int = 1
 var max_slide_time : float = 0.75
 var time_sliding : float = 0.0
+var on_water: bool = false
 
 var ui_hidden : bool = false
 
@@ -113,6 +116,16 @@ var debug_scene_play : bool = false
 func _ready():
 	add_child(sound_player)
 	active_camera = third_person_cam
+	WaterSystem.s_instance.object_entered_water.connect(on_detect_water)
+	WaterSystem.s_instance.object_exited_water.connect(on_exit_water)
+
+func on_detect_water(obj: Node3D):
+	if obj == (self as Node3D):
+		self.on_water = true
+
+func on_exit_water(obj: Node3D):
+	if obj == (self as Node3D):
+		self.on_water = false
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -121,6 +134,11 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+	# DEV TOOLS
+	if OS.is_debug_build():
+		DebugDraw3D.draw_line(self.global_position, self.global_position + velocity, Color.BLUE)
+		check_dev_inputs()
 
 	handle_move_input(delta)
 
@@ -267,6 +285,16 @@ func _handle_air_physics(delta: float) -> void:
 			motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 		clip_velocity(get_wall_normal(), 1) # Allows surfing
 
+func _handle_water_physics(delta: float):
+	var acc = self.wish_dir * self.water_accel * delta
+	self.velocity += acc
+	const err := 0.9
+	var vel2d := Vector2(self.velocity.x, self.velocity.z)
+	if (vel2d.length() > err):
+		self.velocity *= 1.0 / self.water_decel
+	self.velocity = self.velocity.limit_length(self.run_speed)
+		
+
 func _handle_ground_physics(delta: float) -> void:
 	was_spit = false
 	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
@@ -282,6 +310,31 @@ func _handle_ground_physics(delta: float) -> void:
 	if velocity.length() > 0:
 		new_speed /= velocity.length()
 	velocity *= new_speed
+
+
+func handle_land_jump(delta: float) -> void:
+	if is_on_wall_only() and available_wall_jumps > 0:
+		available_wall_jumps -= 1
+		velocity.y = current_jump_velocity
+		if(randi() % 10 < 9):
+			reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
+			sound_player.stream = JumpSounds.pick_random()
+			sound_player.play()
+	elif available_jumps > 0:
+		velocity.y = current_jump_velocity
+		landing_requested=false
+		animation_state.travel("Jump_Start")
+		if not is_on_floor():
+			available_jumps -= 1
+		if(randi() % 10 < 9):
+			reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
+			sound_player.stream = JumpSounds.pick_random()
+			sound_player.play()
+	current_jump_velocity = jump_velocity
+
+func handle_water_jump(_delta: float, diffToTop: float) -> void:
+	velocity.y = current_jump_velocity * 1.5 + (diffToTop * 3)
+	current_jump_velocity = jump_velocity
 
 
 func handle_move_input(delta: float) -> void:
@@ -314,26 +367,8 @@ func handle_move_input(delta: float) -> void:
 			cur_ground_friction = ground_friction
 			time_sliding = 0
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump"):
-		if is_on_wall_only() and available_wall_jumps > 0:
-			available_wall_jumps -= 1
-			velocity.y = current_jump_velocity
-			if(randi() % 10 < 9):
-				reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
-				sound_player.stream = JumpSounds.pick_random()
-				sound_player.play()
-		elif available_jumps > 0:
-			velocity.y = current_jump_velocity
-			landing_requested=false
-			animation_state.travel("Jump_Start")
-			if not is_on_floor():
-				available_jumps -= 1
-			if(randi() % 10 < 9):
-				reverb_effect.room_size = RainSystem.instance.amount_indoors / 2
-				sound_player.stream = JumpSounds.pick_random()
-				sound_player.play()
-		current_jump_velocity = jump_velocity
+	if Input.is_action_just_pressed("jump") and not self.on_water:
+		handle_land_jump(delta)
 
 	if Input.is_action_pressed("shift"):
 		move_speed = run_speed
@@ -354,7 +389,10 @@ func handle_move_input(delta: float) -> void:
 	wish_dir = wish_dir.rotated(Vector3.UP, active_camera.global_rotation.y)
 
 	if is_on_floor():
+		# A bit of an oxymoron, yes
 		_handle_ground_physics(delta)
+	elif self.on_water:
+		_handle_water_physics(delta)
 	else:
 		_handle_air_physics(delta)
 
@@ -363,6 +401,18 @@ func handle_move_input(delta: float) -> void:
 		var target_yaw := atan2(wish_dir.x, wish_dir.z)
 		visuals.rotation.y = lerp_angle(visuals.rotation.y, target_yaw, turn_speed * delta)
 		# ----Animation stuff----
+
+	# We need to gather information about the water height and clamp our upwards force based on that if not jumping
+	if self.on_water:
+		var waterHeight := WaterSystem.s_instance.get_water_height_at(self.global_position)
+		# Now clamp our velocity vertically to the diff of our positions
+		var verticalDiff := maxf(waterHeight - self.global_position.y, 0)
+		# V = d / t, assuming t = next frame that is V = d / delta
+		var maxYVel := verticalDiff / delta
+		velocity.y = minf(velocity.y, maxYVel)
+		# This will override the vertical clamp if needed
+		if Input.is_action_just_pressed("jump"): # We can hold this one
+			handle_water_jump(delta, verticalDiff)
 
 
 func handle_interaction():
