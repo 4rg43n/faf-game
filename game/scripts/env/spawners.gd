@@ -19,6 +19,7 @@ func _process(_delta: float) -> void:
 		return
 	self._initialized = false
 	LobbyManager.instance.lobby_created_succesfully.connect(mark_as_initialized)
+	LobbyManager.instance.started_single_player.connect(mark_as_initialized)
 	self._connected = true
 
 func mark_as_initialized():

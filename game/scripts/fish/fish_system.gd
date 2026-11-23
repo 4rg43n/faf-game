@@ -84,8 +84,18 @@ func get_flockmate_positions(fish: FishInfo, perceptionRadius: float) -> Array[V
 	return flockmates
 
 
-func nearest_player(_position: Vector3) -> Node3D:
-	return null
+func nearest_player(position: Vector3) -> Node3D:
+	var distance : float = INF
+	var closest_player : Node3D = null
+	for player_metadata : Node3D in PlayerSpawner.instance.get_children():
+		if closest_player == null:
+			closest_player = player_metadata
+			continue
+		var dist = position.distance_squared_to(player_metadata.global_position)
+		if dist < distance:
+			distance = dist
+			closest_player = player_metadata
+	return closest_player
 
 func _generate_directions(numDirections: int, arrayToFill: Array[Vector3]) -> void:
 	const GOLDEN_RATIO := (1.0 + sqrt(5.0)) / 2.0

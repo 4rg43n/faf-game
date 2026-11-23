@@ -2,6 +2,7 @@
 class_name LobbyManager extends Control
 
 signal lobby_created_succesfully()
+signal started_single_player()
 
 ## 480 is the default for local testing
 ## to publish we need a developer account on steamworks ($100 per registered application)
@@ -249,6 +250,7 @@ func _on_singleplayer_button_pressed() -> void:
 	LobbyHostScreen.instance.hide()
 
 	player_spawner.spawn(1)
+	started_single_player.emit()
 
 
 func toggle_lobby_joinable(can_new_players_join : bool) -> void:

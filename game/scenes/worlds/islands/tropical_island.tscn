@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://cft17jvxfva7v" path="res://scripts/fish/fish_system.gd" id="15_fish"]
 [ext_resource type="PackedScene" uid="uid://dldk7t22vxdo" path="res://scenes/critters/king_of_the_pond.tscn" id="16_king"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f8da5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grruw"]
 render_priority = 0
 shader = ExtResource("3_jsfgd")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -65,8 +65,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.220483, -0.004442215, -1.3
 [node name="RockerooSmallBaldSnatchedInAMini" parent="island0/Grid/StaticBody3D" parent_id_path=PackedInt32Array(642752713, 1474437580) index="1" unique_id=807610147 instance=ExtResource("8_j627t")]
 transform = Transform3D(-0.29585552, 0.32785103, 0.8972086, -0.952, -0.17840725, -0.2487309, 0.07852188, -0.9277307, 0.3648969, -9.974749, 39.306103, -82.40844)
 
-[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 1386240062) index="1" unique_id=874324246]
-material_override = SubResource("ShaderMaterial_f8da5")
+[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 28080646) index="1" unique_id=874324246]
+material_override = SubResource("ShaderMaterial_grruw")
 
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8147697, 0)
@@ -210,10 +210,10 @@ spawnRadius = 10.0
 
 [node name="FishSystem" type="Node" parent="." unique_id=1123456001 node_paths=PackedStringArray("world")]
 script = ExtResource("15_fish")
-world = NodePath("..")
 maxFishes = 20
 maxAliveFishes = 10
 baseFish = ExtResource("16_king")
+world = NodePath("..")
 fishAttackRadius = 2.0
 spawnFrequency = 15.0
 fishSeparation = 1.5

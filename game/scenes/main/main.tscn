@@ -31,10 +31,10 @@
 [ext_resource type="PackedScene" uid="uid://dg5yeiysdht6n" path="res://assets/baws_feeshes/octopus_boss.tscn" id="23_tbnf8"]
 [ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
-[ext_resource type="Script" uid="uid://cft17jvxfva7v" path="res://scripts/fish/fish_system.gd" id="25_6llfj"]
-[ext_resource type="PackedScene" uid="uid://dldk7t22vxdo" path="res://scenes/critters/king_of_the_pond.tscn" id="26_0bhws"]
 [ext_resource type="AudioStream" uid="uid://dxli54sb7xfhj" path="res://audio/music/the_mountain-toy-theme-159128.mp3" id="24_ii537"]
+[ext_resource type="Script" uid="uid://cft17jvxfva7v" path="res://scripts/fish/fish_system.gd" id="25_6llfj"]
 [ext_resource type="AudioStream" uid="uid://daqh7jr2x1ovl" path="res://audio/Voices/Sashimi Kat.wav" id="25_rofvo"]
+[ext_resource type="PackedScene" uid="uid://dldk7t22vxdo" path="res://scenes/critters/king_of_the_pond.tscn" id="26_0bhws"]
 [ext_resource type="Script" uid="uid://bulitqh4g88h2" path="res://scenes/main/player_spawner.gd" id="31_ii537"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvec"]
