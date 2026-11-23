@@ -4,7 +4,7 @@ class_name UI extends Control
 @export var options_menu: CenterContainer
 @export var inventory: InventorySystem
 @export var game_manager: GameManager
-@export var chaos_tracker: VBoxContainer
+@export var chaos_tracker: MarginContainer
 @export var speed_tracker: Label
 @export var fps_tracker: Label
 @export var credits: Control

@@ -847,6 +847,27 @@ ctrl={
 "script": null
 )]
 }
+debug_key={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": 16,
+"window_id": 0,
+"alt_pressed": false,
+"shift_pressed": false,
+"ctrl_pressed": false,
+"meta_pressed": false,
+"pressed": false,
+"keycode": 0,
+"physical_keycode": 96,
+"key_label": 0,
+"unicode": 0,
+"location": 0,
+"echo": false,
+"script": null
+)]
+}
 
 [layer_names]
 
@@ -863,6 +884,7 @@ common/physics_interpolation=true
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="forward_plus"
 
 [shader_globals]
@@ -911,4 +933,5 @@ sgt_wind_pattern={
 [steam]
 
 initialization/app_data/app_id=480
+initialization/processes/initialize_on_startup=true
 initialization/processes/embed_callbacks=true
