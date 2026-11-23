@@ -25,7 +25,7 @@ size = Vector2(200, 200)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7kt02"]
 size = Vector3(200, 0.1, 200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_khup7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nw7yp"]
 render_priority = 0
 shader = ExtResource("19_h0jaw")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -105,7 +105,7 @@ transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0.18668818, 6.178111, 12.76
 script = ExtResource("4_nw7yp")
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="." unique_id=1501747599]
-material_override = SubResource("ShaderMaterial_khup7")
+material_override = SubResource("ShaderMaterial_nw7yp")
 multimesh = SubResource("MultiMesh_h0jaw")
 script = ExtResource("22_l7101")
 scale_h = 2.0

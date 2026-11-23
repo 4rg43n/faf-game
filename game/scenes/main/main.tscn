@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://c8vke606olrn" path="res://resources/weather/cloudy.tres" id="5_ou6is"]
 [ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="5_ouso4"]
 [ext_resource type="PackedScene" uid="uid://ged1a840ronn" path="res://scenes/ui/menus/options_menu.tscn" id="5_r4lks"]
+[ext_resource type="Script" uid="uid://cryablf8qqih6" path="res://scripts/ui/menus/debug_ui.gd" id="5_tbnf8"]
 [ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="6_blune"]
 [ext_resource type="Resource" uid="uid://bsqtk47oirn4s" path="res://resources/weather/foggy.tres" id="6_necax"]
 [ext_resource type="Resource" uid="uid://c23rdredqqqog" path="res://resources/weather/heavy_rain.tres" id="7_r4lks"]
@@ -65,63 +66,143 @@ lobby_manager = NodePath("../LobbyManager")
 options_menu = NodePath("OptionsMenu")
 inventory = NodePath("ShopAndInventoryMenu")
 game_manager = NodePath("../GameManager")
-chaos_tracker = NodePath("ChaosTracker")
-speed_tracker = NodePath("SpeedTracker")
-fps_tracker = NodePath("FpsTracker")
+chaos_tracker = NodePath("ChaosTracker2")
+speed_tracker = NodePath("DevInfoContainer/VBoxContainer/SpeedTracker")
+fps_tracker = NodePath("DevInfoContainer/VBoxContainer/FpsTracker")
 credits = NodePath("Credits")
 shop_voice = NodePath("../MusicManager/VoiceLines")
 metadata/_edit_lock_ = true
 
-[node name="ChaosTracker" type="VBoxContainer" parent="UI" unique_id=261019762]
-visible = false
+[node name="ChaosTracker2" type="MarginContainer" parent="UI" unique_id=1157672392]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-offset_transform_position = Vector2(-0.225, 0)
-mouse_filter = 2
+size_flags_horizontal = 17
+theme_override_constants/margin_top = 25
 
-[node name="Label" type="Label" parent="UI/ChaosTracker" unique_id=814268835]
+[node name="ChaosBarAnchor" type="Control" parent="UI/ChaosTracker2" unique_id=1488340986]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Chaos"
+size_flags_horizontal = 17
+size_flags_vertical = 18
 
-[node name="ProgressBar" type="ProgressBar" parent="UI/ChaosTracker" unique_id=352976152]
-layout_mode = 2
+[node name="ColorRect" type="ColorRect" parent="UI/ChaosTracker2/ChaosBarAnchor" unique_id=2090706750]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 74.0
+offset_right = -74.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15827543, 2.203486e-07, 0.0068039615, 1)
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/ChaosTracker2/ChaosBarAnchor" unique_id=352976152 node_paths=PackedStringArray("chaos_label", "audio_player")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_top = 1.75
+offset_right = 500.0
+offset_bottom = 28.75
+grow_horizontal = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_irvec")
 value = 100.0
+show_percentage = false
 script = ExtResource("4_i7in8")
+chaos_label = NodePath("LabelChaos")
+audio_player = NodePath("../../../../MusicManager/UI")
 
-[node name="Line2D" type="Line2D" parent="UI/ChaosTracker/ProgressBar" unique_id=847720178]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ChaosTracker2/ChaosBarAnchor/ProgressBar" unique_id=1107397212]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Line2D" type="Line2D" parent="UI/ChaosTracker2/ChaosBarAnchor/ProgressBar/HBoxContainer" unique_id=847720178]
 position = Vector2(0, -27)
-points = PackedVector2Array(375, 27, 375, 54)
-default_color = Color(0, 0, 0, 1)
+points = PackedVector2Array(250, 29, 250, 52)
+width = 5.0
+default_color = Color(0.24679013, 0, 0.017129734, 1)
 
-[node name="Line2D2" type="Line2D" parent="UI/ChaosTracker/ProgressBar" unique_id=1505613659]
+[node name="Line2D2" type="Line2D" parent="UI/ChaosTracker2/ChaosBarAnchor/ProgressBar/HBoxContainer" unique_id=1505613659]
 position = Vector2(0, -27)
-points = PackedVector2Array(755, 27, 755, 54)
-default_color = Color(0, 0, 0, 1)
+points = PackedVector2Array(750, 29, 750, 52)
+width = 5.0
+default_color = Color(0.24705882, 0, 0.015686275, 1)
 
-[node name="Label2" type="Label" parent="UI/ChaosTracker" unique_id=995863543]
-layout_mode = 2
+[node name="LabelChaos" type="Label" parent="UI/ChaosTracker2/ChaosBarAnchor/ProgressBar" unique_id=814268835]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0.1764706, 0.1764706, 0.1764706, 1)
+theme_override_constants/outline_size = 4
+text = "Chaos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelTask" type="Label" parent="UI/ChaosTracker2/ChaosBarAnchor" unique_id=995863543]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -162.5
+offset_top = 38.0
+offset_right = 162.5
+offset_bottom = 61.000015
+grow_horizontal = 2
 size_flags_horizontal = 4
 text = "Catch corrupted fish to cleanse the ocean!"
+horizontal_alignment = 1
 
-[node name="FpsTracker" parent="UI" unique_id=1956701810 instance=ExtResource("3_b1x3f")]
+[node name="DevInfoContainer" type="MarginContainer" parent="UI" unique_id=1819266817 node_paths=PackedStringArray("dev_container")]
 layout_mode = 1
-offset_right = 179.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -38.5
+offset_right = 250.0
+offset_bottom = 38.5
+grow_vertical = 2
+script = ExtResource("5_tbnf8")
+dev_container = NodePath(".")
+
+[node name="ColorRect" type="ColorRect" parent="UI/DevInfoContainer" unique_id=251014929]
+layout_mode = 2
+color = Color(0.056291647, 0.056291588, 0.056291573, 0.39215687)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DevInfoContainer" unique_id=610462593]
+layout_mode = 2
+
+[node name="FpsTracker" parent="UI/DevInfoContainer/VBoxContainer" unique_id=1956701810 instance=ExtResource("3_b1x3f")]
+layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="SpeedTracker" type="Label" parent="UI" unique_id=519599510]
-visible = false
-layout_mode = 0
-offset_top = 616.0
-offset_right = 112.0
-offset_bottom = 639.0
+[node name="SpeedTracker" type="Label" parent="UI/DevInfoContainer/VBoxContainer" unique_id=519599510]
+layout_mode = 2
 text = "Over 9000 m/s"
 script = ExtResource("5_6llfj")
+
+[node name="ChaosLabel" type="Label" parent="UI/DevInfoContainer/VBoxContainer" unique_id=215864403]
+visible = false
+layout_mode = 2
+text = "Chaos: 100"
+
+[node name="LabelDevInfoToggle" type="Label" parent="UI/DevInfoContainer/VBoxContainer" unique_id=948765467]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "press ` to toggle off"
 
 [node name="OptionsMenu" parent="UI" unique_id=450231988 node_paths=PackedStringArray("world") instance=ExtResource("5_r4lks")]
 visible = false
@@ -192,10 +273,13 @@ metadata/_custom_type_script = "uid://bd7kjvr27uf67"
 
 [node name="Background" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
 stream = ExtResource("24_ii537")
-volume_db = -8.0
+volume_db = -16.0
+parameters/looping = true
 
 [node name="VoiceLines" type="AudioStreamPlayer" parent="MusicManager" unique_id=1079081201]
 stream = ExtResource("25_rofvo")
+
+[node name="UI" type="AudioStreamPlayer" parent="MusicManager" unique_id=1349830003]
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
