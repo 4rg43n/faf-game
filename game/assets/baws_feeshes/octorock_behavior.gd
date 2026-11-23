@@ -79,13 +79,13 @@ func find_closest_player() -> Node3D:
 
 
 func _init() -> void:
-	aggro_area.monitorable = false
 	OctoRockBehavior.instance = self
 
 
 #will run current limbo state (leaf) every tick until a transition tells it to leave
 #can also use behavior trees inside a state machine to handle more complex behavior (starts top down every tick)
 func _ready() -> void:
+	aggro_area.monitorable = false
 	root_hsm.initialize(self)
 	root_hsm.set_active(true)
 	root_hsm.initial_state = out_of_ammo
