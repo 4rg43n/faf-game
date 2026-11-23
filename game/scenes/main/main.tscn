@@ -30,16 +30,14 @@
 [ext_resource type="Script" uid="uid://bd7kjvr27uf67" path="res://scripts/audio/music_manager.gd" id="23_7nlll"]
 [ext_resource type="PackedScene" uid="uid://cw24hfmfoxdm6" path="res://scenes/worlds/islands/tropical_island.tscn" id="24_0bhws"]
 [ext_resource type="Script" uid="uid://pscqqwneklf6" path="res://scenes/main/bug_spawner.gd" id="24_37hlw"]
-<<<<<<< HEAD
 [ext_resource type="Script" uid="uid://cft17jvxfva7v" path="res://scripts/fish/fish_system.gd" id="25_6llfj"]
 [ext_resource type="PackedScene" uid="uid://dldk7t22vxdo" path="res://scenes/critters/king_of_the_pond.tscn" id="26_0bhws"]
-=======
 [ext_resource type="AudioStream" uid="uid://dxli54sb7xfhj" path="res://audio/music/the_mountain-toy-theme-159128.mp3" id="24_ii537"]
+[ext_resource type="AudioStream" uid="uid://daqh7jr2x1ovl" path="res://audio/Voices/Sashimi Kat.wav" id="25_rofvo"]
 [ext_resource type="Script" uid="uid://bulitqh4g88h2" path="res://scenes/main/player_spawner.gd" id="31_ii537"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvec"]
 bg_color = Color(0.43405953, 8.139512e-05, 0.049701735, 1)
->>>>>>> 2116aa0d6f5a1eddb70de675cecc5399bf1c16a5
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7smn1"]
 
@@ -54,7 +52,7 @@ player_spawner = NodePath("../PlayerSpawner")
 starting_world = NodePath("../World/TropicalIsland")
 metadata/_edit_lock_ = true
 
-[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker", "speed_tracker", "fps_tracker", "credits")]
+[node name="UI" type="Control" parent="." unique_id=772645201 node_paths=PackedStringArray("lobby_manager", "options_menu", "inventory", "game_manager", "chaos_tracker", "speed_tracker", "fps_tracker", "credits", "shop_voice")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,6 +71,7 @@ chaos_tracker = NodePath("ChaosTracker")
 speed_tracker = NodePath("SpeedTracker")
 fps_tracker = NodePath("FpsTracker")
 credits = NodePath("Credits")
+shop_voice = NodePath("../MusicManager/VoiceLines")
 metadata/_edit_lock_ = true
 
 [node name="ChaosTracker" type="VBoxContainer" parent="UI" unique_id=261019762]
@@ -182,7 +181,6 @@ oceanResolution = 0.5
 oceanShader = ExtResource("18_37hlw")
 metadata/_custom_type_script = "uid://ctqyt4l0fwa3l"
 
-<<<<<<< HEAD
 [node name="FishSystem" type="Node" parent="." unique_id=26131347 node_paths=PackedStringArray("world")]
 script = ExtResource("25_6llfj")
 maxFishes = 500
@@ -198,20 +196,24 @@ fishAlignment = 5.0
 fishBoundsRadius = 5.0
 fishAvoidCollisionWeight = 10.0
 metadata/_custom_type_script = "uid://cft17jvxfva7v"
-=======
-[node name="ChaosSystem" type="Node" parent="." unique_id=1071842316]
+
+[node name="ChaosSystem" type="Node" parent="." unique_id=1071842316 node_paths=PackedStringArray("current_world", "boss_spawner")]
 script = ExtResource("21_62atk")
+current_world = NodePath("../World/TropicalIsland")
+boss_spawner = NodePath("../World/BossSpawner")
 metadata/_custom_type_script = "uid://botd1s4mi7ogx"
 
 [node name="MusicManager" type="Node" parent="." unique_id=377988477 node_paths=PackedStringArray("music_player")]
 script = ExtResource("23_7nlll")
-music_player = NodePath("AudioStreamPlayer")
+music_player = NodePath("Background")
 metadata/_custom_type_script = "uid://bd7kjvr27uf67"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
+[node name="Background" type="AudioStreamPlayer" parent="MusicManager" unique_id=1962807362]
 stream = ExtResource("24_ii537")
 volume_db = -8.0
->>>>>>> 2116aa0d6f5a1eddb70de675cecc5399bf1c16a5
+
+[node name="VoiceLines" type="AudioStreamPlayer" parent="MusicManager" unique_id=1079081201]
+stream = ExtResource("25_rofvo")
 
 [node name="World" type="Node3D" parent="." unique_id=1925109163]
 metadata/_edit_lock_ = true
@@ -266,6 +268,12 @@ shape = SubResource("WorldBoundaryShape3D_0kwd2")
 _spawnable_scenes = PackedStringArray("uid://dldk7t22vxdo", "uid://buiodjiede67t", "uid://cdd7mrpel513p")
 spawn_path = NodePath(".")
 script = ExtResource("24_37hlw")
+
+[node name="BossSpawner" type="MultiplayerSpawner" parent="World" unique_id=1784696640]
+_spawnable_scenes = PackedStringArray("uid://dg5yeiysdht6n")
+spawn_path = NodePath(".")
+script = ExtResource("31_ii537")
+metadata/_custom_type_script = "uid://bulitqh4g88h2"
 
 [node name="LobbyCamera" type="Camera3D" parent="." unique_id=1345780627]
 transform = Transform3D(0.19414859, 0.0659656, -0.9787517, -0.0128350835, 0.9978219, 0.06470488, 0.9808882, 0, 0.19457237, -104.5698, 37.076996, 45.213646)

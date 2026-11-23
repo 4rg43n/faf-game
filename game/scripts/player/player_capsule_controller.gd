@@ -15,6 +15,7 @@ signal active_camera_changed(camera: Camera3D)
 @export var fishing_label: Label
 @export var super_jump_label: Label
 @export var super_jump_bar: ProgressBar
+var _old_camera : Camera3D
 @export var active_camera: Camera3D:
 	set(camera):
 		if camera == active_camera:
@@ -42,6 +43,7 @@ signal active_camera_changed(camera: Camera3D)
 	animation_tree.get("parameters/Locomotion/playback")
 var was_on_floor:bool = true
 var landing_requested:bool=false
+var was_spit : bool = false
 @export var jump_start_time_scale:float = 1.5
 @export var jump_end_time_scale:float = 3.0
 @onready var landing_animation:Animation=\
@@ -161,6 +163,29 @@ func _physics_process(delta: float) -> void:
 	#print(animation_state)
 	#print(animation_state.get_current_node())
 
+@rpc("any_peer", "reliable", "call_local")
+func swallowed() -> void:
+	if not is_multiplayer_authority():
+		swallowed.rpc_id(player_metadata.peer_id)
+		return
+	_old_camera = active_camera
+	active_camera = OctoRockBehavior.instance.swallow_cam
+	process_mode = Node.PROCESS_MODE_DISABLED
+	visuals.visible = false
+
+@rpc("any_peer", "reliable", "call_local")
+func spit_out() -> void:
+	if not is_multiplayer_authority():
+		spit_out.rpc_id(player_metadata.peer_id)
+		return
+	global_position = OctoRockBehavior.instance.swallow_anchor.global_position
+	global_basis = OctoRockBehavior.instance.swallow_anchor.global_basis
+	active_camera = _old_camera
+	process_mode = Node.PROCESS_MODE_INHERIT
+	visuals.visible = true
+	was_spit = true
+	velocity = 2500 * (visuals.global_transform.basis.z) + 200 * Vector3.UP
+
 func update_locomotion()->void:
 	# get our speed
 	var horizontal_speed:=Vector2(
@@ -243,13 +268,15 @@ func is_surface_too_steep(normal: Vector3) -> bool:
 
 
 func _handle_air_physics(delta: float) -> void:
-	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
-	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
-	var add_speed_till_cap = capped_speed - cur_speed_in_wish_dir
-	if add_speed_till_cap > 0:
-		var accel_speed = air_accel * air_move_speed * delta
-		accel_speed = min(accel_speed, add_speed_till_cap)
-		velocity += accel_speed * wish_dir
+	##if we were just spit out dont cap velocity - we only should cap player input velocity
+	if not was_spit:
+		var cur_speed_in_wish_dir = velocity.dot(wish_dir)
+		var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
+		var add_speed_till_cap = capped_speed - cur_speed_in_wish_dir
+		if add_speed_till_cap > 0:
+			var accel_speed = air_accel * air_move_speed * delta
+			accel_speed = min(accel_speed, add_speed_till_cap)
+			velocity += accel_speed * wish_dir
 
 	if is_on_wall():
 		if is_surface_too_steep(get_wall_normal()):
@@ -269,6 +296,7 @@ func _handle_water_physics(delta: float):
 		
 
 func _handle_ground_physics(delta: float) -> void:
+	was_spit = false
 	var cur_speed_in_wish_dir = velocity.dot(wish_dir)
 	var add_speed_till_cap = move_speed - cur_speed_in_wish_dir
 	if add_speed_till_cap > 0:

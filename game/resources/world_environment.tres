@@ -61,13 +61,8 @@ shader_parameter/cirrus_absorption = 2.0
 shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-<<<<<<< HEAD
-shader_parameter/cirrus_position1 = Vector2(0.05546013, 0.05546013)
-shader_parameter/cirrus_position2 = Vector2(0.05546013, 0.05546013)
-=======
-shader_parameter/cirrus_position1 = Vector2(0.084100984, 0.084100984)
-shader_parameter/cirrus_position2 = Vector2(0.084100984, 0.084100984)
->>>>>>> 2116aa0d6f5a1eddb70de675cecc5399bf1c16a5
+shader_parameter/cirrus_position1 = Vector2(0.7934139, 0.7934139)
+shader_parameter/cirrus_position2 = Vector2(0.7934139, 0.7934139)
 shader_parameter/cirrus_texture = ExtResource("2_gxb3x")
 shader_parameter/cumulus_visible = true
 shader_parameter/cumulus_intensity = 0.6
@@ -77,11 +72,7 @@ shader_parameter/cumulus_absorption = 2.0
 shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_size = 0.5
-<<<<<<< HEAD
-shader_parameter/cumulus_position = Vector2(0.2773038, 0.2773038)
-=======
-shader_parameter/cumulus_position = Vector2(0.42047745, 0.42047745)
->>>>>>> 2116aa0d6f5a1eddb70de675cecc5399bf1c16a5
+shader_parameter/cumulus_position = Vector2(3.967512, 3.967512)
 shader_parameter/cumulus_texture = ExtResource("3_jxl8f")
 shader_parameter/cumulus_partial_mie_phase = Vector3(0.957564, 1.042436, 0.412)
 shader_parameter/cumulus_mie_intensity = 1.0

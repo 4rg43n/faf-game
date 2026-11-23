@@ -24,6 +24,9 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath(".:money")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath("Ashii/Visuals:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="TheWholePackage" type="Node3D" unique_id=1542336818 node_paths=PackedStringArray("player_controller") groups=["Player"]]
 script = ExtResource("1_rbmgg")
@@ -37,3 +40,31 @@ visibility_update_mode = 1
 
 [node name="Ashii" parent="." unique_id=422766350 node_paths=PackedStringArray("player_metadata") instance=ExtResource("1_vefth")]
 player_metadata = NodePath("..")
+
+[node name="GeneralSkeleton" parent="Ashii/Visuals/catgirl-godot/Armature" parent_id_path=PackedInt32Array(422766350, 148263498, 2010392501) index="0" unique_id=2026199247]
+bones/0/position = Vector3(-4.2842865e-05, 0.7196308, -0.07211628)
+bones/0/rotation = Quaternion(-0.040692333, -0.11591706, -0.004752988, 0.99241364)
+bones/8/rotation = Quaternion(0.043880288, 0.00010723215, 0.00013119193, 0.99903685)
+bones/13/rotation = Quaternion(0.13015713, 0.0003203593, 0.00039313154, 0.99149334)
+bones/14/rotation = Quaternion(-0.08690845, -0.00021391829, -0.00026255043, 0.99621624)
+bones/15/rotation = Quaternion(0.047522545, 0.09531085, 0.011914689, 0.99424124)
+bones/53/rotation = Quaternion(0.4997938, 0.52234685, 0.53016734, -0.44303793)
+bones/54/rotation = Quaternion(-0.023430476, 0.8239058, -0.56615925, 0.00969735)
+bones/56/rotation = Quaternion(0.15873107, -0.68213797, 0.16637942, 0.6941255)
+bones/73/rotation = Quaternion(0.5518013, -0.47170103, -0.4770465, -0.49541926)
+bones/74/rotation = Quaternion(0.07474138, 0.82226115, -0.5640985, -0.009662121)
+bones/76/rotation = Quaternion(0.2896974, 0.55124605, -0.2082696, 0.75420624)
+bones/102/rotation = Quaternion(-0.0008331589, 0.14607416, 0.9820759, -0.119116515)
+bones/103/rotation = Quaternion(0.020095026, 0.97639906, -0.18463667, 0.11022972)
+bones/105/rotation = Quaternion(-0.09737396, 0.7176695, -0.6895009, 0.0075740414)
+bones/107/rotation = Quaternion(0.00093280536, -0.08297649, 0.98758733, 0.13336226)
+bones/108/rotation = Quaternion(-0.049466994, 0.9241135, -0.13595547, -0.35367152)
+bones/110/rotation = Quaternion(0.17035161, 0.6233257, -0.7631766, 0.002627679)
+
+[node name="SpringBoneCollisionCapsule3D" parent="Ashii/Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium/Armature_Hair/Skeleton3D/SpringBoneSimulator3D" parent_id_path=PackedInt32Array(422766350, 1347265175) index="0" unique_id=1649828265]
+transform = Transform3D(1, 9.313226e-10, 2.4214387e-07, 2.7939677e-09, 0.99999994, 7.4505806e-08, -2.4214387e-07, -8.940697e-08, 0.99999994, -3.7252903e-09, 0.18000007, -2.9802322e-08)
+
+[editable path="Ashii"]
+[editable path="Ashii/Visuals/catgirl-godot"]
+[editable path="Ashii/Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium"]
+[editable path="Ashii/Visuals/catgirl-godot/Armature/GeneralSkeleton/HeadAttachment/catgirl_hair_medium/catgirl-godot-hair-medium"]

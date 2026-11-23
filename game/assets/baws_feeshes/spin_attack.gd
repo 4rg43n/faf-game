@@ -13,8 +13,8 @@ func _setup() -> void:
 func _enter() -> void:
 	super._enter()
 	for area : Area3D in hit_boxes:
-		area.monitorable = false
-		area.monitoring = false
+		area.monitorable = true
+		area.monitoring = true
 
 ## Called when state is exited.
 func _exit() -> void:

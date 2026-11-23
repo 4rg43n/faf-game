@@ -12,7 +12,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var item : Item = player.decrement_active_item()
 		if item == null:
 			return
-		_throw_on_server.rpc_id(1, peer_id, item.item_scene.resource_path)
+		_throw_on_server.rpc_id(1, peer_id, item.item_scene_path)
 
 #runs on server - we retake authority away from player as it is now in the shared world.
 @rpc("reliable", "any_peer", "call_local")

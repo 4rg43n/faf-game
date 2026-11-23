@@ -11,10 +11,6 @@ class_name Item extends Resource
 @export var buy_value : float = 0.0
 @export var unsellable : bool = false
 
-var item_scene : PackedScene
-@export var item_scene_path : String :
-	set(new_val):
-		item_scene_path = new_val
-		item_scene = load(item_scene_path)
+@export var item_scene_path : String
 
 var hotbar_item_path : NodePath

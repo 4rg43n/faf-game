@@ -1,6 +1,8 @@
 # spawns at 33% cahos in the water and walks up beach - he should ignore the water.
 class_name OctoRockBehavior extends Node3D
 
+static var instance : OctoRockBehavior
+
 @export var root_hsm : LimboHSM
 @export var spin_attack_state : LimboState
 @export var out_of_ammo : LimboHSM
@@ -11,8 +13,14 @@ class_name OctoRockBehavior extends Node3D
 @export var hurt_boxes : Array[Area3D]
 @export var hit_boxes : Array[Area3D]
 @export var sucking_boxes : Array[Area3D]
+@export var mesh : MeshInstance3D
 
 @export var spin_timmer : Timer
+@export var swallow_cam : Camera3D
+@export var swallow_anchor : BoneAttachment3D
+@export var fire_direction : Node3D
+
+@export var aggro_area : Area3D
 
 @export_group("blackboard")
 @export var current_suckage_target : Node3D = null
@@ -23,14 +31,18 @@ class_name OctoRockBehavior extends Node3D
 		if old_size == 0 and new_size != 0:
 			_on_capture_ammo.call_deferred()
 		current_ammo = new_value
-@export var current_hp : float
-
-@export var aggro_area : Area3D
+@export var current_hp : float = 100
+@export var current_player_target : Node3D = null
 
 #player that dealt damage, flat damage we intend to deal, if we hit a weakpoint
 func _on_hit_by_player(peer_id : int, damage : float, critical_damage : bool, _area_hit : Area3D) -> void:
 	damage *= 1 if not critical_damage else 1.5
 	current_hp -= damage
+	if current_hp <= 0:
+		#death
+		queue_free()
+		return
+
 	if not spin_timmer.is_stopped():
 		return
 	spin_timmer.start(3)
@@ -68,6 +80,7 @@ func find_closest_player() -> Node3D:
 
 func _init() -> void:
 	aggro_area.monitorable = false
+	OctoRockBehavior.instance = self
 
 
 #will run current limbo state (leaf) every tick until a transition tells it to leave
@@ -85,6 +98,8 @@ func _ready() -> void:
 	out_of_ammo.add_transition(vaccum_in_ammo, get_in_range_of_target, LimboState.EVENT_FINISHED, _not_has_target_in_area)
 	#events that call dispatch / transitions
 	spin_timmer.timeout.connect(_on_countdown_timer_completed)
+
+	ChaosSystem.instance.octopus_already_spawned = true
 
 
 ##internal events start at the leaf that dispatched them and bubble up to root instead.
@@ -129,10 +144,10 @@ func _on_capture_ammo() -> void:
 #respond to an event without a transition
 """
 func _setup() -> void:
-    add_event_handler("movement_started", _on_movement_started)
+	add_event_handler("movement_started", _on_movement_started)
 
 func _on_movement_started(cargo = null) -> bool:
-    # Handle the "movement_started" event here.
+	# Handle the "movement_started" event here.
     # `cargo` can be passed with the event when calling `dispatch()`.
     # It's quite handy when you need to pass some data to the event handler.
     return true

@@ -125,7 +125,7 @@ func set_active_item(old_slot : int) -> void:
 	var new_active_item : Item = hotbar[InventorySystem.instance.active_slot]
 	var new_item_obj : Node3D = get_node_or_null(new_active_item.hotbar_item_path)
 	if new_item_obj == null:
-		var scene : PackedScene = new_active_item.item_scene
+		var scene : PackedScene = load(new_active_item.item_scene_path)
 		if scene != null:
 			new_item_obj = scene.instantiate()
 			if player_controller.LEFT_HANDED:

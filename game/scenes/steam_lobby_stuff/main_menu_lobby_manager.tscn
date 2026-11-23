@@ -1,16 +1,11 @@
 [gd_scene format=3 uid="uid://byujyoyd72yde"]
 
 [ext_resource type="Script" uid="uid://dd1g6qwig8j0" path="res://scripts/steam_lobby_stuff/lobby_manager.gd" id="1_n111s"]
-[ext_resource type="Texture2D" uid="uid://du67ec8ldp2dh" path="res://assets/silly_images/spinning_fish_animated_texture.tres" id="2_dqjaf"]
 [ext_resource type="PackedScene" uid="uid://cwk7awyll3irq" path="res://scenes/steam_lobby_stuff/lobby_host_generation.tscn" id="3_75lsc"]
 [ext_resource type="PackedScene" uid="uid://bjbwywy424ihg" path="res://scenes/player/player_sync.tscn" id="3_dqjaf"]
 [ext_resource type="PackedScene" uid="uid://dijfr0d4tmgks" path="res://scenes/steam_lobby_stuff/lobby_search_screen.tscn" id="4_jxa7w"]
 
-[sub_resource type="AnimatedImageTexture" id="AnimatedImageTexture_idy7s"]
-storage/size = Vector2i(360, 247)
-storage/format = 1
-
-[node name="LobbyManager" type="Control" unique_id=1925178178 node_paths=PackedStringArray("singleplayer_button", "host_button", "join_button", "exit_button", "spinning_fish_player", "starting_screen_ui")]
+[node name="LobbyManager" type="Control" unique_id=1925178178 node_paths=PackedStringArray("singleplayer_button", "host_button", "join_button", "exit_button", "starting_screen_ui")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,8 +17,6 @@ singleplayer_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOption
 host_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/HostLobbyButton")
 join_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/JoinLobbyButton")
 exit_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitButton")
-spinning_fish_player = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/SillySpinningFish")
-spinning_fish_gif = ExtResource("2_dqjaf")
 starting_screen_ui = NodePath("Control")
 player_scene = ExtResource("3_dqjaf")
 
@@ -70,13 +63,6 @@ horizontal_alignment = 1
 [node name="Spacer" type="Control" parent="Control/AllowAnchorsBcGodotSucks/VBox" unique_id=1515227367]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-
-[node name="SillySpinningFish" type="AnimatedImagePlayer" parent="Control/AllowAnchorsBcGodotSucks/VBox" unique_id=1436745150]
-animated_image = SubResource("AnimatedImageTexture_idy7s")
-autoplay = false
-playing = false
-layout_mode = 2
-size_flags_horizontal = 4
 
 [node name="SpacerButBigger!" type="Control" parent="Control/AllowAnchorsBcGodotSucks/VBox" unique_id=1316189979]
 custom_minimum_size = Vector2(0, 150)

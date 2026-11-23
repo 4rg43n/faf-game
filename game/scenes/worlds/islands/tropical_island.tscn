@@ -49,19 +49,23 @@ metadata/SimpleGrassTexturedMaterial = "2.1.0"
 [sub_resource type="BoxShape3D" id="BoxShape3D_jsfgd"]
 size = Vector3(1500, 11.919, 1500)
 
-[node name="TropicalIsland" type="Node3D" unique_id=283161791 node_paths=PackedStringArray("spawn_location", "ocean_areas", "evil_fish_spawners")]
+[node name="TropicalIsland" type="Node3D" unique_id=283161791 node_paths=PackedStringArray("spawn_location", "ocean_areas", "evil_fish_spawners", "octopus_spawn_location")]
 script = ExtResource("1_x0u74")
 spawn_location = NodePath("SpawnLocation")
 ocean_areas = [NodePath("Ocean")]
 evil_fish_spawners = [NodePath("FishSpawner1"), NodePath("FishSpawner2"), NodePath("FishSpawner3")]
+octopus_spawn_location = NodePath("OctopusSpawnLocation")
 metadata/_custom_type_script = "uid://cub0o4re6n8kq"
 
 [node name="island0" parent="." unique_id=642752713 instance=ExtResource("2_x0u74")]
 
+[node name="CollisionShape3D" parent="island0/Grid/StaticBody3D" parent_id_path=PackedInt32Array(642752713, 1474437580) index="0" unique_id=1633439078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.220483, -0.004442215, -1.3345451)
+
 [node name="RockerooSmallBaldSnatchedInAMini" parent="island0/Grid/StaticBody3D" parent_id_path=PackedInt32Array(642752713, 1474437580) index="1" unique_id=807610147 instance=ExtResource("8_j627t")]
 transform = Transform3D(-0.29585552, 0.32785103, 0.8972086, -0.952, -0.17840725, -0.2487309, 0.07852188, -0.9277307, 0.3648969, -9.974749, 39.306103, -82.40844)
 
-[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 1660281035) index="1" unique_id=874324246]
+[node name="SimpleGrassTextured" parent="island0/Grid" parent_id_path=PackedInt32Array(642752713, 1386240062) index="1" unique_id=874324246]
 material_override = SubResource("ShaderMaterial_f8da5")
 
 [node name="SpawnLocation" type="Node3D" parent="." unique_id=66841275]
@@ -76,8 +80,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 387.58228, -6.248291, -383.19
 shape = SubResource("BoxShape3D_jsfgd")
 debug_color = Color(0, 0.6, 0.7019608, 1)
 
-[node name="ShopStand" parent="." unique_id=869337142 instance=ExtResource("6_jsfgd")]
-transform = Transform3D(1.4244162, 0, -4.7928114, 0, 5, 0, 4.7928114, 0, 1.4244162, 7.106264, 5.060714, -64.852005)
+[node name="Shop" parent="." unique_id=1121526991 instance=ExtResource("6_jsfgd")]
+transform = Transform3D(-0.47864193, 0, -0.8780102, 0, 1, 0, 0.8780102, 0, -0.47864193, 72.458275, 24.16768, 29.751282)
+
+[node name="test spawn location shop" type="Node3D" parent="Shop" unique_id=17865810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1086483, -0.030090332, 6.1683426)
 
 [node name="RockerooSmall" parent="." unique_id=639007622 instance=ExtResource("7_ft2bs")]
 transform = Transform3D(-0.9957482, 0.06062749, -0.06935547, 0.043881357, 0.9741598, 0.22155704, 0.08099572, 0.21757159, -0.97267807, 48.72577, -5.6192183, -62.835197)
@@ -220,5 +227,8 @@ fishChaseForce = 2.0
 fishDashSpeed = 15.0
 fishDashDuration = 0.3
 fishDashCooldown = 3.0
+
+[node name="OctopusSpawnLocation" type="Node3D" parent="." unique_id=1272024086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.80275, 0, -62.2983)
 
 [editable path="island0"]

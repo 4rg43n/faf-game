@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dfs5bb8pe2m1d"]
+
+[ext_resource type="PackedScene" uid="uid://01pmic3syocs" path="res://assets/models/env/structures/shack.glb" id="1_xuhu6"]
+
+[node name="shop_visuals" unique_id=1620599326 instance=ExtResource("1_xuhu6")]
