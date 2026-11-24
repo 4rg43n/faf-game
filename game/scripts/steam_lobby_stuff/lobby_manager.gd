@@ -34,6 +34,10 @@ static var instance : LobbyManager
 
 @export var player_scene : PackedScene
 
+# ----Sound----
+@export var audio_player: AudioStreamPlayer
+var click_sfx = preload("res://audio/sfx/ui_click.mp3")
+
 var peer : SteamMultiplayerPeer
 
 const already_started_loby_id : String = "already_started_loby_id"
@@ -52,6 +56,7 @@ func _init() -> void:
 func _ready() -> void:
 	if OS.has_feature("web"):
 		steam_enabled = false
+	audio_player.stream = click_sfx
 	player_spawner.spawn_function = spawn_player
 	#bc host and client are same process we need to cover spawning their client as a special case
 	player_spawner.child_entered_tree.connect(_on_player_spawned)
@@ -113,14 +118,17 @@ func _init_multiplayer() -> void:
 
 #region runs on client
 func _open_lobby_host() -> void:
+	audio_player.play()
 	_init_multiplayer()
 	LobbyHostScreen.instance.popup()
 
 func _open_lobby_search() -> void:
+	audio_player.play()
 	_init_multiplayer()
 	LobbySearchScreen.instance.popup()
 
 func _on_lobby_created(connection_status: Steam.Result, in_lobby_id: int) -> void:
+	audio_player.play()
 	if connection_status != Steam.Result.RESULT_OK:
 		printerr("Failed to create a lobby: %s" % connection_status)
 		return
@@ -244,6 +252,7 @@ func _on_lobby_joined(in_lobby_id: int, _permissions: int, _locked: bool, respon
 			printerr("Failed joining lobby %s", in_lobby_id)
 
 func _on_singleplayer_button_pressed() -> void:
+	audio_player.play()
 	#hide UI for host/join
 	hide()
 	LobbySearchScreen.instance.hide()
@@ -283,6 +292,7 @@ func _on_player_spawned(new_player : PlayerMetadata) -> void:
 			new_player.set_physics_process(false)
 
 func _close_game() -> void:
+	audio_player.play()
 	get_tree().quit()
 
 ## when a player joins / leaves and when they send a message in chat?

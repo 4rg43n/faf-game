@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bjbwywy424ihg" path="res://scenes/player/player_sync.tscn" id="3_dqjaf"]
 [ext_resource type="PackedScene" uid="uid://dijfr0d4tmgks" path="res://scenes/steam_lobby_stuff/lobby_search_screen.tscn" id="4_jxa7w"]
 
-[node name="LobbyManager" type="Control" unique_id=1925178178 node_paths=PackedStringArray("singleplayer_button", "host_button", "join_button", "exit_button", "starting_screen_ui")]
+[node name="LobbyManager" type="Control" unique_id=1925178178 node_paths=PackedStringArray("singleplayer_button", "host_button", "join_button", "exit_button", "starting_screen_ui", "audio_player")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +19,7 @@ join_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/JoinLo
 exit_button = NodePath("Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions/ExitButton")
 starting_screen_ui = NodePath("Control")
 player_scene = ExtResource("3_dqjaf")
+audio_player = NodePath("SFX")
 
 [node name="Control" type="Control" parent="." unique_id=63993782]
 layout_mode = 1
@@ -88,3 +89,6 @@ text = "Join Lobby"
 [node name="ExitButton" type="Button" parent="Control/AllowAnchorsBcGodotSucks/VBox/HBoxOptions" unique_id=1172290688]
 layout_mode = 2
 text = "Exit"
+
+[node name="SFX" type="AudioStreamPlayer" parent="." unique_id=1157995392]
+volume_db = -8.0
